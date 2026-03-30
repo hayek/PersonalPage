@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amir Hayek — Resume</title>
+    <style>
+        @page { margin: 0.45in; size: letter; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+            font-size: 9pt;
+            line-height: 1.4;
+            color: #1a1a1a;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+        a { color: #1a1a1a; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+
+        .page { max-width: 7.5in; margin: 0 auto; padding: 0.45in; }
+
+        /* Header */
+        .header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10pt; border-bottom: 1.5pt solid #1a1a1a; padding-bottom: 8pt; }
+        .header-left h1 { font-size: 20pt; font-weight: 700; letter-spacing: -0.02em; line-height: 1; }
+        .header-left .subtitle { font-size: 9.5pt; color: #555; margin-top: 2pt; }
+        .header-right { text-align: right; font-size: 8.5pt; color: #444; line-height: 1.5; }
+        .header-right a { color: #444; }
+
+        /* Section */
+        .section { margin-bottom: 8pt; }
+        .section-title { font-size: 7.5pt; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #888; margin-bottom: 3pt; border-bottom: 0.5pt solid #ddd; padding-bottom: 1pt; }
+
+        /* Experience */
+        .job { margin-bottom: 5pt; }
+        .job-header { display: flex; justify-content: space-between; align-items: baseline; }
+        .job-title { font-weight: 600; font-size: 9.5pt; }
+        .job-date { font-size: 8.5pt; color: #666; white-space: nowrap; }
+        .job-company { font-size: 8pt; color: #555; margin-bottom: 1pt; }
+        .job ul { padding-left: 14pt; margin-top: 1pt; }
+        .job li { margin-bottom: 0pt; }
+
+        /* Timeline (compact older roles) */
+        .timeline { display: grid; grid-template-columns: 1fr 1fr; gap: 2pt 20pt; }
+        .timeline-item { display: flex; gap: 6pt; font-size: 8.5pt; line-height: 1.35; padding: 1.5pt 0; }
+        .timeline-date { color: #888; white-space: nowrap; min-width: 62pt; flex-shrink: 0; }
+        .timeline-role span { font-weight: 600; }
+
+        /* Skills */
+        .skills-grid { display: flex; gap: 16pt; flex-wrap: wrap; }
+        .skill-group { }
+        .skill-label { font-weight: 600; font-size: 8.5pt; }
+        .skill-value { font-size: 8.5pt; color: #555; }
+
+        /* Projects */
+        .projects-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 3pt 16pt; }
+        .project-name { font-weight: 600; font-size: 9pt; }
+        .project-desc { font-size: 8pt; color: #666; }
+
+        /* Awards */
+        .awards-list { display: grid; grid-template-columns: 1fr 1fr; gap: 1pt 16pt; font-size: 7.5pt; color: #555; }
+
+        /* Two-col footer */
+        .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16pt; }
+
+        /* Volunteering */
+        .vol-item { font-size: 7.5pt; margin-bottom: 2pt; }
+        .vol-item strong { font-weight: 600; }
+    </style>
+</head>
+<body>
+<div class="page">
+
+    <!-- Header -->
+    <div class="header">
+        <div class="header-left">
+            <h1>Amir Hayek</h1>
+            <div class="subtitle">Mobile Tech Lead &middot; 15+ Years in iOS & Mac Development</div>
+        </div>
+        <div class="header-right">
+            <a href="mailto:hayek_dev@icloud.com">hayek_dev@icloud.com</a><br>
+            +972-54-464-4892<br>
+            Haifa, Israel<br>
+            <a href="https://github.com/hayek">github.com/hayek</a> &middot; <a href="https://www.linkedin.com/in/amir-hayek-2a816415/">LinkedIn</a>
+        </div>
+    </div>
+
+    <!-- Experience -->
+    <div class="section">
+        <div class="section-title">Experience</div>
+        <div class="job">
+            <div class="job-header">
+                <span class="job-title">Mobile Tech Lead</span>
+                <span class="job-date">2018 &ndash; Present</span>
+            </div>
+            <div class="job-company"><a href="https://www.shutterfly.com">Shutterfly</a> &middot; shutterfly.com</div>
+            <ul>
+                <li>Orchestrated full rewrite of the Shutterfly app from scratch on both iOS and Android.</li>
+                <li>Led AI adoption in the mobile team, integrating Claude Code into daily workflows to accelerate development velocity across the team.</li>
+                <li>Initiated adoption of TCA and SwiftUI with modular clean architecture for faster building and testing.</li>
+                <li>Built 2D/3D product renderers using Metal, Core Graphics, RealityKit and SceneKit, plus a Mac AppKit app for renders management and deployment.</li>
+                <li>Rewrote core shared dependencies: Network, Analytics, Remote Config. Introduced feature-based development architecture.</li>
+            </ul>
+        </div>
+
+        <div class="section-title" style="margin-top: 4pt;">Previous Roles</div>
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-date">2017 &ndash; 2018</div>
+                <div class="timeline-role"><span>iOS Developer</span> &middot; TRACXPOiNT<br>TensorFlow models for retail product recognition; iOS app development.</div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-date">2014 &ndash; 2017</div>
+                <div class="timeline-role"><span>Lead Mobile Developer</span> &middot; Toluna<br>Designed and built the Toluna mobile app from scratch; led iOS and supervised Android.</div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-date">2013 &ndash; 2018</div>
+                <div class="timeline-role"><span>iOS Lecturer</span> &middot; John Bryce College<br>Part-time teaching Swift and iOS mobile development.</div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-date">2013</div>
+                <div class="timeline-role"><span>Co-Founder</span> &middot; GetSlide (startup)<br>Built iOS client and Python backend on Google App Engine.</div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-date">2011 &ndash; 2012</div>
+                <div class="timeline-role"><span>iOS Developer</span> &middot; YIT (Yediot)<br>Media-driven news and entertainment apps for iPad and iPhone.</div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-date">2007 &ndash; 2010</div>
+                <div class="timeline-role"><span>Software Engineer</span> &middot; DSP Group / MCE Systems<br>Android NDK development; reverse engineering phone data protocols.</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Apps & Projects -->
+    <div class="section">
+        <div class="section-title">Apps & Projects</div>
+        <div class="projects-grid">
+            <div><a href="https://zcodeapp.com" class="project-name">Zcode</a><br><span class="project-desc">Mac IDE for building native iOS/Mac apps with AI.</span></div>
+            <div><a href="https://hayek.github.io/ClaudeUsagePage/" class="project-name">Usage for Claude</a><br><span class="project-desc">Mac/iOS menu app for Claude subscription usage tracking.</span></div>
+            <div><a href="https://hayek.github.io/VanishingNotesPage/" class="project-name">Vanishing Notes</a><br><span class="project-desc">Self-destructing notes app for Mac and iOS.</span></div>
+            <div><a href="https://123repo.com" class="project-name">123Repo</a><br><span class="project-desc">Mac project launcher with git support.</span></div>
+            <div><a href="https://hayek.github.io/Json2ToonPage" class="project-name">Json2Toon</a><br><span class="project-desc">JSON/TOON converter for Mac, iOS, iPad, VisionOS with Shortcuts integration.</span></div>
+            <div><a href="https://github.com/hayek" class="project-name">Open Source</a><br><span class="project-desc"><a href="https://github.com/hayek/HelpView">HelpView</a>, <a href="https://github.com/hayek/PopGestureRecognizerSwiftUI">PopGestureRecognizer</a>, <a href="https://github.com/hayek/UIReadMoreLabel">UIReadMoreLabel</a> on GitHub.</span></div>
+        </div>
+    </div>
+
+    <!-- Education/Skills + Volunteering/Speaking side by side -->
+    <div class="two-col">
+        <div>
+            <div class="section">
+                <div class="section-title">Education</div>
+                <div style="font-size: 8pt;"><strong>B.Sc. Honors, Computer Science</strong><br>University of Haifa &middot; 2004 &ndash; 2008</div>
+            </div>
+            <div class="section" style="margin-top: 4pt;">
+                <div class="section-title">Skills</div>
+                <div class="skills-grid" style="flex-direction: column; gap: 2pt;">
+                    <div><span class="skill-label">Languages:</span> <span class="skill-value">Swift, Objective-C, Kotlin, Python, C</span></div>
+                    <div><span class="skill-label">Frameworks:</span> <span class="skill-value">SwiftUI, UIKit, AppKit, TCA, Foundation Models, Metal, Core Graphics, RealityKit, SceneKit</span></div>
+                    <div><span class="skill-label">Platforms:</span> <span class="skill-value">iOS, iPadOS, macOS, VisionOS, Android</span></div>
+                    <div><span class="skill-label">Architecture:</span> <span class="skill-value">TCA, MVVM, MVC, MVP, modular feature-based</span></div>
+                    <div><span class="skill-label">AI & Tools:</span> <span class="skill-value">Claude Code, TensorFlow, MCP integration</span></div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <div class="section">
+                <div class="section-title">Volunteering</div>
+                <div class="vol-item"><strong>Paramedic</strong> &middot; <a href="https://israelrescue.org">United Hatzalah</a> &mdash; First responder volunteer</div>
+                <div class="vol-item"><strong>EMT</strong> &middot; <a href="https://www.rambam.org.il">Rambam Health Care Campus</a> &mdash; ER triage volunteer</div>
+            </div>
+            <div class="section" style="margin-top: 4pt;">
+                <div class="section-title">Speaking</div>
+                <div style="font-size: 7.5pt; color: #555;">TEDx Speaker (2x) &middot; Code Motion Tel Aviv 2014 &middot; Tech talks on AI-driven development</div>
+            </div>
+            <div class="section" style="margin-top: 4pt;">
+                <div class="section-title">Awards</div>
+                <div style="font-size: 7.5pt; color: #555;">1st place Startup Weekend, Haifa 2013 &middot; 1st place Hackathon, Nazareth 2013<br>2nd place Hackathons: Nazareth '12, '15 &middot; Shutterfly '19 &middot; Tzofen '20, '21</div>
+            </div>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>
