@@ -313,6 +313,14 @@ a.card:hover {
     border-radius: 12px;
     flex-shrink: 0;
     margin-left: auto;
+    filter: grayscale(100%);
+    opacity: 0.3;
+    transition: filter 0.3s ease, opacity 0.3s ease;
+}
+
+.app-card-with-img:hover .app-card-side-img {
+    filter: grayscale(0%);
+    opacity: 1;
 }
 
 .app-card-with-img::before {
@@ -390,6 +398,14 @@ a.card:hover {
     border-radius: 12px;
     flex-shrink: 0;
     margin-left: auto;
+    filter: grayscale(100%);
+    opacity: 0.3;
+    transition: filter 0.3s ease, opacity 0.3s ease;
+}
+
+.app-card-featured:hover .app-card-featured-img {
+    filter: grayscale(0%);
+    opacity: 1;
 }
 
 /* ── Open Source Cards ── */
