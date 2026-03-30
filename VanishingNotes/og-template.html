@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>OG Image Template</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            width: 1200px;
+            height: 630px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #ffffff;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        .card {
+            width: 1200px;
+            height: 630px;
+            background: #ffffff;
+            border-radius: 0;
+            display: flex;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .left {
+            flex: 1;
+            padding: 80px 80px 100px 80px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .app-icon {
+            width: 140px;
+            height: 140px;
+            border-radius: 31px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+        }
+
+        .app-title {
+            font-family: 'Crimson Pro', Georgia, serif;
+            font-size: 72px;
+            font-weight: 600;
+            color: #000;
+            letter-spacing: -0.02em;
+            line-height: 1.1;
+        }
+
+        .right {
+            position: absolute;
+            right: 40px;
+            top: 50%;
+            transform: translateY(-42%);
+            width: 340px;
+        }
+
+        .phone-mockup {
+            width: 100%;
+            height: auto;
+            filter: drop-shadow(0 20px 60px rgba(0, 0, 0, 0.15));
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="left">
+            <img src="/Volumes/Beta/Users/ahayek/Desktop/iconVN.png" alt="App Icon" class="app-icon">
+            <h1 class="app-title">Vanishing<br>Notes</h1>
+        </div>
+        <div class="right">
+            <img src="Assets/Hero.png" alt="App Screenshot" class="phone-mockup">
+        </div>
+    </div>
+</body>
+</html>
