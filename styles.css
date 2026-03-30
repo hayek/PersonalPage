@@ -593,15 +593,22 @@ a.card:hover {
     .section h2 { margin-bottom: 20px; }
 
     .hero { flex-direction: column; text-align: center; gap: 16px; }
+    .hero-right { flex-direction: row; align-items: center; margin-left: 0; gap: 10px; }
+    .hero-right .cv-pill { width: auto; height: 48px; padding: 0 20px; }
+    .social-grid { grid-template-columns: repeat(4, auto); gap: 10px; }
     .hero-spacer { display: none; }
 
     .card { border-radius: 24px; }
 
     .apps-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
     .app-card.app-card-featured { grid-column: 1 / -1; flex-direction: column; }
-    .app-card-featured-img { margin-left: 0; max-width: 100%; align-self: stretch; }
-    .app-card { padding: 20px 14px; }
-    .app-card-icon { width: 100px; height: 100px; border-radius: 24px; margin-bottom: 16px; }
+    .app-card-featured-img { display: none; }
+    .app-card-side-img { display: none; }
+    .vn-dark-img, .vn-light-img { display: none !important; }
+    .app-card { padding: 20px 14px; align-items: flex-start; text-align: left; }
+    .app-card.app-card-with-img { flex-direction: column; }
+    .app-card-with-img .app-card-info { justify-content: flex-end; width: 100%; }
+    .app-card-icon { width: 64px; height: 64px; border-radius: 16px; margin-bottom: 8px; }
 
     .talks-grid { grid-template-columns: 1fr; }
     .talk-thumb-wrap { border-radius: 24px 24px 0 0; }
