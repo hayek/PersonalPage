@@ -585,7 +585,7 @@ a.card:hover {
 
 .responder-card {
     padding: 24px;
-    padding-top: 210px;
+    padding-top: 110px;
     display: flex;
     flex-direction: column;
     gap: 16px;
