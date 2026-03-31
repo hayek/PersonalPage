@@ -317,8 +317,8 @@ a.card:hover {
     object-fit: cover;
     object-position: right center;
     border-radius: 0;
-    mask-image: linear-gradient(to right, transparent 0%, black 45%);
-    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 45%);
+    mask-image: linear-gradient(to right, transparent 0%, black 75%);
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 75%);
     filter: grayscale(100%);
     opacity: 0.25;
     transition: filter 0.3s ease, opacity 0.3s ease;
@@ -326,7 +326,7 @@ a.card:hover {
 
 .app-card-with-img:hover .app-card-side-img {
     filter: grayscale(0%);
-    opacity: 0.8;
+    opacity: 0.6;
 }
 
 .app-card-with-img:hover .app-card-title,
@@ -414,8 +414,8 @@ a.card:hover {
     object-fit: cover;
     object-position: right center;
     border-radius: 0;
-    mask-image: linear-gradient(to right, transparent 0%, black 40%);
-    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 40%);
+    mask-image: linear-gradient(to right, transparent 0%, black 70%);
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 70%);
     filter: grayscale(100%);
     opacity: 0.25;
     transition: filter 0.3s ease, opacity 0.3s ease;
@@ -423,7 +423,7 @@ a.card:hover {
 
 .app-card-featured:hover .app-card-featured-img {
     filter: grayscale(0%);
-    opacity: 0.8;
+    opacity: 0.6;
 }
 
 .app-card-featured:hover .app-card-title,
@@ -558,8 +558,8 @@ a.card:hover {
     height: 60%;
     object-fit: cover;
     object-position: center top;
-    mask-image: linear-gradient(to bottom, black 0%, transparent 100%);
-    -webkit-mask-image: linear-gradient(to bottom, black 0%, transparent 100%);
+    mask-image: linear-gradient(to bottom, black 30%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, black 30%, transparent 100%);
     filter: grayscale(100%);
     opacity: 0.25;
     transition: filter 0.3s ease, opacity 0.3s ease;
@@ -568,7 +568,7 @@ a.card:hover {
 
 .responder-card:hover .responder-bg-img {
     filter: grayscale(0%);
-    opacity: 0.7;
+    opacity: 0.6;
 }
 
 .responder-card:hover .responder-text {
