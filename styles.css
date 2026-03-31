@@ -290,10 +290,12 @@ a.card:hover {
 
 /* ── App Card with Side Image ── */
 .app-card.app-card-with-img {
-    flex-direction: row;
-    align-items: center;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-end;
     aspect-ratio: auto;
     overflow: hidden;
+    position: relative;
 }
 
 .app-card-with-img .app-card-info {
@@ -302,25 +304,34 @@ a.card:hover {
     align-items: flex-start;
     justify-content: flex-end;
     min-width: 0;
-    flex-shrink: 1;
+    position: relative;
+    z-index: 1;
 }
 
 .app-card-side-img {
-    width: 120px;
-    height: 120px;
-    object-fit: contain;
-    object-position: center right;
-    border-radius: 12px;
-    flex-shrink: 0;
-    margin-left: auto;
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 100%;
+    width: 55%;
+    object-fit: cover;
+    object-position: right center;
+    border-radius: 0;
+    mask-image: linear-gradient(to right, transparent 0%, black 45%);
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 45%);
     filter: grayscale(100%);
-    opacity: 0.3;
+    opacity: 0.25;
     transition: filter 0.3s ease, opacity 0.3s ease;
 }
 
 .app-card-with-img:hover .app-card-side-img {
     filter: grayscale(0%);
-    opacity: 1;
+    opacity: 0.8;
+}
+
+.app-card-with-img:hover .app-card-title,
+.app-card-with-img:hover .app-card-subtitle {
+    text-shadow: 0 1px 8px rgba(0, 0, 0, 0.35);
 }
 
 .app-card-with-img::before {
@@ -347,6 +358,8 @@ a.card:hover {
     justify-content: space-between;
     padding: 24px;
     gap: 32px;
+    position: relative;
+    overflow: hidden;
 }
 
 .app-card-featured::before {
@@ -373,6 +386,8 @@ a.card:hover {
     justify-content: flex-start;
     flex-shrink: 0;
     gap: 8px;
+    position: relative;
+    z-index: 1;
 }
 
 .app-card-featured-bottom {
@@ -391,21 +406,29 @@ a.card:hover {
 }
 
 .app-card-featured-img {
-    width: 200px;
-    height: 160px;
-    object-fit: contain;
-    object-position: center right;
-    border-radius: 12px;
-    flex-shrink: 0;
-    margin-left: auto;
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 100%;
+    width: 55%;
+    object-fit: cover;
+    object-position: right center;
+    border-radius: 0;
+    mask-image: linear-gradient(to right, transparent 0%, black 40%);
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 40%);
     filter: grayscale(100%);
-    opacity: 0.3;
+    opacity: 0.25;
     transition: filter 0.3s ease, opacity 0.3s ease;
 }
 
 .app-card-featured:hover .app-card-featured-img {
     filter: grayscale(0%);
-    opacity: 1;
+    opacity: 0.8;
+}
+
+.app-card-featured:hover .app-card-title,
+.app-card-featured:hover .app-card-subtitle {
+    text-shadow: 0 1px 8px rgba(0, 0, 0, 0.35);
 }
 
 /* ── Open Source Cards ── */
@@ -521,6 +544,39 @@ a.card:hover {
 }
 
 /* ── Emergency Responder ── */
+.responder-card {
+    position: relative;
+    overflow: hidden;
+    min-height: 350px;
+}
+
+.responder-bg-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 60%;
+    object-fit: cover;
+    object-position: center top;
+    mask-image: linear-gradient(to bottom, black 0%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, black 0%, transparent 100%);
+    filter: grayscale(100%);
+    opacity: 0.25;
+    transition: filter 0.3s ease, opacity 0.3s ease;
+    pointer-events: none;
+}
+
+.responder-card:hover .responder-bg-img {
+    filter: grayscale(0%);
+    opacity: 0.7;
+}
+
+.responder-card .responder-icon,
+.responder-card .responder-text {
+    position: relative;
+    z-index: 1;
+}
+
 .responder-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -529,9 +585,11 @@ a.card:hover {
 
 .responder-card {
     padding: 24px;
+    padding-top: 210px;
     display: flex;
     flex-direction: column;
     gap: 16px;
+    justify-content: flex-start;
 }
 
 .responder-icon {
@@ -617,6 +675,8 @@ a.card:hover {
     .oss-card { padding: 16px; }
 
     .responder-grid { grid-template-columns: 1fr; }
+    .responder-bg-img { display: none; }
+    .responder-card { min-height: unset; padding-top: 24px; }
 }
 
 @media (max-width: 480px) {
