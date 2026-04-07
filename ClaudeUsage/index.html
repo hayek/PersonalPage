@@ -144,8 +144,26 @@
                 <a href="version-history.html" class="version-history-link">Version history &rsaquo;</a>
             </div>
             <div class="changelog-latest">
-                <span class="changelog-version">v2.0</span>
-                <p class="changelog-description">Bug fixed where the usage was not refreshing for some users.</p>
+                <span class="changelog-version">v2.4</span>
+                <div class="changelog-features">
+                    <div class="changelog-feature">
+                        <strong>Claude Alerts</strong>
+                        <p class="changelog-description">Never miss out — get notified about off-peak hours, high-limit times, and credit offers from Claude, right in your menu bar.</p>
+                    </div>
+                    <div class="changelog-feature">
+                        <strong>Full Dashboard</strong>
+                        <p class="changelog-description">Your usage history is now a complete dashboard with live session charts, usage bars, and status banners — everything at a glance.</p>
+                    </div>
+                    <div class="changelog-feature">
+                        <strong>Redesigned Insights</strong>
+                        <p class="changelog-description">Monthly usage insights with new metrics and a fresh card design to help you understand your usage patterns.</p>
+                    </div>
+                    <div class="changelog-feature">
+                        <strong>Session History</strong>
+                        <p class="changelog-description">Browse your session history with an interactive bar chart. Filter by day or week to spot trends.</p>
+                    </div>
+                    <p class="changelog-description changelog-extras">Also includes improved velocity detection to reduce false warnings, refined sign-in flow, and bug fixes.</p>
+                </div>
             </div>
         </section>
 
@@ -163,7 +181,15 @@
                     </div>
                     <div class="faq-item">
                         <h3 class="faq-question">What accounts are supported?</h3>
-                        <p class="faq-answer">The app works with any Claude account (Free or Pro) that has access to the usage page at claude.ai/settings/usage.</p>
+                        <p class="faq-answer">The app works with any Claude account (Free or Pro) that has access to the usage page at claude.ai/settings/usage. Team and Enterprise accounts are not supported.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3 class="faq-question">How do I authenticate?</h3>
+                        <p class="faq-answer">Click the menu bar icon and select the authentication option. A browser window will open where you can log in using your Claude credentials.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3 class="faq-question">How do I log in with Claude Code?</h3>
+                        <p class="faq-answer">If you use Claude Code (the CLI tool), you can log in directly using your existing OAuth token. Click the menu bar icon, choose "Claude Code" as the login method, and the app will read your credentials automatically — no browser sign-in needed.</p>
                     </div>
                     <div class="faq-item">
                         <h3 class="faq-question">Does the app store my password?</h3>
@@ -171,43 +197,59 @@
                     </div>
                     <div class="faq-item">
                         <h3 class="faq-question">Is there an iOS or iPad app?</h3>
-                        <p class="faq-answer">Yes! Usage for Claude is available as a free companion app for iPhone and iPad on the <a href="https://apps.apple.com/il/app/usage-for-claude/id6755173244" target="_blank" rel="noopener noreferrer">App Store</a>. The companion apps display your usage history, charts, and insights synced from the macOS app—they do not track usage by themselves and require the Mac app to fetch data.</p>
+                        <p class="faq-answer">Yes! Usage for Claude is available as a free companion app for iPhone and iPad on the <a href="https://apps.apple.com/il/app/usage-for-claude/id6755173244" target="_blank" rel="noopener noreferrer">App Store</a>. It displays your usage history, charts, and insights synced from the macOS app via iCloud.</p>
                     </div>
                     <div class="faq-item">
                         <h3 class="faq-question">How does iCloud sync work?</h3>
-                        <p class="faq-answer">Your usage history automatically syncs across all your devices via iCloud. The macOS app collects the data, and it's shared with the iOS companion app in real-time. Both devices must be signed into the same iCloud account. Your data stays private in your personal iCloud storage and is never shared with third parties.</p>
+                        <p class="faq-answer">Your usage history automatically syncs across all your devices via iCloud. The macOS app collects the data, and it's shared with the iOS companion app in real-time. Both devices must be signed into the same iCloud account.</p>
                     </div>
                     <div class="faq-item">
                         <h3 class="faq-question">Is my data shared with anyone?</h3>
-                        <p class="faq-answer">No. All usage data remains on your local Mac. The app includes anonymous analytics to help improve the experience, but this is never connected to your identity or Claude account.</p>
+                        <p class="faq-answer">No. All data remains on your local Mac. The app only communicates with claude.ai to fetch usage information.</p>
                     </div>
                     <div class="faq-item">
                         <h3 class="faq-question">Does it include a widget?</h3>
                         <p class="faq-answer">Yes, the app includes a macOS widget that can be added to Notification Center or your desktop, displaying the same usage information as the menu bar popover.</p>
                     </div>
                     <div class="faq-item">
+                        <h3 class="faq-question">What widget styles are available?</h3>
+                        <p class="faq-answer">The app offers three macOS widget styles: Rings (circular progress rings with session and weekly usage), Compact (large percentage displays with reset times), and Bars (linear progress bars). Choose the style that best fits your desktop or Notification Center layout.</p>
+                    </div>
+                    <div class="faq-item">
                         <h3 class="faq-question">What is the History view?</h3>
                         <p class="faq-answer">The History view displays your Claude usage over time with interactive charts, a GitHub-style activity grid showing your usage patterns over the past year, and detailed insights about your usage habits. Access it from the menu bar by clicking 'History'.</p>
                     </div>
                     <div class="faq-item">
+                        <h3 class="faq-question">What is the Session History chart?</h3>
+                        <p class="faq-answer">The Session History chart in the History view shows your usage over time as a bar chart. You can filter by time range — 12 hours, 24 hours, 3 days, 7 days, 30 days, or 90 days — to see both session and weekly usage patterns and peak usage for each period.</p>
+                    </div>
+                    <div class="faq-item">
                         <h3 class="faq-question">Can I share my usage statistics?</h3>
-                        <p class="faq-answer">Yes, click the share button in the History view to generate a shareable image of your usage statistics. The image includes your usage chart, activity grid, and key insights. You can share it on social media, messaging apps, or save it to your device.</p>
+                        <p class="faq-answer">Yes, click the share button in the History view to generate a shareable image of your usage statistics. The image includes your usage chart, activity grid, and key insights. You can share it on social media, messaging apps, or save it to your device. If you have Claude Code stats enabled, those will be included too.</p>
                     </div>
                     <div class="faq-item">
                         <h3 class="faq-question">What are the usage predictions?</h3>
-                        <p class="faq-answer">Predictions analyze your current usage rate to estimate when you might hit your session or weekly limits. If you're on track to stay within limits, you'll see an 'On Track' message. If you're using Claude heavily, you'll see a warning with an estimated time until you hit the limit.</p>
+                        <p class="faq-answer">Predictions analyze your current usage rate to estimate when you might hit your session or weekly limits. If you're on track to stay within limits before they reset, you'll see an 'On Track' message. If you're using Claude heavily, you'll see a warning with an estimated time until you hit the limit.</p>
                     </div>
                     <div class="faq-item">
                         <h3 class="faq-question">Will I receive notifications?</h3>
-                        <p class="faq-answer">Yes, the app sends smart notifications when it predicts you're on pace to hit your session or weekly limit, based on your current usage rate. You can manage notification preferences in System Settings.</p>
+                        <p class="faq-answer">Yes, the app sends smart notifications when it predicts you're on pace to hit your session or weekly limit, based on your current usage rate.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3 class="faq-question">Why do I see alert banners in the app?</h3>
+                        <p class="faq-answer">The app may display informational alerts about Claude service changes, scheduled maintenance windows, or tips. These alerts are delivered remotely and shown based on your timezone. They appear in both the menu bar popover and the History view.</p>
+                    </div>
+                    <div class="faq-item">
+                        <h3 class="faq-question">What is the Claude Code Stats section?</h3>
+                        <p class="faq-answer">The Claude Code Stats section in the History view displays your usage statistics from Claude Code (the CLI tool). It shows messages sent, tool calls made, sessions started, and token usage broken down by model (Opus, Sonnet, Haiku).</p>
                     </div>
                     <div class="faq-item">
                         <h3 class="faq-question">Is the app free?</h3>
-                        <p class="faq-answer">Yes, Usage for Claude is completely free with no in-app purchases or subscriptions.</p>
+                        <p class="faq-answer">The app is free to download and use. Core features like real-time usage monitoring, auto-refresh, notifications, and widgets are included at no cost. A one-time in-app purchase unlocks the full History view, including session history charts, the activity grid, usage insights, and Claude Code stats.</p>
                     </div>
                     <div class="faq-item">
                         <h3 class="faq-question">What are the system requirements?</h3>
-                        <p class="faq-answer">macOS 15.0 (Sequoia) or later, compatible with both Intel and Apple Silicon Macs. An internet connection is required for fetching usage data.</p>
+                        <p class="faq-answer">macOS 14.0 (Sonoma) or later, compatible with both Intel and Apple Silicon Macs. An internet connection is required for fetching usage data.</p>
                     </div>
                 </div>
         </section>

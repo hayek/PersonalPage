@@ -546,11 +546,30 @@ body {
 
 .changelog-latest {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     gap: 16px;
     background: rgba(255, 255, 255, 0.05);
     padding: 24px;
     border-radius: 12px;
+}
+
+.changelog-features {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.changelog-feature strong {
+    font-size: 17px;
+    color: #fff;
+    display: block;
+    margin-bottom: 4px;
+}
+
+.changelog-extras {
+    margin-top: 4px;
+    font-size: 15px;
+    color: rgba(255, 255, 255, 0.6);
 }
 
 .changelog-version {
@@ -636,6 +655,29 @@ body {
     padding: 20px 24px;
     border-radius: 12px;
     animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both;
+}
+
+.version-item-featured {
+    align-items: flex-start;
+}
+
+.version-features {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.version-feature strong {
+    font-size: 17px;
+    color: #fff;
+    display: block;
+    margin-bottom: 4px;
+}
+
+.version-extras {
+    margin-top: 4px;
+    font-size: 15px;
+    color: rgba(255, 255, 255, 0.6);
 }
 
 .version-badge {
