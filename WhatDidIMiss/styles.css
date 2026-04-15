@@ -1,0 +1,624 @@
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --bg: #f6f2ec;
+    --bg-panel: rgba(26, 18, 12, 0.045);
+    --bg-panel-border: rgba(26, 18, 12, 0.08);
+    --text-primary: #1a1a1a;
+    --text-secondary: rgba(26, 26, 26, 0.72);
+    --text-tertiary: rgba(26, 26, 26, 0.55);
+    --accent: #c15f3c;
+    --accent-soft: rgba(193, 95, 60, 0.14);
+    --accent-voice: #2f74c9;
+    --accent-voice-soft: rgba(47, 116, 201, 0.14);
+    --shadow-panel: 0 10px 40px rgba(26, 18, 12, 0.08);
+    --shadow-float: 0 20px 60px rgba(26, 18, 12, 0.18);
+    --shadow-button: 0 6px 20px rgba(26, 18, 12, 0.18);
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+    background: var(--bg);
+    color: var(--text-primary);
+    min-height: 100vh;
+    position: relative;
+}
+
+/* Decorative Sound Waves (scattered equalizers) */
+.stars-decoration {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.star {
+    position: absolute;
+    opacity: 0.18;
+    /* Tint the default-black SVG stroke toward the warm orange accent */
+    filter: invert(43%) sepia(58%) saturate(620%) hue-rotate(338deg) brightness(92%) contrast(88%);
+}
+
+.star-1  { top: 12%; left: 6%;   width: 64px; }
+.star-2  { top: 22%; right: 10%; width: 54px; transform: rotate(8deg); }
+.star-3  { top: 46%; left: 4%;   width: 70px; transform: rotate(-6deg); }
+.star-4  { top: 40%; left: 20%;  width: 48px; }
+.star-5  { top: 34%; right: 5%;  width: 60px; transform: rotate(5deg); }
+.star-6  { top: 74%; left: 12%;  width: 56px; transform: rotate(-8deg); }
+.star-7  { top: 8%;  right: 38%; width: 52px; }
+.star-8  { top: 58%; right: 16%; width: 68px; transform: rotate(4deg); }
+.star-9  { top: 30%; left: 10%;  width: 44px; transform: rotate(-10deg); }
+.star-10 { top: 88%; right: 22%; width: 58px; }
+.star-11 { top: 50%; right: 3%;  width: 62px; transform: rotate(-5deg); }
+.star-12 { top: 70%; left: 4%;   width: 46px; transform: rotate(6deg); }
+
+/* Feature 1 wrapper: full-width row (icon + paragraph) + centered CTA.
+   The menu stack floats absolutely over the hero from the top-right of .page-content. */
+.feature-tracking-section {
+    position: relative;
+}
+
+.page-content > .menu-column {
+    position: absolute;
+    top: 84px;        /* aligns the top of the menu-stack with the top of the hero title */
+    right: 0;
+    z-index: 100;
+}
+
+/* Row: square icon on the left, sized to approximately match the
+   paragraph's rendered height. */
+.feature-row {
+    display: flex;
+    align-items: stretch;
+    gap: 32px;
+    width: 100%;
+}
+
+.feature-row .app-icon {
+    flex-shrink: 0;
+    width: 140px;
+    height: 140px;
+    align-self: center;
+    object-fit: contain;
+    margin-bottom: 0;
+}
+
+.feature-row .feature-description {
+    flex: 1;
+    align-self: center;
+}
+
+.feature-cta {
+    margin-top: 40px;
+    display: flex;
+    justify-content: center;
+}
+
+.menu-stack {
+    position: relative;
+    width: 460px;
+    max-width: 100%;
+    aspect-ratio: 848 / 361;
+    filter: drop-shadow(0 24px 60px rgba(26, 18, 12, 0.22));
+}
+
+.menu-layer {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: 10px;
+}
+
+/* 11s cycle:
+   0.0 – 0.5s   menuback only
+   0.5 – 1.0s   menu1 fades in
+   1.0 – 3.5s   menu1 held
+   3.5 – 4.0s   menu1 fades out
+   4.0 – 4.5s   menu2 slides in from right
+   4.5 – 10.0s  menu2 held (was 2.5s, now 5.5s)
+   10.0 – 10.5s menu2 fades out
+   10.5 – 11.0s rest */
+
+.menu-one {
+    opacity: 0;
+    animation: menuOneCycle 11s cubic-bezier(0.22, 1, 0.36, 1) 0.6s infinite;
+}
+
+.menu-two {
+    opacity: 0;
+    transform: translateX(40px);
+    animation: menuTwoCycle 11s cubic-bezier(0.22, 1, 0.36, 1) 0.6s infinite;
+}
+
+@keyframes menuOneCycle {
+    0%,   4.55%  { opacity: 0; }
+    9.09%        { opacity: 1; }
+    31.82%       { opacity: 1; }
+    36.36%, 100% { opacity: 0; }
+}
+
+@keyframes menuTwoCycle {
+    0%,   36.36% { opacity: 0; transform: translateX(40px); }
+    40.91%       { opacity: 1; transform: translateX(0); }
+    90.91%       { opacity: 1; transform: translateX(0); }
+    95.45%, 100% { opacity: 0; transform: translateX(40px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .menu-one,
+    .menu-two {
+        animation: none;
+        opacity: 1;
+        transform: none;
+    }
+    .menu-one { opacity: 0; }
+}
+
+/* Page Content */
+.page-content {
+    position: relative;
+    z-index: 10;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 40px 80px 80px 80px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Hero */
+.hero {
+    margin-bottom: 80px;
+    animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.app-icon {
+    width: 144px;
+    height: 144px;
+    border-radius: 32px;
+    margin-bottom: 28px;
+    filter: drop-shadow(0 18px 48px rgba(193, 95, 60, 0.32));
+}
+
+.app-badge {
+    display: inline-block;
+    padding: 6px 16px;
+    border: 1.5px solid var(--accent);
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--accent);
+    margin-bottom: 20px;
+    letter-spacing: 0.02em;
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+.app-title {
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', system-ui, sans-serif;
+    font-size: 52px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    margin-bottom: 14px;
+    color: var(--text-primary);
+    line-height: 1.05;
+    /* Keep the title from running under the menu animation at the right */
+    max-width: 460px;
+}
+
+.app-subtitle {
+    font-size: 21px;
+    font-weight: 400;
+    color: var(--text-secondary);
+    line-height: 1.4;
+    /* Match title so subtitle also stays clear of the menu stack */
+    max-width: 460px;
+}
+
+/* Feature Sections */
+.feature-section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: start;
+}
+
+.feature-description {
+    font-size: 17px;
+    line-height: 1.5;
+    color: var(--text-secondary);
+    font-weight: 400;
+}
+
+.feature-description strong {
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+
+/* Feature Cards */
+.feature-card {
+    display: block;
+    margin-top: 80px;
+    background: var(--bg-panel);
+    border: 1px solid var(--bg-panel-border);
+    border-radius: 16px;
+    padding: 40px;
+}
+
+.feature-card-content {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.feature-card-image {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    filter: drop-shadow(0 16px 40px rgba(26, 18, 12, 0.16));
+}
+
+.history-section { margin-top: 80px; }
+.history-image   { max-width: 100%; }
+
+/* Two-up capability row */
+.new-features-row {
+    display: flex;
+    gap: 24px;
+    margin-top: 24px;
+    align-items: stretch;
+}
+
+.new-features-row .feature-card {
+    margin-top: 0;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.new-features-row .feature-card-content {
+    flex: 1;
+}
+
+.capability-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--accent-soft);
+    color: var(--accent);
+    flex-shrink: 0;
+}
+
+.capability-icon svg,
+.capability-icon img {
+    width: 24px;
+    height: 24px;
+    display: block;
+}
+
+.capability-icon-ai img {
+    /* Tint the black-fill SVG to match the accent color */
+    filter: invert(43%) sepia(58%) saturate(620%) hue-rotate(338deg) brightness(92%) contrast(88%);
+}
+
+.capability-icon-voice {
+    background: var(--accent-voice-soft);
+    color: var(--accent-voice);
+}
+
+.capability-icon-privacy {
+    width: 52px;
+    height: 52px;
+}
+
+.capability-icon-privacy svg {
+    width: 28px;
+    height: 28px;
+}
+
+/* Privacy section (wider card, icon beside text) */
+.privacy-section {
+    margin-top: 24px;
+}
+
+.privacy-card-content {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 28px;
+}
+
+.privacy-text {
+    flex: 1;
+}
+
+/* Download Button */
+.download-button {
+    display: inline-block;
+    padding: 16px 40px;
+    background: var(--text-primary);
+    color: var(--bg);
+    text-decoration: none;
+    border-radius: 12px;
+    font-size: 17px;
+    font-weight: 500;
+    box-shadow: var(--shadow-button);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.download-button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 10px 28px rgba(26, 18, 12, 0.24);
+}
+
+/* Summary Section */
+.summary-section {
+    margin-top: 80px;
+    padding: 60px 0;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 32px;
+}
+
+.summary-title {
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', system-ui, sans-serif;
+    font-size: 36px;
+    line-height: 1.2;
+    font-weight: 600;
+    letter-spacing: 0;
+    color: var(--text-primary);
+    margin: 0;
+}
+
+/* FAQ Section */
+.faq-section {
+    margin-top: 80px;
+}
+
+.faq-main-title {
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', system-ui, sans-serif;
+    font-size: 36px;
+    line-height: 1.2;
+    font-weight: 500;
+    text-align: center;
+    margin-bottom: 60px;
+    letter-spacing: 0;
+    color: var(--text-primary);
+}
+
+.faq-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 24px;
+}
+
+.faq-item {
+    background: var(--bg-panel);
+    border: 1px solid var(--bg-panel-border);
+    padding: 24px;
+    border-radius: 12px;
+}
+
+.faq-question {
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', system-ui, sans-serif;
+    font-size: 19px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 12px;
+    letter-spacing: 0;
+    line-height: 1.3;
+}
+
+.faq-answer {
+    font-size: 16px;
+    line-height: 1.55;
+    color: var(--text-secondary);
+    margin: 0;
+}
+
+.faq-answer a {
+    color: inherit;
+    text-decoration: underline;
+}
+
+/* Footer */
+.footer {
+    margin-top: 60px;
+    padding: 40px 0 20px;
+    text-align: center;
+}
+
+.footer-text {
+    font-size: 15px;
+    color: var(--text-tertiary);
+    font-weight: 400;
+    margin: 0;
+}
+
+.footer-link {
+    color: var(--text-secondary);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: color 0.2s ease;
+}
+
+.footer-link:hover {
+    color: var(--accent);
+}
+
+.heart-icon {
+    width: 14px;
+    height: 14px;
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0 4px;
+    filter: invert(43%) sepia(58%) saturate(620%) hue-rotate(338deg) brightness(92%) contrast(88%);
+}
+
+.linkedin-icon {
+    width: 16px;
+    height: 16px;
+    filter: invert(25%);
+    transition: filter 0.2s ease;
+}
+
+.footer-link:hover .linkedin-icon {
+    filter: invert(43%) sepia(58%) saturate(620%) hue-rotate(338deg) brightness(92%) contrast(88%);
+}
+
+/* Responsive */
+@media (max-width: 1400px) {
+    .page-content { padding: 40px 60px 60px; }
+}
+
+@media (max-width: 1024px) {
+    .page-content { padding: 40px 40px 60px; }
+
+    .page-content > .menu-column {
+        top: 84px;
+        right: 0;
+    }
+
+    .menu-stack {
+        max-width: 380px;
+    }
+}
+
+@media (max-width: 768px) {
+    .page-content { padding: 40px 24px 60px; }
+
+    .hero { margin-bottom: 40px; }
+
+    .app-title { font-size: 40px; max-width: none; }
+    .app-subtitle { font-size: 19px; max-width: none; }
+
+    .feature-tracking-section {
+        margin-top: 0;
+    }
+
+    /* Pull the menu animation to the very top of the page on mobile */
+    .page-content > .menu-column {
+        position: static;
+        order: -1;
+        margin: 0 0 28px;
+        width: 100%;
+    }
+
+    .menu-stack {
+        max-width: 100%;
+        width: 100%;
+    }
+
+    .feature-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 20px;
+    }
+
+    .feature-card {
+        margin-top: 40px;
+        padding: 28px;
+    }
+
+    .history-section { margin-top: 40px; }
+
+    .new-features-row {
+        flex-direction: column;
+        gap: 16px;
+        margin-top: 16px;
+    }
+
+    .privacy-section { margin-top: 16px; }
+
+    .privacy-card-content {
+        flex-direction: column;
+        gap: 18px;
+    }
+
+    .faq-section { margin-top: 60px; }
+
+    .faq-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .faq-main-title {
+        font-size: 30px;
+        margin-bottom: 40px;
+    }
+
+    .summary-section {
+        margin-top: 60px;
+        padding: 40px 0;
+    }
+
+    .summary-title { font-size: 28px; }
+}
+
+@media (max-width: 480px) {
+    .page-content { padding: 30px 20px 50px; }
+
+    .app-icon {
+        width: 112px;
+        height: 112px;
+        border-radius: 26px;
+    }
+
+    .app-title { font-size: 34px; }
+    .app-subtitle { font-size: 17px; }
+
+    .feature-description { font-size: 16px; }
+
+    .feature-card { padding: 22px; }
+
+    .download-button {
+        padding: 14px 28px;
+        font-size: 16px;
+        width: 100%;
+        text-align: center;
+    }
+
+    .feature-cta {
+        margin-top: 28px;
+    }
+
+    .faq-main-title { font-size: 26px; }
+    .faq-question { font-size: 18px; }
+    .faq-answer { font-size: 15px; }
+
+    .summary-title { font-size: 24px; }
+}
+
+@media (max-width: 375px) {
+    .app-title { font-size: 30px; }
+    .app-badge {
+        font-size: 13px;
+        padding: 5px 14px;
+    }
+}
