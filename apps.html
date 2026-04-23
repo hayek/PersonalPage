@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="system">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apps — Amir Hayek</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Major+Mono+Display&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .apps-page-header {
+            padding: 48px 0 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .apps-page-name {
+            font-family: 'Major Mono Display', monospace;
+            font-size: clamp(18px, 3vw, 26px);
+            font-weight: 400;
+            letter-spacing: 0.02em;
+            color: var(--primary-color);
+            opacity: 1;
+            line-height: 1;
+        }
+
+
+        .apps-page-section {
+            padding: 32px 0 64px;
+        }
+
+        .apps-page-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .apps-page-grid .app-card-featured {
+            grid-column: 1 / -1;
+            min-height: 260px;
+        }
+
+        .apps-page-grid .app-card:not(.app-card-featured) {
+            aspect-ratio: 4 / 3;
+        }
+
+        .apps-page-grid .app-card-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 20px;
+        }
+
+        .apps-page-grid .app-card-title {
+            font-size: clamp(15px, 2.5vw, 18px);
+            margin-bottom: 8px;
+        }
+
+        .apps-page-grid .app-card-subtitle {
+            font-size: clamp(13px, 2vw, 15px);
+        }
+
+        .apps-page-grid .app-card-featured-left .app-card-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .apps-page-header { padding: 40px 0 0; }
+            .apps-page-section { padding: 24px 0 48px; }
+            .apps-page-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+            .apps-page-grid .app-card:not(.app-card-featured) { aspect-ratio: 1 / 1; }
+            .apps-page-grid .app-card-featured { min-height: 200px; }
+        }
+
+        @media (max-width: 480px) {
+            .apps-page-grid { grid-template-columns: 1fr; gap: 12px; }
+            .apps-page-grid .app-card-featured { grid-column: 1; }
+        }
+    </style>
+</head>
+<body>
+
+    <main class="container">
+
+        <header class="apps-page-header">
+            <a href="index.html" class="apps-page-name">AMIR HAYEK</a>
+        </header>
+
+        <section class="apps-page-section">
+            <div class="apps-page-grid">
+                <a href="https://zcodeapp.com" target="_blank" class="card app-card app-card-featured">
+                    <div class="app-card-featured-left">
+                        <span class="app-badge">Latest</span>
+                        <img src="assets/zcode.png" alt="Zcode" class="app-card-icon">
+                        <span class="app-card-title">Zcode</span>
+                        <span class="app-card-subtitle">Building native apps for the AI era.</span>
+                    </div>
+                    <img src="assets/flow.png" alt="Zcode Flow" class="app-card-featured-img">
+                </a>
+                <a href="/WhatDidIMiss/" target="_blank" class="card app-card app-card-with-img">
+                    <div class="app-card-info">
+                        <img src="WhatDidIMiss/Assets/icon.png" alt="What Did I Miss" class="app-card-icon">
+                        <span class="app-card-title">What Did I Miss</span>
+                        <span class="app-card-subtitle">Hear the notifications you missed.</span>
+                    </div>
+                    <img src="WhatDidIMiss/Assets/mainWindow.png" alt="What Did I Miss" class="app-card-side-img">
+                </a>
+                <a href="/ClaudeUsage/" target="_blank" class="card app-card app-card-with-img">
+                    <div class="app-card-info">
+                        <img src="assets/icon-ClaudeUsage.png" alt="Usage for Claude" class="app-card-icon">
+                        <span class="app-card-title">Usage for Claude</span>
+                        <span class="app-card-subtitle">Track your subscription Usage.</span>
+                    </div>
+                    <img src="assets/claudeusage.png" alt="Usage for Claude" class="app-card-side-img">
+                </a>
+                <a href="/VanishingNotes/" target="_blank" class="card app-card app-card-with-img">
+                    <div class="app-card-info">
+                        <img src="assets/icon-VN.png" alt="Vanishing Notes" class="app-card-icon">
+                        <span class="app-card-title">Vanishing Notes</span>
+                        <span class="app-card-subtitle">Notes that disappear.</span>
+                    </div>
+                    <img src="assets/vn-dark.png" alt="Vanishing Notes" class="app-card-side-img vn-dark-img">
+                    <img src="assets/vn-light.png" alt="Vanishing Notes" class="app-card-side-img vn-light-img">
+                </a>
+                <a href="https://123repo.com/" target="_blank" class="card app-card app-card-with-img">
+                    <div class="app-card-info">
+                        <img src="assets/icon-123repo.png" alt="123Repo" class="app-card-icon">
+                        <span class="app-card-title">123Repo</span>
+                        <span class="app-card-subtitle">Your projects. Always visible.</span>
+                    </div>
+                    <img src="assets/123repo.png" alt="123Repo" class="app-card-side-img">
+                </a>
+                <a href="/Json2Toon/" target="_blank" class="card app-card app-card-with-img">
+                    <div class="app-card-info">
+                        <img src="assets/icon-j2n.png" alt="Json 2 Toon" class="app-card-icon">
+                        <span class="app-card-title">Json 2 Toon</span>
+                        <span class="app-card-subtitle">Convert JSON to TOON and back. Seamlessly.</span>
+                    </div>
+                    <img src="assets/json2toon.png" alt="Json 2 Toon" class="app-card-side-img">
+                </a>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="footer">
+        <div class="footer-inner">
+            <p>&copy; 2026 Amir Hayek</p>
+            <div class="theme-switcher">
+                <button class="theme-btn" data-theme="light" title="Light">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+                </button>
+                <button class="theme-btn active" data-theme="system" title="System">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+                </button>
+                <button class="theme-btn" data-theme="dark" title="Dark">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+                </button>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
