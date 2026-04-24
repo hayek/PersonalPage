@@ -9,74 +9,290 @@
     <link href="https://fonts.googleapis.com/css2?family=Major+Mono+Display&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <style>
+        /* ── Page Header ── */
         .apps-page-header {
-            padding: 48px 0 0;
+            padding: 48px 0 40px;
             display: flex;
             align-items: center;
+            justify-content: space-between;
         }
-
         .apps-page-name {
             font-family: 'Major Mono Display', monospace;
             font-size: clamp(18px, 3vw, 26px);
             font-weight: 400;
             letter-spacing: 0.02em;
             color: var(--primary-color);
-            opacity: 1;
             line-height: 1;
         }
-
-
-        .apps-page-section {
-            padding: 32px 0 64px;
+        .apps-count {
+            font-size: 13px;
+            color: var(--secondary-color);
+            font-weight: 400;
         }
 
-        .apps-page-grid {
+        /* ── Tags ── */
+        .tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            padding: 3px 9px;
+            border-radius: 999px;
+            border: 1px solid var(--border-color);
+            color: var(--secondary-color);
+            white-space: nowrap;
+        }
+        .tag-dot {
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: currentColor;
+            opacity: 0.6;
+        }
+
+        /* ── Section Labels ── */
+        .section-label {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--secondary-color);
+            margin-bottom: 14px;
+        }
+
+        /* ─────────────────────────────────────────────
+           FEATURED CARD (Zcode)
+        ───────────────────────────────────────────── */
+        .featured-card {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
+            grid-template-columns: 1fr 1fr;
+            min-height: 320px;
+            border-radius: 30px;
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+            text-decoration: none;
+            background: radial-gradient(ellipse at center, var(--card-bg-center) 0%, var(--card-bg-center) 50%, var(--card-bg-edge) 100%);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            margin-bottom: 16px;
+        }
+        .featured-card:hover {
+            transform: scale(1.01);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.15);
         }
 
-        .apps-page-grid .app-card-featured {
-            grid-column: 1 / -1;
-            min-height: 260px;
+        .featured-left {
+            padding: 32px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            gap: 24px;
+            z-index: 1;
+        }
+        .featured-top {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .featured-bottom {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .featured-icon {
+            width: 72px;
+            height: 72px;
+            border-radius: 18px;
+        }
+        .featured-title {
+            font-size: clamp(22px, 3vw, 28px);
+            font-weight: 700;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+        }
+        .featured-subtitle {
+            font-size: clamp(13px, 1.6vw, 15px);
+            font-weight: 400;
+            line-height: 1.55;
+            color: var(--secondary-color);
+            max-width: 300px;
+        }
+        .featured-tags {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+        .featured-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            padding: 10px 20px;
+            border-radius: 999px;
+            background: var(--primary-color);
+            color: var(--bg-color);
+            align-self: flex-start;
+            transition: opacity 0.2s ease;
+        }
+        .featured-card:hover .featured-cta {
+            opacity: 0.8;
         }
 
-        .apps-page-grid .app-card:not(.app-card-featured) {
-            aspect-ratio: 4 / 3;
+        .featured-right {
+            position: relative;
+            overflow: hidden;
+        }
+        .featured-img {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: left center;
+            mask-image: linear-gradient(to left, black 50%, transparent 100%);
+            -webkit-mask-image: linear-gradient(to left, black 50%, transparent 100%);
+            filter: grayscale(100%);
+            opacity: 0.3;
+            transition: filter 0.35s ease, opacity 0.35s ease;
+        }
+        .featured-card:hover .featured-img {
+            filter: grayscale(0%);
+            opacity: 0.7;
         }
 
-        .apps-page-grid .app-card-icon {
-            width: 80px;
-            height: 80px;
-            border-radius: 20px;
+        /* ─────────────────────────────────────────────
+           APPS GRID (3 cols on desktop)
+        ───────────────────────────────────────────── */
+        .apps-grid-new {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
         }
 
-        .apps-page-grid .app-card-title {
-            font-size: clamp(15px, 2.5vw, 18px);
-            margin-bottom: 8px;
+        .app-card-new {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 24px;
+            border-radius: 30px;
+            cursor: pointer;
+            text-decoration: none;
+            position: relative;
+            overflow: hidden;
+            min-height: 220px;
+            background: radial-gradient(ellipse at center, var(--card-bg-center) 0%, var(--card-bg-center) 50%, var(--card-bg-edge) 100%);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .app-card-new:hover {
+            transform: scale(1.02);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.13);
         }
 
-        .apps-page-grid .app-card-subtitle {
-            font-size: clamp(13px, 2vw, 15px);
+        .app-card-new-top {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            position: relative;
+            z-index: 1;
+        }
+        .app-card-new-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 14px;
+        }
+        .app-card-new-title {
+            font-size: 15px;
+            font-weight: 700;
+            line-height: 1.2;
+            letter-spacing: -0.01em;
+        }
+        .app-card-new-subtitle {
+            font-size: 12.5px;
+            font-weight: 400;
+            line-height: 1.45;
+            color: var(--secondary-color);
         }
 
-        .apps-page-grid .app-card-featured-left .app-card-icon {
-            width: 80px;
-            height: 80px;
-            border-radius: 20px;
+        .app-card-new-bottom {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+            z-index: 1;
+        }
+        .app-card-new-tags {
+            display: flex;
+            gap: 5px;
+            flex-wrap: wrap;
         }
 
-        @media (max-width: 768px) {
-            .apps-page-header { padding: 40px 0 0; }
-            .apps-page-section { padding: 24px 0 48px; }
-            .apps-page-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
-            .apps-page-grid .app-card:not(.app-card-featured) { aspect-ratio: 1 / 1; }
-            .apps-page-grid .app-card-featured { min-height: 200px; }
+        /* Ghost background image */
+        .app-card-bg-img {
+            position: absolute;
+            right: -10px;
+            top: 0;
+            height: 100%;
+            width: 65%;
+            object-fit: cover;
+            object-position: left center;
+            mask-image: linear-gradient(to right, transparent 0%, black 90%);
+            -webkit-mask-image: linear-gradient(to right, transparent 0%, black 90%);
+            filter: grayscale(100%);
+            opacity: 0.12;
+            transition: filter 0.3s ease, opacity 0.3s ease;
+        }
+        .app-card-new:hover .app-card-bg-img {
+            filter: grayscale(0%);
+            opacity: 0.35;
         }
 
+        /* VN theme handling */
+        .vn-dark-img { display: none; }
+        .vn-light-img { display: block; }
+        [data-theme="dark"] .vn-dark-img { display: block; }
+        [data-theme="dark"] .vn-light-img { display: none; }
+        @media (prefers-color-scheme: dark) {
+            [data-theme="system"] .vn-dark-img { display: block; }
+            [data-theme="system"] .vn-light-img { display: none; }
+        }
+
+        /* Arrow icon */
+        .arrow-icon {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: var(--hover-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--secondary-color);
+            flex-shrink: 0;
+            transition: background 0.2s, color 0.2s;
+        }
+        .app-card-new:hover .arrow-icon {
+            background: var(--primary-color);
+            color: var(--bg-color);
+        }
+
+        /* ── Responsive ── */
+        @media (max-width: 900px) {
+            .apps-grid-new { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 680px) {
+            .featured-card { grid-template-columns: 1fr; min-height: auto; }
+            .featured-right { display: none; }
+            .featured-left { padding: 24px; }
+            .apps-page-header { padding: 36px 0 28px; }
+        }
         @media (max-width: 480px) {
-            .apps-page-grid { grid-template-columns: 1fr; gap: 12px; }
-            .apps-page-grid .app-card-featured { grid-column: 1; }
+            .apps-grid-new { grid-template-columns: 1fr; }
+            .app-card-new { min-height: 180px; }
+            .featured-card { border-radius: 24px; }
+            .app-card-new { border-radius: 24px; }
         }
     </style>
 </head>
@@ -86,62 +302,143 @@
 
         <header class="apps-page-header">
             <a href="index.html" class="apps-page-name">AMIR HAYEK</a>
+            <span class="apps-count">6 apps</span>
         </header>
 
-        <section class="apps-page-section">
-            <div class="apps-page-grid">
-                <a href="https://zcodeapp.com" target="_blank" class="card app-card app-card-featured">
-                    <div class="app-card-featured-left">
-                        <span class="app-badge">Latest</span>
-                        <img src="assets/zcode.png" alt="Zcode" class="app-card-icon">
-                        <span class="app-card-title">Zcode</span>
-                        <span class="app-card-subtitle">Building native apps for the AI era.</span>
+        <p class="section-label">Featured</p>
+        <a href="https://zcodeapp.com" target="_blank" class="featured-card">
+            <div class="featured-left">
+                <div class="featured-top">
+                    <div style="display:flex;align-items:center;gap:10px;">
+                        <img src="assets/zcode.png" alt="Zcode" class="featured-icon">
                     </div>
-                    <img src="assets/flow.png" alt="Zcode Flow" class="app-card-featured-img">
-                </a>
-                <a href="/WhatDidIMiss/" target="_blank" class="card app-card app-card-with-img">
-                    <div class="app-card-info">
-                        <img src="WhatDidIMiss/Assets/icon.png" alt="What Did I Miss" class="app-card-icon">
-                        <span class="app-card-title">What Did I Miss</span>
-                        <span class="app-card-subtitle">Hear the notifications you missed.</span>
+                    <div>
+                        <div class="featured-title">Zcode</div>
+                        <div class="featured-subtitle" style="margin-top:6px;">Building native apps for the AI era. Write once, ship everywhere.</div>
                     </div>
-                    <img src="WhatDidIMiss/Assets/mainWindow.png" alt="What Did I Miss" class="app-card-side-img">
-                </a>
-                <a href="/ClaudeUsage/" target="_blank" class="card app-card app-card-with-img">
-                    <div class="app-card-info">
-                        <img src="assets/icon-ClaudeUsage.png" alt="Usage for Claude" class="app-card-icon">
-                        <span class="app-card-title">Usage for Claude</span>
-                        <span class="app-card-subtitle">Track your subscription Usage.</span>
+                </div>
+                <div class="featured-bottom">
+                    <div class="featured-tags">
+                        <span class="tag"><span class="tag-dot"></span>macOS</span>
+                        <span class="tag"><span class="tag-dot"></span>AI</span>
+                        <span class="tag"><span class="tag-dot"></span>Developer Tools</span>
                     </div>
-                    <img src="assets/claudeusage.png" alt="Usage for Claude" class="app-card-side-img">
-                </a>
-                <a href="/VanishingNotes/" target="_blank" class="card app-card app-card-with-img">
-                    <div class="app-card-info">
-                        <img src="assets/icon-VN.png" alt="Vanishing Notes" class="app-card-icon">
-                        <span class="app-card-title">Vanishing Notes</span>
-                        <span class="app-card-subtitle">Notes that disappear.</span>
-                    </div>
-                    <img src="assets/vn-dark.png" alt="Vanishing Notes" class="app-card-side-img vn-dark-img">
-                    <img src="assets/vn-light.png" alt="Vanishing Notes" class="app-card-side-img vn-light-img">
-                </a>
-                <a href="https://123repo.com/" target="_blank" class="card app-card app-card-with-img">
-                    <div class="app-card-info">
-                        <img src="assets/icon-123repo.png" alt="123Repo" class="app-card-icon">
-                        <span class="app-card-title">123Repo</span>
-                        <span class="app-card-subtitle">Your projects. Always visible.</span>
-                    </div>
-                    <img src="assets/123repo.png" alt="123Repo" class="app-card-side-img">
-                </a>
-                <a href="/Json2Toon/" target="_blank" class="card app-card app-card-with-img">
-                    <div class="app-card-info">
-                        <img src="assets/icon-j2n.png" alt="Json 2 Toon" class="app-card-icon">
-                        <span class="app-card-title">Json 2 Toon</span>
-                        <span class="app-card-subtitle">Convert JSON to TOON and back. Seamlessly.</span>
-                    </div>
-                    <img src="assets/json2toon.png" alt="Json 2 Toon" class="app-card-side-img">
-                </a>
+                    <span class="featured-cta">
+                        Visit site
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </span>
+                </div>
             </div>
-        </section>
+            <div class="featured-right">
+                <img src="assets/flow.png" alt="Zcode Flow" class="featured-img">
+            </div>
+        </a>
+
+        <p class="section-label" style="margin-top:32px;">All Apps</p>
+        <div class="apps-grid-new">
+
+            <a href="/WhatDidIMiss/" target="_blank" class="app-card-new">
+                <img src="WhatDidIMiss/Assets/mainWindow.png" alt="" class="app-card-bg-img">
+                <div class="app-card-new-top">
+                    <img src="WhatDidIMiss/Assets/icon.png" alt="What Did I Miss" class="app-card-new-icon">
+                    <div>
+                        <div class="app-card-new-title">What Did I Miss</div>
+                        <div class="app-card-new-subtitle">Hear the notifications you missed.</div>
+                    </div>
+                </div>
+                <div class="app-card-new-bottom">
+                    <div class="app-card-new-tags">
+                        <span class="tag">macOS</span>
+                        <span class="tag">Utilities</span>
+                    </div>
+                    <span class="arrow-icon">
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </span>
+                </div>
+            </a>
+
+            <a href="/ClaudeUsage/" target="_blank" class="app-card-new">
+                <img src="assets/claudeusage.png" alt="" class="app-card-bg-img">
+                <div class="app-card-new-top">
+                    <img src="assets/icon-ClaudeUsage.png" alt="Usage for Claude" class="app-card-new-icon">
+                    <div>
+                        <div class="app-card-new-title">Usage for Claude</div>
+                        <div class="app-card-new-subtitle">Track your subscription usage.</div>
+                    </div>
+                </div>
+                <div class="app-card-new-bottom">
+                    <div class="app-card-new-tags">
+                        <span class="tag">macOS</span>
+                        <span class="tag">AI</span>
+                    </div>
+                    <span class="arrow-icon">
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </span>
+                </div>
+            </a>
+
+            <a href="/VanishingNotes/" target="_blank" class="app-card-new">
+                <img src="assets/vn-light.png" alt="" class="app-card-bg-img vn-light-img">
+                <img src="assets/vn-dark.png" alt="" class="app-card-bg-img vn-dark-img">
+                <div class="app-card-new-top">
+                    <img src="assets/icon-VN.png" alt="Vanishing Notes" class="app-card-new-icon">
+                    <div>
+                        <div class="app-card-new-title">Vanishing Notes</div>
+                        <div class="app-card-new-subtitle">Notes that disappear after you read them.</div>
+                    </div>
+                </div>
+                <div class="app-card-new-bottom">
+                    <div class="app-card-new-tags">
+                        <span class="tag">iOS</span>
+                        <span class="tag">Productivity</span>
+                    </div>
+                    <span class="arrow-icon">
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </span>
+                </div>
+            </a>
+
+            <a href="https://123repo.com/" target="_blank" class="app-card-new">
+                <img src="assets/123repo.png" alt="" class="app-card-bg-img">
+                <div class="app-card-new-top">
+                    <img src="assets/icon-123repo.png" alt="123Repo" class="app-card-new-icon">
+                    <div>
+                        <div class="app-card-new-title">123Repo</div>
+                        <div class="app-card-new-subtitle">Your projects. Always visible.</div>
+                    </div>
+                </div>
+                <div class="app-card-new-bottom">
+                    <div class="app-card-new-tags">
+                        <span class="tag">macOS</span>
+                        <span class="tag">Developer Tools</span>
+                    </div>
+                    <span class="arrow-icon">
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </span>
+                </div>
+            </a>
+
+            <a href="/Json2Toon/" target="_blank" class="app-card-new">
+                <img src="assets/json2toon.png" alt="" class="app-card-bg-img">
+                <div class="app-card-new-top">
+                    <img src="assets/icon-j2n.png" alt="Json 2 Toon" class="app-card-new-icon">
+                    <div>
+                        <div class="app-card-new-title">Json 2 Toon</div>
+                        <div class="app-card-new-subtitle">Convert JSON to TOON and back. Seamlessly.</div>
+                    </div>
+                </div>
+                <div class="app-card-new-bottom">
+                    <div class="app-card-new-tags">
+                        <span class="tag">macOS</span>
+                        <span class="tag">Developer Tools</span>
+                    </div>
+                    <span class="arrow-icon">
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </span>
+                </div>
+            </a>
+
+        </div>
 
     </main>
 
