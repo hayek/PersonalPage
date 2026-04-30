@@ -13,7 +13,8 @@
       "severity": "low",
       "text": "High burn hours: {startHour}–{endHour}",
       "dashboardText": "High burn hours: {startHour}–{endHour} on week days. burns through 5-hour usage limits faster during weekday peak hours.",
-      "url": null
+      "url": null,
+      "type": "session"
     },
     {
       "enabled": true,
@@ -28,7 +29,8 @@
       "severity": "info",
       "text": "$100 in extra usage",
       "dashboardText": "Use the credit on Claude.ai, Claude Code, Claude Desktop, or third-party apps. When it runs out, you can add more extra usage to keep going past your plan limits. Expires April 17.",
-      "url": "https://claude.ai/settings/usage"
+      "url": "https://claude.ai/settings/usage",
+      "type": "news"
     }
   ]
 }
