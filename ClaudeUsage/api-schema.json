@@ -1,0 +1,59 @@
+{
+  "schemaVersion": 1,
+  "minAppVersion": "1.0.0",
+  "updateRequiredMessage": "Claude's API changed in a way this version can't handle. Please update the app.",
+  "endpoints": {
+    "oauthUsage": {
+      "url": "https://api.anthropic.com/api/oauth/usage",
+      "method": "GET",
+      "headers": {
+        "Authorization": "Bearer {accessToken}",
+        "Accept": "application/json",
+        "anthropic-beta": "oauth-2025-04-20",
+        "User-Agent": "claude-code/2.1.70"
+      }
+    },
+    "webUsage": {
+      "urlTemplate": "https://claude.ai/api/organizations/{orgId}/usage",
+      "method": "GET"
+    },
+    "overage": {
+      "urlTemplate": "https://claude.ai/api/organizations/{orgId}/overage_spend_limit",
+      "method": "GET"
+    }
+  },
+  "usageFields": {
+    "utilizationScale": "percent",
+    "fiveHour":     { "path": "five_hour",          "utilization": "utilization", "resetsAt": { "key": "resets_at", "format": "iso8601_fractional" } },
+    "sevenDay":     { "path": "seven_day",          "utilization": "utilization", "resetsAt": { "key": "resets_at", "format": "iso8601_fractional" } },
+    "sevenDayOpus": { "path": "seven_day_opus",     "utilization": "utilization", "resetsAt": { "key": "resets_at", "format": "iso8601_fractional" } },
+    "claudeDesign": { "path": "seven_day_omelette", "utilization": "utilization", "resetsAt": { "key": "resets_at", "format": "iso8601_fractional" } }
+  },
+  "extraUsageFields": {
+    "oauth": {
+      "path": "extra_usage",
+      "isEnabled": "is_enabled",
+      "usedCredits": "used_credits",
+      "monthlyLimit": "monthly_limit",
+      "currency": "currency",
+      "unit": "cents"
+    },
+    "overage": {
+      "path": "",
+      "isEnabled": "is_enabled",
+      "usedCredits": "used_credits",
+      "monthlyLimit": "monthly_credit_limit",
+      "currency": "currency",
+      "unit": "cents"
+    }
+  },
+  "errorFields": {
+    "errorPath": "error",
+    "type": "type",
+    "message": "message",
+    "detailsPath": "details",
+    "errorCode": "error_code",
+    "sessionInvalidCode": "account_session_invalid",
+    "notFoundType": "not_found_error"
+  }
+}

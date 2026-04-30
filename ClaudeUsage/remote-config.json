@@ -1,0 +1,34 @@
+{
+  "alerts": [
+    {
+      "enabled": true,
+      "startDate": null,
+      "endDate": null,
+      "startHour": 5,
+      "endHour": 11,
+      "days": ["mon", "tue", "wed", "thu", "fri"],
+      "timezone": "America/Los_Angeles",
+      "icon": "flame.fill",
+      "badgeIcon": "flame.circle.fill",
+      "severity": "low",
+      "text": "High burn hours: {startHour}–{endHour}",
+      "dashboardText": "High burn hours: {startHour}–{endHour} on week days. burns through 5-hour usage limits faster during weekday peak hours.",
+      "url": null
+    },
+    {
+      "enabled": true,
+      "startDate": null,
+      "endDate": "2026-04-17",
+      "startHour": null,
+      "endHour": null,
+      "days": null,
+      "timezone": null,
+      "icon": "gift.fill",
+      "badgeIcon": "gift.circle.fill",
+      "severity": "info",
+      "text": "$100 in extra usage",
+      "dashboardText": "Use the credit on Claude.ai, Claude Code, Claude Desktop, or third-party apps. When it runs out, you can add more extra usage to keep going past your plan limits. Expires April 17.",
+      "url": "https://claude.ai/settings/usage"
+    }
+  ]
+}
