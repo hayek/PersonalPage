@@ -48,3 +48,14 @@ python3 -m http.server 8000
 - Star decorations are SVG elements positioned absolutely with low opacity
 - Drop shadows use `filter: drop-shadow()` for images to preserve transparency
 - Typography uses SF Pro Display/Text with system font fallbacks
+
+## App config files served from here
+
+This directory also hosts JSON consumed by the ClaudeUsage app:
+
+- `remote-config.json` — drives the app's **in-app news banners / alerts** (macOS menu bar + dashboard, iOS badge stack). Edit + commit + push to publish news; no App Store release needed. Schema is `{ "alerts": [...] }`.
+- `api-schema.json` — API schema served to the app.
+
+Full news-publishing runbook (alert schema, conventions, timezone gotchas, verify steps) lives in the **app repo** at `/Users/amir/Developer/ClaudeUsage/docs/NEWS-RELEASES.md`.
+
+Changes go live on push to `main` (GitHub Pages, ~½–2 min).
