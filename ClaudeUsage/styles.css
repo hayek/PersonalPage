@@ -461,6 +461,12 @@ body[data-stars="subtle"] .star:nth-child(2n) { display: none; }
 /* companion (iPhone + iPad) */
 .b-companion .card-figure { margin-top: auto; }
 
+/* keep breathing room between the copy and a bottom-aligned figure even when
+   the card fills its row — margin-top:auto can otherwise collapse the gap to 0 */
+.b-history > p,
+.b-share > p,
+.b-companion > p { margin-bottom: 20px; }
+
 /* apple watch card */
 .b-watch { text-align: left; }
 .b-watch .card-figure { margin-top: auto; }
