@@ -660,7 +660,7 @@ body[data-stars="subtle"] .star:nth-child(2n) { display: none; }
     line-height: 1.55;
     color: var(--text-2);
     overflow: hidden;
-    transition: height .34s var(--ease);
+    transition: height .34s var(--ease), padding .34s var(--ease);
 }
 .faq-item .faq-body.is-animating { will-change: height; }
 @media (prefers-reduced-motion: reduce) {
@@ -786,7 +786,10 @@ body[data-stars="subtle"] .star:nth-child(2n) { display: none; }
     .card { padding: 22px; }
     .btn-pill, .btn-ghost { width: 100%; justify-content: center; }
     .cta-row { width: 100%; }
-    .site-header__brand span { display: none; }
+    /* the full-width CTA rule above is for the in-page buttons only — keep the
+       sticky header's brand + Download compact so the bar stays balanced */
+    .site-header { padding: 12px 18px; }
+    .site-header .btn-pill { width: auto; }
     .hero-stats { gap: 14px 24px; }
     .summary { padding: 48px 22px; }
     .widgets-grid img { width: 130px; }

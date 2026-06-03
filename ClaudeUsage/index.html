@@ -232,24 +232,25 @@
     <script>
     /* ---------- FAQ data + accordion render ---------- */
     const FAQ = [
-        ["What is Usage for Claude?", "A macOS menu bar app that displays your Claude usage with automatic background updates. It authenticates with claude.ai and reads your usage directly — no browser needed."],
-        ["Is this an official Anthropic app?", "No. It's an independent third-party app built by an enthusiastic Claude user for the community. It is not created, endorsed, or maintained by Anthropic."],
-        ["What accounts are supported?", "Any Claude account (Free or Pro) with access to the usage page at claude.ai/settings/usage. Team and Enterprise accounts are not supported."],
-        ["How do I authenticate?", "Click the menu bar icon and choose the authentication option. A browser window opens where you log in with your Claude credentials."],
-        ["Can I log in with Claude Code?", "Yes. If you use the Claude Code CLI, choose “Claude Code” as the login method and the app reads your existing OAuth token automatically — no browser sign-in needed."],
-        ["Does the app store my password?", "No. Authentication happens entirely through Claude's official website. The app only preserves session cookies to keep you logged in — your password is never stored."],
-        ["Is there an iOS or iPad app?", "Yes! A free companion app for iPhone and iPad is available on the <a href=\"https://apps.apple.com/il/app/usage-for-claude/id6755173244\" target=\"_blank\" rel=\"noopener noreferrer\">App Store</a>. It shows your history, charts, and insights synced from the Mac app via iCloud."],
-        ["How does iCloud sync work?", "Your usage history syncs across devices via iCloud. The Mac app collects the data and shares it with the companion apps in real time. All devices must use the same iCloud account."],
-        ["Is my data shared with anyone?", "No. All data stays on your local Mac. The app only communicates with claude.ai to fetch usage information."],
-        ["What widget styles are available?", "Three macOS widget styles: Rings (circular progress), Compact (large percentages with reset times), and Bars (linear progress). Pick what fits your desktop or Notification Center."],
-        ["What is the History view?", "It shows your usage over time with interactive charts, a GitHub-style activity grid spanning the past year, and detailed insights. Open it from the menu bar via “History.”"],
-        ["What is the Session History chart?", "A bar chart of your usage over time. Filter by 12 hours, 24 hours, 3 days, 7 days, 30 days, or 90 days to see session and weekly patterns and peak usage per period."],
-        ["Can I share my usage statistics?", "Yes. The share button in the History view generates an image with your usage chart, activity grid, and key insights — including Claude Code stats if enabled."],
-        ["What are usage predictions?", "Predictions analyze your current rate to estimate when you might hit a session or weekly limit. Stay within limits and you'll see “On Track”; use heavily and you'll get a warning with an estimated time."],
-        ["Will I receive notifications?", "Yes. The app sends smart notifications when it predicts you're on pace to hit a session or weekly limit, plus optional threshold and reset alerts."],
-        ["What is the Claude Code Stats section?", "It shows your Claude Code (CLI) usage in the History view: messages sent, tool calls, sessions started, and token usage by model (Opus, Sonnet, Haiku)."],
-        ["Is the app free?", "Yes, free to download and use. Real-time monitoring, auto-refresh, notifications, and widgets are included. A one-time in-app purchase unlocks the full History view, charts, activity grid, insights, and Claude Code stats."],
-        ["What are the system requirements?", "macOS 15.0 (Sequoia) or later, on Intel or Apple Silicon. An internet connection is required to fetch usage data."]
+        ["What is Usage for Claude?", "Usage for Claude is a macOS menu bar app that tracks your Claude subscription usage with automatic background updates. It reads your session and weekly limits straight from your account, so you can keep an eye on where you stand without opening a browser."],
+        ["Is this an official Anthropic app?", "No. It's an independent, third-party app built by a Claude enthusiast for the Claude community. It is not created, endorsed, or maintained by Anthropic."],
+        ["Which Claude accounts are supported?", "It works with any Claude account (Free or Pro) that has access to the usage page at <a href=\"https://claude.ai/settings/usage\" target=\"_blank\" rel=\"noopener noreferrer\">claude.ai/settings/usage</a>. Team and Enterprise accounts aren't supported."],
+        ["How do I sign in?", "Click the menu bar icon and choose to log in — a window opens where you sign in through Claude's official website. If you use Claude Code (the CLI), you can log in instantly with your existing OAuth token instead, with no browser sign-in needed."],
+        ["Is there an iPhone, iPad, or Apple Watch app?", "Yes. A free <a href=\"https://apps.apple.com/il/app/usage-for-claude/id6755173244\" target=\"_blank\" rel=\"noopener noreferrer\">companion app for iPhone and iPad</a> shows your history, charts, and insights, with Home Screen and Lock Screen widgets. There's also an Apple Watch app with face complications. Your history syncs across devices automatically via your own iCloud account."],
+        ["Do I need the Mac app for the companions to work?", "Yes. The Mac app is what fetches your usage from claude.ai; the iPhone, iPad, and Watch apps display that synced history but can't fetch new data on their own. Keep the Mac app running for the freshest numbers."],
+        ["What does the app show me?", "Your current session usage, weekly limits, reset times for both, and the last update time — all with clean progress bars for at-a-glance monitoring. You can also show your current session usage percentage right in the menu bar so it's always visible."],
+        ["Can I see my usage history over time?", "Yes. The History view charts your session and weekly usage over time and includes a GitHub-style activity grid showing your patterns across the past year, plus insights about your habits."],
+        ["What does the session history chart show?", "It plots your session and weekly usage over time as a bar chart, with filters for the last 12 hours, 24 hours, 3 days, 7 days, 30 days, or 90 days — so you can spot peaks and patterns for any window."],
+        ["Can I share my usage stats?", "Yes. From the History view you can generate a shareable image of your usage — chart, activity grid, key insights, and your Claude Code stats if enabled — to post on social media or save to your device."],
+        ["Does it predict when I'll hit my limits?", "Yes. Based on your recent usage rate, the app estimates whether you're on track to stay within your session and weekly limits before they reset — and warns you with an estimated time if you're using Claude heavily."],
+        ["Can I track my Claude Code usage?", "Yes. The History view can show your Claude Code (CLI) stats — messages, tool calls, sessions, and token usage broken down by model (Opus, Sonnet, Haiku). It reads your local Claude Code stats file on your Mac, which never leaves your device, and you can revoke access anytime."],
+        ["Is there a Local API?", "Yes. The Local API runs a small loopback-only HTTP server on your Mac (127.0.0.1) that exposes your live session, weekly, and Opus stats, so agents, scripts, and dashboards can read them on demand. It stays on your machine and is off until you turn it on."],
+        ["Is there a macOS widget?", "Yes. Add a widget to Notification Center or your desktop in Rings, Compact, or Bars styles, showing the same usage info as the menu bar. The widget displays data fetched by the main app, so keep the app running to stay up to date."],
+        ["Will I get notified before I hit a limit?", "Yes. A flexible notification rules system lets you fire alerts when usage crosses above or falls below a threshold, when a limit resets, when you're on pace to hit a limit, or a set time before a reset. You're in control — create only the rules you want."],
+        ["Does the app store my password?", "No. Sign-in happens entirely through Claude's official website, and the app only keeps the session cookie needed to stay logged in. Your password is never stored."],
+        ["Where is my data stored, and is it shared?", "Everything stays local on your Mac — nothing is sent to third-party servers and nothing is shared with anyone. The app only talks to claude.ai to fetch your usage (and, if you sync, to your own iCloud account)."],
+        ["Is the app free? How much does it cost?", "The app is free to download and use. Core features — real-time monitoring, auto-refresh, notifications, and widgets — are free. Premium features (the full History view with charts and activity grid, Claude Code stats, the Local API, and the Apple Watch companion) unlock with a monthly or annual subscription, or a one-time lifetime purchase. A free trial is available."],
+        ["What are the system requirements?", "macOS 15.0 (Sequoia) or later, on both Intel and Apple Silicon Macs. An internet connection is required to fetch your usage data."]
     ];
     (function renderFAQ() {
         const list = document.getElementById('faqList');
@@ -271,32 +272,53 @@
                 if (reduce) { item.open = !item.open; return; }
                 if (body.dataset.animating) return;
                 if (item.open) {
-                    // collapse
+                    // collapse — animate height AND bottom padding down to 0 so the
+                    // box eases fully closed instead of snapping shut on the leftover
+                    // padding strip.
                     body.dataset.animating = '1';
                     body.classList.add('is-animating');
                     body.style.height = body.scrollHeight + 'px';
-                    requestAnimationFrame(() => { body.style.height = '0px'; });
-                    body.addEventListener('transitionend', function done() {
+                    body.style.paddingBottom = getComputedStyle(body).paddingBottom;
+                    // Commit the explicit start values (force a reflow) before
+                    // transitioning to 0 — otherwise the browser interpolates from
+                    // the previous `auto` height, which it can't animate, and the
+                    // collapse jumps instead of easing closed.
+                    void body.offsetHeight;
+                    requestAnimationFrame(() => {
+                        body.style.height = '0px';
+                        body.style.paddingBottom = '0px';
+                    });
+                    body.addEventListener('transitionend', function done(ev) {
+                        if (ev.propertyName !== 'height') return; // height settles last
                         item.open = false;
                         body.style.height = '';
+                        body.style.paddingBottom = '';
                         body.classList.remove('is-animating');
                         delete body.dataset.animating;
                         body.removeEventListener('transitionend', done);
-                    }, { once: true });
+                    });
                 } else {
-                    // expand
+                    // expand — mirror of collapse: ease height and bottom padding up from 0
                     item.open = true;
                     body.dataset.animating = '1';
                     body.classList.add('is-animating');
+                    const endPad = getComputedStyle(body).paddingBottom;
                     const target = body.scrollHeight;
                     body.style.height = '0px';
-                    requestAnimationFrame(() => { body.style.height = target + 'px'; });
-                    body.addEventListener('transitionend', function done() {
+                    body.style.paddingBottom = '0px';
+                    void body.offsetHeight; // commit the collapsed start before transitioning open
+                    requestAnimationFrame(() => {
+                        body.style.height = target + 'px';
+                        body.style.paddingBottom = endPad;
+                    });
+                    body.addEventListener('transitionend', function done(ev) {
+                        if (ev.propertyName !== 'height') return;
                         body.style.height = 'auto';
+                        body.style.paddingBottom = '';
                         body.classList.remove('is-animating');
                         delete body.dataset.animating;
                         body.removeEventListener('transitionend', done);
-                    }, { once: true });
+                    });
                 }
             });
         });
