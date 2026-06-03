@@ -12,9 +12,10 @@
     <link rel="manifest" href="Assets/Favicon/site.webmanifest" />
     <link rel="stylesheet" href="styles.css">
 </head>
-<body>
+<body data-stars="subtle">
+
     <!-- Decorative Stars -->
-    <div class="stars-decoration">
+    <div class="stars-decoration" aria-hidden="true">
         <img src="Assets/Star1.svg" alt="" class="star star-1">
         <img src="Assets/Star2.svg" alt="" class="star star-2">
         <img src="Assets/Star3.svg" alt="" class="star star-3">
@@ -32,253 +33,288 @@
         <img src="Assets/Star5.svg" alt="" class="star star-15">
     </div>
 
-    <!-- Main Content -->
+    <!-- Sticky header -->
+    <header class="site-header" id="siteHeader">
+        <div class="site-header__brand">
+            <img src="Assets/Favicon/favicon.svg" alt="">
+            <span>Usage for Claude</span>
+        </div>
+        <a href="https://apps.apple.com/us/app/usage-for-claude/id6755173244?mt=12" class="btn-pill" target="_blank" rel="noopener noreferrer">Download</a>
+    </header>
+
     <main class="page-content">
-        <!-- Hero Section -->
+
+        <!-- ============== HERO ============== -->
         <section class="hero">
-            <span class="app-badge">Mac App</span>
-            <h1 class="app-title">Usage for Claude</h1>
-            <p class="app-subtitle">Track your subscription Usage.</p>
-        </section>
-
-        <!-- Feature 1: Usage Tracking -->
-        <section class="feature-section feature-tracking-section">
-            <div class="feature-text">
-                <p class="feature-description">
-                    <strong>Never hit your limits unexpectedly.</strong> Monitor your Claude subscription usage right from your menu bar with automatic tracking of both your current session and weekly limits. Get notified when you're approaching your limit so you can plan your work accordingly and never be caught off guard.
-                </p>
-                <a href="https://apps.apple.com/us/app/usage-for-claude/id6755173244?mt=12" class="download-button" target="_blank" rel="noopener noreferrer">Download on the Mac App Store</a>
-            </div>
-            <!-- Menu View - Top Right on desktop, below text on mobile -->
-            <aside class="menu-column">
-                <img src="Assets/menuView.png" alt="Usage for Claude Menu" class="menu-view">
-            </aside>
-        </section>
-
-        <!-- Feature 2: History View -->
-        <section class="feature-section feature-card history-section">
-            <div class="feature-card-content">
-                <img src="Assets/historyView.png" alt="Usage History View" class="feature-card-image history-image">
-                <p class="feature-description">
-                    <strong>Track your usage over time.</strong> The History view displays your Claude usage with interactive charts and a GitHub-style activity grid showing your usage patterns over the past year. Filter by time range, see trends in your session and weekly usage, and export your data as CSV for your own analysis.
-                </p>
-            </div>
-        </section>
-
-        <!-- Feature 3: Insights -->
-        <section class="feature-section feature-card insights-section">
-            <div class="feature-card-content">
-                <img src="Assets/insights.png" alt="Usage Insights" class="feature-card-image insights-image">
-                <p class="feature-description">
-                    <strong>Smart predictions and insights.</strong> Get intelligent predictions about when you might hit your limits based on your current usage rate. The Subscription Value insight analyzes your average weekly usage to help you understand how much of your Claude subscription you're utilizing.
-                </p>
-            </div>
-        </section>
-
-        <!-- New Features: Companion Apps & iCloud Sync -->
-        <section class="new-features-row">
-            <!-- iOS/iPad Companion Apps Card (2/3 width) -->
-            <div class="feature-card companion-card">
-                <div class="card-badges">
-                    <span class="platform-badge">iOS</span>
-                    <span class="platform-badge">iPad</span>
-                </div>
-                <div class="feature-card-content">
-                    <img src="Assets/CompanionApp.png" alt="iOS and iPad Companion Apps" class="feature-card-image companion-image">
-                    <p class="feature-description">
-                        <strong>View your usage anywhere.</strong> The companion apps for iPhone and iPad sync with your Mac to show your complete usage history. Check your current usage status, browse your activity grid, and stay informed—even when you're away from your computer. <a href="https://apps.apple.com/il/app/usage-for-claude/id6755173244" class="app-store-link" target="_blank" rel="noopener noreferrer">Available on the App Store</a>
-                    </p>
-                </div>
-            </div>
-
-            <!-- iCloud Sync Card (1/3 width) -->
-            <div class="feature-card icloud-card">
-                <div class="feature-card-content icloud-content">
-                    <img src="Assets/icloud.png" alt="iCloud Sync" class="icloud-image">
-                    <img src="Assets/icloud-icon.svg" alt="iCloud" class="icloud-icon">
-                    <p class="feature-description">
-                        <strong>Seamless multi-Mac sync.</strong> Your usage history syncs automatically via iCloud. Switch between your Macs and always see your complete, unified usage history.
-                    </p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Feature 4: Share -->
-        <section class="feature-section feature-card share-section">
-            <div class="share-card-content">
-                <img src="Assets/share.png" alt="Share Usage Statistics" class="feature-card-image share-image">
-                <div class="share-text-content">
-                    <img src="Assets/shareIcon.svg" alt="Share" class="share-icon">
-                    <p class="feature-description">
-                        <strong>Share your usage stats.</strong> Generate beautiful shareable images of your usage statistics including your usage chart, activity grid, and key insights. Share them on social media, messaging apps, or save them to your device to showcase your Claude usage patterns.
-                    </p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Feature 5: Widgets -->
-        <section class="feature-section widgets-section">
-            <table class="widgets-table">
-                <tr>
-                    <td class="widget-images-column">
-                        <div class="widgets-grid">
-                            <img src="Assets/widget-small.png" alt="Circular Widget" class="widget-img">
-                            <img src="Assets/widget-small2.png" alt="Compact Widget" class="widget-img">
+            <div class="hero-a">
+                <div class="hero-grid">
+                    <div class="hero-copy reveal in">
+                        <span class="badge"><span class="dot"></span>Mac App</span>
+                        <h1>Usage for Claude</h1>
+                        <p class="subtitle">Track your Claude session, weekly, and Opus limits — right from your Mac menu bar.</p>
+                        <div class="cta-row">
+                            <a href="https://apps.apple.com/us/app/usage-for-claude/id6755173244?mt=12" class="btn-pill" target="_blank" rel="noopener noreferrer">
+                                <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M11.05 8.49c-.02-1.7 1.39-2.52 1.45-2.56-.79-1.16-2.02-1.32-2.46-1.34-1.05-.11-2.04.61-2.57.61-.53 0-1.35-.6-2.22-.58-1.14.02-2.19.66-2.78 1.68-1.18 2.05-.3 5.09.85 6.75.56.81 1.23 1.72 2.11 1.69.85-.03 1.17-.55 2.2-.55 1.02 0 1.31.55 2.21.53.91-.02 1.49-.83 2.05-1.65.65-.95.91-1.86.93-1.91-.02-.01-1.78-.69-1.8-2.72zM9.4 3.6c.47-.57.78-1.36.69-2.15-.67.03-1.49.45-1.97 1.01-.43.5-.81 1.31-.71 2.08.75.06 1.51-.38 1.99-.94z"/></svg>
+                                Download on the Mac App Store
+                            </a>
                         </div>
-                    </td>
-                    <td class="widget-text-column">
-                        <div class="feature-text">
-                            <p class="feature-description">
-                                <strong>Beautiful widgets for your desktop.</strong> Add elegant widgets to your macOS desktop for instant visibility into your usage. Choose between a compact circular widget or a detailed view with complete information—both designed to blend seamlessly with your workflow.
-                            </p>
+                    </div>
+                    <div class="hero-shot reveal in" data-d="1">
+                        <img src="Assets/menuView.png" alt="Usage for Claude menu bar popover">
+                    </div>
+                </div>
+                <div class="hero-stats reveal" data-d="2">
+                    <div class="hero-stat"><b>macOS 14+</b><span>Intel &amp; Apple Silicon</span></div>
+                    <div class="hero-stat"><b>iPhone · iPad · Watch</b><span>companion apps</span></div>
+                    <div class="hero-stat"><b>iCloud sync</b><span>across all your Macs</span></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============== FEATURES (bento) ============== -->
+        <section id="features">
+            <div class="section-head reveal">
+                <span class="section-eyebrow">Everything you need</span>
+                <h2 class="section-title">One quiet menu bar icon. Your whole usage picture.</h2>
+            </div>
+
+            <div class="bento">
+                <!-- History dashboard -->
+                <article class="card b-history reveal">
+                    <div class="feat-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 14l4-4 3 3 5-6"/></svg>
+                    </div>
+                    <h3>Track your usage over time</h3>
+                    <p>The History view charts your Claude usage with interactive graphs and a GitHub-style activity grid spanning the past year. Filter by range, spot trends, and export to CSV.</p>
+                    <div class="card-figure">
+                        <img src="Assets/historyView.png" alt="Usage history dashboard with charts and activity grid">
+                    </div>
+                </article>
+
+                <!-- Share -->
+                <article class="card b-share reveal" data-d="1">
+                    <div class="feat-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"/></svg>
+                    </div>
+                    <h3>Share your stats</h3>
+                    <p>Generate beautiful shareable images of your usage chart, activity grid, and key insights — ready for social, messaging, or your camera roll.</p>
+                    <div class="card-figure">
+                        <img src="Assets/share.png" alt="Shareable usage statistics image">
+                    </div>
+                </article>
+
+                <!-- Companion apps (iPhone + iPad) -->
+                <article class="card b-companion reveal">
+                    <div class="card-badges">
+                        <span class="platform-badge">iOS</span>
+                        <span class="platform-badge">iPadOS</span>
+                    </div>
+                    <h3>View your usage anywhere</h3>
+                    <p>The free companion apps sync with your Mac to show your complete usage history on iPhone and iPad — even when you're away from your computer. <a href="https://apps.apple.com/il/app/usage-for-claude/id6755173244" class="inline-link" target="_blank" rel="noopener noreferrer">Get it on the App Store →</a></p>
+                    <div class="card-figure plain">
+                        <img src="Assets/CompanionApp.png" alt="iPhone and iPad companion apps">
+                    </div>
+                </article>
+
+                <!-- Apple Watch -->
+                <article class="card b-watch reveal" data-d="1">
+                    <div class="card-badges">
+                        <span class="platform-badge">watchOS</span>
+                    </div>
+                    <h3>On your wrist, at a glance</h3>
+                    <p>Session, weekly &amp; Opus limits as complications for every watch face.</p>
+                    <div class="card-figure plain watch-fig">
+                        <img src="Assets/appleWatchV2.png" alt="Usage for Claude complications on Apple Watch faces showing session, weekly, and Opus usage">
+                    </div>
+                </article>
+
+                <!-- Insights -->
+                <article class="card b-insights reveal">
+                    <div class="feat-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 22h4"/><path d="M12 2a7 7 0 00-4 12.7c.6.5 1 1.2 1 2h6c0-.8.4-1.5 1-2A7 7 0 0012 2z"/></svg>
+                    </div>
+                    <h3>Smart predictions &amp; insights</h3>
+                    <p>See when you're on track to hit a limit based on your current pace, and let the Subscription Value insight tell you whether your plan still fits how you actually use Claude.</p>
+                    <div class="card-figure">
+                        <img src="Assets/insights.png" alt="Usage insights: limit predictions and subscription value">
+                    </div>
+                </article>
+
+                <!-- iCloud -->
+                <article class="card b-icloud reveal" data-d="1">
+                    <div>
+                        <div class="feat-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 18a4 4 0 01-.5-7.97A6 6 0 0118 9.5a3.5 3.5 0 010 8.5z"/></svg>
                         </div>
-                    </td>
-                </tr>
-            </table>
-        </section>
+                        <h3>Seamless multi-Mac sync</h3>
+                    </div>
+                    <img src="Assets/icloud.png" alt="iCloud sync" class="icloud-art">
+                    <p>Your history syncs automatically via iCloud. Switch between Macs and always see one complete, unified record.</p>
+                </article>
 
-        <!-- Changelog Section -->
-        <section class="changelog-section">
-            <div class="changelog-header">
-                <h2 class="changelog-title">What's New</h2>
-                <a href="version-history.html" class="version-history-link">Version history &rsaquo;</a>
-            </div>
-            <div class="changelog-latest">
-                <span class="changelog-version">v2.6</span>
-                <div class="changelog-features">
-                    <p class="changelog-description">Big update: Claude usage is now easier to see and act on across every device.</p>
-                    <div class="changelog-feature">
-                        <strong>Apple Watch Companion</strong>
-                        <p class="changelog-description">A new watchOS app brings your Claude usage to your wrist. It syncs via iCloud, includes complications for every watch face, and shows your usage at a glance.</p>
+                <!-- Widgets -->
+                <article class="card b-widgets reveal">
+                    <div>
+                        <div class="feat-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><circle cx="17.5" cy="17.5" r="3.5"/></svg>
+                        </div>
+                        <h3>Widgets for your desktop</h3>
+                        <p>Add elegant Rings, Compact, or Bars widgets to your Mac desktop or Notification Center — instant visibility, no app open required.</p>
                     </div>
-                    <div class="changelog-feature">
-                        <strong>Threshold Notifications</strong>
-                        <p class="changelog-description">Stay in control with alerts that trigger when your session, weekly, or Opus usage hits your limits. You can also get notified when those periods reset. All notification controls are now in the new Notifications settings tab.</p>
+                    <div class="widgets-grid">
+                        <img src="Assets/widget-small.png" alt="Circular ring widget">
+                        <img src="Assets/widget-medium.png" alt="Detailed widget" class="wide">
                     </div>
-                    <div class="changelog-feature">
-                        <strong>Widgets Everywhere</strong>
-                        <p class="changelog-description">Check usage without opening the app. Get new iOS lock screen widgets and Apple Watch complications, alongside the existing Mac desktop widgets and iOS home screen widgets.</p>
-                    </div>
-                    <div class="changelog-feature">
-                        <strong>Local API for Claude Code</strong>
-                        <p class="changelog-description">Connect your live usage to AI agents and dashboards using a local HTTP endpoint. A bundled skill markdown is included, so you can get from setup to integration faster.</p>
-                    </div>
-                    <div class="changelog-feature">
-                        <strong>Redesigned Dashboard</strong>
-                        <p class="changelog-description">Make decisions with clearer views: a Current Session chart for real-time progress, a Session History bar chart with filters, refreshed Insights cards, plus a resizable window and adjustable font size for better readability.</p>
-                    </div>
-                    <div class="changelog-feature">
-                        <strong>New Settings Experience</strong>
-                        <p class="changelog-description">A native preferences window organizes everything into General, Appearance, Notifications, and Sync panes. You can also hide your account email and show remaining percentage in the menu bar.</p>
-                    </div>
-                    <p class="changelog-description changelog-extras">We also refreshed the Help Center (now available in 15 languages), redesigned the macOS feedback form, and shipped dozens of polish improvements. Thanks for using Usage for Claude!</p>
-                </div>
+                </article>
             </div>
         </section>
 
-        <!-- FAQ Section -->
-        <section class="faq-section">
-            <h2 class="faq-main-title">Frequently Asked Questions</h2>
-            <div class="faq-grid">
-                    <div class="faq-item">
-                        <h3 class="faq-question">What is Usage for Claude?</h3>
-                        <p class="faq-answer">Usage for Claude is a macOS menu bar application that displays your Claude usage statistics with automatic background updates. It authenticates with claude.ai and extracts usage data directly from your account, providing convenient access to your session and weekly usage limits without opening a browser.</p>
-                    </div>
-                    <div class="faq-item">
-                        <h3 class="faq-question">Is this an official Anthropic application?</h3>
-                        <p class="faq-answer">No, this is an independent third-party application built by an enthusiastic Claude user out of love for the product and to help the Claude user community. It is not created, endorsed, or maintained by Anthropic.</p>
-                    </div>
-                    <div class="faq-item">
-                        <h3 class="faq-question">What accounts are supported?</h3>
-                        <p class="faq-answer">The app works with any Claude account (Free or Pro) that has access to the usage page at claude.ai/settings/usage. Team and Enterprise accounts are not supported.</p>
-                    </div>
-                    <div class="faq-item">
-                        <h3 class="faq-question">How do I authenticate?</h3>
-                        <p class="faq-answer">Click the menu bar icon and select the authentication option. A browser window will open where you can log in using your Claude credentials.</p>
-                    </div>
-                    <div class="faq-item">
-                        <h3 class="faq-question">How do I log in with Claude Code?</h3>
-                        <p class="faq-answer">If you use Claude Code (the CLI tool), you can log in directly using your existing OAuth token. Click the menu bar icon, choose "Claude Code" as the login method, and the app will read your credentials automatically — no browser sign-in needed.</p>
-                    </div>
-                    <div class="faq-item">
-                        <h3 class="faq-question">Does the app store my password?</h3>
-                        <p class="faq-answer">No. Authentication is handled entirely through Claude's official website. The app only preserves session cookies to maintain your login state—your password is never stored.</p>
-                    </div>
-                    <div class="faq-item">
-                        <h3 class="faq-question">Is there an iOS or iPad app?</h3>
-                        <p class="faq-answer">Yes! Usage for Claude is available as a free companion app for iPhone and iPad on the <a href="https://apps.apple.com/il/app/usage-for-claude/id6755173244" target="_blank" rel="noopener noreferrer">App Store</a>. It displays your usage history, charts, and insights synced from the macOS app via iCloud.</p>
-                    </div>
-                    <div class="faq-item">
-                        <h3 class="faq-question">How does iCloud sync work?</h3>
-                        <p class="faq-answer">Your usage history automatically syncs across all your devices via iCloud. The macOS app collects the data, and it's shared with the iOS companion app in real-time. Both devices must be signed into the same iCloud account.</p>
-                    </div>
-                    <div class="faq-item">
-                        <h3 class="faq-question">Is my data shared with anyone?</h3>
-                        <p class="faq-answer">No. All data remains on your local Mac. The app only communicates with claude.ai to fetch usage information.</p>
-                    </div>
-                    <div class="faq-item">
-                        <h3 class="faq-question">Does it include a widget?</h3>
-                        <p class="faq-answer">Yes, the app includes a macOS widget that can be added to Notification Center or your desktop, displaying the same usage information as the menu bar popover.</p>
-                    </div>
-                    <div class="faq-item">
-                        <h3 class="faq-question">What widget styles are available?</h3>
-                        <p class="faq-answer">The app offers three macOS widget styles: Rings (circular progress rings with session and weekly usage), Compact (large percentage displays with reset times), and Bars (linear progress bars). Choose the style that best fits your desktop or Notification Center layout.</p>
-                    </div>
-                    <div class="faq-item">
-                        <h3 class="faq-question">What is the History view?</h3>
-                        <p class="faq-answer">The History view displays your Claude usage over time with interactive charts, a GitHub-style activity grid showing your usage patterns over the past year, and detailed insights about your usage habits. Access it from the menu bar by clicking 'History'.</p>
-                    </div>
-                    <div class="faq-item">
-                        <h3 class="faq-question">What is the Session History chart?</h3>
-                        <p class="faq-answer">The Session History chart in the History view shows your usage over time as a bar chart. You can filter by time range — 12 hours, 24 hours, 3 days, 7 days, 30 days, or 90 days — to see both session and weekly usage patterns and peak usage for each period.</p>
-                    </div>
-                    <div class="faq-item">
-                        <h3 class="faq-question">Can I share my usage statistics?</h3>
-                        <p class="faq-answer">Yes, click the share button in the History view to generate a shareable image of your usage statistics. The image includes your usage chart, activity grid, and key insights. You can share it on social media, messaging apps, or save it to your device. If you have Claude Code stats enabled, those will be included too.</p>
-                    </div>
-                    <div class="faq-item">
-                        <h3 class="faq-question">What are the usage predictions?</h3>
-                        <p class="faq-answer">Predictions analyze your current usage rate to estimate when you might hit your session or weekly limits. If you're on track to stay within limits before they reset, you'll see an 'On Track' message. If you're using Claude heavily, you'll see a warning with an estimated time until you hit the limit.</p>
-                    </div>
-                    <div class="faq-item">
-                        <h3 class="faq-question">Will I receive notifications?</h3>
-                        <p class="faq-answer">Yes, the app sends smart notifications when it predicts you're on pace to hit your session or weekly limit, based on your current usage rate.</p>
-                    </div>
-                    <div class="faq-item">
-                        <h3 class="faq-question">Why do I see alert banners in the app?</h3>
-                        <p class="faq-answer">The app may display informational alerts about Claude service changes, scheduled maintenance windows, or tips. These alerts are delivered remotely and shown based on your timezone. They appear in both the menu bar popover and the History view.</p>
-                    </div>
-                    <div class="faq-item">
-                        <h3 class="faq-question">What is the Claude Code Stats section?</h3>
-                        <p class="faq-answer">The Claude Code Stats section in the History view displays your usage statistics from Claude Code (the CLI tool). It shows messages sent, tool calls made, sessions started, and token usage broken down by model (Opus, Sonnet, Haiku).</p>
-                    </div>
-                    <div class="faq-item">
-                        <h3 class="faq-question">Is the app free?</h3>
-                        <p class="faq-answer">The app is free to download and use. Core features like real-time usage monitoring, auto-refresh, notifications, and widgets are included at no cost. A one-time in-app purchase unlocks the full History view, including session history charts, the activity grid, usage insights, and Claude Code stats.</p>
-                    </div>
-                    <div class="faq-item">
-                        <h3 class="faq-question">What are the system requirements?</h3>
-                        <p class="faq-answer">macOS 14.0 (Sonoma) or later, compatible with both Intel and Apple Silicon Macs. An internet connection is required for fetching usage data.</p>
-                    </div>
+        <!-- ============== CHANGELOG ============== -->
+        <section class="changelog reveal">
+            <div class="changelog-head">
+                <div>
+                    <span class="section-eyebrow">What's new</span>
+                    <h2 class="section-title">Recent updates</h2>
                 </div>
+                <a href="version-history.html" class="link-arrow">Version history →</a>
+            </div>
+            <div class="changelog-card">
+                <div class="changelog-top">
+                    <span class="version-chip">v2.6</span>
+                    <span class="changelog-lede">Claude usage is now easier to see and act on across every device.</span>
+                </div>
+                <div class="changelog-grid">
+                    <div class="cl-item"><strong>Apple Watch companion</strong><p>Your usage on your wrist, with complications for every watch face and iCloud sync.</p></div>
+                    <div class="cl-item"><strong>Threshold notifications</strong><p>Alerts when session, weekly, or Opus usage hits your limits — plus reset reminders.</p></div>
+                    <div class="cl-item"><strong>Widgets everywhere</strong><p>New iOS lock screen widgets and Watch complications join the Mac and home screen widgets.</p></div>
+                    <div class="cl-item"><strong>Local API for Claude Code</strong><p>Connect live usage to agents and dashboards via a local HTTP endpoint, with a bundled skill.</p></div>
+                    <div class="cl-item"><strong>Redesigned dashboard</strong><p>A real-time session chart, filterable history, refreshed insights, and adjustable font size.</p></div>
+                    <div class="cl-item"><strong>New settings experience</strong><p>A native preferences window with General, Appearance, Notifications, and Sync panes.</p></div>
+                </div>
+                <p class="changelog-extras">We also refreshed the Help Center (now in 15 languages), redesigned the macOS feedback form, and shipped dozens of polish improvements. Thanks for using Usage for Claude!</p>
+            </div>
         </section>
 
-        <!-- Summary Section -->
-        <section class="summary-section">
-            <h2 class="summary-title">Ready to track your Claude usage?</h2>
-            <a href="https://apps.apple.com/us/app/usage-for-claude/id6755173244?mt=12" class="download-button" target="_blank" rel="noopener noreferrer">Download on the Mac App Store</a>
+        <!-- ============== FAQ ============== -->
+        <section class="faq">
+            <div class="section-head reveal" style="text-align:center;">
+                <span class="section-eyebrow">Good to know</span>
+                <h2 class="section-title">Frequently asked questions</h2>
+            </div>
+            <div class="faq-list reveal" id="faqList">
+                <!-- items injected by JS for brevity -->
+            </div>
         </section>
 
-        <!-- Footer -->
+        <!-- ============== SUMMARY CTA ============== -->
+        <section class="summary reveal">
+            <h2>Ready to track your Claude usage?</h2>
+            <p>Free on the Mac App Store. Companion apps for iPhone, iPad &amp; Apple Watch included.</p>
+            <div class="cta-row">
+                <a href="https://apps.apple.com/us/app/usage-for-claude/id6755173244?mt=12" class="btn-pill" target="_blank" rel="noopener noreferrer">
+                    <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M11.05 8.49c-.02-1.7 1.39-2.52 1.45-2.56-.79-1.16-2.02-1.32-2.46-1.34-1.05-.11-2.04.61-2.57.61-.53 0-1.35-.6-2.22-.58-1.14.02-2.19.66-2.78 1.68-1.18 2.05-.3 5.09.85 6.75.56.81 1.23 1.72 2.11 1.69.85-.03 1.17-.55 2.2-.55 1.02 0 1.31.55 2.21.53.91-.02 1.49-.83 2.05-1.65.65-.95.91-1.86.93-1.91-.02-.01-1.78-.69-1.8-2.72zM9.4 3.6c.47-.57.78-1.36.69-2.15-.67.03-1.49.45-1.97 1.01-.43.5-.81 1.31-.71 2.08.75.06 1.51-.38 1.99-.94z"/></svg>
+                    Download on the Mac App Store
+                </a>
+            </div>
+        </section>
+
+        <!-- ============== FOOTER ============== -->
         <footer class="footer">
             <p class="footer-text">
-                Created with <img src="Assets/heart.svg" alt="love" class="heart-icon"> for the Claude community by <a href="https://amirhayek.dev/" target="_blank" rel="noopener noreferrer" class="footer-link">
-                    Amir Hayek
-                </a> <a href="https://www.linkedin.com/in/amir-hayek-2a816415/" target="_blank" rel="noopener noreferrer" class="footer-link">
-                    <img src="Assets/linkedin.svg" alt="LinkedIn" class="linkedin-icon">
-                </a>
+                Created with <img src="Assets/heart.svg" alt="love" class="heart-icon"> for the Claude community by
+                <a href="https://amirhayek.dev/" target="_blank" rel="noopener noreferrer" class="footer-link">Amir Hayek</a>
+                <a href="https://www.linkedin.com/in/amir-hayek-2a816415/" target="_blank" rel="noopener noreferrer" class="footer-link" aria-label="LinkedIn"><img src="Assets/linkedin.svg" alt="LinkedIn" class="linkedin-icon"></a>
             </p>
+            <p class="footer-text" style="margin-top:14px; font-size:13px; opacity:0.85;">Independent third-party app · not affiliated with or endorsed by Anthropic.</p>
         </footer>
     </main>
+
+    <script>
+    /* ---------- FAQ data + accordion render ---------- */
+    const FAQ = [
+        ["What is Usage for Claude?", "A macOS menu bar app that displays your Claude usage with automatic background updates. It authenticates with claude.ai and reads your usage directly — no browser needed."],
+        ["Is this an official Anthropic app?", "No. It's an independent third-party app built by an enthusiastic Claude user for the community. It is not created, endorsed, or maintained by Anthropic."],
+        ["What accounts are supported?", "Any Claude account (Free or Pro) with access to the usage page at claude.ai/settings/usage. Team and Enterprise accounts are not supported."],
+        ["How do I authenticate?", "Click the menu bar icon and choose the authentication option. A browser window opens where you log in with your Claude credentials."],
+        ["Can I log in with Claude Code?", "Yes. If you use the Claude Code CLI, choose “Claude Code” as the login method and the app reads your existing OAuth token automatically — no browser sign-in needed."],
+        ["Does the app store my password?", "No. Authentication happens entirely through Claude's official website. The app only preserves session cookies to keep you logged in — your password is never stored."],
+        ["Is there an iOS or iPad app?", "Yes! A free companion app for iPhone and iPad is available on the <a href=\"https://apps.apple.com/il/app/usage-for-claude/id6755173244\" target=\"_blank\" rel=\"noopener noreferrer\">App Store</a>. It shows your history, charts, and insights synced from the Mac app via iCloud."],
+        ["How does iCloud sync work?", "Your usage history syncs across devices via iCloud. The Mac app collects the data and shares it with the companion apps in real time. All devices must use the same iCloud account."],
+        ["Is my data shared with anyone?", "No. All data stays on your local Mac. The app only communicates with claude.ai to fetch usage information."],
+        ["What widget styles are available?", "Three macOS widget styles: Rings (circular progress), Compact (large percentages with reset times), and Bars (linear progress). Pick what fits your desktop or Notification Center."],
+        ["What is the History view?", "It shows your usage over time with interactive charts, a GitHub-style activity grid spanning the past year, and detailed insights. Open it from the menu bar via “History.”"],
+        ["What is the Session History chart?", "A bar chart of your usage over time. Filter by 12 hours, 24 hours, 3 days, 7 days, 30 days, or 90 days to see session and weekly patterns and peak usage per period."],
+        ["Can I share my usage statistics?", "Yes. The share button in the History view generates an image with your usage chart, activity grid, and key insights — including Claude Code stats if enabled."],
+        ["What are usage predictions?", "Predictions analyze your current rate to estimate when you might hit a session or weekly limit. Stay within limits and you'll see “On Track”; use heavily and you'll get a warning with an estimated time."],
+        ["Will I receive notifications?", "Yes. The app sends smart notifications when it predicts you're on pace to hit a session or weekly limit, plus optional threshold and reset alerts."],
+        ["What is the Claude Code Stats section?", "It shows your Claude Code (CLI) usage in the History view: messages sent, tool calls, sessions started, and token usage by model (Opus, Sonnet, Haiku)."],
+        ["Is the app free?", "Yes, free to download and use. Real-time monitoring, auto-refresh, notifications, and widgets are included. A one-time in-app purchase unlocks the full History view, charts, activity grid, insights, and Claude Code stats."],
+        ["What are the system requirements?", "macOS 14.0 (Sonoma) or later, on Intel or Apple Silicon. An internet connection is required to fetch usage data."]
+    ];
+    (function renderFAQ() {
+        const list = document.getElementById('faqList');
+        list.innerHTML = FAQ.map(([q, a], i) => `
+            <details class="faq-item"${i === 0 ? ' open' : ''}>
+                <summary>${q}<span class="q-mark"></span></summary>
+                <div class="faq-body">${a}</div>
+            </details>`).join('');
+    })();
+
+    /* ---------- FAQ accordion: animated expand/collapse ---------- */
+    (function animatedFAQ() {
+        const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        document.querySelectorAll('.faq-item').forEach((item) => {
+            const summary = item.querySelector('summary');
+            const body = item.querySelector('.faq-body');
+            summary.addEventListener('click', (e) => {
+                e.preventDefault();
+                if (reduce) { item.open = !item.open; return; }
+                if (body.dataset.animating) return;
+                if (item.open) {
+                    // collapse
+                    body.dataset.animating = '1';
+                    body.classList.add('is-animating');
+                    body.style.height = body.scrollHeight + 'px';
+                    requestAnimationFrame(() => { body.style.height = '0px'; });
+                    body.addEventListener('transitionend', function done() {
+                        item.open = false;
+                        body.style.height = '';
+                        body.classList.remove('is-animating');
+                        delete body.dataset.animating;
+                        body.removeEventListener('transitionend', done);
+                    }, { once: true });
+                } else {
+                    // expand
+                    item.open = true;
+                    body.dataset.animating = '1';
+                    body.classList.add('is-animating');
+                    const target = body.scrollHeight;
+                    body.style.height = '0px';
+                    requestAnimationFrame(() => { body.style.height = target + 'px'; });
+                    body.addEventListener('transitionend', function done() {
+                        body.style.height = 'auto';
+                        body.classList.remove('is-animating');
+                        delete body.dataset.animating;
+                        body.removeEventListener('transitionend', done);
+                    }, { once: true });
+                }
+            });
+        });
+    })();
+
+    /* ---------- Sticky header ---------- */
+    const header = document.getElementById('siteHeader');
+    const onScroll = () => header.classList.toggle('is-visible', window.scrollY > 420);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+
+    /* ---------- Scroll reveal ---------- */
+    const io = new IntersectionObserver((entries) => {
+        entries.forEach((e) => {
+            if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+        });
+    }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+    document.querySelectorAll('.reveal:not(.in)').forEach((el) => io.observe(el));
+    </script>
 </body>
 </html>
