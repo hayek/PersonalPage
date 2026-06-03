@@ -708,6 +708,11 @@ body[data-stars="subtle"] .star:nth-child(2n) { display: none; }
     padding: 36px 0 8px;
     text-align: center;
     border-top: 1px solid var(--border);
+    /* stack the credit and the disclaimer on separate lines — each .footer-text
+       is inline-flex, so without a column container they sit side by side */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 .footer-text {
     font-size: 14px;

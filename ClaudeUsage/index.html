@@ -324,11 +324,20 @@
         });
     })();
 
-    /* ---------- Sticky header ---------- */
+    /* ---------- Sticky header: reveal once the hero is scrolled past ---------- */
     const header = document.getElementById('siteHeader');
-    const onScroll = () => header.classList.toggle('is-visible', window.scrollY > 420);
-    window.addEventListener('scroll', onScroll, { passive: true });
-    onScroll();
+    const hero = document.querySelector('.hero');
+    if (hero && 'IntersectionObserver' in window) {
+        // show the header when no part of the hero is in view (i.e. below the hero),
+        // independent of viewport height so it works on tall mobile heroes too
+        new IntersectionObserver(([entry]) => {
+            header.classList.toggle('is-visible', !entry.isIntersecting);
+        }, { threshold: 0 }).observe(hero);
+    } else {
+        const onScroll = () => header.classList.toggle('is-visible', hero ? hero.getBoundingClientRect().bottom <= 0 : window.scrollY > 600);
+        window.addEventListener('scroll', onScroll, { passive: true });
+        onScroll();
+    }
 
     /* ---------- Scroll reveal ---------- */
     const io = new IntersectionObserver((entries) => {
