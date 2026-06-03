@@ -377,13 +377,16 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 10px;
+    gap: 8px;
+    text-align: center;
 }
 
 .download-version {
     margin: 0;
+    padding: 6px 0;
     font-size: 13px;
-    color: var(--text-tertiary);
+    color: #8a8a8a;
+    text-align: center;
 }
 
 /* Summary Section */
