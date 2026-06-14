@@ -2,6 +2,22 @@
   "alerts": [
     {
       "enabled": true,
+      "startDate": "2026-06-15",
+      "endDate": "2026-06-17",
+      "startHour": null,
+      "endHour": null,
+      "days": null,
+      "timezone": null,
+      "icon": "creditcard.fill",
+      "badgeIcon": "creditcard.circle.fill",
+      "type": "news",
+      "severity": "high",
+      "text": "Agent SDK usage no longer shares your plan limits",
+      "dashboardText": "Starting Jun 15, programmatic usage — Agent SDK, claude -p, GitHub Actions, and third-party apps — draws from a new separate monthly credit: $20 on Pro, $100 on Max 5×, $200 on Max 20×. Interactive Claude Code sessions are unaffected. Tap to learn more.",
+      "url": "https://support.claude.com/en/articles/15036540-use-the-claude-agent-sdk-with-your-claude-plan"
+    },
+    {
+      "enabled": true,
       "startDate": null,
       "endDate": "2026-05-06",
       "startHour": 5,
