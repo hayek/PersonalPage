@@ -3,6 +3,22 @@
     {
       "enabled": true,
       "startDate": "2026-06-15",
+      "endDate": "2026-06-22",
+      "startHour": null,
+      "endHour": null,
+      "days": null,
+      "timezone": null,
+      "icon": "arrow.uturn.backward.circle.fill",
+      "badgeIcon": "arrow.uturn.backward.circle.fill",
+      "type": "news",
+      "severity": "high",
+      "text": "Agent SDK billing change paused — nothing changes",
+      "dashboardText": "Anthropic paused the Agent SDK billing split on the day it was due to take effect. Programmatic usage — Agent SDK, claude -p, GitHub Actions, and third-party apps — continues drawing from your regular subscription limits unchanged. No separate credit, no billing changes. Anthropic will give advance notice before any future change. Tap to read more.",
+      "url": "https://support.claude.com/en/articles/15036540-use-the-claude-agent-sdk-with-your-claude-plan"
+    },
+    {
+      "enabled": false,
+      "startDate": "2026-06-15",
       "endDate": "2026-06-17",
       "startHour": null,
       "endHour": null,
