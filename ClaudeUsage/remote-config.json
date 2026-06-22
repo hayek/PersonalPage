@@ -14,7 +14,7 @@
       "severity": "medium",
       "text": "Claude Design — major update",
       "dashboardText": "Anthropic overhauled Claude Design on June 17. Key changes: Design now draws from your shared usage limits instead of its own pool (far fewer tokens per turn), bidirectional Claude Code sync so designs hand off cleanly to code, design system imports from GitHub or uploaded files, and a rebuilt canvas editor for direct tweaks. Available on Pro, Max, Team, and Enterprise. Tap to learn more.",
-      "url": "https://www.anthropic.com/news/claude-design-anthropic-labs"
+      "url": "https://support.claude.com/en/articles/14604416-get-started-with-claude-design#h_4bb8b72be9"
     }
   ]
 }
