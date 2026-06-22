@@ -2,19 +2,19 @@
   "alerts": [
     {
       "enabled": true,
-      "startDate": "2026-06-15",
-      "endDate": "2026-06-18",
+      "startDate": "2026-06-22",
+      "endDate": "2026-06-23",
       "startHour": null,
       "endHour": null,
       "days": null,
       "timezone": null,
-      "icon": "arrow.uturn.backward.circle.fill",
-      "badgeIcon": "arrow.uturn.backward.circle.fill",
+      "icon": "paintbrush.pointed.fill",
+      "badgeIcon": "paintbrush.pointed.fill",
       "type": "news",
-      "severity": "high",
-      "text": "Agent SDK billing change paused — nothing changes",
-      "dashboardText": "Anthropic paused the Agent SDK billing split on the day it was due to take effect. Programmatic usage — Agent SDK, claude -p, GitHub Actions, and third-party apps — continues drawing from your regular subscription limits unchanged. No separate credit, no billing changes. Anthropic will give advance notice before any future change. Tap to read more.",
-      "url": "https://support.claude.com/en/articles/15036540-use-the-claude-agent-sdk-with-your-claude-plan"
+      "severity": "medium",
+      "text": "Claude Design now counts against your normal usage",
+      "dashboardText": "Anthropic overhauled Claude Design on June 17. Key changes: Design now draws from your shared usage limits instead of its own pool (far fewer tokens per turn), bidirectional Claude Code sync so designs hand off cleanly to code, design system imports from GitHub or uploaded files, and a rebuilt canvas editor for direct tweaks. Available on Pro, Max, Team, and Enterprise. Tap to learn more.",
+      "url": "https://support.claude.com/en/articles/14604416-get-started-with-claude-design#h_4bb8b72be9"
     }
   ]
 }
