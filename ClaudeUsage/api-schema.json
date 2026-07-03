@@ -47,6 +47,25 @@
       "unit": "cents"
     }
   },
+  "extraSweep": {
+    "container": "limits",
+    "includeGroups": ["weekly"],
+    "excludeKinds": ["weekly_all"],
+    "identity": ["kind", "scope.model.display_name"],
+    "value": "percent",
+    "scale": "percent",
+    "resetsAt": { "key": "resets_at", "format": "iso8601_fractional" },
+    "labelFrom": "scope.model.display_name",
+    "kind": "weekly",
+    "visibility": "presentAndPositive",
+    "maxExtras": 12
+  },
+  "claim": [
+    { "kind": "weekly_all" },
+    { "scope.model.display_name": "Claude Opus" },
+    { "scope.model.display_name": "Claude Design" },
+    { "scope.model.display_name": "Opus" }
+  ],
   "errorFields": {
     "errorPath": "error",
     "type": "type",
