@@ -2,24 +2,8 @@
   "alerts": [
     {
       "enabled": true,
-      "startDate": "2026-07-02",
-      "endDate": "2026-07-03",
-      "startHour": null,
-      "endHour": null,
-      "days": null,
-      "timezone": null,
-      "icon": "checkmark.circle.fill",
-      "badgeIcon": "checkmark.circle.fill",
-      "type": "news",
-      "severity": "good",
-      "text": "Claude Fable 5 & Mythos 5 access restored",
-      "dashboardText": "The US Commerce Department has lifted export controls on Fable 5 and Mythos 5. Fable 5 access resumes globally today on Claude.ai, Claude Code, and Cowork; Mythos 5 is restored for approved US organizations. On Pro, Max, Team, and select Enterprise plans, Fable 5 is included for up to 50% of your weekly usage limits through July 7 — after that it draws on usage credits. Tap to read Anthropic's statement.",
-      "url": "https://www.anthropic.com/news/redeploying-fable-5"
-    },
-    {
-      "enabled": true,
-      "startDate": "2026-07-01",
-      "endDate": "2026-07-03",
+      "startDate": "2026-07-07",
+      "endDate": "2026-07-08",
       "startHour": null,
       "endHour": null,
       "days": null,
@@ -27,10 +11,10 @@
       "icon": "sparkles",
       "badgeIcon": "sparkles",
       "type": "news",
-      "severity": "good",
-      "text": "Claude Sonnet 5 is here — intro pricing through Aug 31",
-      "dashboardText": "Claude Sonnet 5 is now the default model on Free and Pro, and available on Max, Team, and Enterprise. Introductory pricing of $2/$10 per million input/output tokens runs through August 31, then moves to $3/$15. Note: Sonnet 5's new tokenizer can use up to 1.35× more tokens for the same text — pricing is calibrated to keep costs roughly cost-neutral. Tap to read more.",
-      "url": "https://www.anthropic.com/news/claude-sonnet-5"
+      "severity": "low",
+      "text": "Claude Fable 5 extended to Jul 12",
+      "dashboardText": "Anthropic has extended Fable 5's promotional access — up to 50% of your weekly usage limit on Pro, Max, Team, and select Enterprise plans — through July 12, 2026 at 11:59:59 PM PT. After that, using Fable 5 draws on usage credits instead. Tap for details.",
+      "url": "https://support.claude.com/en/articles/15424964-claude-fable-5-promotional-access"
     }
   ]
 }
