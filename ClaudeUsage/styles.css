@@ -454,11 +454,10 @@ body[data-stars="subtle"] .star:nth-child(2n) { display: none; }
 .b-status   { grid-column: span 2; }
 .b-share    { grid-column: span 2; }
 .b-history  { grid-column: span 4; }
-.b-icloud   { grid-column: span 2; }
+.b-limits   { grid-column: span 2; }
 .b-companion{ grid-column: span 4; }
 .b-watch    { grid-column: span 2; }
-.b-insights { grid-column: span 4; }
-.b-limits   { grid-column: span 2; }
+.b-insights { grid-column: span 6; }
 .b-widgets  { grid-column: span 6; }
 
 .b-history .card-figure { margin-top: auto; }
@@ -543,19 +542,6 @@ body[data-stars="subtle"] .star:nth-child(2n) { display: none; }
     max-height: 300px;
     width: auto;
     filter: drop-shadow(0 18px 44px rgba(0, 0, 0, 0.5));
-}
-
-/* icloud: centered, image + text */
-.b-icloud {
-    align-items: flex-start;
-    justify-content: space-between;
-}
-.b-icloud .icloud-art {
-    align-self: center;
-    width: 160px;
-    max-width: 70%;
-    margin: 8px auto 18px;
-    filter: drop-shadow(0 14px 40px rgba(0,0,0,0.5));
 }
 
 /* insights: text + the wide insights image */
@@ -932,7 +918,7 @@ body[data-stars="subtle"] .star:nth-child(2n) { display: none; }
 @media (max-width: 920px) {
     .bento { grid-template-columns: repeat(2, 1fr); }
     .b-accounts, .b-notify, .b-status, .b-history, .b-share, .b-companion,
-    .b-watch, .b-insights, .b-icloud, .b-limits, .b-widgets {
+    .b-watch, .b-insights, .b-limits, .b-widgets {
         grid-column: 1 / -1;
     }
     .b-notify { grid-row: auto; } /* nothing to stack beside once single-column */
