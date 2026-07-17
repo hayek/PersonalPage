@@ -461,7 +461,9 @@ body[data-stars="subtle"] .star:nth-child(2n) { display: none; }
 .b-widgets  { grid-column: span 4; }
 
 .b-history .card-figure { margin-top: auto; }
-.b-notify .card-figure { margin-top: auto; }
+/* same bleed as the accounts shot: flush to the card's bottom-left, masked */
+.b-notify { overflow: hidden; }
+.b-notify .card-figure { margin: auto -28px -28px -28px; }
 .b-notify > p { margin-bottom: 20px; }
 .b-share { text-align: left; }
 .b-share .card-figure { margin-top: auto; }
@@ -473,8 +475,21 @@ body[data-stars="subtle"] .star:nth-child(2n) { display: none; }
     display: grid;
     grid-template-columns: 0.85fr 1.15fr;
     gap: 36px;
-    align-items: center;
+    align-items: end;
+    overflow: hidden; /* the card's radius masks the bleeding screenshot */
 }
+/* The shot runs past the card's bottom and right, cropped by the card itself
+   rather than sat inside it with padding all round. */
+.b-accounts .acct-fig { margin: 28px -28px -28px 0; overflow: hidden; }
+.acct-fig img, .b-notify .card-figure img { border-radius: 0; }
+
+/* Both shots ship a transparent margin on their left (the window's drop
+   shadow) — 5.2% on multi.png, 8.9% on notifications.png — which reads as
+   stray padding once the art is flush to the card. Scale each up by exactly
+   its own margin and pull it left by the same, so the window's edge lands on
+   the card's edge while the right side still reaches the card's. */
+.acct-fig img { width: 105.47%; margin-left: -5.47%; max-width: none; }
+.b-notify .card-figure img { width: 109.76%; margin-left: -9.76%; max-width: none; }
 /* the switcher shot carries its own popover chrome and shadow — no frame */
 .acct-fig img { display: block; width: 100%; height: auto; }
 
