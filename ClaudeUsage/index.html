@@ -49,9 +49,9 @@
             <div class="hero-a">
                 <div class="hero-grid">
                     <div class="hero-copy reveal in">
-                        <span class="badge"><span class="dot"></span>Mac App</span>
+                        <span class="badge"><span class="dot"></span>Mac &amp; iPhone</span>
                         <h1>Usage for Claude</h1>
-                        <p class="subtitle">Track your Claude session, weekly, and Opus limits — right from your Mac menu bar.</p>
+                        <p class="subtitle">Track every Claude account you use — session, weekly, and Opus limits — from your Mac menu bar and your iPhone.</p>
                         <div class="cta-row">
                             <a href="https://apps.apple.com/us/app/usage-for-claude/id6755173244?mt=12" class="btn-pill" target="_blank" rel="noopener noreferrer">
                                 <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M11.05 8.49c-.02-1.7 1.39-2.52 1.45-2.56-.79-1.16-2.02-1.32-2.46-1.34-1.05-.11-2.04.61-2.57.61-.53 0-1.35-.6-2.22-.58-1.14.02-2.19.66-2.78 1.68-1.18 2.05-.3 5.09.85 6.75.56.81 1.23 1.72 2.11 1.69.85-.03 1.17-.55 2.2-.55 1.02 0 1.31.55 2.21.53.91-.02 1.49-.83 2.05-1.65.65-.95.91-1.86.93-1.91-.02-.01-1.78-.69-1.8-2.72zM9.4 3.6c.47-.57.78-1.36.69-2.15-.67.03-1.49.45-1.97 1.01-.43.5-.81 1.31-.71 2.08.75.06 1.51-.38 1.99-.94z"/></svg>
@@ -65,8 +65,9 @@
                 </div>
                 <div class="hero-stats reveal" data-d="2">
                     <div class="hero-stat"><b>macOS 15+</b><span>Intel &amp; Apple Silicon</span></div>
-                    <div class="hero-stat"><b>iPhone · iPad · Watch</b><span>companion apps</span></div>
-                    <div class="hero-stat"><b>iCloud sync</b><span>across all your Macs</span></div>
+                    <div class="hero-stat"><b>Multiple accounts</b><span>work &amp; personal, side by side</span></div>
+                    <div class="hero-stat"><b>iPhone · iPad · Watch</b><span>sign in on any device</span></div>
+                    <div class="hero-stat"><b>iCloud sync</b><span>across all your devices</span></div>
                 </div>
             </div>
         </section>
@@ -75,10 +76,52 @@
         <section id="features">
             <div class="section-head reveal">
                 <span class="section-eyebrow">Everything you need</span>
-                <h2 class="section-title">One quiet menu bar icon. Your whole usage picture.</h2>
+                <h2 class="section-title">Every account you use. One quiet menu bar icon.</h2>
             </div>
 
             <div class="bento">
+                <!-- Multiple accounts -->
+                <article class="card b-accounts reveal">
+                    <div class="card-badges">
+                        <span class="platform-badge platform-badge--new">New in 3.0</span>
+                        <span class="platform-badge">Pro</span>
+                    </div>
+                    <h3>Every Claude account, one menu bar</h3>
+                    <p>Add your work and personal Claude accounts and switch between them from the menu bar title — no signing out, no re-logging in. Each account keeps its own usage, history, and plan badge, and they all refresh quietly in the background, so the one you switch to is already up to date.</p>
+                    <div class="account-switch" aria-hidden="true">
+                        <div class="acct is-active">
+                            <span class="acct-avatar">W</span>
+                            <div class="acct-meta">
+                                <b>Work</b>
+                                <span class="acct-plan">Max 20×</span>
+                            </div>
+                            <div class="acct-usage"><i style="width:68%"></i></div>
+                            <span class="acct-check">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+                            </span>
+                        </div>
+                        <div class="acct">
+                            <span class="acct-avatar">P</span>
+                            <div class="acct-meta">
+                                <b>Personal</b>
+                                <span class="acct-plan">Pro</span>
+                            </div>
+                            <div class="acct-usage"><i style="width:24%"></i></div>
+                            <span class="acct-check"></span>
+                        </div>
+                    </div>
+                    <p class="card-note">Illustration — the first account is always free; extra accounts unlock with Pro.</p>
+                </article>
+
+                <!-- Service status -->
+                <article class="card b-status reveal" data-d="1">
+                    <div class="feat-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l3 8 4-16 3 8h4"/></svg>
+                    </div>
+                    <h3>Know when it's not you</h3>
+                    <p>The app watches Claude's service status and shows a dot on the menu bar icon plus a banner with the details when there's an outage or degraded performance — so you stop troubleshooting your own setup. Turn on a status rule to get notified too.</p>
+                </article>
+
                 <!-- History dashboard -->
                 <article class="card b-history reveal">
                     <div class="feat-icon">
@@ -106,11 +149,12 @@
                 <!-- Companion apps (iPhone + iPad) -->
                 <article class="card b-companion reveal">
                     <div class="card-badges">
+                        <span class="platform-badge platform-badge--new">New in 3.0</span>
                         <span class="platform-badge">iOS</span>
                         <span class="platform-badge">iPadOS</span>
                     </div>
-                    <h3>View your usage anywhere</h3>
-                    <p>The free companion apps sync with your Mac to show your complete usage history on iPhone and iPad — even when you're away from your computer. <a href="https://apps.apple.com/il/app/usage-for-claude/id6755173244" class="inline-link" target="_blank" rel="noopener noreferrer">Get it on the App Store →</a></p>
+                    <h3>The iPhone app is now fully featured</h3>
+                    <p>Sign in directly on your iPhone — no Mac required. You get the same dashboard: current session, session history, insights, activity grid, and usage windows. Set alerts by describing them in plain language, like “warn me at 80%”, and everything stays in sync through iCloud. <a href="https://apps.apple.com/il/app/usage-for-claude/id6755173244" class="inline-link" target="_blank" rel="noopener noreferrer">Get it on the App Store →</a></p>
                     <div class="card-figure plain">
                         <img src="Assets/CompanionApp.png" alt="iPhone and iPad companion apps">
                     </div>
@@ -152,6 +196,18 @@
                     <p>Your history syncs automatically via iCloud. Switch between Macs and always see one complete, unified record.</p>
                 </article>
 
+                <!-- New limits appear automatically -->
+                <article class="card b-limits reveal">
+                    <div class="card-badges">
+                        <span class="platform-badge platform-badge--new">New in 3.0</span>
+                    </div>
+                    <div class="feat-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 2v6h-6"/><path d="M3 12a9 9 0 0115-6.7L21 8"/><path d="M3 22v-6h6"/><path d="M21 12a9 9 0 01-15 6.7L3 16"/></svg>
+                    </div>
+                    <h3>New limits appear automatically</h3>
+                    <p>When Anthropic adds a new model or usage window, it shows up in your dashboard and menu bar on its own — no app update needed.</p>
+                </article>
+
                 <!-- Widgets -->
                 <article class="card b-widgets reveal">
                     <div>
@@ -180,18 +236,18 @@
             </div>
             <div class="changelog-card">
                 <div class="changelog-top">
-                    <span class="version-chip">v2.6</span>
-                    <span class="changelog-lede">Claude usage is now easier to see and act on across every device.</span>
+                    <span class="version-chip">v3.0</span>
+                    <span class="changelog-lede">Manage every Claude account you use, from your menu bar and your iPhone.</span>
                 </div>
                 <div class="changelog-grid">
-                    <div class="cl-item"><strong>Apple Watch companion</strong><p>Your usage on your wrist, with complications for every watch face and iCloud sync.</p></div>
-                    <div class="cl-item"><strong>Threshold notifications</strong><p>Alerts when session, weekly, or Opus usage hits your limits — plus reset reminders.</p></div>
-                    <div class="cl-item"><strong>Widgets everywhere</strong><p>New iOS lock screen widgets and Watch complications join the Mac and home screen widgets.</p></div>
-                    <div class="cl-item"><strong>Local API for Claude Code</strong><p>Connect live usage to agents and dashboards via a local HTTP endpoint, with a bundled skill.</p></div>
-                    <div class="cl-item"><strong>Redesigned dashboard</strong><p>A real-time session chart, filterable history, refreshed insights, and adjustable font size.</p></div>
-                    <div class="cl-item"><strong>New settings experience</strong><p>A native preferences window with General, Appearance, Notifications, and Sync panes.</p></div>
+                    <div class="cl-item"><strong>Multiple accounts</strong><p>Add your work and personal accounts and switch from the menu bar title — no signing out. Each keeps its own usage, history, and plan badge, and all refresh in the background.</p></div>
+                    <div class="cl-item"><strong>iPhone is fully featured</strong><p>Sign in directly on iPhone without your Mac. The full dashboard, session history, insights, activity grid, and usage windows — synced through iCloud.</p></div>
+                    <div class="cl-item"><strong>Smart alerts on iPhone</strong><p>Describe the alert you want — “warn me at 80%” — and the app builds the rule for you, including reset notifications.</p></div>
+                    <div class="cl-item"><strong>Service status alerts</strong><p>The app monitors Anthropic's service status and shows a banner, so you know when the problem is on Claude's side rather than yours.</p></div>
+                    <div class="cl-item"><strong>New limits appear automatically</strong><p>When Anthropic adds a new model or usage window, it shows up in your dashboard and menu bar with no app update needed.</p></div>
+                    <div class="cl-item"><strong>Faster, lighter, steadier</strong><p>Dramatically less background disk and CPU work for better battery life, faster charts, plus a launch crash and a set of sign-in issues fixed.</p></div>
                 </div>
-                <p class="changelog-extras">We also refreshed the Help Center (now in 15 languages), redesigned the macOS feedback form, and shipped dozens of polish improvements. Thanks for using Usage for Claude!</p>
+                <p class="changelog-extras">Also included: a rebuilt Accounts pane in Settings, a refreshed account switcher and paywall, live progress-bar previews in Settings, and dozens of polish fixes across 16 languages. Thanks for using Usage for Claude!</p>
             </div>
         </section>
 
@@ -209,7 +265,7 @@
         <!-- ============== SUMMARY CTA ============== -->
         <section class="summary reveal">
             <h2>Ready to track your Claude usage?</h2>
-            <p>Free on the Mac App Store. Companion apps for iPhone, iPad &amp; Apple Watch included.</p>
+            <p>Free on the Mac App Store. Fully featured apps for iPhone, iPad &amp; Apple Watch included.</p>
             <div class="cta-row">
                 <a href="https://apps.apple.com/us/app/usage-for-claude/id6755173244?mt=12" class="btn-pill" target="_blank" rel="noopener noreferrer">
                     <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M11.05 8.49c-.02-1.7 1.39-2.52 1.45-2.56-.79-1.16-2.02-1.32-2.46-1.34-1.05-.11-2.04.61-2.57.61-.53 0-1.35-.6-2.22-.58-1.14.02-2.19.66-2.78 1.68-1.18 2.05-.3 5.09.85 6.75.56.81 1.23 1.72 2.11 1.69.85-.03 1.17-.55 2.2-.55 1.02 0 1.31.55 2.21.53.91-.02 1.49-.83 2.05-1.65.65-.95.91-1.86.93-1.91-.02-.01-1.78-.69-1.8-2.72zM9.4 3.6c.47-.57.78-1.36.69-2.15-.67.03-1.49.45-1.97 1.01-.43.5-.81 1.31-.71 2.08.75.06 1.51-.38 1.99-.94z"/></svg>
@@ -232,12 +288,13 @@
     <script>
     /* ---------- FAQ data + accordion render ---------- */
     const FAQ = [
-        ["What is Usage for Claude?", "Usage for Claude is a macOS menu bar app that tracks your Claude subscription usage with automatic background updates. It reads your session and weekly limits straight from your account, so you can keep an eye on where you stand without opening a browser."],
+        ["What is Usage for Claude?", "Usage for Claude is a macOS menu bar app that tracks your Claude subscription usage with automatic background updates. It reads your session and weekly limits straight from your account, so you can keep an eye on where you stand without opening a browser. It can track several Claude accounts at once, and there are fully featured companion apps for iPhone, iPad, and Apple Watch."],
         ["Is this an official Anthropic app?", "No. It's an independent, third-party app built by a Claude enthusiast for the Claude community. It is not created, endorsed, or maintained by Anthropic."],
         ["Which Claude accounts are supported?", "It works with any Claude account (Free or Pro) that has access to the usage page at <a href=\"https://claude.ai/settings/usage\" target=\"_blank\" rel=\"noopener noreferrer\">claude.ai/settings/usage</a>. Team and Enterprise accounts aren't supported."],
-        ["How do I sign in?", "Click the menu bar icon and choose to log in — a window opens where you sign in through Claude's official website. If you use Claude Code (the CLI), you can log in instantly with your existing OAuth token instead, with no browser sign-in needed."],
-        ["Is there an iPhone, iPad, or Apple Watch app?", "Yes. A free <a href=\"https://apps.apple.com/il/app/usage-for-claude/id6755173244\" target=\"_blank\" rel=\"noopener noreferrer\">companion app for iPhone and iPad</a> shows your history, charts, and insights, with Home Screen and Lock Screen widgets. There's also an Apple Watch app with face complications. Your history syncs across devices automatically via your own iCloud account."],
-        ["Do I need the Mac app for the companions to work?", "Yes. The Mac app is what fetches your usage from claude.ai; the iPhone, iPad, and Watch apps display that synced history but can't fetch new data on their own. Keep the Mac app running for the freshest numbers."],
+        ["Can I track more than one Claude account?", "Yes, as of version 3.0. Add your work and personal accounts and switch between them straight from the menu bar title — no signing out and back in. Each account keeps its own usage, history, and plan badge, and every account refreshes in the background so the one you switch to is already up to date. You manage them all from the Accounts pane in Settings. The first account is free; keeping additional accounts at the same time is a premium feature."],
+        ["How do I sign in?", "Click the menu bar icon and choose to log in — a window opens where you sign in through Claude's official website, and you can do the same directly on your iPhone. Because Google blocks sign-in inside embedded windows, Google account holders should use Claude's email code option."],
+        ["Is there an iPhone, iPad, or Apple Watch app?", "Yes, and the <a href=\"https://apps.apple.com/il/app/usage-for-claude/id6755173244\" target=\"_blank\" rel=\"noopener noreferrer\">iPhone and iPad app</a> is now fully featured: sign in on the device itself and get the same dashboard, session history, insights, activity grid, and usage windows, plus Home Screen and Lock Screen widgets. There's also an Apple Watch app with face complications. Everything syncs across your devices through your own iCloud account."],
+        ["Do I need the Mac app for the iPhone app to work?", "Not anymore. As of version 3.0 you can sign in directly on your iPhone and it fetches your usage on its own, so the iPhone app works with no Mac involved. If you do use both, they stay in sync through iCloud. The Mac app refreshes on the tighter cadence, so it's still the best source of the freshest numbers when it's running."],
         ["What does the app show me?", "Your current session usage, weekly limits, reset times for both, and the last update time — all with clean progress bars for at-a-glance monitoring. You can also show your current session usage percentage right in the menu bar so it's always visible."],
         ["Can I see my usage history over time?", "Yes. The History view charts your session and weekly usage over time and includes a GitHub-style activity grid showing your patterns across the past year, plus insights about your habits."],
         ["What does the session history chart show?", "It plots your session and weekly usage over time as a bar chart, with filters for the last 12 hours, 24 hours, 3 days, 7 days, 30 days, or 90 days — so you can spot peaks and patterns for any window."],
@@ -247,9 +304,12 @@
         ["Is there a Local API?", "Yes. The Local API runs a small loopback-only HTTP server on your Mac (127.0.0.1) that exposes your live session, weekly, and Opus stats, so agents, scripts, and dashboards can read them on demand. It stays on your machine and is off until you turn it on."],
         ["Is there a macOS widget?", "Yes. Add a widget to Notification Center or your desktop in Rings, Compact, or Bars styles, showing the same usage info as the menu bar. The widget displays data fetched by the main app, so keep the app running to stay up to date."],
         ["Will I get notified before I hit a limit?", "Yes. A flexible notification rules system lets you fire alerts when usage crosses above or falls below a threshold, when a limit resets, when you're on pace to hit a limit, or a set time before a reset. You're in control — create only the rules you want."],
+        ["Can I set up alerts by just describing them?", "Yes. Instead of building a rule by hand, switch to the free text tab and type what you want — like “warn me at 80%” or “30 minutes before session reset if I have more than 25% remaining” — and the app turns it into rules you can review and toggle before saving. This runs on Apple Intelligence, so it needs a device that supports it with Apple Intelligence enabled, and your text is parsed on-device and never leaves it. The regular rule builder is always available if not."],
+        ["Does the app tell me when Claude itself is down?", "Yes. The app monitors Anthropic's service status and shows a colored dot on the menu bar icon with a banner explaining the incident when there's an outage or degraded performance, so you don't waste time troubleshooting your own setup. You can also turn on a service status notification rule to be alerted, and optionally notified again when things are back to normal. It's off until you turn it on, and status alerts arrive while the app is running."],
+        ["Do I need to update the app when Claude adds a new model?", "No. The app reads its usage schema remotely, so when Anthropic adds a new model or usage window it appears in your dashboard and menu bar automatically, with no App Store update needed. These automatically discovered windows show in the live view; your saved history and widgets continue to track the core session, weekly, and Opus limits."],
         ["Does the app store my password?", "No. Sign-in happens entirely through Claude's official website, and the app only keeps the session cookie needed to stay logged in. Your password is never stored."],
         ["Where is my data stored, and is it shared?", "Everything stays local on your Mac — nothing is sent to third-party servers and nothing is shared with anyone. The app only talks to claude.ai to fetch your usage (and, if you sync, to your own iCloud account)."],
-        ["Is the app free? How much does it cost?", "The app is free to download and use. Core features — real-time monitoring, auto-refresh, notifications, and widgets — are free. Premium features (the full History view with charts and activity grid, Claude Code stats, the Local API, and the Apple Watch companion) unlock with a monthly or annual subscription, or a one-time lifetime purchase. A free trial is available."],
+        ["Is the app free? How much does it cost?", "The app is free to download and use. Core features — real-time monitoring, auto-refresh, notifications, and widgets — are free, and your first account is always free. Premium features (the full History view with charts and activity grid, tracking multiple accounts at once, Claude Code stats, the Local API, and the Apple Watch companion) unlock with a monthly or annual subscription, or a one-time lifetime purchase. A free trial is available."],
         ["What are the system requirements?", "macOS 15.0 (Sequoia) or later, on both Intel and Apple Silicon Macs. An internet connection is required to fetch your usage data."]
     ];
     (function renderFAQ() {
