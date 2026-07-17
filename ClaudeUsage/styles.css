@@ -445,7 +445,8 @@ body[data-stars="subtle"] .star:nth-child(2n) { display: none; }
 }
 .bento > .card { display: flex; flex-direction: column; }
 
-.b-accounts { grid-column: span 4; }
+.b-accounts { grid-column: span 6; }
+.b-notify   { grid-column: span 4; }
 .b-status   { grid-column: span 2; }
 .b-history  { grid-column: span 4; }
 .b-share    { grid-column: span 2; }
@@ -457,72 +458,28 @@ body[data-stars="subtle"] .star:nth-child(2n) { display: none; }
 .b-widgets  { grid-column: span 4; }
 
 .b-history .card-figure { margin-top: auto; }
+.b-notify .card-figure { margin-top: auto; }
+.b-notify > p { margin-bottom: 20px; }
 .b-share { text-align: left; }
 .b-share .card-figure { margin-top: auto; }
 .b-share .card-figure img { max-height: 360px; object-fit: cover; object-position: top; }
 
-/* accounts: copy + the stylised account-switcher diagram */
-.b-accounts .account-switch { margin-top: auto; }
-.b-accounts > p { margin-bottom: 20px; }
-
-.account-switch {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    padding: 14px;
-    border-radius: 14px;
-    background: rgba(0,0,0,0.18);
-    border: 1px solid var(--border);
-}
-.acct {
+/* accounts: copy left, account-switcher screenshot right.
+   Selector must out-specify `.bento > .card`, which forces flex-column. */
+.bento > .b-accounts {
     display: grid;
-    grid-template-columns: 32px minmax(0, 1fr) 64px 20px;
+    grid-template-columns: 0.85fr 1.15fr;
+    gap: 36px;
     align-items: center;
-    gap: 12px;
-    padding: 10px 12px;
-    border-radius: 10px;
-    border: 1px solid transparent;
 }
-.acct.is-active {
-    background: var(--accent-soft);
-    border-color: rgba(216,119,87,0.35);
-}
-.acct-avatar {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    display: grid;
-    place-items: center;
-    font-size: 13px;
-    font-weight: 700;
-    color: var(--accent-light);
-    background: rgba(216,119,87,0.18);
-    border: 1px solid rgba(216,119,87,0.3);
-}
-.acct-meta { display: flex; flex-direction: column; gap: 1px; min-width: 0; }
-.acct-meta b {
-    font-size: 14px;
-    font-weight: 600;
-    color: var(--text);
-    white-space: nowrap;
+.acct-fig {
+    border-radius: 14px;
     overflow: hidden;
-    text-overflow: ellipsis;
+    border: 1px solid var(--border);
+    background: rgba(0,0,0,0.18);
+    box-shadow: 0 18px 44px rgba(0,0,0,0.42);
 }
-.acct-plan { font-size: 11.5px; color: var(--text-3); }
-.acct-usage {
-    height: 6px;
-    border-radius: 999px;
-    background: rgba(255,255,255,0.1);
-    overflow: hidden;
-}
-.acct-usage i {
-    display: block;
-    height: 100%;
-    border-radius: inherit;
-    background: var(--accent-light);
-}
-.acct-check { color: var(--accent-light); }
-.acct-check svg { width: 16px; height: 16px; display: block; }
+.acct-fig img { display: block; width: 100%; height: auto; }
 
 .card-note {
     margin-top: 12px;
@@ -590,8 +547,8 @@ body[data-stars="subtle"] .star:nth-child(2n) { display: none; }
 /* widgets: text left, widgets right */
 .b-widgets {
     display: grid;
-    grid-template-columns: 0.85fr 1.15fr;
-    gap: 24px;
+    grid-template-columns: 0.9fr 1.1fr;
+    gap: 32px;
     align-items: center;
 }
 .widgets-grid {
@@ -957,10 +914,12 @@ body[data-stars="subtle"] .star:nth-child(2n) { display: none; }
    ========================================================= */
 @media (max-width: 920px) {
     .bento { grid-template-columns: repeat(2, 1fr); }
-    .b-accounts, .b-status, .b-history, .b-share, .b-companion, .b-watch,
-    .b-insights, .b-icloud, .b-limits, .b-widgets {
+    .b-accounts, .b-notify, .b-status, .b-history, .b-share, .b-companion,
+    .b-watch, .b-insights, .b-icloud, .b-limits, .b-widgets {
         grid-column: 1 / -1;
     }
+    /* copy above art once there's no room for side-by-side */
+    .bento > .b-accounts { grid-template-columns: 1fr; gap: 24px; }
     .b-widgets { grid-template-columns: 1fr; gap: 24px; }
     .widgets-grid { justify-content: center; }
     .changelog-grid { grid-template-columns: 1fr; }

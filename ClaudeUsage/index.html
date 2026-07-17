@@ -82,35 +82,30 @@
             <div class="bento">
                 <!-- Multiple accounts -->
                 <article class="card b-accounts reveal">
-                    <div class="card-badges">
-                        <span class="platform-badge platform-badge--new">New in 3.0</span>
-                        <span class="platform-badge">Pro</span>
-                    </div>
-                    <h3>Every Claude account, one menu bar</h3>
-                    <p>Add your work and personal Claude accounts and switch between them from the menu bar title — no signing out, no re-logging in. Each account keeps its own usage, history, and plan badge, and they all refresh quietly in the background, so the one you switch to is already up to date.</p>
-                    <div class="account-switch" aria-hidden="true">
-                        <div class="acct is-active">
-                            <span class="acct-avatar">W</span>
-                            <div class="acct-meta">
-                                <b>Work</b>
-                                <span class="acct-plan">Max 20×</span>
-                            </div>
-                            <div class="acct-usage"><i style="width:68%"></i></div>
-                            <span class="acct-check">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
-                            </span>
+                    <div class="acct-copy">
+                        <div class="card-badges">
+                            <span class="platform-badge platform-badge--new">New in 3.0</span>
+                            <span class="platform-badge">Pro</span>
                         </div>
-                        <div class="acct">
-                            <span class="acct-avatar">P</span>
-                            <div class="acct-meta">
-                                <b>Personal</b>
-                                <span class="acct-plan">Pro</span>
-                            </div>
-                            <div class="acct-usage"><i style="width:24%"></i></div>
-                            <span class="acct-check"></span>
-                        </div>
+                        <h3>Every Claude account, one menu bar</h3>
+                        <p>Add your work and personal Claude accounts and switch between them from the menu bar title — no signing out, no re-logging in. Each account keeps its own usage, history, and plan badge, and they all refresh quietly in the background, so the one you switch to is already up to date.</p>
+                        <p class="card-note">Your first account is free; tracking more at once unlocks with Pro.</p>
                     </div>
-                    <p class="card-note">Illustration — the first account is always free; extra accounts unlock with Pro.</p>
+                    <div class="acct-fig">
+                        <img src="Assets/multi.png" alt="The menu bar account switcher listing Max 5x, Max 20x, and Pro accounts, with Add Account and Manage Accounts">
+                    </div>
+                </article>
+
+                <!-- Notification rules -->
+                <article class="card b-notify reveal">
+                    <div class="feat-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 10-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 01-3.4 0"/></svg>
+                    </div>
+                    <h3>Alerts in your own words</h3>
+                    <p>Build a rule by hand, or just describe the alert you want — “warn me at 80%” — and the app turns it into rules you can review before saving. Fire on thresholds, resets, when you're on pace to hit a limit, or a set time before a reset. The free text tab runs on Apple Intelligence, so your words are parsed on device and never leave it.</p>
+                    <div class="card-figure">
+                        <img src="Assets/notifications.png" alt="Notification rules in Settings alongside the Add notification rule sheet, with a free text field for describing a rule">
+                    </div>
                 </article>
 
                 <!-- Service status -->
