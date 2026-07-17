@@ -449,21 +449,25 @@ body[data-stars="subtle"] .star:nth-child(2n) { display: none; }
 .bento > .card { display: flex; flex-direction: column; }
 
 .b-accounts { grid-column: span 6; }
-.b-notify   { grid-column: span 4; }
+/* the rules shot makes this card tall, so two short cards stack beside it */
+.b-notify   { grid-column: span 4; grid-row: span 2; }
 .b-status   { grid-column: span 2; }
-.b-history  { grid-column: span 4; }
 .b-share    { grid-column: span 2; }
+.b-history  { grid-column: span 4; }
+.b-icloud   { grid-column: span 2; }
 .b-companion{ grid-column: span 4; }
 .b-watch    { grid-column: span 2; }
 .b-insights { grid-column: span 4; }
-.b-icloud   { grid-column: span 2; }
 .b-limits   { grid-column: span 2; }
-.b-widgets  { grid-column: span 4; }
+.b-widgets  { grid-column: span 6; }
 
 .b-history .card-figure { margin-top: auto; }
-/* same bleed as the accounts shot: flush to the card's bottom-left, masked */
+/* The rules shot keeps its left padding and runs off the bottom-right, masked
+   by the card. It is left at its natural width — scaled to fill, the window
+   chrome reads far too large against the copy above it. */
 .b-notify { overflow: hidden; }
-.b-notify .card-figure { margin: auto -28px -28px -28px; }
+.b-notify .card-figure { margin: auto -28px -28px 0; }
+.b-notify .card-figure img { border-radius: 0; }
 .b-notify > p { margin-bottom: 20px; }
 .b-share { text-align: left; }
 .b-share .card-figure { margin-top: auto; }
@@ -479,19 +483,20 @@ body[data-stars="subtle"] .star:nth-child(2n) { display: none; }
     overflow: hidden; /* the card's radius masks the bleeding screenshot */
 }
 /* The shot runs past the card's bottom and right, cropped by the card itself
-   rather than sat inside it with padding all round. */
+   rather than sat inside it with padding all round. multi.png also ships a
+   5.2% transparent margin on its left (the popover's own shadow), so the
+   image is scaled by that much and pulled left by the same amount: the
+   popover's edge lands on the card's edge and the right side still reaches
+   it. The PNG is already flush to its own bottom and right. */
 .b-accounts .acct-fig { margin: 28px -28px -28px 0; overflow: hidden; }
-.acct-fig img, .b-notify .card-figure img { border-radius: 0; }
-
-/* Both shots ship a transparent margin on their left (the window's drop
-   shadow) — 5.2% on multi.png, 8.9% on notifications.png — which reads as
-   stray padding once the art is flush to the card. Scale each up by exactly
-   its own margin and pull it left by the same, so the window's edge lands on
-   the card's edge while the right side still reaches the card's. */
-.acct-fig img { width: 105.47%; margin-left: -5.47%; max-width: none; }
-.b-notify .card-figure img { width: 109.76%; margin-left: -9.76%; max-width: none; }
-/* the switcher shot carries its own popover chrome and shadow — no frame */
-.acct-fig img { display: block; width: 100%; height: auto; }
+.acct-fig img {
+    display: block;
+    height: auto;
+    border-radius: 0;
+    width: 105.47%;
+    margin-left: -5.47%;
+    max-width: none;
+}
 
 .card-note {
     margin-top: 12px;
@@ -571,11 +576,11 @@ body[data-stars="subtle"] .star:nth-child(2n) { display: none; }
     flex-wrap: wrap;
 }
 .widgets-grid img {
-    width: 128px;
+    width: 150px;
     height: auto;
     filter: drop-shadow(0 12px 36px rgba(0,0,0,0.5));
 }
-.widgets-grid img.wide { width: 205px; }
+.widgets-grid img.wide { width: 240px; }
 
 /* feature icon chip */
 .feat-icon {
@@ -930,6 +935,7 @@ body[data-stars="subtle"] .star:nth-child(2n) { display: none; }
     .b-watch, .b-insights, .b-icloud, .b-limits, .b-widgets {
         grid-column: 1 / -1;
     }
+    .b-notify { grid-row: auto; } /* nothing to stack beside once single-column */
     /* copy above art once there's no room for side-by-side */
     .bento > .b-accounts { grid-template-columns: 1fr; gap: 24px; }
     .b-widgets { grid-template-columns: 1fr; gap: 24px; }
