@@ -55,7 +55,7 @@
                         <div class="cta-row">
                             <a href="https://apps.apple.com/us/app/usage-for-claude/id6755173244?mt=12" class="btn-pill" target="_blank" rel="noopener noreferrer">
                                 <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M11.05 8.49c-.02-1.7 1.39-2.52 1.45-2.56-.79-1.16-2.02-1.32-2.46-1.34-1.05-.11-2.04.61-2.57.61-.53 0-1.35-.6-2.22-.58-1.14.02-2.19.66-2.78 1.68-1.18 2.05-.3 5.09.85 6.75.56.81 1.23 1.72 2.11 1.69.85-.03 1.17-.55 2.2-.55 1.02 0 1.31.55 2.21.53.91-.02 1.49-.83 2.05-1.65.65-.95.91-1.86.93-1.91-.02-.01-1.78-.69-1.8-2.72zM9.4 3.6c.47-.57.78-1.36.69-2.15-.67.03-1.49.45-1.97 1.01-.43.5-.81 1.31-.71 2.08.75.06 1.51-.38 1.99-.94z"/></svg>
-                                Download on the Mac App Store
+                                <span class="cta-label">Download on the Mac App Store</span>
                             </a>
                         </div>
                     </div>
@@ -124,7 +124,7 @@
                     </div>
                     <h3>Track your usage over time</h3>
                     <p>The History view charts your Claude usage with interactive graphs and a GitHub-style activity grid spanning the past year. Filter by range, spot trends, and export to CSV.</p>
-                    <div class="card-figure plain history-fig">
+                    <div class="card-figure">
                         <img src="Assets/historyView.png" alt="Usage history dashboard with charts and activity grid">
                     </div>
                 </article>
@@ -150,7 +150,7 @@
                     </div>
                     <h3>The iPhone app is now fully featured</h3>
                     <p>Sign in directly on your iPhone — no Mac required. You get the same dashboard: current session, session history, insights, activity grid, and usage windows. Set alerts by describing them in plain language, like “warn me at 80%”, and everything stays in sync through iCloud. <a href="https://apps.apple.com/il/app/usage-for-claude/id6755173244" class="inline-link" target="_blank" rel="noopener noreferrer">Get it on the App Store →</a></p>
-                    <div class="card-figure plain">
+                    <div class="card-figure lift">
                         <img src="Assets/CompanionApp.png" alt="iPhone and iPad companion apps">
                     </div>
                 </article>
@@ -162,7 +162,7 @@
                     </div>
                     <h3>On your wrist, at a glance</h3>
                     <p>Session, weekly &amp; Opus limits as complications for every watch face.</p>
-                    <div class="card-figure plain watch-fig">
+                    <div class="card-figure watch-fig">
                         <img src="Assets/appleWatchV2.png" alt="Usage for Claude complications on Apple Watch faces showing session, weekly, and Opus usage">
                     </div>
                 </article>
@@ -264,7 +264,7 @@
             <div class="cta-row">
                 <a href="https://apps.apple.com/us/app/usage-for-claude/id6755173244?mt=12" class="btn-pill" target="_blank" rel="noopener noreferrer">
                     <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M11.05 8.49c-.02-1.7 1.39-2.52 1.45-2.56-.79-1.16-2.02-1.32-2.46-1.34-1.05-.11-2.04.61-2.57.61-.53 0-1.35-.6-2.22-.58-1.14.02-2.19.66-2.78 1.68-1.18 2.05-.3 5.09.85 6.75.56.81 1.23 1.72 2.11 1.69.85-.03 1.17-.55 2.2-.55 1.02 0 1.31.55 2.21.53.91-.02 1.49-.83 2.05-1.65.65-.95.91-1.86.93-1.91-.02-.01-1.78-.69-1.8-2.72zM9.4 3.6c.47-.57.78-1.36.69-2.15-.67.03-1.49.45-1.97 1.01-.43.5-.81 1.31-.71 2.08.75.06 1.51-.38 1.99-.94z"/></svg>
-                    Download on the Mac App Store
+                    <span class="cta-label">Download on the Mac App Store</span>
                 </a>
             </div>
         </section>
@@ -281,6 +281,22 @@
     </main>
 
     <script>
+    /* ---------- iOS visitors: plain "Download", pointing at the iOS listing ----------
+       The CTAs are written for the Mac, and their ?mt=12 forces the Mac App Store —
+       a dead end from a phone. Both apps share one App Store ID (universal purchase),
+       so dropping the parameter lands iOS visitors on the right listing.
+       Touch-capable "Mac" UAs are iPadOS, which reports itself as a Mac. */
+    (function platformCTA() {
+        const ua = navigator.userAgent;
+        const isIOS = /iPhone|iPad|iPod/.test(ua) ||
+                      (/Mac/.test(ua) && navigator.maxTouchPoints > 1);
+        if (!isIOS) return;
+        document.querySelectorAll('.cta-label').forEach((el) => { el.textContent = 'Download'; });
+        document.querySelectorAll('a[href*="id6755173244"]').forEach((a) => {
+            a.href = a.href.replace(/[?&]mt=12\b/, '');
+        });
+    })();
+
     /* ---------- FAQ data + accordion render ---------- */
     const FAQ = [
         ["What is Usage for Claude?", "Usage for Claude is a macOS menu bar app that tracks your Claude subscription usage with automatic background updates. It reads your session and weekly limits straight from your account, so you can keep an eye on where you stand without opening a browser. It can track several Claude accounts at once, and there are fully featured companion apps for iPhone, iPad, and Apple Watch."],

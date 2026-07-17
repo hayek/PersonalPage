@@ -424,16 +424,19 @@ body[data-stars="subtle"] .star:nth-child(2n) { display: none; }
     color: var(--text-2);
 }
 
-.card-figure {
+/* Screenshots sit directly on the card. No surface or border here: the art is
+   already a window or a panel, so a frame around it reads as a card inside a
+   card. Corners are rounded on the image itself rather than by clipping the
+   container, which would cut the shadow the window shots bake into their PNG. */
+.card-figure { margin-top: 18px; }
+.card-figure img {
+    display: block;
+    width: 100%;
+    height: auto;
     border-radius: 12px;
-    overflow: hidden;
-    background: rgba(0,0,0,0.18);
-    border: 1px solid var(--border);
-    margin-top: 18px;
 }
-.card-figure img { display: block; width: 100%; height: auto; }
-.card-figure.plain { background: transparent; border: none; overflow: visible; }
-.card-figure.plain img { filter: drop-shadow(0 14px 40px rgba(0,0,0,0.5)); }
+/* Only for art that ships no shadow of its own (device mockups). */
+.card-figure.lift img { filter: drop-shadow(0 14px 40px rgba(0,0,0,0.5)); }
 
 /* =========================================================
    Bento feature grid
@@ -458,9 +461,6 @@ body[data-stars="subtle"] .star:nth-child(2n) { display: none; }
 .b-widgets  { grid-column: span 4; }
 
 .b-history .card-figure { margin-top: auto; }
-/* the dashboard shot is a window with its own chrome and a baked-in shadow,
-   so it gets no frame (card-in-a-card) and no second drop-shadow */
-.history-fig img { filter: none; }
 .b-notify .card-figure { margin-top: auto; }
 .b-notify > p { margin-bottom: 20px; }
 .b-share { text-align: left; }
@@ -475,13 +475,7 @@ body[data-stars="subtle"] .star:nth-child(2n) { display: none; }
     gap: 36px;
     align-items: center;
 }
-.acct-fig {
-    border-radius: 14px;
-    overflow: hidden;
-    border: 1px solid var(--border);
-    background: rgba(0,0,0,0.18);
-    box-shadow: 0 18px 44px rgba(0,0,0,0.42);
-}
+/* the switcher shot carries its own popover chrome and shadow — no frame */
 .acct-fig img { display: block; width: 100%; height: auto; }
 
 .card-note {
