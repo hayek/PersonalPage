@@ -458,6 +458,9 @@ body[data-stars="subtle"] .star:nth-child(2n) { display: none; }
 .b-widgets  { grid-column: span 4; }
 
 .b-history .card-figure { margin-top: auto; }
+/* the dashboard shot is a window with its own chrome and a baked-in shadow,
+   so it gets no frame (card-in-a-card) and no second drop-shadow */
+.history-fig img { filter: none; }
 .b-notify .card-figure { margin-top: auto; }
 .b-notify > p { margin-bottom: 20px; }
 .b-share { text-align: left; }
