@@ -453,8 +453,7 @@ body[data-stars="subtle"] .star:nth-child(2n) { display: none; }
 .b-notify   { grid-column: span 4; grid-row: span 2; }
 .b-status   { grid-column: span 2; }
 .b-share    { grid-column: span 2; }
-.b-history  { grid-column: span 4; }
-.b-limits   { grid-column: span 2; }
+.b-history  { grid-column: span 6; }
 .b-companion{ grid-column: span 4; }
 .b-watch    { grid-column: span 2; }
 .b-insights { grid-column: span 6; }
@@ -918,7 +917,7 @@ body[data-stars="subtle"] .star:nth-child(2n) { display: none; }
 @media (max-width: 920px) {
     .bento { grid-template-columns: repeat(2, 1fr); }
     .b-accounts, .b-notify, .b-status, .b-history, .b-share, .b-companion,
-    .b-watch, .b-insights, .b-limits, .b-widgets {
+    .b-watch, .b-insights, .b-widgets {
         grid-column: 1 / -1;
     }
     .b-notify { grid-row: auto; } /* nothing to stack beside once single-column */
