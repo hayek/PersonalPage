@@ -2,18 +2,18 @@
   "alerts": [
     {
       "enabled": true,
-      "startDate": "2026-07-12",
-      "endDate": "2026-07-13",
+      "startDate": "2026-07-20",
+      "endDate": "2026-07-22",
       "startHour": null,
       "endHour": null,
       "days": null,
       "timezone": null,
-      "icon": "sparkles",
-      "badgeIcon": "sparkles",
+      "icon": "creditcard.fill",
+      "badgeIcon": "creditcard.fill",
       "type": "news",
-      "severity": "low",
-      "text": "Fable 5 & Claude Code limits extended to Jul 19",
-      "dashboardText": "Anthropic extended Fable 5's promotional access — up to 50% of your weekly usage limit on Pro, Max, Team, and select Enterprise plans — and is keeping Claude Code's weekly rate limits 50% higher, both through July 19, 2026 at 11:59:59 PM PT. Tap for details.",
+      "severity": "medium",
+      "text": "Fable 5: permanent on Max, credits on Pro",
+      "dashboardText": "Starting July 20, Claude Fable 5 is a permanent feature on Max and Team Premium plans at 50% of your weekly limits. Pro and Team Standard users move to usage credits — priced at $10/M input and $50/M output tokens — and get a one-time $100 credit to get started. Tap for details.",
       "url": "https://support.claude.com/en/articles/15424964-claude-fable-5-promotional-access"
     }
   ]
