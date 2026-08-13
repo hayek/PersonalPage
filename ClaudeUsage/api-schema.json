@@ -24,7 +24,7 @@
   },
   "usageFields": {
     "utilizationScale": "percent",
-    "fiveHour":     { "path": "five_hour",          "utilization": "utilization", "resetsAt": { "key": "resets_at", "format": "iso8601_fractional" } },
+    "fiveHour":     { "path": "five_hour",          "utilization": "utilization", "resetsAt": { "key": "resets_at", "format": "iso8601_fractional" }, "required": false },
     "sevenDay":     { "path": "seven_day",          "utilization": "utilization", "resetsAt": { "key": "resets_at", "format": "iso8601_fractional" } },
     "sevenDayOpus": { "path": "seven_day_opus",     "utilization": "utilization", "resetsAt": { "key": "resets_at", "format": "iso8601_fractional" } },
     "claudeDesign": { "path": "seven_day_omelette", "utilization": "utilization", "resetsAt": { "key": "resets_at", "format": "iso8601_fractional" } }
