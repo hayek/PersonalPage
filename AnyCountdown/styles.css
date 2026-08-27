@@ -592,7 +592,7 @@ h2.display { font-size: clamp(2.2rem, 5.28vw, 4.75rem); line-height: 0.94; lette
 
 .platforms__phone {
     position: absolute;
-    left: 29%;
+    left: 26%;
     top: 60%;
     width: 21%;
 }
@@ -608,7 +608,7 @@ h2.display { font-size: clamp(2.2rem, 5.28vw, 4.75rem); line-height: 0.94; lette
     .platforms__stage { width: 120%; padding-bottom: 31%; }
     .platforms__ipad { left: 44%; width: 50%; }
     .platforms__ipad .tablet { --w: 50cqw; }
-    .platforms__phone { left: 22%; width: 24%; }
+    .platforms__phone { left: 19%; width: 24%; }
     .platforms__phone .phone { --w: 24cqw; }
 }
 
@@ -730,18 +730,56 @@ h2.display { font-size: clamp(2.2rem, 5.28vw, 4.75rem); line-height: 0.94; lette
 .reveal:not(.reveal--wall).is-in > *:nth-child(3) { transition-delay: 180ms; }
 .reveal:not(.reveal--wall).is-in > *:nth-child(4) { transition-delay: 270ms; }
 
-/* Devices get a little depth on the way in. */
-.split__media.reveal > *,
-.platforms__stage.reveal > * {
+/* The lone phone in a split section gets a little depth on the way in. */
+.split__media.reveal > * {
     scale: .955;
     translate: 0 30px;
 }
 
-/* Has to out-specify the pair above, which would otherwise pin them at the start state. */
-.split__media.reveal.is-in > *,
-.platforms__stage.reveal.is-in > * {
+/* Has to out-specify the rule above, which would otherwise pin it at the start state. */
+.split__media.reveal.is-in > * {
     scale: 1;
     translate: 0 0;
+}
+
+/*
+  The three platform devices build in the way the widget wall does — out of focus, from
+  off to the side — except they all come from the right, back to front, so the
+  composition stacks itself up: Mac, then iPad, then the phone landing on top.
+
+  The stage's only child is .platforms__frame, which must NOT animate; if it did, the
+  devices would ride a moving parent. So it is reset here and the devices animate instead.
+*/
+.platforms__stage.reveal > * {
+    opacity: 1;
+    translate: none;
+    scale: none;
+    filter: none;
+    transition: none;
+}
+
+.platforms__frame > .platforms__mac,
+.platforms__frame > .platforms__ipad,
+.platforms__frame > .platforms__phone {
+    opacity: 0;
+    translate: var(--fx) 0;
+    filter: blur(14px);
+    transition:
+        opacity .8s ease,
+        translate 1.1s var(--ease),
+        filter 1s var(--ease);
+}
+
+.platforms__frame > .platforms__mac   { --fx: 120px; transition-delay: 0ms; }
+.platforms__frame > .platforms__ipad  { --fx: 100px; transition-delay: 120ms; }
+.platforms__frame > .platforms__phone { --fx: 80px;  transition-delay: 240ms; }
+
+.platforms__stage.is-in .platforms__frame > .platforms__mac,
+.platforms__stage.is-in .platforms__frame > .platforms__ipad,
+.platforms__stage.is-in .platforms__frame > .platforms__phone {
+    opacity: 1;
+    translate: 0 0;
+    filter: blur(0);
 }
 
 /*
@@ -801,7 +839,12 @@ h2.display { font-size: clamp(2.2rem, 5.28vw, 4.75rem); line-height: 0.94; lette
     .split__media.reveal > *,
     .split__media.reveal.is-in > *,
     .platforms__stage.reveal > *,
-    .platforms__stage.reveal.is-in > *,
+    .platforms__frame > .platforms__mac,
+    .platforms__frame > .platforms__ipad,
+    .platforms__frame > .platforms__phone,
+    .platforms__stage.is-in .platforms__frame > .platforms__mac,
+    .platforms__stage.is-in .platforms__frame > .platforms__ipad,
+    .platforms__stage.is-in .platforms__frame > .platforms__phone,
     .reveal--wall > img,
     .reveal--wall.is-in > img {
         opacity: 1;
