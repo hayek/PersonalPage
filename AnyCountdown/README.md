@@ -37,7 +37,7 @@ crawler to find.
 |---|---|---|---|
 | ≥ 861px | `hero-wide.mp4` | 16:9 | headline + App Store button, phone right |
 | 641–860px | `hero-tablet.mp4` | 4:3 | headline left, iPad right — **no button** |
-| ≤ 640px | `hero-portrait.mp4` | 886:1920 | headline over phone, centred — **no button** |
+| ≤ 640px | `hero-portrait.mp4` | 886:1680 | headline over phone, centred — **no button** |
 
 Each is a different render from the app's video project, composed for its own shape, so
 none of them is a crop of another. `media` on `<source>` picks one — widest first, so a
@@ -46,6 +46,13 @@ portrait one to everyone; the script re-checks and swaps if it has to.
 
 `.hero__video video` has a matching `aspect-ratio` per breakpoint. **Keep those in step with
 the table above** — a mismatch letterboxes or crops an end card that was composed to fit.
+
+The portrait cut is 1680 tall, not the 1920 it was rendered at. That render composes its
+content centred in a full phone screen, which leaves roughly 500px of empty cream above it;
+sitting under the site header, that read as the video hanging low with padding on top. 240px
+is cropped off the top of the file to close the gap. **Do not crop more** — the end card has
+only 306px of clearance above its headline, so past ~250px the headline loses its margin.
+Re-render the reel and this crop needs re-deriving, along with the `aspect-ratio`.
 
 Two consequences worth knowing:
 

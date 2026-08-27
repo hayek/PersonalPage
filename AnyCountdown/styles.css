@@ -277,7 +277,7 @@ h2.display { font-size: clamp(2.2rem, 5.28vw, 4.75rem); line-height: 0.94; lette
 
 /*
   One aspect per cut, matching the file the media queries in the markup will pick:
-  16:9 wide, 4:3 tablet, 886:1920 portrait. Getting these out of step would letterbox
+  16:9 wide, 4:3 tablet, 886:1680 portrait. Getting these out of step would letterbox
   or crop an end card that was composed to fit exactly.
 */
 .hero__video video {
@@ -292,8 +292,16 @@ h2.display { font-size: clamp(2.2rem, 5.28vw, 4.75rem); line-height: 0.94; lette
     .hero__video video { aspect-ratio: 4 / 3; }
 }
 
+/*
+  The portrait cut is 886x1680, not the 886x1920 it was rendered at: its content is
+  composed centred in a full phone screen, which left ~500px of empty cream above it.
+  Behind the site header that read as the video sitting low with padding on top, so 240px
+  is cropped off the top of the file. Any more and the end card's headline loses its
+  margin — that frame only has 306px of clearance to give.
+*/
 @media (max-width: 640px) {
-    .hero__video video { aspect-ratio: 886 / 1920; }
+    .hero { padding-top: 0; }
+    .hero__video video { aspect-ratio: 886 / 1680; }
 }
 
 /*
