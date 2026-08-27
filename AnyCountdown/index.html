@@ -268,7 +268,16 @@
     onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
 
-    // Copy blocks fade up once. Nothing depends on this running.
+    /*
+      Build-ins fire once, when a section is properly on screen rather than as soon as it
+      peeks over the bottom edge. The bottom inset is what sets that: -32% means the
+      element's top has to reach 68% of the viewport height before it counts as visible,
+      so roughly a third of the screen is filled with the section when it starts moving.
+
+      Trigger any earlier and the longer sequences — the widget wall runs 1.1s plus a
+      450ms stagger — are finished before the reader has scrolled far enough to watch
+      them. Nothing depends on this running.
+    */
     var targets = document.querySelectorAll('.reveal');
     if (calm.matches || !('IntersectionObserver' in window)) {
         targets.forEach(function (el) { el.classList.add('is-in'); });
@@ -279,7 +288,7 @@
                 entry.target.classList.add('is-in');
                 io.unobserve(entry.target);
             });
-        }, { rootMargin: '0px 0px -14% 0px' });
+        }, { rootMargin: '0px 0px -32% 0px' });
         targets.forEach(function (el) { io.observe(el); });
     }
 
