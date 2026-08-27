@@ -1,0 +1,811 @@
+/*
+  Any Countdown — landing page.
+
+  Ported from the Claude Design canvas ("Landing Page.dc.html"), which is a fixed 1440px
+  artboard. Everything here is the fluid version of that: the artboard's pixel values are
+  kept as ratios so the composition survives from 320px to ultrawide.
+
+  The page background is #f1efe6 — the exact background of the hero reels — so the hero
+  video bleeds into the page with no visible seam. Do not "correct" it to #f2eee8.
+
+  Type is Inter + JetBrains Mono, self-hosted from assets/fonts/. Those are the same two
+  faces the video was rendered with, so page and video read as one continuous scene.
+*/
+
+@font-face {
+    font-family: 'Inter';
+    src: url('assets/fonts/Inter-var.woff2') format('woff2');
+    font-weight: 100 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'JetBrains Mono';
+    src: url('assets/fonts/JetBrainsMono-var.woff2') format('woff2');
+    font-weight: 400 800;
+    font-style: normal;
+    font-display: swap;
+}
+
+:root {
+    --bg: #f1efe6;
+    --ink: #121212;
+    --muted: #5d5a55;
+    --faint: #8a827a;
+    --red: #d92b1c;
+    --red-lift: #ff5a49;
+    --cream: #fdf6ec;
+
+    /* 80px at the 1440 artboard width, tightening down to 20px on phones */
+    --pad: clamp(20px, 5.56vw, 80px);
+    --maxw: 1440px;
+
+    --sans: 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    --mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+
+body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+}
+
+/* height:auto is load-bearing. Every img/video here carries width/height attributes for
+   layout stability, and those attributes are a presentational hint that would otherwise
+   pin the element to its intrinsic pixel height and blow up every frame on the page. */
+img, video { display: block; max-width: 100%; height: auto; }
+
+a { color: var(--red); text-decoration: none; }
+a:hover { color: var(--red-lift); }
+
+h1, h2, h3, p { margin: 0; }
+
+::selection { background: var(--red); color: var(--cream); }
+
+.wrap {
+    max-width: var(--maxw);
+    margin: 0 auto;
+    padding-inline: var(--pad);
+}
+
+.sr-only {
+    position: absolute;
+    width: 1px; height: 1px;
+    padding: 0; margin: -1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+}
+
+/* ---------------------------------------------------------------- shared type */
+
+.eyebrow {
+    font-family: var(--mono);
+    font-weight: 600;
+    font-size: clamp(11px, 1.05vw, 15px);
+    letter-spacing: .2em;
+    line-height: 1;
+    color: var(--red);
+    text-transform: uppercase;
+}
+
+.display {
+    font-weight: 700;
+    letter-spacing: -0.045em;
+    line-height: 0.92;
+    text-wrap: pretty;
+}
+
+h1.display { font-size: clamp(2.6rem, 6.65vw, 6rem); }
+h2.display { font-size: clamp(2.2rem, 5.28vw, 4.75rem); line-height: 0.94; letter-spacing: -0.04em; }
+
+.lead {
+    font-size: clamp(1.0625rem, 1.67vw, 1.5rem);
+    line-height: 1.45;
+    color: var(--muted);
+    text-wrap: pretty;
+}
+
+.body {
+    font-size: clamp(1.0625rem, 1.53vw, 1.375rem);
+    line-height: 1.45;
+    color: var(--muted);
+    text-wrap: pretty;
+}
+
+/* ---------------------------------------------------------------- buttons */
+
+.pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    border-radius: 999px;
+    font-weight: 600;
+    line-height: 1;
+    white-space: nowrap;
+    transition: transform .18s ease, background-color .18s ease, color .18s ease;
+}
+
+.pill:active { transform: translateY(1px); }
+
+.pill--dark {
+    padding: 14px 26px;
+    background: var(--ink);
+    color: var(--cream);
+    font-size: clamp(15px, 1.18vw, 17px);
+}
+.pill--dark:hover { background: var(--red); color: var(--cream); }
+
+.pill--red {
+    padding: clamp(16px, 1.4vw, 20px) clamp(24px, 2.36vw, 34px);
+    background: var(--red);
+    color: var(--cream);
+    font-size: clamp(16px, 1.32vw, 19px);
+}
+.pill--red:hover { background: var(--red-lift); color: var(--cream); }
+
+.pill--cream {
+    padding: clamp(17px, 1.53vw, 22px) clamp(28px, 2.92vw, 42px);
+    background: var(--cream);
+    color: var(--ink);
+    font-size: clamp(16px, 1.39vw, 20px);
+}
+.pill--cream:hover { background: #fff; color: var(--ink); }
+
+.pill svg { width: 1.05em; height: 1.05em; flex: none; }
+
+/* ---------------------------------------------------------------- header */
+
+.site-header {
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    transition: background-color .25s ease, box-shadow .25s ease;
+}
+
+.site-header.is-stuck {
+    background: rgba(241, 239, 230, 0.82);
+    backdrop-filter: saturate(180%) blur(14px);
+    -webkit-backdrop-filter: saturate(180%) blur(14px);
+    box-shadow: 0 1px 0 rgba(18, 18, 18, .08);
+}
+
+.site-header__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding-block: clamp(18px, 2.36vw, 34px);
+    transition: padding-block .25s ease;
+}
+
+.site-header.is-stuck .site-header__inner { padding-block: clamp(12px, 1.4vw, 18px); }
+
+.brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    color: var(--ink);
+}
+.brand:hover { color: var(--ink); }
+
+.brand__mark {
+    width: clamp(32px, 2.64vw, 38px);
+    height: clamp(32px, 2.64vw, 38px);
+    flex: none;
+}
+
+.brand__name {
+    font-weight: 700;
+    font-size: clamp(18px, 1.67vw, 24px);
+    letter-spacing: -0.02em;
+    line-height: 1;
+    white-space: nowrap;
+}
+
+/* At 320px the wordmark and the Download pill are one or two pixels from colliding. */
+@media (max-width: 400px) {
+    .brand { gap: 10px; }
+    .brand__mark { width: 30px; height: 30px; }
+    .brand__name { font-size: 16px; }
+    .pill--dark { padding: 12px 18px; font-size: 14px; }
+}
+
+.site-nav {
+    display: flex;
+    align-items: center;
+    gap: clamp(20px, 2.78vw, 40px);
+}
+
+.site-nav a:not(.pill) {
+    font-weight: 500;
+    font-size: clamp(15px, 1.18vw, 17px);
+    color: var(--muted);
+}
+.site-nav a:not(.pill):hover { color: var(--ink); }
+
+@media (max-width: 720px) {
+    .site-nav a:not(.pill) { display: none; }
+}
+
+/* ---------------------------------------------------------------- hero */
+
+.hero { padding-top: clamp(20px, 3.5vw, 48px); }
+
+/*
+  Above 861px the reel's own end card carries the App Store button, so this row would be
+  a second one. The portrait and tablet cuts have no button in them and do need it.
+*/
+.hero__cta { display: none; }
+
+@media (max-width: 860px) {
+    .hero__cta {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 18px;
+        margin-top: clamp(24px, 4vw, 36px);
+    }
+}
+
+.hero__note {
+    font-family: var(--mono);
+    font-size: clamp(13px, 1.11vw, 16px);
+    line-height: 1.4;
+    color: var(--faint);
+}
+
+/*
+  Full-bleed demo. The clip's own background is the page background, so no frame,
+  no border, no rounded corners — the phone and cards simply appear in the page.
+*/
+.hero__video {
+    position: relative;
+    width: 100%;
+    max-width: 2200px;
+    margin-inline: auto;
+}
+
+/*
+  One aspect per cut, matching the file the media queries in the markup will pick:
+  16:9 wide, 4:3 tablet, 886:1920 portrait. Getting these out of step would letterbox
+  or crop an end card that was composed to fit exactly.
+*/
+.hero__video video {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    background: var(--bg);
+}
+
+@media (max-width: 860px) {
+    .hero__video video { aspect-ratio: 4 / 3; }
+}
+
+@media (max-width: 640px) {
+    .hero__video video { aspect-ratio: 886 / 1920; }
+}
+
+/*
+  Sits exactly on the App Store button painted into the wide end card. Percentages are
+  measured off that frame — 1920x1080, pill at x 150-558, y 616-704.
+*/
+.hero__hotspot {
+    position: absolute;
+    left: 7.8%;
+    top: 57%;
+    width: 21.3%;
+    height: 8.2%;
+    border-radius: 999px;
+    overflow: hidden;
+    text-indent: -200vw;
+    white-space: nowrap;
+}
+.hero__hotspot[hidden] { display: none; }
+.hero__hotspot:focus-visible { outline: 3px solid var(--ink); outline-offset: 4px; text-indent: 0; }
+
+@media (max-width: 860px) {
+    .hero__hotspot { display: none; }
+}
+
+/* Quiet enough to ignore, findable when the reel has stopped and you want it again. */
+.hero__replay {
+    position: absolute;
+    right: clamp(12px, 2vw, 28px);
+    bottom: clamp(12px, 2vw, 28px);
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 7px 12px;
+    border: 0;
+    border-radius: 999px;
+    background: transparent;
+    font-family: var(--mono);
+    font-weight: 400;
+    font-size: clamp(11px, 0.9vw, 13px);
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--faint);
+    opacity: 0;
+    cursor: pointer;
+    transition: opacity .5s ease, color .2s ease, background-color .2s ease;
+    pointer-events: none;
+}
+
+.hero__replay.is-shown { opacity: .55; pointer-events: auto; }
+.hero__replay.is-shown:hover,
+.hero__replay.is-shown:focus-visible { opacity: 1; color: var(--ink); background: rgba(18, 18, 18, .05); }
+
+.hero__replay svg { width: 13px; height: 13px; flex: none; }
+
+/* ---------------------------------------------------------------- sections */
+
+.section { padding-block: clamp(72px, 10.4vw, 150px); }
+
+/* Keep the sticky header off a section's eyebrow when the nav jumps to it. */
+#describe, #gallery, #designs, #platforms, #get { scroll-margin-top: clamp(76px, 7vw, 100px); }
+
+.split__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: clamp(36px, 6.25vw, 90px);
+}
+
+.split__copy > * + * { margin-top: clamp(18px, 1.81vw, 26px); }
+.split__copy .body { max-width: 480px; }
+
+.split--reverse .split__copy {
+    order: 2;
+    text-align: right;
+}
+.split--reverse .split__copy .body { margin-left: auto; }
+.split--reverse .split__media { order: 1; }
+
+.split__media { display: flex; justify-content: center; }
+
+@media (max-width: 860px) {
+    .split__grid { grid-template-columns: 1fr; }
+    .split--reverse .split__copy { order: 1; text-align: left; }
+    .split--reverse .split__copy .body { margin-left: 0; }
+    .split--reverse .split__media { order: 2; }
+}
+
+/* ---------------------------------------------------------------- device frames */
+
+/*
+  Ratios taken straight off the artboard: a 420px-wide iPhone with an 8px machined
+  bezel, an 8px black gasket and a 388x844 screen. Everything derives from --w so the
+  frame stays proportionally correct at any size.
+*/
+.phone {
+    --w: clamp(224px, 27vw, 420px);
+    position: relative;
+    width: var(--w);
+    padding: calc(var(--w) * 0.01905);
+    border-radius: calc(var(--w) * 0.16429);
+    background: linear-gradient(135deg, #cbcbd0 0%, #87878d 22%, #e8e8ec 48%, #7c7c83 74%, #bcbcc2 100%);
+    box-shadow: 0 calc(var(--w) * 0.119) calc(var(--w) * 0.214) rgba(0, 0, 0, .28);
+}
+
+.phone__screen {
+    padding: calc(var(--w) * 0.01905);
+    border-radius: calc(var(--w) * 0.14762);
+    background: #040405;
+}
+
+.phone__screen img {
+    width: 100%;
+    aspect-ratio: 388 / 844;
+    object-fit: cover;
+    object-position: top;
+    border-radius: calc(var(--w) * 0.12619);
+}
+
+.phone__btn {
+    position: absolute;
+    width: calc(var(--w) * 0.00952);
+    border-radius: calc(var(--w) * 0.00476);
+}
+.phone__btn--l { left: calc(var(--w) * -0.00476); background: linear-gradient(90deg, #6d6d73, #b8b8be); }
+.phone__btn--r { right: calc(var(--w) * -0.00476); background: linear-gradient(270deg, #6d6d73, #b8b8be); }
+.phone__btn--mute { top: 23.3%; height: 6.2%; }
+.phone__btn--vol  { top: 32.2%; height: 10.5%; }
+.phone__btn--pwr  { top: 28.8%; height: 11.6%; }
+
+/*
+  Same rule as .phone: every dimension derives from --w, and --w must be a LENGTH.
+  Percentages here would each resolve against a different (progressively smaller) box, so
+  the corner radii would shrink at every nesting level and the shadow would be dropped
+  outright — box-shadow does not accept percentages. That is what squared off the iPad.
+*/
+.tablet {
+    --w: 100%;
+    position: relative;
+    padding: calc(var(--w) * 0.00556);
+    border-radius: calc(var(--w) * 0.075);
+    background: linear-gradient(135deg, #e2e2e6 0%, #a9a9b0 24%, #f2f2f5 50%, #9d9da5 76%, #d8d8dd 100%);
+    box-shadow: 0 calc(var(--w) * 0.094) calc(var(--w) * 0.194) rgba(0, 0, 0, .26);
+}
+
+/* Uniform bezel, as an iPad has — 4.2% of the long edge is about right in landscape. */
+.tablet__screen {
+    padding: calc(var(--w) * 0.042);
+    border-radius: calc(var(--w) * 0.036);
+    background: #0a0a0c;
+}
+
+.tablet__screen img {
+    width: 100%;
+    aspect-ratio: 2752 / 2064;
+    object-fit: cover;
+    border-radius: calc(var(--w) * 0.014);
+}
+
+/* ---------------------------------------------------------------- widget wall */
+
+/*
+  The artboard is 1440 x 1300 with eleven widgets pinned to it. Positions below are
+  those pixel values divided by the artboard, so the whole scatter scales as one.
+*/
+/*
+  The section clips horizontally because the tiles start life translated off to the sides
+  (see --fx below). Without this the page scrolls sideways until the build-in settles.
+*/
+#designs { overflow-x: clip; }
+
+.wall__stage {
+    position: relative;
+    aspect-ratio: 1440 / 1300;
+}
+
+.wall__stage img {
+    position: absolute;
+    filter: drop-shadow(0 18px 36px rgba(0, 0, 0, .16));
+}
+
+.wall__stage img.m { width: 30.56%; }
+.wall__stage img.s { width: 13.89%; }
+
+.w1  { left: 9.03%;  top: 9.23%;  rotate: -3deg; }
+.w2  { left: 43.06%; top: 6.92%;  rotate: 2deg; }
+.w3  { left: 77.08%; top: 9.23%;  rotate: -4deg; }
+.w4  { left: 9.72%;  top: 25.38%; rotate: 3deg; }
+.w5  { left: 73.19%; top: 28.23%; rotate: 2deg; }
+.w6  { left: 4.38%;  top: 41.62%; rotate: -4deg; }
+.w7  { left: 75.69%; top: 46.15%; rotate: 5deg; }
+.w8  { left: 9.17%;  top: 53.54%; rotate: -3deg; }
+.w9  { left: 17.36%; top: 66.15%; rotate: -2deg; }
+.w10 { left: 51.39%; top: 67.69%; rotate: 3deg; }
+.w11 { left: 85.42%; top: 66.92%; rotate: 7deg; }
+
+.wall__head {
+    position: absolute;
+    left: 25.69%;
+    top: 36.15%;
+    width: 48.61%;
+    text-align: center;
+    z-index: 8;
+}
+.wall__head h2 { margin-top: clamp(14px, 1.81vw, 26px); }
+
+/*
+  Below ~860px the scatter is unreadable. The wall becomes a real home-screen mosaic
+  instead: a medium widget is exactly two smalls wide and the same height, so a 4-column
+  grid tiles them the way iOS does. `dense` closes the gaps the DOM order would leave.
+*/
+@media (max-width: 860px) {
+    .wall__stage {
+        aspect-ratio: auto;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        grid-auto-flow: row dense;
+        align-items: start;
+        gap: clamp(10px, 2vw, 16px);
+    }
+    .wall__stage img {
+        position: static;
+        width: 100% !important;
+        rotate: none;
+        filter: drop-shadow(0 10px 22px rgba(0, 0, 0, .14));
+    }
+    .wall__stage img.m { grid-column: span 2; }
+    .wall__stage img.s { grid-column: span 1; }
+    .wall__head {
+        position: static;
+        width: 100%;
+        grid-column: 1 / -1;
+        order: -1;
+        margin-bottom: clamp(8px, 2vw, 18px);
+    }
+}
+
+@media (max-width: 560px) {
+    .wall__stage { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* ---------------------------------------------------------------- platforms */
+
+.platforms { overflow-x: clip; }
+
+.platforms__grid {
+    display: grid;
+    grid-template-columns: 34% 1fr;
+    align-items: center;
+    gap: clamp(32px, 4vw, 56px);
+}
+
+.platforms__copy > * + * { margin-top: clamp(18px, 1.81vw, 26px); }
+.platforms__copy .body { max-width: 420px; }
+
+/*
+  The Mac window runs off the right edge of the page, exactly as on the artboard.
+
+  __frame wraps the Mac alone and is the positioning context for the iPad and phone, so
+  their `top` percentages resolve against the Mac's height and nothing else. The stage's
+  padding-bottom is then just room for how far the phone hangs below the Mac — with the
+  offsets below it needs to be at least 26% of the stage width.
+*/
+.platforms__stage {
+    margin-right: calc(var(--pad) * -1);
+    padding-bottom: 26%;
+}
+
+/*
+  A query container so the two inset devices can size themselves in cqw — real lengths
+  tied to the Mac's width. Feeding them a percentage --w is what broke their frames.
+*/
+.platforms__frame {
+    position: relative;
+    container-type: inline-size;
+}
+
+.platforms__mac {
+    width: 100%;
+    border-radius: clamp(6px, 0.9vw, 13px);
+    box-shadow: 0 34px 80px rgba(0, 0, 0, .22);
+}
+
+.platforms__ipad {
+    position: absolute;
+    left: 48%;
+    top: 58%;
+    width: 46%;
+}
+.platforms__ipad .tablet { --w: 46cqw; }
+
+.platforms__phone {
+    position: absolute;
+    left: 29%;
+    top: 60%;
+    width: 21%;
+}
+.platforms__phone .phone { --w: 21cqw; width: 100%; }
+
+/*
+  Stacked, the trio would shrink to a 290px Mac and a 64px phone — recognisable shapes
+  but nothing readable inside them. Narrow screens push the stage wider than the column
+  and let it run off the right edge instead, the same move the desktop layout makes.
+*/
+@media (max-width: 860px) {
+    .platforms__grid { grid-template-columns: 1fr; }
+    .platforms__stage { width: 120%; padding-bottom: 31%; }
+    .platforms__ipad { left: 44%; width: 50%; }
+    .platforms__ipad .tablet { --w: 50cqw; }
+    .platforms__phone { left: 22%; width: 24%; }
+    .platforms__phone .phone { --w: 24cqw; }
+}
+
+@media (max-width: 640px) {
+    .platforms__stage { width: 145%; padding-bottom: 35%; }
+}
+
+/* ---------------------------------------------------------------- closing CTA */
+
+.cta {
+    position: relative;
+    overflow: hidden;
+    background: var(--red);
+    padding-block: clamp(88px, 12.5vw, 180px);
+}
+
+.cta__inner {
+    position: relative;
+    z-index: 8;
+    text-align: center;
+}
+
+.cta .eyebrow { color: rgba(255, 240, 232, .8); }
+
+.cta h2 {
+    margin-top: clamp(16px, 1.81vw, 26px);
+    font-size: clamp(2.5rem, 6.4vw, 5.75rem);
+    letter-spacing: -0.045em;
+    line-height: 0.92;
+    color: var(--cream);
+}
+
+.cta__actions { margin-top: clamp(26px, 2.64vw, 38px); }
+
+.cta__note {
+    margin-top: clamp(16px, 1.5vw, 22px);
+    font-family: var(--mono);
+    font-size: clamp(12px, 1.04vw, 15px);
+    color: rgba(255, 240, 232, .72);
+}
+
+.cta__deco {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.cta__deco img {
+    position: absolute;
+    filter: drop-shadow(0 24px 44px rgba(60, 0, 0, .4));
+}
+
+.cta__deco .d1 { left: -11.1%; top: 18.2%;  width: 29.2%; rotate: -9deg; }
+.cta__deco .d2 { left: 9%;     top: 59.1%;  width: 13.6%; rotate: 7deg; }
+.cta__deco .d3 { left: 83.3%;  top: 19.7%;  width: 29.2%; rotate: 8deg; }
+.cta__deco .d4 { left: 78.5%;  top: 60.6%;  width: 13.6%; rotate: -7deg; }
+
+@media (max-width: 900px) {
+    .cta__deco .d2, .cta__deco .d4 { display: none; }
+    .cta__deco .d1 { left: -18%; top: 6%; width: 40%; }
+    .cta__deco .d3 { left: 80%; top: 70%; width: 40%; }
+}
+
+/* ---------------------------------------------------------------- footer */
+
+.site-footer__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding-block: clamp(32px, 3.06vw, 44px) clamp(40px, 4.17vw, 60px);
+}
+
+.site-footer .brand__mark { width: 28px; height: 28px; }
+.site-footer .brand__name { font-weight: 600; font-size: 17px; }
+.site-footer .brand { gap: 12px; }
+
+.site-footer__links { display: flex; flex-wrap: wrap; gap: clamp(20px, 2.22vw, 32px); }
+
+.site-footer__links a {
+    font-size: 15px;
+    color: var(--faint);
+}
+.site-footer__links a:hover { color: var(--ink); }
+
+/* ---------------------------------------------------------------- motion */
+
+/*
+  Build-ins. Everything animates the individual transform properties (translate / scale)
+  rather than `transform`, because the widget wall keeps a static `rotate` on every tile
+  and a combined `transform` would fight it.
+
+  --ease is a long, decelerating curve: fast out of the gate, a long settle, no bounce.
+*/
+:root { --ease: cubic-bezier(.16, 1, .3, 1); }
+
+.reveal > * {
+    opacity: 0;
+    translate: 0 22px;
+    filter: blur(6px);
+    transition:
+        opacity .75s ease,
+        translate .95s var(--ease),
+        scale .95s var(--ease),
+        filter .8s var(--ease);
+}
+
+.reveal.is-in > * {
+    opacity: 1;
+    translate: 0 0;
+    scale: 1;
+    filter: blur(0);
+}
+
+/* Lines arrive one after another rather than as a slab. The wall sets its own delays. */
+.reveal:not(.reveal--wall).is-in > *:nth-child(2) { transition-delay: 90ms; }
+.reveal:not(.reveal--wall).is-in > *:nth-child(3) { transition-delay: 180ms; }
+.reveal:not(.reveal--wall).is-in > *:nth-child(4) { transition-delay: 270ms; }
+
+/* Devices get a little depth on the way in. */
+.split__media.reveal > *,
+.platforms__stage.reveal > * {
+    scale: .955;
+    translate: 0 30px;
+}
+
+/* Has to out-specify the pair above, which would otherwise pin them at the start state. */
+.split__media.reveal.is-in > *,
+.platforms__stage.reveal.is-in > * {
+    scale: 1;
+    translate: 0 0;
+}
+
+/*
+  The widget wall. Each tile comes in from the edge it is nearest, out of focus, and
+  sharpens as it settles — so the wall assembles itself instead of just appearing.
+  The drop-shadow has to stay first in the filter list at both ends: filters only
+  interpolate when the two lists have the same functions in the same order.
+*/
+.reveal--wall > img {
+    opacity: 0;
+    translate: var(--fx, 0) var(--fy, 0);
+    filter: drop-shadow(0 18px 36px rgba(0, 0, 0, .16)) blur(16px);
+    transition:
+        opacity .8s ease,
+        translate 1.1s var(--ease),
+        filter 1s var(--ease);
+}
+
+.reveal--wall.is-in > img {
+    opacity: 1;
+    translate: 0 0;
+    filter: drop-shadow(0 18px 36px rgba(0, 0, 0, .16)) blur(0);
+}
+
+.w1  { --fx: -70px; --fy: -10px; }
+.w2  { --fx: 0;     --fy: -85px; }
+.w3  { --fx: 75px;  --fy: -10px; }
+.w4  { --fx: -85px; --fy: 0; }
+.w5  { --fx: 95px;  --fy: 0; }
+.w6  { --fx: -95px; --fy: 10px; }
+.w7  { --fx: 85px;  --fy: 0; }
+.w8  { --fx: -85px; --fy: 20px; }
+.w9  { --fx: -65px; --fy: 60px; }
+.w10 { --fx: 0;     --fy: 95px; }
+.w11 { --fx: 75px;  --fy: 55px; }
+
+/* Roughly top-to-bottom, left and right alternating, so it reads as a sweep. */
+.reveal--wall.is-in > .w1  { transition-delay: 0ms; }
+.reveal--wall.is-in > .w3  { transition-delay: 60ms; }
+.reveal--wall.is-in > .w2  { transition-delay: 110ms; }
+.reveal--wall.is-in > .w5  { transition-delay: 150ms; }
+.reveal--wall.is-in > .w4  { transition-delay: 200ms; }
+.reveal--wall.is-in > .w7  { transition-delay: 240ms; }
+.reveal--wall.is-in > .w6  { transition-delay: 290ms; }
+.reveal--wall.is-in > .w11 { transition-delay: 330ms; }
+.reveal--wall.is-in > .w8  { transition-delay: 370ms; }
+.reveal--wall.is-in > .w9  { transition-delay: 410ms; }
+.reveal--wall.is-in > .w10 { transition-delay: 450ms; }
+
+/* The heading rides the generic .reveal rules; it just lands a beat later. */
+.reveal--wall.is-in > .wall__head { transition-delay: 260ms; }
+
+@media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .reveal > *,
+    .reveal.is-in > *,
+    .split__media.reveal > *,
+    .split__media.reveal.is-in > *,
+    .platforms__stage.reveal > *,
+    .platforms__stage.reveal.is-in > *,
+    .reveal--wall > img,
+    .reveal--wall.is-in > img {
+        opacity: 1;
+        translate: none;
+        scale: none;
+        filter: none;
+        transition: none;
+        transition-delay: 0ms;
+    }
+    .reveal--wall > img,
+    .reveal--wall.is-in > img { filter: drop-shadow(0 18px 36px rgba(0, 0, 0, .16)); }
+    .pill, .hero__replay { transition: none; }
+}

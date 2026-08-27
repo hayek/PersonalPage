@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<!--
+  Any Countdown — privacy policy.
+
+  This is the URL entered in App Store Connect's Privacy Policy field, and the one the app's
+  posting-terms sheet links to (AnyTimers/Public/ShareDisclosure.swift). It is deliberately
+  self-contained: no shared stylesheet, no fonts, no scripts, so it cannot break because
+  something else on the site moved.
+
+  Everything below describes what the app actually does. When the app's data handling changes,
+  this page changes in the same commit.
+-->
+<html lang="en" data-theme="system">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy — Any Countdown</title>
+    <meta name="description" content="What Any Countdown collects, what it never collects, and how to delete it.">
+    <style>
+        :root {
+            --bg: #ffffff;
+            --bg-secondary: #f2f2f7;
+            --ink: #000000;
+            --muted: #6b6b70;
+            --rule: rgba(0, 0, 0, 0.12);
+            --accent: #c0392b;
+        }
+        [data-theme="dark"] {
+            --bg: #000000;
+            --bg-secondary: #1c1c1e;
+            --ink: #ffffff;
+            --muted: #9a9aa0;
+            --rule: rgba(255, 255, 255, 0.16);
+            --accent: #ff6b5a;
+        }
+        @media (prefers-color-scheme: dark) {
+            [data-theme="system"] {
+                --bg: #000000;
+                --bg-secondary: #1c1c1e;
+                --ink: #ffffff;
+                --muted: #9a9aa0;
+                --rule: rgba(255, 255, 255, 0.16);
+                --accent: #ff6b5a;
+            }
+        }
+
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html { -webkit-text-size-adjust: 100%; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif;
+            background: var(--bg);
+            color: var(--ink);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            line-height: 1.6;
+        }
+
+        .page {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 56px 22px 96px;
+        }
+
+        .eyebrow {
+            font-size: 12px;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--muted);
+        }
+
+        h1 {
+            font-size: clamp(30px, 6vw, 40px);
+            line-height: 1.15;
+            letter-spacing: -0.02em;
+            margin: 10px 0 14px;
+        }
+
+        .updated { color: var(--muted); font-size: 15px; }
+
+        h2 {
+            font-size: 21px;
+            letter-spacing: -0.01em;
+            margin: 44px 0 12px;
+            padding-top: 22px;
+            border-top: 1px solid var(--rule);
+        }
+
+        h3 { font-size: 16px; margin: 22px 0 6px; }
+
+        p, li { font-size: 16px; }
+        p { margin: 12px 0; }
+
+        ul { margin: 12px 0 12px 22px; }
+        li { margin: 6px 0; }
+
+        a { color: var(--accent); text-decoration: none; border-bottom: 1px solid currentColor; }
+        a:hover { opacity: 0.75; }
+
+        strong { font-weight: 600; }
+
+        .lede {
+            background: var(--bg-secondary);
+            border-radius: 14px;
+            padding: 20px 22px;
+            margin: 28px 0 8px;
+        }
+        .lede p { margin: 8px 0; }
+        .lede p:first-child { margin-top: 0; }
+        .lede p:last-child { margin-bottom: 0; }
+
+        .table-scroll { overflow-x: auto; margin: 16px 0; }
+        table { border-collapse: collapse; width: 100%; min-width: 520px; font-size: 15px; }
+        th, td { text-align: left; padding: 10px 14px 10px 0; vertical-align: top; border-bottom: 1px solid var(--rule); }
+        th { font-weight: 600; }
+
+        footer {
+            margin-top: 56px;
+            padding-top: 22px;
+            border-top: 1px solid var(--rule);
+            color: var(--muted);
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+<main class="page">
+
+    <p class="eyebrow">Any Countdown</p>
+    <h1>Privacy Policy</h1>
+    <p class="updated">Last updated 24 August 2026</p>
+
+    <div class="lede">
+        <p><strong>Your countdowns are yours.</strong> They live on your device and, if you use iCloud, in your own private iCloud account — where we cannot read them.</p>
+        <p><strong>Nothing becomes public unless you share it.</strong> Sharing a countdown to the Public Gallery is a deliberate act, it is explained before you do it, and you can undo it at any time.</p>
+        <p><strong>We do not sell your data, and there is no advertising or tracking in this app.</strong> No advertising identifier is read, and nothing you do here is shared with data brokers or ad networks.</p>
+    </div>
+
+    <p>Any Countdown ("the app") is made by Amir Hayek ("we"). This policy explains what the app collects, what it deliberately never collects, who else is involved, and how to delete what exists. It covers the iPhone, iPad and Mac apps and their widgets.</p>
+
+    <h2>What stays on your device</h2>
+
+    <p>Everything you make — a countdown's title, subtitle, date, design, colours and picture — is stored on your device. The widgets read that same local store, which is why they keep working with no network at all.</p>
+
+    <p>If you are signed in to iCloud, your countdowns also sync through <strong>your own private iCloud database</strong>, so they appear on your other devices. That data belongs to your Apple Account and is handled by Apple under <a href="https://www.apple.com/legal/privacy/">Apple's privacy policy</a>. We have no access to it and no ability to read it. If you are signed out of iCloud, the app simply does not sync — nothing breaks, and nothing is sent.</p>
+
+    <p>When you choose one of your own photos as a countdown background, it is read through Apple's photo picker and processed on your device. The app is not granted access to your photo library, only to the picture you picked. That picture stays local unless you later share that countdown publicly.</p>
+
+    <h2>When you share to the Public Gallery</h2>
+
+    <p>The Public Gallery is the one place where something you made becomes visible to other people, and it never happens by itself. The first time you turn on sharing, the app shows you the posting terms and asks you to agree.</p>
+
+    <p>When you share a countdown, the following is uploaded to our database and is <strong>public</strong> — anyone using the app can see it:</p>
+
+    <ul>
+        <li>The countdown's title, subtitle, date and design.</li>
+        <li>Its picture, if it has one — including one you chose from your own photos.</li>
+        <li>When it was published, how many people liked it, and how many reported it.</li>
+    </ul>
+
+    <p>The following is stored alongside it but is <strong>never shown to anyone</strong>: an internal account identifier that records which account may edit or remove the countdown. Shared countdowns are anonymous — your name, your Apple Account and your email are not attached to them and are not displayed anywhere in the gallery.</p>
+
+    <p>Because a shared countdown is public, <strong>do not put personal information about yourself or anyone else into a title, a subtitle or a picture.</strong></p>
+
+    <p>When you like or report a countdown, we store a small record — which account did it, when, and for a report, which of the fixed reasons was chosen. That is what stops the same person liking something twice, and what lets repeatedly reported content be hidden automatically.</p>
+
+    <p>You can take any shared countdown back down at any time by turning its share toggle off. Doing so deletes the public copy and its picture.</p>
+
+    <h2>Accounts and Sign in with Apple</h2>
+
+    <p>You do not need an account to make countdowns, use widgets, or browse the gallery.</p>
+
+    <p>The first time you do something that has to be attributed to somebody — liking a countdown, for example — the app quietly creates an <strong>anonymous account</strong> that is nothing more than a random identifier. It carries no personal details whatsoever.</p>
+
+    <p>To publish, you sign in with Apple, which upgrades that same anonymous account in place. We ask Apple only for your <strong>name</strong>; we deliberately do not request your email address, so we never receive one — not even a private relay address. Your name is stored on the account record and is never displayed in the app or attached to anything you share.</p>
+
+    <p>You can delete your publishing account from inside the app, in Settings. Deleting it takes down everything you have shared.</p>
+
+    <h2>What the AI sees</h2>
+
+    <p>When you describe a countdown and ask the app to design it, the text you typed is sent — through our own server, which holds the API credentials so they never sit inside the app — to <a href="https://openrouter.ai/privacy">OpenRouter</a>, which routes it to the AI model that answers. The model's reply is what becomes your countdown's design. Generated pictures are produced the same way.</p>
+
+    <p>Before a countdown can be shared publicly, its title and subtitle are sent through the same route to be checked against the posting rules. <strong>Only that text is sent — the picture is not.</strong></p>
+
+    <p>Countdowns you never share are still designed by AI if you asked the app to design them, but nothing about them is stored on our servers afterwards: the request is answered and it is over. We keep a per-day count of how many AI requests an account has made, so that the free allowance and the paid balance can be enforced — a number, not the content.</p>
+
+    <h2>Finding pictures</h2>
+
+    <p>When a countdown needs artwork, the app searches public picture sources directly from your device: <a href="https://www.themoviedb.org/privacy-policy">TMDB</a>, <a href="https://www.thetvdb.com/privacy-policy">TheTVDB</a>, <a href="https://foundation.wikimedia.org/wiki/Policy:Privacy_policy">Wikipedia</a> and <a href="https://wordpress.org/about/privacy/">Openverse</a>. Each of them sees the search term — which is derived from what you are counting down to — and your device's IP address, in the same way any website you visit does. This product is not endorsed or certified by TMDB or TheTVDB.</p>
+
+    <h2>Purchases</h2>
+
+    <p>Purchases are made through Apple. <strong>We never see your payment details</strong> — Apple handles the transaction and tells us only whether it succeeded.</p>
+
+    <p>Subscription and purchase state is managed for us by <a href="https://www.revenuecat.com/privacy/">RevenueCat</a>, and our own server keeps a ledger of how many creations an account has bought, been granted and spent. Both are keyed to an opaque identifier derived from your iCloud account — not to your name, your email or your Apple Account itself.</p>
+
+    <h2>Diagnostics and analytics</h2>
+
+    <p>The app uses <a href="https://firebase.google.com/support/privacy">Firebase Analytics and Crashlytics</a> from Google to understand which features are used and to receive crash reports.</p>
+
+    <p>What is sent is limited by an internal rule that the app's own tests enforce. It includes things like which screen was opened, how long a step took, your device model, OS version, app version and region setting, and counts and buckets — how many countdowns you have, roughly, and whether you are a subscriber.</p>
+
+    <p>What is <strong>never</strong> sent, in any event: countdown titles or subtitles, anything you typed into the app, prompts, the text of AI replies, search terms, email addresses, file names or picture URLs, and the identifiers used for purchases or publishing. Where a measurement would need one of those, a derived signal is sent instead — the number of characters you typed, for example, rather than what you typed.</p>
+
+    <p>No advertising identifier (IDFA) is read, no tracking permission is requested, and nothing is shared with advertising networks.</p>
+
+    <h2>Feedback you send us</h2>
+
+    <p>Sending feedback from Settings creates an entry in a <strong>private</strong> issue tracker hosted on <a href="https://docs.github.com/site-policy/privacy-policies/github-general-privacy-statement">GitHub</a>, containing what you wrote plus your app version, build number, device model and OS version. There is an optional field for an email address so we can reply; leave it empty and we have no way to contact you, which is fine.</p>
+
+    <h2>Keeping the service honest</h2>
+
+    <p>Requests from the app to our servers carry an <strong>App Check</strong> token, produced by Apple's App Attest, which proves the request came from a genuine copy of the app rather than a script. It attests the app, not you, and it does not identify your device to us. We also keep short-lived rate-limit counters so a single account cannot flood the service.</p>
+
+    <h2>Who else is involved</h2>
+
+    <div class="table-scroll">
+        <table>
+            <thead>
+                <tr><th>Service</th><th>What it handles</th><th>What it receives</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>Apple (iCloud, Sign in with Apple, App Store)</td><td>Private sync, sign-in, payments</td><td>Your countdowns in your own private database; sign-in; payment</td></tr>
+                <tr><td>Google Firebase</td><td>Public gallery, accounts, our server, analytics, crash reports</td><td>Countdowns you chose to share; anonymous or Apple-linked account records; diagnostics</td></tr>
+                <tr><td>OpenRouter and the AI providers it routes to</td><td>Designing countdowns, generating pictures, the pre-share check</td><td>The text you typed; titles and subtitles being checked</td></tr>
+                <tr><td>TMDB, TheTVDB, Wikipedia, Openverse</td><td>Picture search</td><td>The search term and your IP address</td></tr>
+                <tr><td>RevenueCat</td><td>Purchases and subscription state</td><td>An opaque purchase identifier and transaction status</td></tr>
+                <tr><td>GitHub</td><td>Feedback inbox</td><td>Only what you send from the feedback form</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <p>Our servers run on Google Cloud infrastructure in the United States, so data that reaches them is processed there. Nothing on this list receives your data for its own advertising.</p>
+
+    <h2>How long things are kept</h2>
+
+    <ul>
+        <li><strong>Countdowns on your device and in your iCloud:</strong> until you delete them.</li>
+        <li><strong>Shared countdowns:</strong> until you un-share them, until you delete your publishing account, or until three days after the countdown's date has passed, whichever comes first — after which they are deleted automatically, along with their picture, likes and reports.</li>
+        <li><strong>Content removed for breaking the rules:</strong> deleted.</li>
+        <li><strong>Purchase and credit records:</strong> kept while the account exists, because they are the record of what you paid for.</li>
+        <li><strong>Analytics and crash reports:</strong> kept for as long as Firebase's retention settings allow, and they are not tied to your identity.</li>
+        <li><strong>Feedback:</strong> kept until the issue it describes is resolved and tidied up.</li>
+    </ul>
+
+    <h2>Your choices</h2>
+
+    <ul>
+        <li><strong>Do not share anything.</strong> The whole app works without ever publishing.</li>
+        <li><strong>Un-share a countdown</strong> by turning its share toggle off. The public copy is deleted.</li>
+        <li><strong>Delete your publishing account</strong> in Settings. Everything you shared comes down with it; your own countdowns on your device are untouched.</li>
+        <li><strong>Delete everything on your device</strong> in Settings, or delete the app.</li>
+        <li><strong>Turn off iCloud sync</strong> for the app in the Settings app, under your Apple Account.</li>
+        <li><strong>Report or block</strong> anything in the gallery from the ⋯ menu on a card. Reported content is hidden automatically, and objectionable content is removed within 24 hours.</li>
+        <li><strong>Ask us</strong> at <a href="mailto:hayek_dev@icloud.com">hayek_dev@icloud.com</a> for a copy of what we hold about you, or for it to be corrected or erased. Depending on where you live you may have these rights under the GDPR, the CCPA or a similar law; we honour them wherever you are, and we will not charge you or make it difficult.</li>
+    </ul>
+
+    <h2>Children</h2>
+
+    <p>The app is not directed at children under 13, and we do not knowingly collect personal information from them. Because the Public Gallery shows content other people wrote, it is subject to the app's age rating on the App Store. If you believe a child has shared personal information through the app, write to us and we will delete it.</p>
+
+    <h2>Changes to this policy</h2>
+
+    <p>If the app's data handling changes, this page changes with it and the date at the top moves. Material changes are also reflected in the posting terms inside the app, which you are asked to agree to again when what you are agreeing to has changed.</p>
+
+    <h2>Contact</h2>
+
+    <p>Amir Hayek — <a href="mailto:hayek_dev@icloud.com">hayek_dev@icloud.com</a>. Questions about this policy, requests about your data, and reports of content that should not be in the gallery all reach the same place, and a person reads them.</p>
+
+    <footer>
+        <p><a href="/">amirhayek.dev</a> · Any Countdown</p>
+    </footer>
+
+</main>
+</body>
+</html>

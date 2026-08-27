@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<!--
+  Any Countdown — landing page.
+
+  Built from the Claude Design canvas "Landing Page.dc.html" (project 79b7496e). The one
+  intentional departure from that artboard: the hero copy block is not marked up at all.
+  The product reel plays once, stops on its last frame, and that frame IS the artboard's
+  hero — eyebrow, "Every wait, worth watching.", App Store button, phone. The clip's own
+  background is the page background, so it bleeds into it with no seam.
+
+  Three cuts, one per shape (wide / tablet / portrait), each with an end card composed to
+  fit. The markup picks one with `media` on <source>; the script double-checks.
+
+  Screens and widget art come from the app's own video project
+  (AnyTimers/videos/any-countdown-reveal/assets), re-encoded to WebP.
+-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Any Countdown — Every wait, worth watching.</title>
+    <meta name="description" content="Describe what you're waiting for. Any Countdown works out the date, designs the widget, and puts it on your home screen. iPhone, iPad and Mac.">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/icon-32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="assets/icon-96.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/icon-180.png">
+    <meta name="apple-mobile-web-app-title" content="Any Countdown">
+    <meta name="apple-itunes-app" content="app-id=6801441458">
+    <meta name="theme-color" content="#f1efe6">
+
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Any Countdown — Every wait, worth watching.">
+    <meta property="og:description" content="Describe what you're waiting for. We work out the date, design the widget, and put it on your home screen.">
+    <meta property="og:url" content="https://amirhayek.dev/AnyCountdown/">
+    <meta property="og:image" content="https://amirhayek.dev/AnyCountdown/assets/og.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+
+    <link rel="preload" href="assets/fonts/Inter-var.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="site-header" id="siteHeader">
+    <div class="wrap site-header__inner">
+        <a class="brand" href="#top">
+            <img class="brand__mark" src="assets/icon-96.png" alt="" width="38" height="38">
+            <span class="brand__name">Any Countdown</span>
+        </a>
+        <nav class="site-nav">
+            <a href="#gallery">Gallery</a>
+            <a href="#designs">Designs</a>
+            <a href="#platforms">Everywhere</a>
+            <a class="pill pill--dark" href="https://apps.apple.com/app/id6801441458" target="_blank" rel="noopener">Download</a>
+        </nav>
+    </div>
+</header>
+
+<main id="top">
+
+    <!-- ============================================================ hero -->
+    <!--
+      The reel IS the hero. It plays once and holds on its last frame, which is the hero
+      composition itself — eyebrow, "Every wait, worth watching.", App Store button, phone.
+      That is why there is no headline in the markup here: it would be on screen twice.
+
+      The h1 below is still real, just not painted — the video's text is pixels, so without
+      it the page would have no heading for a screen reader or a crawler to find.
+    -->
+    <section class="hero">
+        <h1 class="sr-only">Any Countdown — every wait, worth watching.</h1>
+        <p class="sr-only">Describe what you're waiting for. We work out the date, design the widget, and put it on your home screen.</p>
+
+        <div class="hero__video" id="heroStage">
+            <!--
+              One reel per shape, each with an end card composed for it. Ordered widest
+              first so a browser that ignores `media` on <source> falls back to the wide
+              cut rather than serving everyone the portrait one; the script re-checks.
+            -->
+            <video id="heroVideo"
+                   poster="assets/hero-poster.jpg"
+                   width="1920" height="1080"
+                   autoplay muted playsinline preload="metadata"
+                   aria-label="Typing “The next Marvel movie”, and Any Countdown building the widget for it">
+                <source src="assets/hero-wide.mp4" type="video/mp4" media="(min-width: 861px)">
+                <source src="assets/hero-tablet.mp4" type="video/mp4" media="(min-width: 641px)">
+                <source src="assets/hero-portrait.mp4" type="video/mp4">
+            </video>
+
+            <!--
+              Only the wide end card draws an App Store button. Once the reel stops there,
+              this sits exactly on top of it so the button people can see is a button they
+              can press. Hidden until then, and on the cuts that have no button.
+            -->
+            <a class="hero__hotspot" id="heroHotspot"
+               href="https://apps.apple.com/app/id6801441458" target="_blank" rel="noopener"
+               hidden>Get Any Countdown on the App Store</a>
+
+            <button class="hero__replay" id="heroReplay" type="button">
+                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"
+                     stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M13.7 8a5.7 5.7 0 1 1-1.9-4.25"/>
+                    <path d="M13.5 1.6v2.9h-2.9"/>
+                </svg>
+                Replay
+            </button>
+        </div>
+
+        <!--
+          The portrait and tablet end cards have no button in them, so those widths get a
+          real one under the video. Above 861px the frame supplies it and this is hidden.
+        -->
+        <div class="wrap">
+            <div class="hero__cta">
+                <a class="pill pill--red" href="https://apps.apple.com/app/id6801441458" target="_blank" rel="noopener">
+                    <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M11.05 8.49c-.02-1.7 1.39-2.52 1.45-2.56-.79-1.16-2.02-1.32-2.46-1.34-1.05-.11-2.04.61-2.57.61-.53 0-1.35-.6-2.22-.58-1.14.02-2.19.66-2.78 1.68-1.18 2.05-.3 5.09.85 6.75.56.81 1.23 1.72 2.11 1.69.85-.03 1.17-.55 2.2-.55 1.02 0 1.31.55 2.21.53.91-.02 1.49-.83 2.05-1.65.65-.95.91-1.86.93-1.91-.02-.01-1.78-.69-1.8-2.72zM9.4 3.6c.47-.57.78-1.36.69-2.15-.67.03-1.49.45-1.97 1.01-.43.5-.81 1.31-.71 2.08.75.06 1.51-.38 1.99-.94z"/></svg>
+                    Get it on the App Store
+                </a>
+                <span class="hero__note">Syncs across all your devices</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================ describe it -->
+    <section class="section split split--reverse" id="describe">
+        <div class="wrap split__grid">
+            <div class="split__copy reveal">
+                <p class="eyebrow">Describe it, done</p>
+                <h2 class="display">Just say it.<br>We design it.</h2>
+                <p class="body">“Dune Part Three” is all it takes. We find the release date, pick the palette, and hand you a finished widget.</p>
+            </div>
+            <div class="split__media reveal">
+                <div class="phone">
+                    <div class="phone__screen">
+                        <img src="assets/phone-timeline.webp" width="800" height="1739" alt="A finished countdown in Any Countdown, showing days, hours and minutes left" loading="lazy" decoding="async">
+                    </div>
+                    <span class="phone__btn phone__btn--l phone__btn--mute" aria-hidden="true"></span>
+                    <span class="phone__btn phone__btn--l phone__btn--vol" aria-hidden="true"></span>
+                    <span class="phone__btn phone__btn--r phone__btn--pwr" aria-hidden="true"></span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================ gallery -->
+    <section class="section split" id="gallery">
+        <div class="wrap split__grid">
+            <div class="split__copy reveal">
+                <p class="eyebrow">The gallery</p>
+                <h2 class="display">Made by others,<br>yours in a tap.</h2>
+                <p class="body">Browse what the community is counting down to. Add any of it to your own home screen instantly.</p>
+            </div>
+            <div class="split__media reveal">
+                <div class="phone">
+                    <div class="phone__screen">
+                        <img src="assets/phone-home.webp" width="800" height="1739" alt="The Any Countdown home screen, with your own countdowns above what everyone else is waiting for" loading="lazy" decoding="async">
+                    </div>
+                    <span class="phone__btn phone__btn--l phone__btn--mute" aria-hidden="true"></span>
+                    <span class="phone__btn phone__btn--l phone__btn--vol" aria-hidden="true"></span>
+                    <span class="phone__btn phone__btn--r phone__btn--pwr" aria-hidden="true"></span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================ widget wall -->
+    <section class="section" id="designs">
+        <div class="wrap">
+            <div class="wall__stage reveal reveal--wall">
+                <img class="m w1" src="assets/widgets/halloween-m.webp" width="880" height="412" alt="Halloween countdown widget" loading="lazy" decoding="async">
+                <img class="m w2" src="assets/widgets/zelda-m.webp" width="880" height="412" alt="The Legend of Zelda countdown widget" loading="lazy" decoding="async">
+                <img class="s w3" src="assets/widgets/oscars-s.webp" width="400" height="400" alt="The 99th Oscars countdown widget" loading="lazy" decoding="async">
+                <img class="s w4" src="assets/widgets/wimbledon-s.webp" width="400" height="400" alt="Wimbledon countdown widget" loading="lazy" decoding="async">
+                <img class="m w5" src="assets/widgets/wwc-m.webp" width="880" height="412" alt="Women's World Cup countdown widget" loading="lazy" decoding="async">
+                <img class="s w6" src="assets/widgets/superbowl-s.webp" width="400" height="400" alt="Super Bowl LXI countdown widget" loading="lazy" decoding="async">
+                <img class="s w7" src="assets/widgets/grammys-s.webp" width="400" height="400" alt="The Grammys countdown widget" loading="lazy" decoding="async">
+                <img class="s w8" src="assets/widgets/lunar-s.webp" width="400" height="400" alt="Lunar New Year countdown widget" loading="lazy" decoding="async">
+                <img class="m w9" src="assets/widgets/la28-m.webp" width="880" height="412" alt="LA28 opening ceremony countdown widget" loading="lazy" decoding="async">
+                <img class="m w10" src="assets/widgets/valentines-m.webp" width="880" height="412" alt="Valentine's Day countdown widget" loading="lazy" decoding="async">
+                <img class="s w11" src="assets/widgets/diwali-s.webp" width="400" height="400" alt="Diwali countdown widget" loading="lazy" decoding="async">
+
+                <div class="wall__head">
+                    <p class="eyebrow">30+ designs</p>
+                    <h2 class="display">Widgets worth<br>a home screen.</h2>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================ every screen -->
+    <section class="section platforms" id="platforms">
+        <div class="wrap platforms__grid">
+            <div class="platforms__copy reveal">
+                <p class="eyebrow">Everywhere</p>
+                <h2 class="display">On every<br>screen<br>you own.</h2>
+                <p class="body">Your countdowns sync everywhere, and each one is designed for the screen it lands on.</p>
+            </div>
+            <div class="platforms__stage reveal">
+              <div class="platforms__frame">
+                <img class="platforms__mac" src="assets/mac-home.webp" width="1800" height="1125" alt="Any Countdown on the Mac" loading="lazy" decoding="async">
+                <div class="platforms__ipad">
+                    <div class="tablet">
+                        <div class="tablet__screen">
+                            <img src="assets/ipad-home.webp" width="1300" height="975" alt="Any Countdown on iPad" loading="lazy" decoding="async">
+                        </div>
+                    </div>
+                </div>
+                <div class="platforms__phone">
+                    <div class="phone">
+                        <div class="phone__screen">
+                            <img src="assets/phone-home.webp" width="800" height="1739" alt="Any Countdown on iPhone" loading="lazy" decoding="async">
+                        </div>
+                        <span class="phone__btn phone__btn--l phone__btn--mute" aria-hidden="true"></span>
+                        <span class="phone__btn phone__btn--l phone__btn--vol" aria-hidden="true"></span>
+                        <span class="phone__btn phone__btn--r phone__btn--pwr" aria-hidden="true"></span>
+                    </div>
+                </div>
+              </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================ closing CTA -->
+    <section class="cta" id="get">
+        <div class="cta__deco" aria-hidden="true">
+            <img class="d1" src="assets/widgets/christmas-m.webp" width="880" height="412" alt="" loading="lazy" decoding="async">
+            <img class="d2" src="assets/widgets/superbowl-s.webp" width="400" height="400" alt="" loading="lazy" decoding="async">
+            <img class="d3" src="assets/widgets/gta6-m.webp" width="880" height="412" alt="" loading="lazy" decoding="async">
+            <img class="d4" src="assets/widgets/grammys-s.webp" width="400" height="400" alt="" loading="lazy" decoding="async">
+        </div>
+        <div class="wrap cta__inner">
+            <p class="eyebrow">On the App Store</p>
+            <h2 class="display">Start counting down.</h2>
+            <div class="cta__actions">
+                <a class="pill pill--cream" href="https://apps.apple.com/app/id6801441458" target="_blank" rel="noopener">
+                    <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M11.05 8.49c-.02-1.7 1.39-2.52 1.45-2.56-.79-1.16-2.02-1.32-2.46-1.34-1.05-.11-2.04.61-2.57.61-.53 0-1.35-.6-2.22-.58-1.14.02-2.19.66-2.78 1.68-1.18 2.05-.3 5.09.85 6.75.56.81 1.23 1.72 2.11 1.69.85-.03 1.17-.55 2.2-.55 1.02 0 1.31.55 2.21.53.91-.02 1.49-.83 2.05-1.65.65-.95.91-1.86.93-1.91-.02-.01-1.78-.69-1.8-2.72zM9.4 3.6c.47-.57.78-1.36.69-2.15-.67.03-1.49.45-1.97 1.01-.43.5-.81 1.31-.71 2.08.75.06 1.51-.38 1.99-.94z"/></svg>
+                    Download
+                </a>
+            </div>
+            <p class="cta__note">iPhone · iPad · Mac</p>
+        </div>
+    </section>
+
+</main>
+
+<footer class="site-footer">
+    <div class="wrap site-footer__inner">
+        <a class="brand" href="#top">
+            <img class="brand__mark" src="assets/icon-96.png" alt="" width="28" height="28">
+            <span class="brand__name">Any Countdown</span>
+        </a>
+        <nav class="site-footer__links">
+            <a href="privacy/">Privacy</a>
+            <a href="mailto:hayek_dev@icloud.com">Support</a>
+            <a href="https://apps.apple.com/app/id6801441458" target="_blank" rel="noopener">App Store</a>
+        </nav>
+    </div>
+</footer>
+
+<script>
+(function () {
+    'use strict';
+
+    var calm = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+    // Header only grows a background once it has something to sit on top of.
+    var header = document.getElementById('siteHeader');
+    var onScroll = function () {
+        header.classList.toggle('is-stuck', window.scrollY > 8);
+    };
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+
+    // Copy blocks fade up once. Nothing depends on this running.
+    var targets = document.querySelectorAll('.reveal');
+    if (calm.matches || !('IntersectionObserver' in window)) {
+        targets.forEach(function (el) { el.classList.add('is-in'); });
+    } else {
+        var io = new IntersectionObserver(function (entries) {
+            entries.forEach(function (entry) {
+                if (!entry.isIntersecting) return;
+                entry.target.classList.add('is-in');
+                io.unobserve(entry.target);
+            });
+        }, { rootMargin: '0px 0px -14% 0px' });
+        targets.forEach(function (el) { io.observe(el); });
+    }
+
+    /*
+      The hero reel. It plays once and holds on its last frame — that frame is the hero,
+      so the one state this must never be left in is "stopped somewhere in the middle" or
+      "never started". Every branch below ends with the end card on screen.
+    */
+    var video = document.getElementById('heroVideo');
+    var hotspot = document.getElementById('heroHotspot');
+    var replay = document.getElementById('heroReplay');
+    var stage = document.getElementById('heroStage');
+
+    if (video) {
+        // Which cut actually loaded. Only the wide one paints an App Store button.
+        var isWideCut = function () {
+            return /hero-wide/.test(video.currentSrc || '');
+        };
+
+        var atEnd = function () {
+            replay.classList.add('is-shown');
+            if (isWideCut()) { hotspot.hidden = false; }
+        };
+
+        var atStart = function () {
+            replay.classList.remove('is-shown');
+            hotspot.hidden = true;
+        };
+
+        // Park on the last frame without playing through — for reduced motion, and for
+        // browsers that decline to autoplay.
+        var holdOnEndCard = function () {
+            var land = function () {
+                if (!isFinite(video.duration)) return;
+                try { video.currentTime = Math.max(0, video.duration - 0.05); } catch (e) {}
+                atEnd();
+            };
+            if (video.readyState >= 1) { land(); }
+            else { video.addEventListener('loadedmetadata', land, { once: true }); }
+        };
+
+        video.addEventListener('ended', atEnd);
+        video.addEventListener('play', atStart);
+
+        replay.addEventListener('click', function () {
+            video.currentTime = 0;
+            atStart();
+            var again = video.play();
+            if (again && again.catch) { again.catch(holdOnEndCard); }
+        });
+
+        if (calm.matches) {
+            video.removeAttribute('autoplay');
+            video.pause();
+            holdOnEndCard();
+        } else {
+            var playing = video.play();
+            if (playing && playing.catch) { playing.catch(holdOnEndCard); }
+            // Belt and braces: some browsers reject autoplay without rejecting the promise.
+            setTimeout(function () {
+                if (video.paused && video.currentTime === 0) { holdOnEndCard(); }
+            }, 1500);
+        }
+
+        /*
+          `media` on <source> is in the spec and honoured by current engines, but if one
+          ignores it every viewport gets the wide cut. Catch that and swap, once, before
+          anything has played.
+        */
+        var wantedCut = function () {
+            if (window.matchMedia('(min-width: 861px)').matches) return 'hero-wide';
+            if (window.matchMedia('(min-width: 641px)').matches) return 'hero-tablet';
+            return 'hero-portrait';
+        };
+        var checkCut = function () {
+            var want = wantedCut();
+            if (!video.currentSrc || video.currentSrc.indexOf(want) !== -1) return;
+            video.src = 'assets/' + want + '.mp4';
+            video.load();
+            if (!calm.matches) {
+                var p = video.play();
+                if (p && p.catch) { p.catch(holdOnEndCard); }
+            } else {
+                holdOnEndCard();
+            }
+        };
+        if (video.readyState >= 1) { checkCut(); }
+        else { video.addEventListener('loadedmetadata', checkCut, { once: true }); }
+    }
+}());
+</script>
+
+</body>
+</html>
