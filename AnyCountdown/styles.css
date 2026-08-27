@@ -257,13 +257,6 @@ h2.display { font-size: clamp(2.2rem, 5.28vw, 4.75rem); line-height: 0.94; lette
     }
 }
 
-.hero__note {
-    font-family: var(--mono);
-    font-size: clamp(13px, 1.11vw, 16px);
-    line-height: 1.4;
-    color: var(--faint);
-}
-
 /*
   Full-bleed demo. The clip's own background is the page background, so no frame,
   no border, no rounded corners — the phone and cards simply appear in the page.
@@ -578,9 +571,14 @@ h2.display { font-size: clamp(2.2rem, 5.28vw, 4.75rem); line-height: 0.94; lette
     container-type: inline-size;
 }
 
+/*
+  The capture bakes in only a ~40px corner radius (1.4% of its 2880px width) drawn against
+  a dark backing, which reads almost square beside the iPad. cqw ties a rounder one to the
+  Mac's own width so it holds at every size; going much past this clips into the window.
+*/
 .platforms__mac {
     width: 100%;
-    border-radius: clamp(6px, 0.9vw, 13px);
+    border-radius: 2.4cqw;
     box-shadow: 0 34px 80px rgba(0, 0, 0, .22);
 }
 
