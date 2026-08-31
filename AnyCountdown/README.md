@@ -70,6 +70,44 @@ The reel is muted and never loops. If a browser refuses to autoplay it, or the r
 asked for reduced motion, the script parks it on the last frame rather than leaving an empty
 band where the hero should be. A quiet Replay control sits in the bottom-right corner.
 
+### Where `assets/` comes from
+
+Nothing in `assets/` is authored here — it is all re-encoded from two places, so that is
+where to go when something needs regenerating.
+
+| File | Source | Recipe |
+|---|---|---|
+| `phone-home.webp` | `~/Desktop/AnyTimers Screenshots/iPhone-17-Pro-Max/light/01-home.png` | `cwebp -q 84 -resize 800 0` |
+| `phone-timeline.webp` | same folder, `02-timeline.png` | `cwebp -q 84 -resize 800 0` |
+| `phone-gallery.webp` | same folder, `03-browse.png` | `cwebp -q 84 -resize 800 0` |
+| `ipad-home.webp` | `iPad-Pro-13/light/01-home.png` | `cwebp -q 84 -resize 1300 0` |
+| `mac-home.webp` | `Mac/light/01-home.png` | `cwebp -q 84 -resize 1800 0` |
+| `hero-wide.mp4` | app repo, `videos/any-countdown-reveal/renders/video.mp4` | audio stripped, `libx264 -crf 28`, faststart, untrimmed |
+| `hero-tablet.mp4` | `videos/any-countdown-reveal-ipad/renders/video.mp4` | same recipe |
+| `hero-portrait.mp4` | `videos/any-countdown-reveal-iphone/renders/video.mp4` | same recipe **plus `crop=886:1680:0:240`** — see above |
+| `hero-poster.jpg` | frame 0 of the wide cut | Near-blank cream, which is the point: it matches every cut's first frame, so playback starts with no flicker, and it covers all three box shapes. |
+| `og.jpg` | wide reel @ 4.0s | 1200×630 social card |
+| `widgets/*.webp` | app repo, `videos/any-countdown-reveal/assets/widget-*.png` | `cwebp -q 84`, 880px wide for mediums, 400px for smalls |
+| `icon-*.png` | the app's 1024px icon | `sips -Z` down to 512 / 180 / 96 / 32. Also the source for `assets/icon-anycountdown.png` on the site home page. |
+| `fonts/*.woff2` | app repo, `videos/any-countdown-reveal/assets/fonts/` | Copied as-is. Inter (OFL) and JetBrains Mono (Apache 2.0), both variable, both subset to Latin. |
+
+Two things to know about the screenshots:
+
+- **Use the `light` variants.** The page is cream; the `dark` captures alongside them are for
+  App Store listings, not this.
+- **The encoded `.webp` in this repo is the only copy the site has.** The screenshot folder
+  lives on a Desktop and is not version-controlled, so a re-capture that changes the app's
+  layout will not show up here until someone re-runs the recipes above.
+
+The screenshot set also carries `04-creation`, `05-thinking`, `06-draft` and `07-preview`,
+which the page does not currently use. `06-draft` — the generated "Like this one?" Dune:
+Part Three widget — is the closest match to the "Describe it, AI makes it" section's copy if
+that section ever wants a screen that argues for it.
+
+Every `<img>` carries `width`/`height` attributes matching the encoded pixel size. **Keep
+them in step** — a mismatch is not just a CLS problem here: the attributes are a
+presentational hint, and `styles.css` leans on `height: auto` to defeat them.
+
 ## `remote-config.json`
 
 Read by the app at launch (`AnyTimers/HostedConfig.swift` in the app repo — the target kept its old
