@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<!--
+  Any Countdown — support page.
+
+  This is the URL entered in App Store Connect's Support field. App Review checks that it exists
+  and that a person can actually be reached from it, so the contact address is the first thing on
+  the page and is a real inbox, not a form. Self-contained for the same reason the privacy page is.
+-->
+<html lang="en" data-theme="system">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Support — Any Countdown</title>
+    <meta name="description" content="Get help with Any Countdown — contact, common questions, and how to report content.">
+    <style>
+        :root {
+            --bg: #ffffff;
+            --bg-secondary: #f2f2f7;
+            --ink: #000000;
+            --muted: #6b6b70;
+            --rule: rgba(0, 0, 0, 0.12);
+            --accent: #c0392b;
+        }
+        [data-theme="dark"] {
+            --bg: #000000;
+            --bg-secondary: #1c1c1e;
+            --ink: #ffffff;
+            --muted: #9a9aa0;
+            --rule: rgba(255, 255, 255, 0.16);
+            --accent: #ff6b5a;
+        }
+        @media (prefers-color-scheme: dark) {
+            [data-theme="system"] {
+                --bg: #000000;
+                --bg-secondary: #1c1c1e;
+                --ink: #ffffff;
+                --muted: #9a9aa0;
+                --rule: rgba(255, 255, 255, 0.16);
+                --accent: #ff6b5a;
+            }
+        }
+
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html { -webkit-text-size-adjust: 100%; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif;
+            background: var(--bg);
+            color: var(--ink);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            line-height: 1.6;
+        }
+
+        .page {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 56px 22px 96px;
+        }
+
+        .eyebrow {
+            font-size: 12px;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--muted);
+        }
+
+        h1 {
+            font-size: clamp(30px, 6vw, 40px);
+            line-height: 1.15;
+            letter-spacing: -0.02em;
+            margin: 10px 0 14px;
+        }
+
+        .updated { color: var(--muted); font-size: 15px; }
+
+        h2 {
+            font-size: 21px;
+            letter-spacing: -0.01em;
+            margin: 44px 0 12px;
+            padding-top: 22px;
+            border-top: 1px solid var(--rule);
+        }
+
+        h3 { font-size: 16px; margin: 22px 0 6px; }
+
+        p, li { font-size: 16px; }
+        p { margin: 12px 0; }
+
+        ul { margin: 12px 0 12px 22px; }
+        li { margin: 6px 0; }
+
+        a { color: var(--accent); text-decoration: none; border-bottom: 1px solid currentColor; }
+        a:hover { opacity: 0.75; }
+
+        strong { font-weight: 600; }
+
+        .lede {
+            background: var(--bg-secondary);
+            border-radius: 14px;
+            padding: 20px 22px;
+            margin: 28px 0 8px;
+        }
+        .lede p { margin: 8px 0; }
+        .lede p:first-child { margin-top: 0; }
+        .lede p:last-child { margin-bottom: 0; }
+
+        .table-scroll { overflow-x: auto; margin: 16px 0; }
+        table { border-collapse: collapse; width: 100%; min-width: 520px; font-size: 15px; }
+        th, td { text-align: left; padding: 10px 14px 10px 0; vertical-align: top; border-bottom: 1px solid var(--rule); }
+        th { font-weight: 600; }
+
+        footer {
+            margin-top: 56px;
+            padding-top: 22px;
+            border-top: 1px solid var(--rule);
+            color: var(--muted);
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+<main class="page">
+
+    <p class="eyebrow">Any Countdown</p>
+    <h1>Support</h1>
+    <p class="updated">A person reads every message.</p>
+
+    <div class="lede">
+        <p><strong>Email <a href="mailto:hayek_dev@icloud.com">hayek_dev@icloud.com</a>.</strong> Bugs, questions, refunds, data requests and reports of content that should not be in the Public Gallery all reach the same inbox.</p>
+        <p>It helps to say which device you are on (iPhone, iPad or Mac), the app version from Settings, and what you expected to happen.</p>
+    </div>
+
+    <h2>Common questions</h2>
+
+    <h3>My widget is not updating</h3>
+    <p>Widgets are refreshed by the system rather than on a fixed clock, so a countdown can lag by a few minutes. Opening the app forces a refresh. If a widget stays blank, remove it from the Home Screen and add it again — that rebuilds its timeline from scratch.</p>
+
+    <h3>I bought countdowns and they have not appeared</h3>
+    <p>Open <strong>Settings</strong> in the app and tap <strong>Restore Purchases</strong>. Purchases are tied to the Apple Account that made them, so make sure you are signed in with the same one. If the balance is still wrong, email us with the date of the purchase and we will sort it out.</p>
+
+    <h3>How do I cancel Any Countdown Plus?</h3>
+    <p>Subscriptions are managed by Apple, not by us: open the Settings app, tap your name, then <strong>Subscriptions</strong>. Cancelling leaves every countdown you have already made exactly where it is.</p>
+
+    <h3>Do I have to use the AI?</h3>
+    <p>No. Building a countdown by hand, with a date you set yourself, is free and unlimited. The AI is only involved when you describe something and ask the app to design it.</p>
+
+    <h3>I want a countdown taken out of the Public Gallery</h3>
+    <p>If it is yours, turn its share toggle off — the public copy and its picture are deleted. If it is someone else's, use the <strong>⋯</strong> menu on the card to report or block it. Reported content is hidden automatically, and anything objectionable is removed within 24 hours. You can also email us.</p>
+
+    <h3>What happens to my data?</h3>
+    <p>The short version: your countdowns stay on your device and in your own private iCloud, and nothing becomes public unless you deliberately share it. The long version is in the <a href="/AnyCountdown/privacy/">privacy policy</a>, which also explains how to ask for a copy of what we hold or have it erased.</p>
+
+    <h2>Reporting something urgent</h2>
+    <p>If you have found a security problem, or content in the gallery that needs to come down immediately, put <strong>URGENT</strong> in the subject line and it will be looked at first.</p>
+
+    <footer>
+        <p><a href="/AnyCountdown/">Any Countdown</a> · <a href="/AnyCountdown/privacy/">Privacy</a> · <a href="/">amirhayek.dev</a></p>
+    </footer>
+
+</main>
+</body>
+</html>
