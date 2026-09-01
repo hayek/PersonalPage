@@ -220,6 +220,8 @@
 
     <p>Sending feedback from Settings creates an entry in a <strong>private</strong> issue tracker hosted on <a href="https://docs.github.com/site-policy/privacy-policies/github-general-privacy-statement">GitHub</a>, containing what you wrote plus your app version, build number, device model and OS version. There is an optional field for an email address so we can reply; leave it empty and we have no way to contact you, which is fine.</p>
 
+    <p>You can attach screenshots or files to a report. Anything you attach goes to that same private tracker, so attach only what you mean to send. Location and other camera metadata are stripped from a photo before it leaves your device, and choosing a photo uses Apple's picker — the app is given the picture you picked and never access to your library.</p>
+
     <h2>Keeping the service honest</h2>
 
     <p>Requests from the app to our servers carry an <strong>App Check</strong> token, produced by Apple's App Attest, which proves the request came from a genuine copy of the app rather than a script. It attests the app, not you, and it does not identify your device to us. We also keep short-lived rate-limit counters so a single account cannot flood the service.</p>
@@ -238,7 +240,7 @@
                 <tr><td>Wikipedia, Openverse</td><td>Picture search, from your device</td><td>The search term and your IP address</td></tr>
                 <tr><td>TMDB, TheTVDB</td><td>Picture search through our server; pictures downloaded by your device</td><td>The search term with our server's address; your IP address when a picture is downloaded</td></tr>
                 <tr><td>RevenueCat</td><td>Purchases and subscription state</td><td>An opaque purchase identifier and transaction status</td></tr>
-                <tr><td>GitHub</td><td>Feedback inbox</td><td>Only what you send from the feedback form</td></tr>
+                <tr><td>GitHub</td><td>Feedback inbox</td><td>Only what you send from the feedback form, including anything you attach</td></tr>
             </tbody>
         </table>
     </div>
