@@ -133,7 +133,7 @@
 
     <div class="lede">
         <p><strong>Your countdowns are yours.</strong> They live on your device and, if you use iCloud, in your own private iCloud account — where we cannot read them.</p>
-        <p><strong>Nothing becomes public unless you share it.</strong> Sharing a countdown to the Public Gallery is a deliberate act, it is explained before you do it, and you can undo it at any time.</p>
+        <p><strong>Nothing becomes public unless you share it.</strong> Taking a link, and listing a countdown in the Public Gallery, are two separate deliberate acts. Both are explained before you do them, and both can be undone.</p>
         <p><strong>We do not sell your data, and there is no advertising or tracking in this app.</strong> No advertising identifier is read, and nothing you do here is shared with data brokers or ad networks.</p>
     </div>
 
@@ -147,9 +147,11 @@
 
     <p>When you choose one of your own photos as a countdown background, it is read through Apple's photo picker and processed on your device. The app is not granted access to your photo library, only to the picture you picked. That picture stays local unless you later share that countdown publicly.</p>
 
-    <h2>When you share to the Public Gallery</h2>
+    <h2>When you share a countdown</h2>
 
-    <p>The Public Gallery is the one place where something you made becomes visible to other people, and it never happens by itself. The first time you turn on sharing, the app shows you the posting terms and asks you to agree.</p>
+    <p>There are two ways a countdown you made becomes visible to somebody else, and neither happens by itself. <strong>Taking a link</strong> publishes it so that anyone holding that link can open it, including on the web. <strong>Listing it in the Public Gallery</strong> is a further, separate choice that puts it in front of everyone using the app. The first time you do either, the app shows you the posting terms and asks you to agree.</p>
+
+    <p>A link-shared countdown is public to whoever has the link. Links can be forwarded, and we cannot know who holds one — so treat a link as public, not as private.</p>
 
     <p>When you share a countdown, the following is uploaded to our database and is <strong>public</strong> — anyone using the app can see it:</p>
 
@@ -165,7 +167,14 @@
 
     <p>When you like or report a countdown, we store a small record — which account did it, when, and for a report, which of the fixed reasons was chosen. That is what stops the same person liking something twice, and what lets repeatedly reported content be hidden automatically.</p>
 
-    <p>You can take any shared countdown back down at any time by turning its share toggle off. Doing so deletes the public copy and its picture.</p>
+    <p>Two controls, and they do different things — the app is explicit about this, and so is this page:</p>
+
+    <ul>
+        <li>Turning <strong>Show in the Public Gallery</strong> off <em>unlists</em> the countdown. It leaves the gallery, and any link you already sent <em>keeps working</em>.</li>
+        <li><strong>Stop Sharing</strong> takes the whole thing down. The public copy and its picture are deleted, and the link stops opening for everyone.</li>
+    </ul>
+
+    <p>Deleting your publishing account does what Stop Sharing does, to everything you have ever shared.</p>
 
     <h2>Accounts and Sign in with Apple</h2>
 
@@ -187,7 +196,9 @@
 
     <h2>Finding pictures</h2>
 
-    <p>When a countdown needs artwork, the app searches public picture sources. <a href="https://foundation.wikimedia.org/wiki/Policy:Privacy_policy">Wikipedia</a> and <a href="https://wordpress.org/about/privacy/">Openverse</a> are searched directly from your device, so each sees the search term — which is derived from what you are counting down to — and your device's IP address, in the same way any website you visit does. <a href="https://www.themoviedb.org/privacy-policy">TMDB</a> and <a href="https://www.thetvdb.com/privacy-policy">TheTVDB</a> are searched through our own server, which holds those credentials so they never sit inside the app; they therefore see the search term and our server's address, not yours. This product is not endorsed or certified by TMDB or TheTVDB.</p>
+    <p>When a countdown needs artwork, the app searches public picture sources. <a href="https://foundation.wikimedia.org/wiki/Policy:Privacy_policy">Wikipedia</a> and <a href="https://wordpress.org/about/privacy/">Openverse</a> are searched directly from your device, so each sees the search term — which is derived from what you are counting down to — and your device's IP address, in the same way any website you visit does.</p>
+
+    <p><a href="https://www.themoviedb.org/privacy-policy">TMDB</a> and <a href="https://www.thetvdb.com/privacy-policy">TheTVDB</a> are searched through our own server, which holds those credentials so they never sit inside the app. The <em>search</em> therefore reaches them from us rather than from you: they see the term, paired with our server's address. The <em>pictures</em> are a different matter. Once a search comes back, your device downloads the chosen image straight from their image servers, exactly as it would any picture on the web — so for that download they do see your IP address, without the search term attached to it. This product is not endorsed or certified by TMDB or TheTVDB.</p>
 
     <h2>Purchases</h2>
 
@@ -225,7 +236,7 @@
                 <tr><td>Google Firebase</td><td>Public gallery, accounts, our server, analytics, crash reports</td><td>Countdowns you chose to share; anonymous or Apple-linked account records; diagnostics</td></tr>
                 <tr><td>OpenRouter and the AI providers it routes to</td><td>Designing countdowns, generating pictures, the pre-share check</td><td>The text you typed; titles and subtitles being checked</td></tr>
                 <tr><td>Wikipedia, Openverse</td><td>Picture search, from your device</td><td>The search term and your IP address</td></tr>
-                <tr><td>TMDB, TheTVDB</td><td>Picture search, through our server</td><td>The search term and our server's address, not yours</td></tr>
+                <tr><td>TMDB, TheTVDB</td><td>Picture search through our server; pictures downloaded by your device</td><td>The search term with our server's address; your IP address when a picture is downloaded</td></tr>
                 <tr><td>RevenueCat</td><td>Purchases and subscription state</td><td>An opaque purchase identifier and transaction status</td></tr>
                 <tr><td>GitHub</td><td>Feedback inbox</td><td>Only what you send from the feedback form</td></tr>
             </tbody>
@@ -249,7 +260,8 @@
 
     <ul>
         <li><strong>Do not share anything.</strong> The whole app works without ever publishing.</li>
-        <li><strong>Un-share a countdown</strong> by turning its share toggle off. The public copy is deleted.</li>
+        <li><strong>Unlist a countdown</strong> by turning off Show in the Public Gallery. It leaves the gallery; a link you already sent keeps working.</li>
+        <li><strong>Stop Sharing</strong> a countdown to take it down completely. The public copy and its picture are deleted and the link stops working.</li>
         <li><strong>Delete your publishing account</strong> in Settings. Everything you shared comes down with it; your own countdowns on your device are untouched.</li>
         <li><strong>Delete everything on your device</strong> in Settings, or delete the app.</li>
         <li><strong>Turn off iCloud sync</strong> for the app in the Settings app, under your Apple Account.</li>
