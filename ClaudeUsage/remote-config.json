@@ -47,6 +47,22 @@
       "text": "Claude Opus 5 is here",
       "dashboardText": "Claude Opus 5 launched July 24 — near-Fable-5 intelligence at half the price, with a new low/medium/high effort toggle. It's the default model on Max and the strongest model on Pro, at $5/M input and $25/M output tokens. Tap to read more.",
       "url": "https://www.anthropic.com/news/claude-opus-5"
+    },
+    {
+      "enabled": true,
+      "startDate": "2026-09-01",
+      "endDate": "2026-09-03",
+      "startHour": null,
+      "endHour": null,
+      "days": null,
+      "timezone": null,
+      "icon": "sparkles",
+      "badgeIcon": "sparkles",
+      "type": "news",
+      "severity": "low",
+      "text": "Claude Fable 5.1 is here",
+      "dashboardText": "Claude Fable 5.1 launched September 1, with mid-conversation effort adjustment and content provenance tracking on outputs, plus 25% cheaper cache costs. Pricing stays at $10/M input and $50/M output tokens. Mythos 5.1 is limited to vetted Project Glasswing participants. Tap to read more.",
+      "url": "https://www.anthropic.com/claude-fable-and-mythos-5-1"
     }
   ]
 }
