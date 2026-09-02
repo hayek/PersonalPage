@@ -63,6 +63,22 @@
       "text": "Claude Fable 5.1 is here",
       "dashboardText": "Claude Fable 5.1 launched September 1, with mid-conversation effort adjustment and content provenance tracking on outputs, plus 25% cheaper cache costs. Pricing stays at $10/M input and $50/M output tokens. Mythos 5.1 is limited to vetted Project Glasswing participants. Tap to read more.",
       "url": "https://www.anthropic.com/claude-fable-and-mythos-5-1"
+    },
+    {
+      "enabled": true,
+      "startDate": "2026-09-13",
+      "endDate": "2026-09-15",
+      "startHour": null,
+      "endHour": null,
+      "days": null,
+      "timezone": null,
+      "icon": "gauge.with.dots.needle.67percent",
+      "badgeIcon": "gauge.with.dots.needle.67percent",
+      "type": "news",
+      "severity": "medium",
+      "text": "Claude Code weekly limits change Sept 14",
+      "dashboardText": "Starting Sept 14, Claude Code's weekly limits rise 25% from baseline for Pro/Max/Team/Enterprise — but since the temporary +50% boost ends the same day, you'll see about 17% less weekly capacity than you have now. 5-hour limits aren't affected. Tap for details.",
+      "url": "https://x.com/ClaudeDevs/status/2093742321473065266"
     }
   ]
 }
