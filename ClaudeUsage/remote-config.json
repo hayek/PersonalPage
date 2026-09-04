@@ -79,6 +79,22 @@
       "text": "Claude Code weekly limits change Sept 14",
       "dashboardText": "Starting Sept 14, Claude Code's weekly limits rise 25% from baseline for Pro/Max/Team/Enterprise — but since the temporary +50% boost ends the same day, you'll see about 17% less weekly capacity than you have now. 5-hour limits aren't affected. Tap for details.",
       "url": "https://x.com/ClaudeDevs/status/2093742321473065266"
+    },
+    {
+      "enabled": true,
+      "startDate": "2026-09-04",
+      "endDate": "2026-09-06",
+      "startHour": null,
+      "endHour": null,
+      "days": null,
+      "timezone": null,
+      "icon": "info.circle",
+      "badgeIcon": "info.circle",
+      "type": "news",
+      "severity": "low",
+      "text": "Free plan: usage no longer shown",
+      "dashboardText": "Claude's Free plan no longer shows a usage percentage. This only affects Free accounts — Pro, Max, Team, and Enterprise usage tracking is unaffected.",
+      "url": null
     }
   ]
 }
