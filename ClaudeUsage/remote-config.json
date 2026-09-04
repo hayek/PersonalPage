@@ -92,7 +92,7 @@
       "badgeIcon": "info.circle",
       "type": "news",
       "severity": "low",
-      "text": "Free plan: usage no longer shown",
+      "text": "On free plan usage no longer shown",
       "dashboardText": "Claude's Free plan no longer shows a usage percentage. This only affects Free accounts — Pro, Max, Team, and Enterprise usage tracking is unaffected.",
       "url": null
     }
