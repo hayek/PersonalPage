@@ -286,15 +286,19 @@ a.card:hover {
     display: none;
 }
 
-.vn-dark-img { display: none; }
-.vn-light-img { display: block; }
+.vn-dark-img, .ac-dark-img { display: none; }
+.vn-light-img, .ac-light-img { display: block; }
 
-[data-theme="dark"] .vn-dark-img { display: block; }
-[data-theme="dark"] .vn-light-img { display: none; }
+[data-theme="dark"] .vn-dark-img,
+[data-theme="dark"] .ac-dark-img { display: block; }
+[data-theme="dark"] .vn-light-img,
+[data-theme="dark"] .ac-light-img { display: none; }
 
 @media (prefers-color-scheme: dark) {
-    [data-theme="system"] .vn-dark-img { display: block; }
-    [data-theme="system"] .vn-light-img { display: none; }
+    [data-theme="system"] .vn-dark-img,
+    [data-theme="system"] .ac-dark-img { display: block; }
+    [data-theme="system"] .vn-light-img,
+    [data-theme="system"] .ac-light-img { display: none; }
 }
 
 /* ── Featured App Card ── */
@@ -617,7 +621,8 @@ a.card:hover {
     .app-card.app-card-featured { grid-column: 1 / -1; flex-direction: column; }
     .app-card-featured-img { display: none; }
     .app-card-side-img { display: none; }
-    .vn-dark-img, .vn-light-img { display: none !important; }
+    .vn-dark-img, .vn-light-img,
+    .ac-dark-img, .ac-light-img { display: none !important; }
     .app-card { padding: 20px 14px; align-items: flex-start; text-align: left; }
     .app-card.app-card-with-img { flex-direction: column; }
     .app-card-with-img .app-card-info { justify-content: flex-end; width: 100%; }
