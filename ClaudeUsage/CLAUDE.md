@@ -49,6 +49,13 @@ python3 -m http.server 8000
 - Drop shadows use `filter: drop-shadow()` for images to preserve transparency
 - Typography uses SF Pro Display/Text with system font fallbacks
 
+## Analytics
+
+- `/assets/analytics.js` (repo root) is included in every page's `<head>`. New pages must include `<script src="/assets/analytics.js" defer></script>`.
+- GA4 property "amirhayek.dev" (ID 554201997, account "Usage for Claude"), Measurement ID `G-HZ3GFFE99W`.
+- Blog events: `blog_index_view { blog_tag }` and `blog_post_view { post_slug, post_title }`. `post_slug` comes from the HTML filename, `post_title` from the page's first `<h1>`. These params are registered in GA as event-scoped custom dimensions.
+- Only fires on amirhayek.dev (and subdomains), so local previews don't track.
+
 ## App config files served from here
 
 This directory also hosts JSON consumed by the ClaudeUsage app:

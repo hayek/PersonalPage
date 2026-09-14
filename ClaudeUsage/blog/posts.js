@@ -1,7 +1,9 @@
 /* Blog post index — shared by the homepage "From the blog" section and blog/index.html.
    To publish a post: add its HTML page to blog/ (copy an existing one) and add an
    entry at the TOP of this list (newest first). Use a category tag first —
-   changelog, news, or pro-tip — then any extra topic tags. */
+   changelog, news, or pro-tip — then any extra topic tags. The new page must keep the
+   /assets/analytics.js script tag, its first <h1> is what GA records as post_title,
+   and `slug` must match the HTML filename. */
 const BLOG_POSTS = [
     {
         slug: 'limit-reset-command',
