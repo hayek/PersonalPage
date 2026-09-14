@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog - Usage for Claude</title>
+    <meta name="description" content="Changelog, news, and pro tips for getting the most out of your Claude usage.">
+    <link rel="icon" type="image/png" href="../Assets/Favicon/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="../Assets/Favicon/favicon.svg" />
+    <link rel="shortcut icon" href="../Assets/Favicon/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="../Assets/Favicon/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-title" content="Usage for Claude" />
+    <link rel="manifest" href="../Assets/Favicon/site.webmanifest" />
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body data-stars="subtle">
+    <!-- Decorative Stars -->
+    <div class="stars-decoration" aria-hidden="true">
+        <img src="../Assets/Star1.svg" alt="" class="star star-1">
+        <img src="../Assets/Star2.svg" alt="" class="star star-2">
+        <img src="../Assets/Star3.svg" alt="" class="star star-3">
+        <img src="../Assets/Star4.svg" alt="" class="star star-4">
+        <img src="../Assets/Star5.svg" alt="" class="star star-5">
+    </div>
+
+    <main class="page-content blog-page">
+        <section class="version-history-header">
+            <a href="../" class="back-link">&lsaquo; Back</a>
+            <h1 class="version-history-title">Blog</h1>
+            <p class="version-history-subtitle">Changelog, news, and pro tips for Usage for Claude. Looking for every release? See the <a href="../version-history.html" class="inline-link" style="color: var(--accent-light);">full version history</a>.</p>
+        </section>
+
+        <nav class="tag-filter" id="tagFilter" aria-label="Filter posts by tag"></nav>
+        <section class="post-grid" id="postList"></section>
+
+        <footer class="footer">
+            <p class="footer-text">
+                Created with <img src="../Assets/heart.svg" alt="love" class="heart-icon"> for the Claude community by
+                <a href="https://amirhayek.dev/" target="_blank" rel="noopener noreferrer" class="footer-link">Amir Hayek</a>
+                <a href="https://www.linkedin.com/in/amir-hayek-2a816415/" target="_blank" rel="noopener noreferrer" class="footer-link" aria-label="LinkedIn"><img src="../Assets/linkedin.svg" alt="LinkedIn" class="linkedin-icon"></a>
+            </p>
+        </footer>
+    </main>
+
+    <script src="posts.js"></script>
+    <script>
+    /* ?tag=pro-tip filters the list; chips link rather than toggle so a filtered view is shareable */
+    (function renderBlog() {
+        const active = new URLSearchParams(location.search).get('tag');
+        const chips = [null, ...BLOG_CATEGORIES];
+        // topic tags that aren't a category (e.g. #claude-code) get a chip only while active
+        if (active && !chips.includes(active)) chips.push(active);
+        document.getElementById('tagFilter').innerHTML = chips.map((t) =>
+            `<a href="${t ? '?tag=' + encodeURIComponent(t) : './'}" aria-current="${t === active}">${t ? '#' + t : 'All posts'}</a>`
+        ).join('');
+
+        const posts = active ? BLOG_POSTS.filter((p) => p.tags.includes(active)) : BLOG_POSTS;
+        document.getElementById('postList').innerHTML = posts.length
+            ? posts.map((p) => renderPostCard(p, '')).join('')
+            : '<p class="blog-empty">No posts with this tag yet.</p>';
+    })();
+    </script>
+</body>
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skip the wait with /limit-reset in Claude Code - Usage for Claude</title>
+    <meta name="description" content="What Claude Code's /limit-reset command does, how to use it, why it may not work on your account yet, and why it still counts against your weekly limit.">
+    <link rel="icon" type="image/png" href="../Assets/Favicon/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="../Assets/Favicon/favicon.svg" />
+    <link rel="shortcut icon" href="../Assets/Favicon/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="../Assets/Favicon/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-title" content="Usage for Claude" />
+    <link rel="manifest" href="../Assets/Favicon/site.webmanifest" />
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body data-stars="subtle">
+    <!-- Decorative Stars -->
+    <div class="stars-decoration" aria-hidden="true">
+        <img src="../Assets/Star1.svg" alt="" class="star star-1">
+        <img src="../Assets/Star2.svg" alt="" class="star star-2">
+        <img src="../Assets/Star3.svg" alt="" class="star star-3">
+        <img src="../Assets/Star4.svg" alt="" class="star star-4">
+        <img src="../Assets/Star5.svg" alt="" class="star star-5">
+    </div>
+
+    <main class="page-content post-page">
+        <header class="post-header">
+            <a href="./" class="back-link">&lsaquo; Blog</a>
+            <div class="tag-list">
+                <a href="./?tag=pro-tip" class="tag">#pro-tip</a>
+                <a href="./?tag=claude-code" class="tag">#claude-code</a>
+            </div>
+            <h1 class="post-title">Hit your session limit? Try <code>/limit-reset</code></h1>
+            <p class="post-lede">Claude Code has a new command that clears your 5-hour session limit on the spot, so you don't have to sit out the rest of the window. Here's what it does, how to use it, and the catch.</p>
+            <p class="post-meta"><time datetime="2026-09-14">September 14, 2026</time> · 3 min read</p>
+        </header>
+
+        <article class="post-body">
+            <h2>What it does</h2>
+            <p>Claude plans have two limits that matter here: a <strong>session limit</strong> that rolls over every 5 hours, and a <strong>weekly limit</strong> on top of it. Normally, once you hit the session limit you wait for the window to reset.</p>
+            <p><code>/limit-reset</code> clears your <strong>current session limit</strong> right away, so you can keep working. You can't use it whenever you like: after a reset, Claude Code tells you when the next one becomes available.</p>
+
+            <div class="callout">
+                <strong>It doesn't reset your weekly limit.</strong>
+                You don't get extra usage. Everything you use after the reset still counts toward your weekly limit, so you're spending this week's budget sooner, not adding to it.
+            </div>
+
+            <h2>How to use it</h2>
+            <ol>
+                <li><strong>Update Claude Code</strong> so you have the latest version:
+                    <pre><code>claude update</code></pre>
+                </li>
+                <li><strong>Check that you have it.</strong> Type <code>/</code> in a Claude Code session and look for <code>limit-reset</code> in the command list.</li>
+                <li><strong>When you hit your session limit</strong>, run:
+                    <pre><code>/limit-reset</code></pre>
+                </li>
+                <li><strong>Read the reply.</strong> If it worked, you'll see something like:
+                    <pre><code>Session limit reset · next reset available &lt;date&gt; · your weekly limit still applies</code></pre>
+                    Then carry on where you left off.
+                </li>
+            </ol>
+
+            <h2>Not everyone has it</h2>
+            <p>The command is still rolling out, and Anthropic hasn't documented it in the Claude Code release notes yet. That means:</p>
+            <ul>
+                <li><strong>It might not be in your <code>/</code> menu yet</strong>, even on the latest version.</li>
+                <li><strong>Seeing the command doesn't mean you can use it.</strong> Some accounts get the reset. Others get <em>&ldquo;A session-limit reset isn't available right now.&rdquo;</em> Anthropic hasn't said who qualifies.</li>
+                <li><strong>This could change.</strong> Since it's undocumented, how often you can use it, who gets it, and what it's called could all change without notice.</li>
+            </ul>
+            <p>If it doesn't work for you, the usual options still apply: wait for the session window to reset, or check <a href="https://code.claude.com/docs/en/errors#youve-hit-your-session-limit" target="_blank" rel="noopener noreferrer">what to do when you hit a usage limit</a> in the Claude Code docs.</p>
+
+            <h2>Using it wisely</h2>
+            <p>Because a reset uses up your weekly limit faster, check how much weekly limit you have left before you use one. If you have plenty left, a reset is a good way to keep going. If you're close to the weekly limit, a reset only gets you there sooner, and the weekly limit takes much longer to come back.</p>
+            <p>Usage for Claude shows both at once in your menu bar: session and weekly limits side by side, plus a prediction of whether you'll hit a limit at your current pace. Two notification rules are especially useful here:</p>
+            <ul>
+                <li><strong>Weekly usage above 80%</strong>, so you know when it's time to stop using resets.</li>
+                <li><strong>Session limit resets</strong>, so if the command isn't available to you, you know the moment you can pick things back up.</li>
+            </ul>
+
+            <div class="callout callout-muted">
+                <strong>Heads up</strong>
+                Usage for Claude is an independent app, not affiliated with Anthropic. This post is based on how the command behaves for users today, so check your own Claude Code for the latest behavior.
+            </div>
+        </article>
+
+        <nav class="post-footer">
+            <a href="./" class="link-arrow">&larr; All posts</a>
+            <a href="../" class="link-arrow">Get Usage for Claude →</a>
+        </nav>
+
+        <footer class="footer">
+            <p class="footer-text">
+                Created with <img src="../Assets/heart.svg" alt="love" class="heart-icon"> for the Claude community by
+                <a href="https://amirhayek.dev/" target="_blank" rel="noopener noreferrer" class="footer-link">Amir Hayek</a>
+                <a href="https://www.linkedin.com/in/amir-hayek-2a816415/" target="_blank" rel="noopener noreferrer" class="footer-link" aria-label="LinkedIn"><img src="../Assets/linkedin.svg" alt="LinkedIn" class="linkedin-icon"></a>
+            </p>
+        </footer>
+    </main>
+</body>
+</html>

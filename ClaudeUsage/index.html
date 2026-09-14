@@ -196,29 +196,17 @@
             </div>
         </section>
 
-        <!-- ============== CHANGELOG ============== -->
-        <section class="changelog reveal">
-            <div class="changelog-head">
+        <!-- ============== BLOG ============== -->
+        <section class="blog reveal">
+            <div class="blog-head">
                 <div>
-                    <span class="section-eyebrow">What's new</span>
-                    <h2 class="section-title">Recent updates</h2>
+                    <span class="section-eyebrow">From the blog</span>
+                    <h2 class="section-title">Changelog, news &amp; pro tips</h2>
                 </div>
-                <a href="version-history.html" class="link-arrow">Version history →</a>
+                <a href="blog/" class="link-arrow">All posts →</a>
             </div>
-            <div class="changelog-card">
-                <div class="changelog-top">
-                    <span class="version-chip">v3.1</span>
-                    <span class="changelog-lede">Multiple accounts, made solid — plus a sharper chart and faster Claude Code stats.</span>
-                </div>
-                <div class="changelog-grid">
-                    <div class="cl-item"><strong>Accounts stay separate</strong><p>Two accounts inside the same organization &mdash; or one login spanning several &mdash; now each keep their own usage, history, widgets, and Watch data. Nothing blends together anymore.</p></div>
-                    <div class="cl-item"><strong>Sign-in that pairs correctly</strong><p>Signing in now matches your session to the right account by identity instead of guessing, fixing accounts that got stuck, mismatched, or silently repointed after re-authenticating.</p></div>
-                    <div class="cl-item"><strong>Choose your organization</strong><p>If your Claude login belongs to more than one organization, the app asks which one to track instead of picking for you.</p></div>
-                    <div class="cl-item"><strong>Name your accounts</strong><p>Give each account a name that makes sense to you &mdash; &ldquo;Work&rdquo;, &ldquo;Personal&rdquo; &mdash; from the Accounts pane on Mac or the account hub on iPhone.</p></div>
-                    <div class="cl-item"><strong>Notification rules follow you</strong><p>Your rules now sync across Mac and iPhone through iCloud, with a per-rule &ldquo;this device only&rdquo; switch for the ones that should stay put.</p></div>
-                    <div class="cl-item"><strong>Weekly line on the chart</strong><p>History ranges from 12 hours to 7 days now overlay your weekly usage line, and weekly bars that hit the limit turn a darker, urgent orange.</p></div>
-                </div>
-                <p class="changelog-extras">Also included: Claude Code stats parse incrementally and index every project folder, so they load faster and count everything; copy your usage snapshot as an image straight from the menu bar; unrecognized plans are no longer labelled &ldquo;Free&rdquo;, and Team plans get their own badge; the remaining-percentage mode now reads &ldquo;42% left&rdquo; everywhere, widgets included; plus fixes and translations across 16 languages. Thanks for using Usage for Claude!</p>
+            <div class="post-grid" id="latestPosts">
+                <!-- cards rendered from blog/posts.js -->
             </div>
         </section>
 
@@ -256,7 +244,12 @@
         </footer>
     </main>
 
+    <script src="blog/posts.js"></script>
     <script>
+    /* ---------- Latest blog posts (newest three) ---------- */
+    document.getElementById('latestPosts').innerHTML =
+        BLOG_POSTS.slice(0, 3).map((p) => renderPostCard(p, 'blog/')).join('');
+
     /* ---------- iOS visitors: plain "Download", pointing at the iOS listing ----------
        The CTAs are written for the Mac, and their ?mt=12 forces the Mac App Store —
        a dead end from a phone. Both apps share one App Store ID (universal purchase),
