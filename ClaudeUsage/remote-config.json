@@ -2,6 +2,22 @@
   "alerts": [
     {
       "enabled": true,
+      "startDate": null,
+      "endDate": "2026-09-21",
+      "startHour": null,
+      "endHour": null,
+      "days": null,
+      "timezone": null,
+      "icon": "lightbulb.fill",
+      "badgeIcon": "lightbulb.fill",
+      "type": "news",
+      "severity": "low",
+      "text": "Hit your session limit? Try /limit-reset",
+      "dashboardText": "Claude Code's new /limit-reset command clears your 5-hour session limit right away. It doesn't give you more usage: everything after a reset still counts against your weekly limit. It's rolling out gradually, has a cooldown, and won't show up in autocomplete, so type it in full. Tap to read more.",
+      "url": "https://amirhayek.dev/ClaudeUsage/blog/limit-reset-command.html"
+    },
+    {
+      "enabled": false,
       "startDate": "2026-07-20",
       "endDate": "2026-07-22",
       "startHour": null,
@@ -17,7 +33,7 @@
       "url": "https://support.claude.com/en/articles/15424964-claude-fable-5-promotional-access"
     },
     {
-      "enabled": true,
+      "enabled": false,
       "startDate": "2026-07-20",
       "endDate": "2026-07-21",
       "startHour": null,
@@ -33,7 +49,7 @@
       "url": "https://support.claude.com/en/articles/15910845-claude-code-may-august-2026-weekly-limits-promotion"
     },
     {
-      "enabled": true,
+      "enabled": false,
       "startDate": "2026-07-25",
       "endDate": "2026-07-26",
       "startHour": null,
@@ -49,7 +65,7 @@
       "url": "https://www.anthropic.com/news/claude-opus-5"
     },
     {
-      "enabled": true,
+      "enabled": false,
       "startDate": "2026-09-01",
       "endDate": "2026-09-03",
       "startHour": null,
@@ -81,7 +97,7 @@
       "url": "https://x.com/ClaudeDevs/status/2093742321473065266"
     },
     {
-      "enabled": true,
+      "enabled": false,
       "startDate": "2026-09-04",
       "endDate": "2026-09-06",
       "startHour": null,
