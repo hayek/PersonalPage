@@ -50,8 +50,7 @@
                 <li><strong>Update Claude Code</strong> so you have the latest version:
                     <pre><code>claude update</code></pre>
                 </li>
-                <li><strong>Check that you have it.</strong> Type <code>/</code> in a Claude Code session and look for <code>limit-reset</code> in the command list.</li>
-                <li><strong>When you hit your session limit</strong>, run:
+                <li><strong>When you hit your session limit</strong>, type the whole command and press Enter. It won't autocomplete when you type <code>/</code>, so don't wait for it to show up in the command list:
                     <pre><code>/limit-reset</code></pre>
                 </li>
                 <li><strong>Read the reply.</strong> If it worked, you'll see something like:
@@ -63,8 +62,8 @@
             <h2>Not everyone has it</h2>
             <p>The command is still rolling out, and Anthropic hasn't documented it in the Claude Code release notes yet. That means:</p>
             <ul>
-                <li><strong>It might not be in your <code>/</code> menu yet</strong>, even on the latest version.</li>
-                <li><strong>Seeing the command doesn't mean you can use it.</strong> Some accounts get the reset. Others get <em>&ldquo;A session-limit reset isn't available right now.&rdquo;</em> Anthropic hasn't said who qualifies.</li>
+                <li><strong>It's hidden.</strong> It doesn't appear in the <code>/</code> command list, so you can't tell whether you have it until you run it.</li>
+                <li><strong>Running it doesn't guarantee a reset.</strong> Some accounts get the reset. Others get <em>&ldquo;A session-limit reset isn't available right now.&rdquo;</em> Anthropic hasn't said who qualifies.</li>
                 <li><strong>This could change.</strong> Since it's undocumented, how often you can use it, who gets it, and what it's called could all change without notice.</li>
             </ul>
             <p>If it doesn't work for you, the usual options still apply: wait for the session window to reset, or check <a href="https://code.claude.com/docs/en/errors#youve-hit-your-session-limit" target="_blank" rel="noopener noreferrer">what to do when you hit a usage limit</a> in the Claude Code docs.</p>
