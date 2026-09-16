@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<!--
+  Usage for Claude — privacy policy.
+
+  This is the URL entered in App Store Connect's Privacy Policy field (both platforms), and the
+  one the app links to from the paywall and from Settings > Subscription. It is deliberately
+  self-contained: no shared stylesheet, no fonts, no scripts beyond site analytics, so it cannot
+  break because something else on the site moved.
+
+  Everything below describes what the app actually does. When the app's data handling changes,
+  this page changes in the same commit. It replaced a generated policy hosted on flycricket.io
+  on 16 September 2026.
+-->
+<html lang="en" data-theme="system">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy — Usage for Claude</title>
+    <meta name="description" content="What Usage for Claude collects, what it never collects, and how to delete it.">
+    <link rel="icon" type="image/png" href="../Assets/Favicon/favicon-96x96.png" sizes="96x96" />
+    <link rel="apple-touch-icon" sizes="180x180" href="../Assets/Favicon/apple-touch-icon.png" />
+    <style>
+        :root {
+            --bg: #ffffff;
+            --bg-secondary: #f2f2f7;
+            --ink: #000000;
+            --muted: #6b6b70;
+            --rule: rgba(0, 0, 0, 0.12);
+            --accent: #c15f3c;
+        }
+        [data-theme="dark"] {
+            --bg: #000000;
+            --bg-secondary: #1c1c1e;
+            --ink: #ffffff;
+            --muted: #9a9aa0;
+            --rule: rgba(255, 255, 255, 0.16);
+            --accent: #e08a68;
+        }
+        @media (prefers-color-scheme: dark) {
+            [data-theme="system"] {
+                --bg: #000000;
+                --bg-secondary: #1c1c1e;
+                --ink: #ffffff;
+                --muted: #9a9aa0;
+                --rule: rgba(255, 255, 255, 0.16);
+                --accent: #e08a68;
+            }
+        }
+
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html { -webkit-text-size-adjust: 100%; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif;
+            background: var(--bg);
+            color: var(--ink);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            line-height: 1.6;
+        }
+
+        .page {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 56px 22px 96px;
+        }
+
+        .eyebrow {
+            font-size: 12px;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--muted);
+        }
+
+        h1 {
+            font-size: clamp(30px, 6vw, 40px);
+            line-height: 1.15;
+            letter-spacing: -0.02em;
+            margin: 10px 0 14px;
+        }
+
+        .updated { color: var(--muted); font-size: 15px; }
+
+        h2 {
+            font-size: 21px;
+            letter-spacing: -0.01em;
+            margin: 44px 0 12px;
+            padding-top: 22px;
+            border-top: 1px solid var(--rule);
+        }
+
+        h3 { font-size: 16px; margin: 22px 0 6px; }
+
+        p, li { font-size: 16px; }
+        p { margin: 12px 0; }
+
+        ul { margin: 12px 0 12px 22px; }
+        li { margin: 6px 0; }
+
+        a { color: var(--accent); text-decoration: none; border-bottom: 1px solid currentColor; }
+        a:hover { opacity: 0.75; }
+
+        strong { font-weight: 600; }
+
+        .lede {
+            background: var(--bg-secondary);
+            border-radius: 14px;
+            padding: 20px 22px;
+            margin: 28px 0 8px;
+        }
+        .lede p { margin: 8px 0; }
+        .lede p:first-child { margin-top: 0; }
+        .lede p:last-child { margin-bottom: 0; }
+
+        .table-scroll { overflow-x: auto; margin: 16px 0; }
+        table { border-collapse: collapse; width: 100%; min-width: 520px; font-size: 15px; }
+        th, td { text-align: left; padding: 10px 14px 10px 0; vertical-align: top; border-bottom: 1px solid var(--rule); }
+        th { font-weight: 600; }
+
+        footer {
+            margin-top: 56px;
+            padding-top: 22px;
+            border-top: 1px solid var(--rule);
+            color: var(--muted);
+            font-size: 14px;
+        }
+    </style>
+    <script src="/assets/analytics.js" defer></script>
+</head>
+<body>
+<main class="page">
+
+    <p class="eyebrow">Usage for Claude</p>
+    <h1>Privacy Policy</h1>
+    <p class="updated">Last updated 16 September 2026</p>
+
+    <div class="lede">
+        <p><strong>Your Claude account stays between you and Anthropic.</strong> You sign in to claude.ai inside the app, and your usage is read straight from Anthropic by your own device. We run no server in the middle, and we never see your password or your session.</p>
+        <p><strong>Your usage history is yours.</strong> It is kept on your device and, if you use iCloud, in your own private iCloud database — which we cannot read.</p>
+        <p><strong>No advertising, no tracking, no data for sale.</strong> No advertising identifier is read, no tracking permission is asked for, and nothing you do here goes to an ad network or a data broker.</p>
+    </div>
+
+    <p>Usage for Claude ("the app") is made by Amir Hayek ("we"). It is an independent app and is not affiliated with, endorsed by, or certified by Anthropic. This policy explains what the app collects, what it deliberately never collects, who else is involved, and how to delete what exists. It covers the Mac app, the iPhone app, the Apple Watch app and all of their widgets.</p>
+
+    <h2>Signing in to Claude</h2>
+
+    <p>To show your usage, the app needs to be signed in to your own Claude account. You sign in to <a href="https://claude.ai">claude.ai</a> in a web view inside the app, using Anthropic's own email-code login. We never receive, and never ask for, your Claude password.</p>
+
+    <p>The session cookies that sign-in produces are stored in your device's <strong>Keychain</strong>, which is encrypted by the operating system. If you have iCloud Keychain switched on, Apple may sync them to your other devices in the same way it syncs your other passwords. They are used for one thing: asking claude.ai for your own usage figures.</p>
+
+    <p>Those requests go <strong>directly from your device to Anthropic</strong>. What Anthropic sees is what it would see from a browser signed in to your account, and what it does with that is covered by <a href="https://www.anthropic.com/legal/privacy">Anthropic's privacy policy</a>. Signing out from the Accounts screen deletes the stored cookies.</p>
+
+    <h2>What stays on your device</h2>
+
+    <p>Your usage history — the sessions, the weekly totals, the charts and the activity grid — is written to a private container on your device that the app and its widgets share. It keeps up to 365 days and older entries are pruned automatically. Your settings, your notification rules and your account list live there too.</p>
+
+    <p>If you are signed in to iCloud, history and settings also sync through <strong>your own private iCloud database</strong> and Apple's key-value store, so your Mac, iPhone and Apple Watch agree. That data belongs to your Apple Account and is handled by Apple under <a href="https://www.apple.com/legal/privacy/">Apple's privacy policy</a>. We have no access to it. If you are signed out of iCloud the app simply does not sync, and nothing else changes.</p>
+
+    <p>On the Mac, the Claude Code statistics feature reads Claude Code's own files in your home folder, after you grant access to that folder. Those files are parsed on your device and the results stay there. Their contents are never uploaded to us.</p>
+
+    <h2>What the app fetches</h2>
+
+    <p>Besides your usage, the app makes a small number of ordinary web requests. Each one lets the server on the other end see your device's IP address and the usual request details, as any website visit does:</p>
+
+    <ul>
+        <li><strong>status.claude.com</strong> — Anthropic's public service-status feed, so the app can tell you when Claude itself is having problems.</li>
+        <li><strong>amirhayek.dev</strong> — three static files hosted on GitHub Pages: in-app announcements, the usage-window schema, and model pricing. These are plain downloads. Nothing about you is sent with them.</li>
+    </ul>
+
+    <h2>Diagnostics and analytics</h2>
+
+    <p>The app uses <a href="https://firebase.google.com/support/privacy">Firebase Analytics and Crashlytics</a> from Google to understand which features are used and to receive crash reports. The iPhone app also uses Firebase Performance Monitoring.</p>
+
+    <p>What is sent is limited by an internal rule that the app's own tests enforce. It covers things like which screen or setting was used and the value it was set to, a category for a failure (an HTTP status, "network", "rate limited"), your device model, OS version, app version and region, and counts and buckets — your plan family, for example, rather than your account.</p>
+
+    <p>Two identifiers travel with that: a random <strong>install identifier</strong> created by the app, and an <strong>account hash</strong>. The account hash is the first 16 hexadecimal characters of a SHA-256 digest of your lowercased Claude account email. It is one-way — the email cannot be recovered from it — and it exists so that when you write in about a problem, we can find the diagnostics for your own installation instead of guessing. <strong>Your email address itself is never sent to analytics.</strong></p>
+
+    <p>What is <strong>never</strong> sent, in any event: your Claude password or session cookies, your email address in readable form, the text of anything you type into the app, or the contents of your Claude Code files.</p>
+
+    <p>No advertising identifier (IDFA) is read, no tracking permission is requested, and nothing is shared with advertising networks.</p>
+
+    <h2>Feedback you send us</h2>
+
+    <p>Sending feedback from inside the app creates an entry in a <strong>private</strong> issue tracker hosted on <a href="https://docs.github.com/site-policy/privacy-policies/github-general-privacy-statement">GitHub</a>, containing what you wrote plus your app version, build number, device model and OS version. There is an optional field for an email address so we can reply; leave it empty and we have no way to contact you, which is fine.</p>
+
+    <p>You can attach screenshots or files to a report. Anything you attach goes to that same private tracker, so attach only what you mean to send.</p>
+
+    <h2>The Codex beta sign-up</h2>
+
+    <p>The What's New page offers a form for joining a future TestFlight beta of Codex usage support. It is entirely optional and no feature of the app depends on it.</p>
+
+    <p>If you choose to use it, the <strong>email address</strong> you type — and the <strong>wishlist</strong> text, if you write any — are sent to the same private GitHub issue tracker described above. Your email is used for one purpose: sending you the TestFlight invitation when the beta opens. It is not added to a mailing list, not used for marketing, and not shared with anyone. Ask us at any time and the entry is deleted.</p>
+
+    <p>TestFlight itself is Apple's service. Once you accept an invitation, your participation in the beta is handled by Apple under <a href="https://www.apple.com/legal/privacy/">Apple's privacy policy</a>.</p>
+
+    <h2>Purchases</h2>
+
+    <p>Purchases and subscriptions are made through Apple. <strong>We never see your payment details</strong> — Apple handles the transaction and tells the app only whether you are entitled to the paid features. There is no third-party purchase service and no account to create.</p>
+
+    <h2>Who else is involved</h2>
+
+    <div class="table-scroll">
+        <table>
+            <thead>
+                <tr><th>Service</th><th>What it handles</th><th>What it receives</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>Anthropic (claude.ai)</td><td>Your Claude account and your usage figures</td><td>Requests from your device, signed in as you</td></tr>
+                <tr><td>Apple (iCloud, Keychain, App Store, TestFlight)</td><td>Private sync, credential storage, payments, betas</td><td>Your history in your own private database; payment; beta participation</td></tr>
+                <tr><td>Google Firebase</td><td>Analytics, crash reports, performance</td><td>Diagnostics, the install identifier and the account hash</td></tr>
+                <tr><td>GitHub</td><td>Feedback inbox and the Codex beta sign-up</td><td>Only what you send from those forms</td></tr>
+                <tr><td>GitHub Pages (amirhayek.dev)</td><td>Announcements, schema and pricing files</td><td>Your IP address when the app downloads a file</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <p>Nothing on this list receives your data for its own advertising.</p>
+
+    <h2>Your choices and how to delete things</h2>
+
+    <ul>
+        <li><strong>Sign out</strong> from the Accounts screen to delete the stored Claude session for that account.</li>
+        <li><strong>Delete your history</strong> from Settings, on either platform. Deleting it removes the iCloud copy too.</li>
+        <li><strong>Uninstall the app</strong> to stop all collection. Removing it from every device and deleting its iCloud data leaves nothing of yours on our side, because we hold nothing centrally.</li>
+        <li><strong>Written to us?</strong> Email us and we will delete your feedback entry or your Codex beta sign-up.</li>
+    </ul>
+
+    <p>Requests about your own data, including a copy of what we hold or its erasure, go to the address at the bottom of this page, and are answered in a reasonable time.</p>
+
+    <h2>Children</h2>
+
+    <p>The app is not directed at children under 13 and we do not knowingly collect personal information from them. If you believe a child has sent us personal information, write to us and we will delete it.</p>
+
+    <h2>Changes</h2>
+
+    <p>This policy may be updated when the app's data handling changes. The date at the top of the page changes with it, and the previous versions of this page remain in the site's public commit history.</p>
+
+    <h2>Contact</h2>
+
+    <p>Questions about privacy, or a request about your own data: <a href="mailto:free4sale@gmail.com">free4sale@gmail.com</a>.</p>
+
+    <footer>
+        <p><a href="/ClaudeUsage/">Usage for Claude</a> · <a href="/ClaudeUsage/version-history.html">Version History</a> · <a href="/">amirhayek.dev</a></p>
+        <p style="margin-top:8px;">Independent third-party app · not affiliated with or endorsed by Anthropic.</p>
+    </footer>
+
+</main>
+</body>
+</html>
