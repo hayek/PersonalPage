@@ -453,13 +453,31 @@ body[data-stars="subtle"] .star:nth-child(2n) { display: none; }
 .b-notify   { grid-column: span 4; grid-row: span 2; }
 .b-status   { grid-column: span 2; }
 .b-share    { grid-column: span 2; }
-.b-history  { grid-column: span 6; }
+.b-history  { grid-column: span 4; }
+.b-resets   { grid-column: span 2; }
 .b-companion{ grid-column: span 4; }
 .b-watch    { grid-column: span 2; }
 .b-insights { grid-column: span 6; }
 .b-widgets  { grid-column: span 6; }
 
 .b-history .card-figure { margin-top: auto; }
+/* Same bleed as the rules shot: the chart runs off the bottom-right, enlarged
+   past the card so the "reset early" tooltip (right half of the art) stays in
+   view while the left edge is masked by the card. */
+.b-resets { overflow: hidden; }
+.b-resets > p { margin-bottom: 20px; }
+.b-resets .card-figure {
+    margin: auto -28px -28px 0;
+    display: flex;
+    justify-content: flex-end;
+    overflow: hidden;
+}
+.b-resets .card-figure img {
+    flex: none;
+    width: 175%;
+    max-width: none;
+    border-radius: 0;
+}
 /* The rules shot keeps its left padding and runs off the bottom-right, masked
    by the card. It is left at its natural width — scaled to fill, the window
    chrome reads far too large against the copy above it. */
@@ -1015,11 +1033,14 @@ a.tag:hover { border-color: var(--accent-light); }
    ========================================================= */
 @media (max-width: 920px) {
     .bento { grid-template-columns: repeat(2, 1fr); }
-    .b-accounts, .b-notify, .b-status, .b-history, .b-share, .b-companion,
+    .b-accounts, .b-notify, .b-status, .b-history, .b-resets, .b-share, .b-companion,
     .b-watch, .b-insights, .b-widgets {
         grid-column: 1 / -1;
     }
     .b-notify { grid-row: auto; } /* nothing to stack beside once single-column */
+    /* full-width card: the whole chart fits, no bleed needed */
+    .b-resets .card-figure { margin: auto 0 0; }
+    .b-resets .card-figure img { width: 100%; border-radius: 12px; }
     /* copy above art once there's no room for side-by-side */
     .bento > .b-accounts { grid-template-columns: 1fr; gap: 24px; }
     .b-widgets { grid-template-columns: 1fr; gap: 24px; }
