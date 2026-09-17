@@ -1,10 +1,11 @@
-# Any Countdown — hosted files
+# Countdowns AI Plus — hosted files
 
 Served by GitHub Pages at `https://amirhayek.dev/AnyCountdown/`. Changes go live on push to `main`
 (~½–2 min), the same as `ClaudeUsage/`.
 
-The folder is named for the app's App Store name (`CFBundleDisplayName = "Any Countdown"`), not for
-its Xcode target, which is still `AnyTimers`. It holds three unrelated things:
+The folder is named for the app's original App Store name, Any Countdown (it is now Countdowns AI
+Plus; the path stays so existing links and the app's hard-coded URLs keep working), not for its Xcode
+target, which is still `AnyTimers`. It holds three unrelated things:
 
 | Path | What it is |
 |---|---|
