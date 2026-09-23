@@ -191,56 +191,27 @@ h2 { font-size: 64px; line-height: 1.04; letter-spacing: -0.02em; max-width: 900
 .step-body { font-size: 18px; line-height: 1.55; color: var(--body); }
 
 /* ── Agents ── */
-.agents { padding: 120px var(--gutter) 140px; border-top: 1px solid var(--rule); display: flex; flex-direction: column; gap: 88px; }
-.agents-top { display: flex; gap: 88px; align-items: center; }
-.agents-top .section-head { flex: 1 1 0; min-width: 0; }
-.agents-top .section-head p { max-width: 560px; }
-.agent-facts { list-style: none; margin: 12px 0 0; padding: 0; display: flex; flex-direction: column; gap: 14px; }
-.agent-facts li { display: flex; gap: 16px; align-items: baseline; font-size: 18px; line-height: 1.5; color: var(--body); }
-.fact-key { flex: 0 0 52px; font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; color: var(--ink); padding: 3px 0; border: 1px solid var(--ink); text-align: center; }
-
-.terminal-wrap { flex: 0 0 600px; min-width: 0; position: relative; }
-.terminal {
-    background: #fff;
-    border: 1px solid var(--card-rule);
-    box-shadow: 0 22px 50px rgba(60,45,20,0.16);
-    transform: rotate(1.5deg);
-}
-.terminal-band { height: 10px; background: var(--airmail); }
-.terminal-bar { display: flex; justify-content: space-between; gap: 16px; padding: 16px 28px; border-bottom: 1px dashed var(--rule); font-family: var(--mono); font-size: 12px; letter-spacing: 0.08em; color: var(--meta); }
-.terminal-body { margin: 0; padding: 22px 28px 30px; font-family: var(--mono); font-size: 13.5px; line-height: 1.65; color: var(--text); white-space: pre; overflow-x: auto; }
-.t-ask { font-family: var(--serif); font-size: 20px; font-style: italic; color: var(--text); }
-.t-cmt { color: var(--meta); }
-.t-cmd { color: var(--ink); }
-.terminal-wrap .postmark { right: -30px; top: -46px; z-index: 1; }
-
+.agents { padding: 120px var(--gutter) 140px; border-top: 1px solid var(--rule); display: flex; flex-direction: column; gap: 64px; }
 .routes { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-top: 1.5px solid var(--text); }
-.route { padding: 32px 32px 0; border-left: 1px solid var(--rule); display: flex; flex-direction: column; gap: 14px; }
+.route { position: relative; padding: 32px 32px 0; border-left: 1px solid var(--rule); display: flex; flex-direction: column; gap: 14px; }
 .route:first-child { padding-left: 0; border-left: none; }
 .route:last-child { padding-right: 0; }
 .route-no { font-family: var(--mono); font-size: 13px; letter-spacing: 0.08em; color: var(--meta); }
 .route-title { font-size: 34px; font-weight: 500; font-style: italic; line-height: 1.1; }
 .route-body { font-size: 18px; line-height: 1.55; color: var(--body); }
-
-.loop { display: flex; gap: 88px; align-items: center; padding: 56px 64px; background: var(--card); border: 1px solid var(--card-rule); }
-.loop-head { flex: 0 0 360px; display: flex; flex-direction: column; gap: 14px; }
-.loop-head h3 { margin: 0; font-size: 44px; font-weight: 400; line-height: 1.06; letter-spacing: -0.02em; }
-.loop-head h3 em { color: var(--ink); }
-.loop-head p { margin: 0; font-size: 18px; line-height: 1.55; color: var(--body); }
-.loop-line { flex: 1 1 0; min-width: 0; list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px; position: relative; }
-.loop-line::before { content: ''; position: absolute; left: 56px; right: 56px; top: 56px; border-top: 1.5px dashed var(--rule); }
-.loop-line li { position: relative; display: flex; flex-direction: column; gap: 8px; }
-.loop-mark {
-    width: 112px; height: 112px; border-radius: 56px;
+.route-mark {
+    position: absolute; right: 18px; top: -40px;
+    width: 80px; height: 80px; border-radius: 40px;
     display: flex; align-items: center; justify-content: center; text-align: center;
-    border: 2px solid var(--ink); color: var(--ink); background: var(--card);
-    font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; line-height: 1.5;
-    margin-bottom: 14px; rotate: -10deg;
+    border: 1.5px solid var(--ink); color: var(--ink); background: rgba(244,238,226,0.85);
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; line-height: 1.5;
+    rotate: -10deg;
 }
-.loop-line li:nth-child(2) .loop-mark { rotate: 7deg; }
-.loop-line li:nth-child(3) .loop-mark { rotate: -4deg; background: var(--ink); color: var(--card); }
-.loop-title { font-size: 24px; font-weight: 500; }
-.loop-body { font-size: 16px; line-height: 1.5; color: var(--body); }
+.route:nth-child(2) .route-mark { rotate: 8deg; }
+.route:nth-child(3) .route-mark { rotate: -5deg; }
+.route:nth-child(4) .route-mark { rotate: 12deg; }
+.route:last-child .route-mark { right: 0; }
+.route-mark.filled { background: var(--ink); color: var(--card); }
 
 /* ── Reply ── */
 .reply { padding: 0 var(--gutter) 140px; display: flex; gap: 88px; align-items: center; }
@@ -420,15 +391,11 @@ blockquote { margin: 8px 0 0; padding: 24px 28px; background: var(--card); borde
 }
 
 @media (max-width: 1180px) {
-    .agents-top { flex-direction: column; align-items: stretch; gap: 72px; }
-    .terminal-wrap { flex: none; align-self: center; width: 100%; max-width: 640px; }
-    .routes { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .routes { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 40px; }
     .route:nth-child(3) { padding-left: 0; border-left: none; }
-    .route:nth-child(n+3) { padding-top: 40px; }
+    .route:nth-child(n+3) { padding-top: 32px; border-top: 1px solid var(--rule); }
     .route:nth-child(2) { padding-right: 0; }
-    .loop { flex-direction: column; align-items: flex-start; gap: 40px; }
-    .loop-head { flex: none; max-width: 640px; }
-    .loop-line { width: 100%; }
+    .route:nth-child(2) .route-mark { right: 0; }
 }
 
 @media (max-width: 1000px) {
@@ -480,20 +447,10 @@ blockquote { margin: 8px 0 0; padding: 24px 28px; background: var(--card); borde
     .join, .join-row { width: 100%; }
     .join input { width: auto; flex: 1 1 auto; min-width: 0; }
     .footer { padding-top: 56px; }
-    .agents { padding-top: 80px; padding-bottom: 96px; gap: 64px; }
-    .agent-facts li { font-size: 16px; }
-    .terminal { transform: none; }
-    .terminal-wrap .postmark { right: -6px; top: -40px; zoom: .8; }
-    .terminal-body { font-size: 11.5px; padding: 18px 16px 22px; }
-    .t-ask { font-size: 17px; }
-    .routes { grid-template-columns: 1fr; }
-    .route, .route:nth-child(n) { padding: 28px 0 0; border-left: none; }
+    .agents { padding-top: 80px; padding-bottom: 96px; gap: 48px; }
+    .routes { grid-template-columns: 1fr; row-gap: 0; }
+    .route, .route:nth-child(n) { padding: 28px 0 0; border-left: none; border-top: none; }
     .route + .route { border-top: 1px solid var(--rule); margin-top: 28px; }
     .route-title { font-size: 28px; }
-    .loop { padding: 36px 24px; }
-    .loop-head h3 { font-size: 34px; }
-    .loop-line { grid-template-columns: 1fr; gap: 28px; }
-    .loop-line::before { left: 36px; right: auto; top: 36px; bottom: 36px; border-top: none; border-left: 1.5px dashed var(--rule); }
-    .loop-line li { padding-left: 96px; min-height: 72px; justify-content: center; }
-    .loop-mark { position: absolute; left: 0; top: 0; width: 72px; height: 72px; font-size: 9px; margin: 0; }
+    .route-mark, .route:nth-child(n) .route-mark { right: 0; top: -30px; width: 66px; height: 66px; font-size: 9px; }
 }
