@@ -18,6 +18,22 @@
     },
     {
       "enabled": true,
+      "startDate": "2026-09-24",
+      "endDate": "2026-09-25",
+      "startHour": null,
+      "endHour": null,
+      "days": null,
+      "timezone": null,
+      "icon": "gauge.with.dots.needle.67percent",
+      "badgeIcon": "gauge.with.dots.needle.67percent",
+      "type": "news",
+      "severity": "medium",
+      "text": "Claude just gave you a free reset",
+      "dashboardText": "Anthropic is now letting Pro, Max, Team, and Enterprise subscribers save a rate-limit reset and use it whenever they choose — no need to wait until you hit a limit. Find it in Settings > Usage → Resets → “Reset for free.” Tap for details.",
+      "url": "https://support.claude.com/en/articles/17007452-what-is-a-limit-reset"
+    },
+    {
+      "enabled": true,
       "startDate": null,
       "endDate": "2026-09-21",
       "startHour": null,
