@@ -3,90 +3,215 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Love Letter — Coming Soon</title>
-    <meta name="description" content="Love Letter. Coming soon.">
+    <title>Love Letter — Every bug report is a love letter</title>
+    <meta name="description" content="Love Letter gathers every note from your app, the App Store and your inbox onto one desk, so each one is read, filed and answered. In beta for Mac, iPad and iPhone.">
     <link rel="icon" type="image/png" href="Assets/icon.png">
     <link rel="apple-touch-icon" href="Assets/icon.png">
 
     <!-- Open Graph -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://www.amirhayek.dev/LoveLetter/">
-    <meta property="og:title" content="Love Letter">
-    <meta property="og:description" content="Coming soon.">
+    <meta property="og:title" content="Love Letter — Every bug report is a love letter">
+    <meta property="og:description" content="Every note from your app, the App Store and your inbox on one desk — read, filed and answered.">
     <meta property="og:image" content="https://www.amirhayek.dev/LoveLetter/Assets/icon.png">
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300..700;1,6..72,300..700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
     <script src="/assets/analytics.js" defer></script>
-    <style>
-        :root {
-            --bg: #f4f8ff;
-            --glow: rgba(56, 132, 245, 0.28);
-            --text: #0d1b33;
-            --muted: #3f5a86;
-        }
-        @media (prefers-color-scheme: dark) {
-            :root {
-                --bg: #07101f;
-                --glow: rgba(56, 132, 245, 0.35);
-                --text: #eef4ff;
-                --muted: #8fb0e3;
-            }
-        }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        html, body { height: 100%; }
-        body {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 24px 16px;
-            background:
-                radial-gradient(circle at 50% 38%, var(--glow) 0%, transparent 55%),
-                var(--bg);
-            color: var(--text);
-            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, sans-serif;
-            -webkit-font-smoothing: antialiased;
-            text-align: center;
-        }
-        main {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 20px;
-        }
-        .icon {
-            width: clamp(120px, 32vw, 180px);
-            height: auto;
-            filter: drop-shadow(0 18px 40px rgba(40, 100, 220, 0.35));
-            animation: float 6s ease-in-out infinite;
-        }
-        h1 {
-            font-size: clamp(40px, 9vw, 72px);
-            font-weight: 700;
-            letter-spacing: -0.03em;
-            line-height: 1;
-            margin-top: 12px;
-        }
-        .caption {
-            font-size: clamp(13px, 2.4vw, 15px);
-            font-weight: 600;
-            letter-spacing: 0.24em;
-            text-transform: uppercase;
-            color: var(--muted);
-        }
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-        @media (prefers-reduced-motion: reduce) {
-            .icon { animation: none; }
-        }
-    </style>
 </head>
 <body>
-    <main>
-        <img src="Assets/icon.png" alt="Love Letter app icon" class="icon">
-        <h1>Love Letter</h1>
-        <p class="caption">Coming Soon</p>
-    </main>
+<div class="band ll-band" aria-hidden="true"></div>
+
+<nav class="nav ld ld0">
+    <a href="#" class="brand">
+        <img src="Assets/icon.png" alt="">
+        <span>Love Letter</span>
+    </a>
+    <div class="nav-links">
+        <a href="#desk" class="hide-sm">The desk</a>
+        <a href="#journey" class="hide-sm">How it works</a>
+        <a href="#stamps" class="hide-sm">SDKs</a>
+        <a href="https://hayek.github.io/loveletter-docs/" class="hide-sm">Docs</a>
+        <a href="#reply" class="btn btn-outline-ink">Join the beta</a>
+    </div>
+</nav>
+
+<main>
+<!-- HERO -->
+<section class="hero">
+    <div class="hero-copy">
+        <div class="salutation ld ld1">Dear developer,</div>
+        <h1 class="ld ld2">Every bug report is a <em class="ink">love letter.</em></h1>
+        <p class="lede ld ld3">Someone cared enough to write. Love Letter gathers every note — from your app, the App Store and your inbox — onto one desk, so each one is read, filed and answered.</p>
+        <div class="cta-row ld ld4">
+            <a href="#reply" class="btn btn-ink">Join the beta</a>
+            <a href="https://hayek.github.io/loveletter-docs/" class="btn btn-outline">Read the SDK docs</a>
+        </div>
+        <div class="signoff ld ld5">With love, your users</div>
+    </div>
+
+    <div class="stack-wrap">
+        <div class="stack">
+            <!-- stamp -->
+            <div class="stamp-hero ld-drop" aria-hidden="true">
+                <div class="stamp-scale">
+                    <div class="stamp-perf">
+                        <div class="stamp-face">
+                            <div class="stamp-row"><span class="mono">LOVE LETTER</span><span class="beta">β</span></div>
+                            <div class="stamp-icon"><img src="Assets/icon.png" alt=""></div>
+                            <div class="stamp-row end"><span class="issue">Beta issue</span><span class="mono small">MAC · IPAD<br>IPHONE</span></div>
+                        </div>
+                    </div>
+                    <svg class="waves ld-fade" width="300" height="130" viewBox="0 0 300 130" fill="none" stroke="#1E2433" stroke-width="2.5" stroke-linecap="round"><path d="M0 20 q19 -14 38 0 t38 0 t38 0 t38 0 t38 0 t38 0 t38 0 t38 0"/><path d="M0 55 q19 -14 38 0 t38 0 t38 0 t38 0 t38 0 t38 0 t38 0 t38 0"/><path d="M0 90 q19 -14 38 0 t38 0 t38 0 t38 0 t38 0 t38 0 t38 0 t38 0"/><path d="M0 125 q19 -14 38 0 t38 0 t38 0 t38 0 t38 0 t38 0 t38 0 t38 0"/></svg>
+                    <div class="cancel ld-thud"><span>FIRST DAY</span><span class="big">OF ISSUE</span><span>TESTFLIGHT</span></div>
+                </div>
+            </div>
+
+            <article class="note ld-card ldc1 n1">
+                <div class="note-meta"><span>VIA EMAIL · #5</span><span>2 DAYS AGO</span></div>
+                <div class="note-title">Export to PDF?</div>
+                <div class="note-body">Is there a way to export a whole year as a PDF? I'd love to print a book of my entries for my mum.</div>
+            </article>
+            <article class="note ld-card ldc2 n2">
+                <div class="note-meta"><span>APP STORE · ★★★★★ · US</span><span>20 HOURS AGO</span></div>
+                <div class="note-title">Finally a journal I stick with</div>
+                <div class="note-body">The daily prompts and streaks got me writing every day for two months now.</div>
+            </article>
+            <article class="note ld-card ldc3 n3">
+                <div class="note-meta"><span>SDK · IPHONE 16 PRO · V2.3.0</span><span>3 HOURS AGO</span></div>
+                <div class="note-title big">Photos disappear after editing an entry</div>
+                <div class="note-body">I added three photos, then fixed a typo. After saving, only the first photo is left.</div>
+                <div class="note-tags"><span class="tag-ink">TASK #9 · KEEP ALL PHOTOS</span><span class="tag-plain">2.4.0</span></div>
+                <div class="postmark ld-thud ldt2" aria-hidden="true">
+                    <span>RECEIVED</span>
+                    <svg width="26" height="24" viewBox="0 0 24 22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M12 20s-8-5-8-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 9c0 6-8 11-8 11z"/></svg>
+                    <span>FILED</span>
+                </div>
+            </article>
+        </div>
+    </div>
+</section>
+
+<!-- DESK -->
+<section id="desk" class="desk">
+    <div class="section-head center rv">
+        <div class="kicker">I. THE CORRESPONDENCE DESK</div>
+        <h2>All of it on one desk, <em>in the order it arrived.</em></h2>
+        <p>Filter by tag, version, device, OS or source. A short on-device summary sits on top, so you know what's working and what needs attention before you open a single note.</p>
+    </div>
+    <div class="airmail-frame rv">
+        <div class="airmail-inner">
+            <img class="rv-zoom" src="Assets/mac-desk.webp" width="2400" height="1500" alt="Love Letter on Mac showing feedback for Pixel Journal">
+        </div>
+    </div>
+</section>
+
+<!-- JOURNEY -->
+<section id="journey" class="journey">
+    <div class="journey-head rv">
+        <div class="section-head">
+            <div class="kicker">II. HOW A LETTER TRAVELS</div>
+            <h2>From “it's broken” to <em>“it's fixed”</em>.</h2>
+        </div>
+        <p class="aside">Everything is stored as issues and milestones in your own GitHub repository. No new service to run.</p>
+    </div>
+    <ol class="steps">
+        <li class="rv rs1"><div class="step-no">NO. 1</div><div class="step-title">Received</div><div class="step-body">The SDK, an App Store review or an email lands as a labelled GitHub issue, with version, device and OS attached.</div></li>
+        <li class="rv rs2"><div class="step-no">NO. 2</div><div class="step-title">Read</div><div class="step-body">Apple Intelligence summarizes and translates on your device. A German note reads in English.</div></li>
+        <li class="rv rs3"><div class="step-no">NO. 3</div><div class="step-title">Filed</div><div class="step-body">Attach it to a task, give the task a priority, and slot it into a version.</div></li>
+        <li class="rv rs4"><div class="step-no">NO. 4</div><div class="step-title ink">Answered</div><div class="step-body">Reply from your own address. On release day, everyone whose note was fixed gets one personal email.</div></li>
+    </ol>
+</section>
+
+<!-- REPLY -->
+<section class="reply">
+    <div class="phones">
+        <div class="phone p1 rv rv-left"><img src="Assets/iphone-reply.webp" width="780" height="1695" alt="Reply composer on iPhone"></div>
+        <div class="phone p2 rv rv-right rs2"><img src="Assets/iphone-version.webp" width="780" height="1695" alt="Version detail with release notes on iPhone"></div>
+    </div>
+    <div class="reply-copy rv rs2">
+        <div class="kicker">III. WRITING BACK</div>
+        <h2>A reply is the <em>kindest</em> feature you can ship.</h2>
+        <p>Send from your own mail account with your header and footer. Keep templates like “Thanks — we're on it” and “Fixed in the latest update” one tap away, from your Mac, iPad or iPhone.</p>
+        <blockquote>“Good news: this is fixed in the update that just went out. Please update from the App Store.”</blockquote>
+    </div>
+</section>
+
+<!-- STAMPS -->
+<section id="stamps" class="stamps">
+    <div class="section-head center rv">
+        <div class="kicker">IV. POSTAGE FOR EVERY PLATFORM</div>
+        <h2>Send from anywhere. <em>Arrives the same.</em></h2>
+        <p>Open-source SDKs for Apple, Android and the Web write a byte-identical GitHub issue, checked against shared golden fixtures in every SDK's CI.</p>
+    </div>
+    <div class="stamp-grid">
+        <div class="stamp rv rv-stamp rs1" style="--c:#2447B8;--sub:#DCE3FA"><div class="stamp-in"><div class="stamp-top"><span>SWIFT</span><span>MIT</span></div><div><div class="stamp-name">Apple</div><div class="stamp-desc">iOS, macOS, watchOS, tvOS, visionOS. A SwiftUI sheet.</div></div></div></div>
+        <div class="stamp rv rv-stamp rs2" style="--c:#2F6B4F;--sub:#DDEDE3"><div class="stamp-in"><div class="stamp-top"><span>KOTLIN</span><span>MIT</span></div><div><div class="stamp-name">Android</div><div class="stamp-desc">minSdk 24. A Jetpack Compose sheet.</div></div></div></div>
+        <div class="stamp rv rv-stamp rs3" style="--c:#9A3B2E;--sub:#F5DDD8"><div class="stamp-in"><div class="stamp-top"><span>TYPESCRIPT</span><span>MIT</span></div><div><div class="stamp-name">Web</div><div class="stamp-desc">A dependency-free widget and a React component.</div></div></div></div>
+        <div class="stamp rv rv-stamp rs4" style="--c:#1E2433;--sub:#D8DBE3"><div class="stamp-in"><div class="stamp-top"><span>SERVER</span><span>MIT</span></div><div><div class="stamp-name">Relay</div><div class="stamp-desc">Cloudflare, Firebase or Appwrite. Your token stays yours.</div></div></div></div>
+    </div>
+</section>
+
+<!-- SEALED -->
+<section class="sealed">
+    <div class="seal rv rv-seal" aria-hidden="true">
+        <svg width="120" height="110" viewBox="0 0 24 22" fill="none" stroke="#FBF8F1" stroke-width="1.2" stroke-linejoin="round"><path d="M12 20s-8-5-8-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 9c0 6-8 11-8 11z"/></svg>
+    </div>
+    <div class="sealed-copy rv rs2">
+        <div class="kicker">V. SEALED</div>
+        <h2>Private letters <em>stay private.</em></h2>
+        <div class="privacy-grid">
+            <div><div class="p-title">On-device AI</div><div class="p-body">Summaries, translation and triage run on Apple Intelligence. Nothing is sent anywhere to be read.</div></div>
+            <div><div class="p-title">Your repository</div><div class="p-body">Feedback lives in your GitHub repo. Products, accounts and templates sync through your own iCloud.</div></div>
+            <div><div class="p-title">Tokens you hold</div><div class="p-body">On the web, the SDK talks only to a relay you deploy. No credential ships to the browser.</div></div>
+        </div>
+    </div>
+</section>
+
+<!-- CLOSING -->
+<section id="reply" class="closing">
+    <div class="envelope rv">
+        <div class="flap rv-flap" aria-hidden="true"></div>
+        <div class="wax rv-seal2" aria-hidden="true">
+            <svg width="44" height="40" viewBox="0 0 24 22" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"><path d="M12 20s-8-5-8-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 9c0 6-8 11-8 11z"/></svg>
+        </div>
+        <div class="env-content rv rs3">
+            <div class="env-copy">
+                <h2>Write back <em class="ink">soon.</em></h2>
+                <div class="env-sub">In beta for Mac, iPad and iPhone, by TestFlight. — Yours, Amir</div>
+            </div>
+            <form class="join" id="join-form">
+                <label for="join-email">YOUR RETURN ADDRESS</label>
+                <div class="join-row">
+                    <input id="join-email" name="email" type="email" required placeholder="you@studio.com" autocomplete="email">
+                    <button type="submit">SEND</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+</main>
+
+<footer class="footer rv">
+    <span>LOVE LETTER · BETA</span>
+    <div class="footer-links">
+        <a href="https://hayek.github.io/loveletter-docs/">DOCS</a>
+        <a href="https://github.com/hayek/loveletter-spec">SPEC</a>
+        <a href="https://github.com/hayek/LoveLetterSDK">GITHUB</a>
+        <a href="/">AMIR HAYEK</a>
+    </div>
+</footer>
+
+<script>
+    // Static site: the beta request goes out as a pre-filled email.
+    document.getElementById('join-form').addEventListener('submit', function (e) {
+        e.preventDefault();
+        var email = document.getElementById('join-email').value.trim();
+        var body = 'Hi Amir,\n\nI\'d like to join the Love Letter beta on TestFlight.\n\nMy email: ' + email + '\n';
+        window.location.href = 'mailto:hayek_dev@icloud.com?subject=' + encodeURIComponent('Love Letter beta') + '&body=' + encodeURIComponent(body);
+    });
+</script>
 </body>
 </html>
