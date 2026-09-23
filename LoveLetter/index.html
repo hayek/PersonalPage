@@ -32,6 +32,7 @@
     <div class="nav-links">
         <a href="#desk" class="hide-sm">The desk</a>
         <a href="#journey" class="hide-sm">How it works</a>
+        <a href="#agents" class="hide-sm">Agents</a>
         <a href="#stamps" class="hide-sm">SDKs</a>
         <a href="https://hayek.github.io/loveletter-docs/" class="hide-sm">Docs</a>
         <a href="#reply" class="btn btn-outline-ink">Join the beta</a>
@@ -44,7 +45,7 @@
     <div class="hero-copy">
         <div class="salutation ld ld1">Dear developer,</div>
         <h1 class="ld ld2" aria-label="Every feedback is a Love Letter.">Every <span class="rotator" aria-hidden="true"><span class="rot-word">feedback</span></span> is a <em class="ink">Love Letter.</em></h1>
-        <p class="lede ld ld3">Someone cared enough to write. Love Letter gathers every note — from your app, the App Store and your inbox — onto one desk, so each one is read, filed and answered.</p>
+        <p class="lede ld ld3">Someone cared enough to write. Love Letter gathers every note — from your app, the App Store and your inbox — onto one desk, so each one is read, filed and answered — by you, or by your agents.</p>
         <div class="cta-row ld ld4">
             <a href="#reply" class="btn btn-ink">Join the beta</a>
             <a href="https://hayek.github.io/loveletter-docs/" class="btn btn-outline">Read the SDK docs</a>
@@ -125,6 +126,82 @@
     </ol>
 </section>
 
+<!-- AGENTS -->
+<section id="agents" class="agents">
+    <div class="agents-top">
+        <div class="section-head rv">
+            <div class="kicker">III. LETTERS YOUR AGENTS CAN READ</div>
+            <h2>Hand the mail to <em>your agents.</em></h2>
+            <p>Love Letter ships with a command-line tool and an AI skill. Claude Code, Codex, Cursor, or any agent that can run a command, can read every note, file it, link duplicates and write back — inside the workflow you already have.</p>
+            <ul class="agent-facts">
+                <li><span class="fact-key">SKILL</span>Install for Claude Code in one click. Copy the folder into any other agent.</li>
+                <li><span class="fact-key">CLI</span>JSON on stdout, filters for label, source, rating, version and date, and stable exit codes.</li>
+                <li><span class="fact-key">SDK</span>A copyable prompt has your coding agent add the feedback SDK to any app or site.</li>
+            </ul>
+        </div>
+        <div class="terminal-wrap rv rs2">
+        <div class="terminal" role="img" aria-label="An agent using the loveletter command-line tool to read new bug reports, file a task and reply to a user">
+            <div class="terminal-band" aria-hidden="true"></div>
+            <div class="terminal-bar"><span>VIA AGENT · CLAUDE CODE</span></div>
+<pre class="terminal-body"><span class="t-ask">&gt; What are users reporting since the last release?</span>
+
+<span class="t-cmt"># reads new bugs that nobody is tracking yet</span>
+<span class="t-cmd">$</span> loveletter feedback --product "Pixel Journal" \
+    --label bug --since 7d --no-task
+
+<span class="t-cmt"># links duplicates, files the rest</span>
+<span class="t-cmd">$</span> loveletter tasks create --product "Pixel Journal" \
+    --title "Keep all photos when editing" \
+    --priority high --feedback 559,561
+
+<span class="t-cmt"># when the fix ships, writes back</span>
+<span class="t-cmd">$</span> loveletter respond --product "Pixel Journal" \
+    --feedback 559 --template "Fixed in the latest update"</pre>
+        </div>
+        <div class="postmark" aria-hidden="true">
+            <span>FILED BY</span>
+            <svg width="26" height="24" viewBox="0 0 24 22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M12 20s-8-5-8-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 9c0 6-8 11-8 11z"/></svg>
+            <span>AGENT</span>
+        </div>
+        </div>
+    </div>
+
+    <ol class="routes">
+        <li class="route rv rs1">
+            <div class="route-no">ROUTE 1</div>
+            <div class="route-title">Morning triage</div>
+            <div class="route-body">A scheduled agent reads the night's mail, links duplicates to existing tasks and files new ones. You read the summary over coffee.</div>
+        </li>
+        <li class="route rv rs2">
+            <div class="route-no">ROUTE 2</div>
+            <div class="route-title">Bug to pull request</div>
+            <div class="route-body">An agent takes a high-priority bug, uses the attached device, OS and version to reproduce it, and opens a fix for review.</div>
+        </li>
+        <li class="route rv rs3">
+            <div class="route-no">ROUTE 3</div>
+            <div class="route-title">Reply on release</div>
+            <div class="route-body">When a version ships, everyone whose note it fixed hears back, from a saved template or a personal draft.</div>
+        </li>
+        <li class="route rv rs4">
+            <div class="route-no">ROUTE 4</div>
+            <div class="route-title">Your own pipeline</div>
+            <div class="route-body">Pipe feedback into CI, chat, a cron job or a dashboard. It's JSON, so anything that reads JSON can use it.</div>
+        </li>
+    </ol>
+
+    <div class="loop rv">
+        <div class="loop-head">
+            <h3>A human in the loop, <em>or not.</em></h3>
+            <p>You decide who signs each letter. The skill asks before any reply reaches a user. Script the CLI yourself and every step can run on its own.</p>
+        </div>
+        <ol class="loop-line">
+            <li><span class="loop-mark">YOU<br>SIGN ALL</span><span class="loop-title">Every step</span><span class="loop-body">The agent reads and suggests. You file and send.</span></li>
+            <li><span class="loop-mark">YOU SIGN<br>REPLIES</span><span class="loop-title">Only the replies</span><span class="loop-body">The agent triages and files. You approve anything a user will see.</span></li>
+            <li><span class="loop-mark">SENT BY<br>AGENT</span><span class="loop-title">No one</span><span class="loop-body">From report to fix to thank-you, end to end.</span></li>
+        </ol>
+    </div>
+</section>
+
 <!-- REPLY -->
 <section class="reply">
     <div class="phones">
@@ -132,7 +209,7 @@
         <div class="phone p2 rv rv-right rs2"><img src="Assets/iphone-version.webp" width="780" height="1695" alt="Version detail with release notes on iPhone"></div>
     </div>
     <div class="reply-copy rv rs2">
-        <div class="kicker">III. WRITING BACK</div>
+        <div class="kicker">IV. WRITING BACK</div>
         <h2>A reply is the <em>kindest</em> feature you can ship.</h2>
         <p>Send from your own mail account with your header and footer. Keep templates like “Thanks — we're on it” and “Fixed in the latest update” one tap away, from your Mac, iPad or iPhone.</p>
         <blockquote>“Good news: this is fixed in the update that just went out. Please update from the App Store.”</blockquote>
@@ -142,7 +219,7 @@
 <!-- STAMPS -->
 <section id="stamps" class="stamps">
     <div class="section-head center rv">
-        <div class="kicker">IV. POSTAGE FOR EVERY PLATFORM</div>
+        <div class="kicker">V. POSTAGE FOR EVERY PLATFORM</div>
         <h2>Send from anywhere. <em>Arrives the same.</em></h2>
         <p>Open-source SDKs for Apple, Android and the Web write a byte-identical GitHub issue, checked against shared golden fixtures in every SDK's CI.</p>
     </div>
@@ -160,7 +237,7 @@
         <svg width="120" height="110" viewBox="0 0 24 22" fill="none" stroke="#FBF8F1" stroke-width="1.2" stroke-linejoin="round"><path d="M12 20s-8-5-8-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 9c0 6-8 11-8 11z"/></svg>
     </div>
     <div class="sealed-copy rv rs2">
-        <div class="kicker">V. SEALED</div>
+        <div class="kicker">VI. SEALED</div>
         <h2>Private letters <em>stay private.</em></h2>
         <div class="privacy-grid">
             <div><div class="p-title">On-device AI</div><div class="p-body">Summaries, translation and triage run on Apple Intelligence. Nothing is sent anywhere to be read.</div></div>
