@@ -191,16 +191,17 @@ h2 { font-size: 64px; line-height: 1.04; letter-spacing: -0.02em; max-width: 900
 .step-body { font-size: 18px; line-height: 1.55; color: var(--body); }
 
 /* ── Agents ── */
-.agents { padding: 120px var(--gutter) 140px; border-top: 1px solid var(--rule); display: flex; flex-direction: column; gap: 64px; }
+.agents { padding: 120px var(--gutter) 120px; border-top: 1px solid var(--rule); display: flex; flex-direction: column; gap: 64px; }
 .routes { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-top: 1.5px solid var(--text); }
-.route { position: relative; padding: 32px 32px 0; border-left: 1px solid var(--rule); display: flex; flex-direction: column; gap: 14px; }
+.route { position: relative; padding: 32px 32px 104px; border-left: 1px solid var(--rule); display: flex; flex-direction: column; gap: 14px; }
 .route:first-child { padding-left: 0; border-left: none; }
 .route:last-child { padding-right: 0; }
+.route:last-child .route-mark { right: 0; }
 .route-no { font-family: var(--mono); font-size: 13px; letter-spacing: 0.08em; color: var(--meta); }
 .route-title { font-size: 34px; font-weight: 500; font-style: italic; line-height: 1.1; }
 .route-body { font-size: 18px; line-height: 1.55; color: var(--body); }
 .route-mark {
-    position: absolute; right: 18px; top: -40px;
+    position: absolute; right: 24px; bottom: 0;
     width: 80px; height: 80px; border-radius: 40px;
     display: flex; align-items: center; justify-content: center; text-align: center;
     border: 1.5px solid var(--ink); color: var(--ink); background: rgba(244,238,226,0.85);
@@ -210,7 +211,6 @@ h2 { font-size: 64px; line-height: 1.04; letter-spacing: -0.02em; max-width: 900
 .route:nth-child(2) .route-mark { rotate: 8deg; }
 .route:nth-child(3) .route-mark { rotate: -5deg; }
 .route:nth-child(4) .route-mark { rotate: 12deg; }
-.route:last-child .route-mark { right: 0; }
 .route-mark.filled { background: var(--ink); color: var(--card); }
 
 /* ── Reply ── */
@@ -449,8 +449,8 @@ blockquote { margin: 8px 0 0; padding: 24px 28px; background: var(--card); borde
     .footer { padding-top: 56px; }
     .agents { padding-top: 80px; padding-bottom: 96px; gap: 48px; }
     .routes { grid-template-columns: 1fr; row-gap: 0; }
-    .route, .route:nth-child(n) { padding: 28px 0 0; border-left: none; border-top: none; }
+    .route, .route:nth-child(n) { padding: 28px 0 84px; border-left: none; border-top: none; }
     .route + .route { border-top: 1px solid var(--rule); margin-top: 28px; }
     .route-title { font-size: 28px; }
-    .route-mark, .route:nth-child(n) .route-mark { right: 0; top: -30px; width: 66px; height: 66px; font-size: 9px; }
+    .route-mark, .route:nth-child(n) .route-mark { right: 0; bottom: 0; width: 66px; height: 66px; font-size: 9px; }
 }
