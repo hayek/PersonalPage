@@ -385,7 +385,7 @@ blockquote { margin: 8px 0 0; padding: 24px 28px; background: var(--card); borde
 @media (max-width: 1280px) {
     :root { --gutter: 64px; }
     .reply { gap: 56px; }
-    .phones { flex-basis: 520px; zoom: .82; }
+    .phones { zoom: .75; }
     .stamp-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .env-content { flex-direction: column; align-items: flex-start; padding-left: 64px; padding-right: 64px; }
 }
@@ -397,6 +397,8 @@ blockquote { margin: 8px 0 0; padding: 24px 28px; background: var(--card); borde
     .route:nth-child(2) { padding-right: 0; }
     .route:nth-child(2) .route-mark { right: 0; }
 }
+
+@media (max-width: 1140px) { .phones { zoom: .62; } }
 
 @media (max-width: 1000px) {
     h2, .reply-copy h2, .sealed-copy h2 { font-size: 48px; }
