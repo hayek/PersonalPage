@@ -2,6 +2,22 @@
   "alerts": [
     {
       "enabled": true,
+      "startDate": "2026-09-23",
+      "endDate": "2026-09-24",
+      "startHour": null,
+      "endHour": null,
+      "days": null,
+      "timezone": null,
+      "icon": "sparkles",
+      "badgeIcon": "sparkles",
+      "type": "news",
+      "severity": "medium",
+      "text": "Claude Opus 5.5 is here",
+      "dashboardText": "Claude Opus 5.5 launched Sept 22 — Fable 5.1-level performance at 40% lower cost ($4/M input, $20/M output) and faster output. Anthropic is also increasing 5-hour session limits on Pro, Max, Team, and Enterprise, and rolling out a saveable rate-limit reset in Settings > Usage. Tap to read more.",
+      "url": "https://www.anthropic.com/claude-opus-5-5"
+    },
+    {
+      "enabled": true,
       "startDate": null,
       "endDate": "2026-09-21",
       "startHour": null,
