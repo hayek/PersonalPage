@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Love Letter — Coming Soon</title>
+    <meta name="description" content="Love Letter. Coming soon.">
+    <link rel="icon" type="image/png" href="Assets/icon.png">
+    <link rel="apple-touch-icon" href="Assets/icon.png">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.amirhayek.dev/LoveLetter/">
+    <meta property="og:title" content="Love Letter">
+    <meta property="og:description" content="Coming soon.">
+    <meta property="og:image" content="https://www.amirhayek.dev/LoveLetter/Assets/icon.png">
+
+    <script src="/assets/analytics.js" defer></script>
+    <style>
+        :root {
+            --bg: #f4f8ff;
+            --glow: rgba(56, 132, 245, 0.28);
+            --text: #0d1b33;
+            --muted: #3f5a86;
+        }
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg: #07101f;
+                --glow: rgba(56, 132, 245, 0.35);
+                --text: #eef4ff;
+                --muted: #8fb0e3;
+            }
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body { height: 100%; }
+        body {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px 16px;
+            background:
+                radial-gradient(circle at 50% 38%, var(--glow) 0%, transparent 55%),
+                var(--bg);
+            color: var(--text);
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, sans-serif;
+            -webkit-font-smoothing: antialiased;
+            text-align: center;
+        }
+        main {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+        .icon {
+            width: clamp(120px, 32vw, 180px);
+            height: auto;
+            filter: drop-shadow(0 18px 40px rgba(40, 100, 220, 0.35));
+            animation: float 6s ease-in-out infinite;
+        }
+        h1 {
+            font-size: clamp(40px, 9vw, 72px);
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            line-height: 1;
+            margin-top: 12px;
+        }
+        .caption {
+            font-size: clamp(13px, 2.4vw, 15px);
+            font-weight: 600;
+            letter-spacing: 0.24em;
+            text-transform: uppercase;
+            color: var(--muted);
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .icon { animation: none; }
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <img src="Assets/icon.png" alt="Love Letter app icon" class="icon">
+        <h1>Love Letter</h1>
+        <p class="caption">Coming Soon</p>
+    </main>
+</body>
+</html>
