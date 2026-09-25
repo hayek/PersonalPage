@@ -2,6 +2,22 @@
   "alerts": [
     {
       "enabled": true,
+      "startDate": "2026-09-25",
+      "endDate": "2026-09-27",
+      "startHour": null,
+      "endHour": null,
+      "days": null,
+      "timezone": null,
+      "icon": "gift.fill",
+      "badgeIcon": "gift.fill",
+      "type": "news",
+      "severity": "medium",
+      "text": "Free credit for Claude Code cloud sessions",
+      "dashboardText": "Claude Code cloud sessions are out of research preview. Existing Pro and Max subscribers get a one-time credit to try them — $100 on Pro, $250 on Max — that cloud sessions spend before your normal plan usage. Claim by Oct 7 (credit expires Nov 4); requires a linked GitHub account. Tap for details.",
+      "url": "https://x.com/ClaudeDevs/status/2102871550974427462"
+    },
+    {
+      "enabled": true,
       "startDate": "2026-09-23",
       "endDate": "2026-09-24",
       "startHour": null,
