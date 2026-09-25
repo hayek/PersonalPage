@@ -331,6 +331,10 @@ a.card:hover {
     align-self: flex-start;
 }
 
+.app-badge-soon {
+    margin-bottom: 8px;
+}
+
 .app-card-featured-left {
     display: flex;
     flex-direction: column;
