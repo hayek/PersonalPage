@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<!--
+  Vanishing List: privacy policy.
+
+  This is the URL entered in App Store Connect's Privacy Policy field. It is self-contained
+  (no shared stylesheet, fonts or scripts besides site analytics) so it cannot break when
+  something else on the site moves. Keep it in step with the app's data handling and with the
+  App Privacy label (Device ID, Product Interaction, Crash Data, Performance Data; not linked,
+  no tracking).
+-->
+<html lang="en" data-theme="system">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy — Vanishing List</title>
+    <meta name="description" content="What Vanishing List collects, what it never collects, and how to delete it.">
+    <style>
+        :root {
+            --bg: #ffffff;
+            --bg-secondary: #f2f2f7;
+            --ink: #000000;
+            --muted: #6b6b70;
+            --rule: rgba(0, 0, 0, 0.12);
+            --accent: #c0392b;
+        }
+        [data-theme="dark"] {
+            --bg: #000000;
+            --bg-secondary: #1c1c1e;
+            --ink: #ffffff;
+            --muted: #9a9aa0;
+            --rule: rgba(255, 255, 255, 0.16);
+            --accent: #ff6b5a;
+        }
+        @media (prefers-color-scheme: dark) {
+            [data-theme="system"] {
+                --bg: #000000;
+                --bg-secondary: #1c1c1e;
+                --ink: #ffffff;
+                --muted: #9a9aa0;
+                --rule: rgba(255, 255, 255, 0.16);
+                --accent: #ff6b5a;
+            }
+        }
+
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html { -webkit-text-size-adjust: 100%; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif;
+            background: var(--bg);
+            color: var(--ink);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            line-height: 1.6;
+        }
+
+        .page {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 56px 22px 96px;
+        }
+
+        .eyebrow {
+            font-size: 12px;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--muted);
+        }
+
+        h1 {
+            font-size: clamp(30px, 6vw, 40px);
+            line-height: 1.15;
+            letter-spacing: -0.02em;
+            margin: 10px 0 14px;
+        }
+
+        .updated { color: var(--muted); font-size: 15px; }
+
+        h2 {
+            font-size: 21px;
+            letter-spacing: -0.01em;
+            margin: 44px 0 12px;
+            padding-top: 22px;
+            border-top: 1px solid var(--rule);
+        }
+
+        h3 { font-size: 16px; margin: 22px 0 6px; }
+
+        p, li { font-size: 16px; }
+        p { margin: 12px 0; }
+
+        ul { margin: 12px 0 12px 22px; }
+        li { margin: 6px 0; }
+
+        a { color: var(--accent); text-decoration: none; border-bottom: 1px solid currentColor; }
+        a:hover { opacity: 0.75; }
+
+        strong { font-weight: 600; }
+
+        .lede {
+            background: var(--bg-secondary);
+            border-radius: 14px;
+            padding: 20px 22px;
+            margin: 28px 0 8px;
+        }
+        .lede p { margin: 8px 0; }
+        .lede p:first-child { margin-top: 0; }
+        .lede p:last-child { margin-bottom: 0; }
+
+        .table-scroll { overflow-x: auto; margin: 16px 0; }
+        table { border-collapse: collapse; width: 100%; min-width: 520px; font-size: 15px; }
+        th, td { text-align: left; padding: 10px 14px 10px 0; vertical-align: top; border-bottom: 1px solid var(--rule); }
+        th { font-weight: 600; }
+
+        footer {
+            margin-top: 56px;
+            padding-top: 22px;
+            border-top: 1px solid var(--rule);
+            color: var(--muted);
+            font-size: 14px;
+        }
+    </style>
+    <script src="/assets/analytics.js" defer></script>
+</head>
+<body>
+<main class="page">
+
+    <p class="eyebrow">Vanishing List</p>
+    <h1>Privacy Policy</h1>
+    <p class="updated">Last updated 25 September 2026</p>
+
+    <div class="lede">
+        <p><strong>Your lists are yours.</strong> They live on your devices and, if you use iCloud, in your own private iCloud account, where we cannot read them.</p>
+        <p><strong>What's on your lists is never sent to us or to anyone else.</strong> Smart Import runs on your device.</p>
+        <p><strong>No accounts, no ads, no tracking.</strong> The app only sends anonymous usage counts and crash reports, which are not linked to you.</p>
+    </div>
+
+    <p>Vanishing List ("the app") is made by Amir Hayek ("we"). This policy explains what the app collects, what it never collects, who else is involved, and how to delete what exists. It covers the iPhone, iPad and Mac apps, their widgets, the share extension and the Siri and Shortcuts actions.</p>
+
+    <h2>What stays on your device</h2>
+
+    <p>Everything you make, including list titles, items, quantities, checkmarks and your Preferences, is stored on your device. The widgets and Spotlight read that same local store.</p>
+
+    <p>If you are signed in to iCloud, your lists also sync through <strong>your own private iCloud database</strong>, so they appear on your other devices. That data belongs to your Apple Account and is handled by Apple under <a href="https://www.apple.com/legal/privacy/">Apple's privacy policy</a>. We have no access to it. If you are signed out of iCloud, the app simply does not sync.</p>
+
+    <h2>Importing text</h2>
+
+    <p>When you paste text, drop it on the window, share it to the app from another app, or give it to the Add List shortcut, the text is turned into a list <strong>on your device</strong>. The app does not read your clipboard in the background; it looks at it only when you tap Paste or the clipboard suggestion.</p>
+
+    <p><strong>Smart Import</strong> uses Apple Intelligence's on-device model to pick the items out of a chatty message. It runs entirely on your device, and the text is not sent to us or to Apple. You can turn it off in Preferences.</p>
+
+    <p><strong>Add Emojis</strong>, also in Preferences, uses the same on-device model to suggest an emoji for each item. It too runs entirely on your device.</p>
+
+    <h2>Lists vanish, by design</h2>
+
+    <p>Each list is deleted automatically after the period you choose under Vanish after. It then waits in Trash for 30 days, where you can restore it, before it is permanently deleted from your device and your iCloud.</p>
+
+    <h2>Diagnostics and analytics</h2>
+
+    <p>The app uses <a href="https://firebase.google.com/support/privacy">Firebase Analytics and Crashlytics</a> from Google to understand which features are used and to receive crash reports.</p>
+
+    <p>What is sent is limited to events such as a list being created or imported, with counts, durations and settings, for example how many items an import produced, whether Smart Import was used, and which Vanish after period is set. Firebase also records the device model, OS version, app version, region, a random app-instance identifier and crash logs.</p>
+
+    <p>What is <strong>never</strong> sent: list titles, item names, anything you typed, pasted or shared into the app, or the contents of your clipboard.</p>
+
+    <p>This data is not linked to your identity. No advertising identifier (IDFA) is read, no tracking permission is requested, and nothing is shared with advertising networks or data brokers.</p>
+
+    <h2>Purchases</h2>
+
+    <p>The full version is a one-time in-app purchase made through Apple. <strong>We never see your payment details.</strong> Apple handles the transaction, and the app checks only whether you own the purchase. The free trial is measured from the date the app was first opened, which is stored with your lists.</p>
+
+    <h2>Feedback you send us</h2>
+
+    <p>Sending feedback from Preferences creates an entry in a <strong>private</strong> issue tracker hosted on <a href="https://docs.github.com/site-policy/privacy-policies/github-general-privacy-statement">GitHub</a>. It contains what you wrote, anything else you chose to include in the form, and your app version, device model and OS version. Only send what you are happy for us to read.</p>
+
+    <h2>Who else is involved</h2>
+
+    <div class="table-scroll">
+        <table>
+            <thead>
+                <tr><th>Service</th><th>What it handles</th><th>What it receives</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>Apple (iCloud, App Store, Apple Intelligence)</td><td>Private sync, purchases, on-device Smart Import</td><td>Your lists in your own private database; payment. Smart Import runs on device.</td></tr>
+                <tr><td>Google Firebase</td><td>Analytics and crash reports</td><td>Anonymous usage events, counts, device information and crash logs; never list contents</td></tr>
+                <tr><td>GitHub</td><td>Feedback inbox</td><td>Only what you send from the feedback form</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <h2>How long things are kept</h2>
+
+    <ul>
+        <li><strong>Lists on your devices and in your iCloud:</strong> until they vanish and leave Trash, or until you delete them.</li>
+        <li><strong>Analytics and crash reports:</strong> for as long as Firebase's retention settings allow. They are not tied to your identity.</li>
+        <li><strong>Feedback:</strong> until the issue it describes is resolved and tidied up.</li>
+    </ul>
+
+    <h2>Your choices</h2>
+
+    <ul>
+        <li><strong>Delete a list</strong> at any time, and empty it from Trash, or let it vanish on its own.</li>
+        <li><strong>Turn off Smart Import or Add Emojis</strong> in Preferences.</li>
+        <li><strong>Turn off iCloud sync</strong> for the app in the Settings app, under your Apple Account.</li>
+        <li><strong>Delete the app</strong> to remove everything it stored on that device.</li>
+        <li><strong>Ask us</strong> at <a href="mailto:hayek_dev@icloud.com">hayek_dev@icloud.com</a> about any data we hold. Depending on where you live you may have rights under the GDPR, the CCPA or a similar law. We honour them wherever you are, free of charge.</li>
+    </ul>
+
+    <h2>Children</h2>
+
+    <p>The app is not directed at children under 13, and we do not knowingly collect personal information from them.</p>
+
+    <h2>Changes to this policy</h2>
+
+    <p>If the app's data handling changes, this page changes with it and the date at the top moves.</p>
+
+    <h2>Contact</h2>
+
+    <p>Amir Hayek, <a href="mailto:hayek_dev@icloud.com">hayek_dev@icloud.com</a>.</p>
+
+    <footer>
+        <p><a href="/">amirhayek.dev</a> · <a href="/VanishingList/">Vanishing List</a></p>
+    </footer>
+
+</main>
+</body>
+</html>
