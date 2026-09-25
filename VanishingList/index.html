@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vanishing List - Lists That Disappear</title>
+    <meta name="description" content="A checklist app for lists that don't need to last. Paste the list someone texted you, check it off, then let it go.">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.amirhayek.dev/VanishingList/">
+    <meta property="og:title" content="Vanishing List - Lists That Disappear">
+    <meta property="og:description" content="A checklist app for lists that don't need to last. Paste the list someone texted you, check it off, then let it go.">
+    <meta property="og:image" content="https://www.amirhayek.dev/VanishingList/Assets/og-image.png">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://www.amirhayek.dev/VanishingList/">
+    <meta name="twitter:title" content="Vanishing List - Lists That Disappear">
+    <meta name="twitter:description" content="A checklist app for lists that don't need to last. Paste the list someone texted you, check it off, then let it go.">
+    <meta name="twitter:image" content="https://www.amirhayek.dev/VanishingList/Assets/og-image.png">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="favicon/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="favicon/favicon.svg" />
+    <link rel="shortcut icon" href="favicon/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png" />
+    <link rel="manifest" href="favicon/site.webmanifest" />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="styles.css">
+    <script src="/assets/analytics.js" defer></script>
+</head>
+<body>
+
+    <!-- Theme Switcher -->
+    <div class="theme-switcher">
+        <button class="theme-button" data-theme="light" title="Light mode">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="5"/>
+                <line x1="12" y1="1" x2="12" y2="3"/>
+                <line x1="12" y1="21" x2="12" y2="23"/>
+                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+                <line x1="1" y1="12" x2="3" y2="12"/>
+                <line x1="21" y1="12" x2="23" y2="12"/>
+                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+            </svg>
+        </button>
+        <button class="theme-button active" data-theme="system" title="System preference">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+                <line x1="8" y1="21" x2="16" y2="21"/>
+                <line x1="12" y1="17" x2="12" y2="21"/>
+            </svg>
+        </button>
+        <button class="theme-button" data-theme="dark" title="Dark mode">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+            </svg>
+        </button>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <div class="app-icon-wrapper">
+                        <img src="Assets/iconVL.png" alt="Vanishing List App Icon" class="app-icon">
+                    </div>
+                    <h1>Vanishing List</h1>
+                    <p class="subtitle"><span style="font-weight: 600;">Lists that disappear. Automatically.</span> Paste the list someone texted you and get a clean checklist in a tap. Check things off, then let it go—no clutter, no guilt.</p>
+                    <div class="platform-badges">
+                        <span class="platform-badge">iOS</span>
+                        <span class="platform-badge">iPadOS</span>
+                        <span class="platform-badge">macOS</span>
+                    </div>
+                    <a href="#" class="app-store-button app-store-desktop">
+                        <svg viewBox="0 0 355 60" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="355" height="60" rx="20" fill="var(--primary-color)"/>
+                            <text x="177.5" y="38" font-family="'Inter', sans-serif" font-size="18" font-weight="600" fill="var(--bg-color)" text-anchor="middle">Download for Free</text>
+                        </svg>
+                    </a>
+                </div>
+                <div class="hero-visual">
+                    <img src="Assets/Hero.png" alt="Vanishing List App Screenshot" class="hero-image hero-image-light hero-desktop">
+                    <img src="Assets/Hero-dark.png" alt="Vanishing List App Screenshot" class="hero-image hero-image-dark hero-desktop">
+                    <img src="Assets/Hero-mobile.png" alt="Vanishing List App Screenshot" class="hero-image hero-image-light hero-mobile">
+                    <img src="Assets/Hero-mobile-dark.png" alt="Vanishing List App Screenshot" class="hero-image hero-image-dark hero-mobile">
+                </div>
+                <a href="#" class="app-store-button app-store-mobile">
+                    <svg viewBox="0 0 355 60" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="355" height="60" rx="20" fill="var(--primary-color)"/>
+                            <text x="177.5" y="38" font-family="'Inter', sans-serif" font-size="18" font-weight="600" fill="var(--bg-color)" text-anchor="middle">Download for Free</text>
+                        </svg>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="section">
+        <div class="container">
+
+            <!-- Perfect For -->
+            <div class="card perfect-for-card">
+                <h3 class="perfect-for-title">Perfect for</h3>
+                <div class="marquee-wrapper">
+                    <div class="marquee">
+                        <div class="marquee-content">
+                            <span class="marquee-item">The grocery run</span>
+                            <span class="marquee-item">What they texted you to pick up</span>
+                            <span class="marquee-item">Packing for the weekend</span>
+                            <span class="marquee-item">The IKEA trip</span>
+                            <span class="marquee-item">Party supplies</span>
+                            <span class="marquee-item">Tonight's recipe</span>
+                        </div>
+                        <div class="marquee-content" aria-hidden="true">
+                            <span class="marquee-item">The grocery run</span>
+                            <span class="marquee-item">What they texted you to pick up</span>
+                            <span class="marquee-item">Packing for the weekend</span>
+                            <span class="marquee-item">The IKEA trip</span>
+                            <span class="marquee-item">Party supplies</span>
+                            <span class="marquee-item">Tonight's recipe</span>
+                        </div>
+                    </div>
+                    <div class="marquee marquee-reverse">
+                        <div class="marquee-content">
+                            <span class="marquee-item">Before you leave the house</span>
+                            <span class="marquee-item">The pharmacy run</span>
+                            <span class="marquee-item">Camping gear</span>
+                            <span class="marquee-item">Moving day</span>
+                            <span class="marquee-item">Who brings what to the potluck</span>
+                            <span class="marquee-item">Back-to-school supplies</span>
+                        </div>
+                        <div class="marquee-content" aria-hidden="true">
+                            <span class="marquee-item">Before you leave the house</span>
+                            <span class="marquee-item">The pharmacy run</span>
+                            <span class="marquee-item">Camping gear</span>
+                            <span class="marquee-item">Moving day</span>
+                            <span class="marquee-item">Who brings what to the potluck</span>
+                            <span class="marquee-item">Back-to-school supplies</span>
+                        </div>
+                    </div>
+                    <div class="marquee">
+                        <div class="marquee-content">
+                            <span class="marquee-item">Today's errands</span>
+                            <span class="marquee-item">The hardware store</span>
+                            <span class="marquee-item">Gift ideas for Saturday</span>
+                            <span class="marquee-item">Airport checklist</span>
+                            <span class="marquee-item">Chores before the guests arrive</span>
+                            <span class="marquee-item">The farmers market</span>
+                        </div>
+                        <div class="marquee-content" aria-hidden="true">
+                            <span class="marquee-item">Today's errands</span>
+                            <span class="marquee-item">The hardware store</span>
+                            <span class="marquee-item">Gift ideas for Saturday</span>
+                            <span class="marquee-item">Airport checklist</span>
+                            <span class="marquee-item">Chores before the guests arrive</span>
+                            <span class="marquee-item">The farmers market</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Import -->
+            <div class="card import-card">
+                <div class="import-text">
+                    <p class="card-subtitle">Paste a message. Get a list.</p>
+                    <h3 class="card-title">Import in a tap</h3>
+                    <p class="card-subtitle">Share a message to Vanishing List, paste it, or drop it on your Mac. Bullets, numbers and quantities are tidied up for you, and Smart Import picks the items out of chatty messages, right on your device.</p>
+                    <p class="card-hint">Smart Import uses Apple Intelligence on supported devices.</p>
+                </div>
+                <div class="import-demo" aria-hidden="true">
+                    <div class="import-bubble">Can you grab milk, eggs and 2 avocados on your way home? Oh and sourdough if they have it 🙏</div>
+                    <div class="import-arrow">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="4" x2="12" y2="20"/><polyline points="6 14 12 20 18 14"/></svg>
+                    </div>
+                    <div class="import-list">
+                        <div class="import-list-title">Groceries</div>
+                        <div class="import-item">Milk</div>
+                        <div class="import-item">Eggs</div>
+                        <div class="import-item">Avocados <span class="import-qty">· 2</span></div>
+                        <div class="import-item">Sourdough</div>
+                        <div class="import-list-footer"><span class="current-date"></span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Widgets & Action Button -->
+            <div class="card-row-50">
+                <div class="card widgets-card">
+                    <div class="widgets-showcase">
+                        <img src="Assets/widget-big-dark.png" alt="Medium widget, dark" class="widget-img widget-big widget-top-left">
+                        <img src="Assets/widget-small-dark.png" alt="Small widget, dark" class="widget-img widget-small widget-top-right">
+                        <img src="Assets/widget-small.png" alt="Small widget" class="widget-img widget-small widget-bottom-left">
+                        <img src="Assets/widget-big.png" alt="Medium widget" class="widget-img widget-big widget-bottom-right">
+                        <div class="widgets-text">
+                            <h3 class="card-title">Widgets</h3>
+                            <p class="card-subtitle">What's left to get, right on your Home Screen</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card action-button-card">
+                    <div class="action-button-content">
+                        <div class="action-button-text">
+                            <p class="card-subtitle">No need to open the App</p>
+                            <h3 class="card-title">One Tap to New</h3>
+                            <p class="card-hint">Set your Action Button to the 'Add List' Shortcut</p>
+                        </div>
+                        <img src="Assets/actionButton.png" alt="iPhone Action Button" class="action-button-image">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ecosystem & iCloud -->
+            <div class="card-row-70-30">
+                <div class="card ecosystem-image-card">
+                    <img src="Assets/ecosystem.png" alt="Vanishing List on Mac, iPad and iPhone" class="ecosystem-image ecosystem-image-light">
+                    <img src="Assets/ecosystem-dark.png" alt="Vanishing List on Mac, iPad and iPhone" class="ecosystem-image ecosystem-image-dark">
+                    <div class="ecosystem-image-text">
+                        <h3 class="card-title">Available everywhere</h3>
+                        <p class="card-subtitle">iPhone, iPad, and Mac. Make a list on one device, check it off on another.</p>
+                    </div>
+                </div>
+                <div class="card ecosystem-card">
+                    <div class="ecosystem-card-top">
+                        <div class="ecosystem-icons">
+                            <div class="ecosystem-icon-wrapper">
+                                <img src="Assets/shortcuts-icon.png" alt="Shortcuts" class="ecosystem-icon">
+                            </div>
+                            <div class="ecosystem-icon-wrapper ecosystem-icon-main">
+                                <img src="Assets/icloud-icon.png" alt="iCloud" class="ecosystem-icon">
+                            </div>
+                            <div class="ecosystem-icon-wrapper ecosystem-icon-siri">
+                                <img src="Assets/siri-icon.png" alt="Siri" class="ecosystem-icon">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ecosystem-card-bottom">
+                        <h3 class="card-title">Built for Apple ecosystem</h3>
+                        <p class="card-subtitle">Sync lists to all your devices through iCloud, add them with Shortcuts, and ask Siri what's on your list</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Why Vanishing List - Feature Cards -->
+            <div class="card-row-thirds">
+                <div class="card feature-card">
+                    <div class="feature-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 1C8.676 1 6 3.676 6 7v2H4a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V11a2 2 0 0 0-2-2h-2V7c0-3.324-2.676-6-6-6zm0 2c2.276 0 4 1.724 4 4v2H8V7c0-2.276 1.724-4 4-4z"/>
+                        </svg>
+                    </div>
+                    <h4 class="feature-title">Private by design</h4>
+                    <p class="feature-description">Your lists stay on your device and in your private iCloud. Smart Import runs on-device, and what's on your lists is never sent anywhere.</p>
+                </div>
+                <div class="card feature-card">
+                    <div class="feature-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96z"/>
+                        </svg>
+                    </div>
+                    <h4 class="feature-title">No sign up</h4>
+                    <p class="feature-description">Vanishing List uses your Apple Account and syncs encrypted data to all your devices using iCloud. No extra accounts needed.</p>
+                </div>
+                <div class="card feature-card">
+                    <div class="feature-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M21.41 11.58l-9-9A2 2 0 0 0 11 2H4a2 2 0 0 0-2 2v7c0 .55.22 1.05.59 1.42l9 9a2 2 0 0 0 2.82 0l7-7a2 2 0 0 0 0-2.84zM6.5 8A1.5 1.5 0 1 1 6.5 5a1.5 1.5 0 0 1 0 3z"/>
+                        </svg>
+                    </div>
+                    <h4 class="feature-title">No subscription</h4>
+                    <p class="feature-description">Every feature free for 7 days. Then keep one list for free, or unlock unlimited lists with a single one-time purchase.</p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="section">
+        <div class="container">
+            <h2 class="section-title">Frequently Asked Questions</h2>
+
+            <div class="faq-accordion">
+                <details class="faq-item">
+                    <summary class="faq-question">
+                        <span>What is Vanishing List?</span>
+                        <span class="faq-icon"></span>
+                    </summary>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">
+                            <p>Vanishing List is a checklist app where lists vanish on their own. It's great for shopping lists, packing, errands and anything else you only need for a while. Check items off as you go, and the list cleans itself up afterwards.</p>
+                        </div>
+                    </div>
+                </details>
+
+                <details class="faq-item">
+                    <summary class="faq-question">
+                        <span>How do lists vanish?</span>
+                        <span class="faq-icon"></span>
+                    </summary>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">
+                            <p>Each list has a timer based on when you last changed it. When the timer runs out, the list moves to Trash. You can choose 24 hours, 7 days or 30 days under “Vanish after” in Preferences.</p>
+                        </div>
+                    </div>
+                </details>
+
+                <details class="faq-item">
+                    <summary class="faq-question">
+                        <span>What resets a list's timer?</span>
+                        <span class="faq-icon"></span>
+                    </summary>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">
+                            <p>Any change to a list resets its timer: editing the title, adding, editing, deleting or reordering items, and checking or unchecking them. A list you're still using stays around, and one you've stopped touching vanishes.</p>
+                        </div>
+                    </div>
+                </details>
+
+                <details class="faq-item">
+                    <summary class="faq-question">
+                        <span>How do I import a list someone sent me?</span>
+                        <span class="faq-icon"></span>
+                    </summary>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">
+                            <p>Touch and hold the message, tap Share, then choose Vanishing List. Or copy the text and tap Paste List in the app. On Mac, drag the text onto the window or press ⌘⇧V. Messy text opens a preview first so you can check the items before adding them.</p>
+                        </div>
+                    </div>
+                </details>
+
+                <details class="faq-item">
+                    <summary class="faq-question">
+                        <span>What is Smart Import?</span>
+                        <span class="faq-icon"></span>
+                    </summary>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">
+                            <p>Smart Import uses Apple Intelligence, on your device, to tidy up messy text. It picks the items out of a chatty message, splits “milk, eggs and two avocados” into separate items, and pulls out quantities like “2 L” or “a dozen”. Without Apple Intelligence, the built-in cleanup takes over automatically.</p>
+                        </div>
+                    </div>
+                </details>
+
+                <details class="faq-item">
+                    <summary class="faq-question">
+                        <span>Is Vanishing List free?</span>
+                        <span class="faq-icon"></span>
+                    </summary>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">
+                            <p>Vanishing List starts with a 7-day free trial with every feature. After the trial, you can keep 1 list for free, and a one-time purchase unlocks unlimited lists. There is no subscription.</p>
+                        </div>
+                    </div>
+                </details>
+
+                <details class="faq-item">
+                    <summary class="faq-question">
+                        <span>Do my lists sync across devices?</span>
+                        <span class="faq-icon"></span>
+                    </summary>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">
+                            <p>Yes. Your lists sync through iCloud between your iPhone, iPad and Mac. Make sure you're signed in to the same iCloud account on each device.</p>
+                        </div>
+                    </div>
+                </details>
+
+                <details class="faq-item">
+                    <summary class="faq-question">
+                        <span>Can I use Siri and Shortcuts?</span>
+                        <span class="faq-icon"></span>
+                    </summary>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">
+                            <p>Yes. Say “Add a list in Vanishing List” or “What's on my Vanishing List”. In the Shortcuts app you'll find Add List, Get Lists and Open List, and you can set the Action Button to Add List.</p>
+                        </div>
+                    </div>
+                </details>
+
+                <details class="faq-item">
+                    <summary class="faq-question">
+                        <span>Can I restore a deleted list?</span>
+                        <span class="faq-icon"></span>
+                    </summary>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">
+                            <p>Yes. Lists that vanish or that you delete move to Trash for 30 days. Open Preferences, scroll to Trash and tap Restore. A restored list gets a fresh timer.</p>
+                        </div>
+                    </div>
+                </details>
+
+                <details class="faq-item">
+                    <summary class="faq-question">
+                        <span>Where is my data stored?</span>
+                        <span class="faq-icon"></span>
+                    </summary>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">
+                            <p>Your lists are stored on your device and in your private iCloud account. Smart Import runs entirely on your device. Anonymous usage statistics and crash reports help improve the app, but the contents of your lists, their titles and your clipboard are never sent.</p>
+                        </div>
+                    </div>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>Vanishing List © 2026. Available on iOS, iPadOS, and macOS.</p>
+            <p style="margin-top: 10px;">Lists that disappear, automatically.</p>
+            <p style="margin-top: 10px;">Sister app: <a href="/VanishingNotes/">Vanishing Notes</a></p>
+            <p style="margin-top: 10px;">Created by <a href="https://amirhayek.dev/" target="_blank" rel="noopener noreferrer">Amir Hayek</a></p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
