@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024">
+  <defs>
+    <clipPath id="c"><rect width="1024" height="1024" rx="228"/></clipPath>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2A2A30"/><stop offset="1" stop-color="#0B0B0E"/></linearGradient>
+  </defs>
+  <g clip-path="url(#c)">
+    <rect width="1024" height="1024" fill="url(#bg)"/>
+    <path d="M232 -60 V230 C232 330 292 400 392 400 H1084" fill="none" stroke="#FF3B3F" stroke-width="76" stroke-linecap="round"/>
+    <path d="M-60 512 H1084" fill="none" stroke="#FFC300" stroke-width="76" stroke-linecap="round"/>
+    <path d="M232 1084 V794 C232 694 292 624 392 624 H1084" fill="none" stroke="#22D3EE" stroke-width="76" stroke-linecap="round"/>
+    <rect x="440" y="318" width="144" height="388" rx="72" fill="#FFFFFF" stroke="#0B0B0E" stroke-width="36"/>
+  </g>
+</svg>

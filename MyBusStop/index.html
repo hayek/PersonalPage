@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Bus Stop - Every bus to your stop, live</title>
+    <meta name="description" content="Turn your iPhone, iPad or Mac into a live arrivals board for the stop you use every day. Up to three lines, the minutes to the next bus, and where each bus is on its route right now.">
+    <meta name="theme-color" content="#08080B">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.amirhayek.dev/MyBusStop/">
+    <meta property="og:title" content="My Bus Stop - Every bus to your stop, live">
+    <meta property="og:description" content="A live arrivals board for the stop you use every day, on iPhone, iPad, Mac, Apple Watch and Apple TV.">
+    <meta property="og:image" content="https://www.amirhayek.dev/MyBusStop/Assets/entryway.webp">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://www.amirhayek.dev/MyBusStop/">
+    <meta name="twitter:title" content="My Bus Stop - Every bus to your stop, live">
+    <meta name="twitter:description" content="A live arrivals board for the stop you use every day, on iPhone, iPad, Mac, Apple Watch and Apple TV.">
+    <meta name="twitter:image" content="https://www.amirhayek.dev/MyBusStop/Assets/entryway.webp">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="favicon/favicon.svg">
+    <link rel="icon" type="image/png" href="favicon/favicon-96x96.png" sizes="96x96">
+    <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
+
+    <!-- Google Fonts: the app's own faces -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="styles.css">
+    <script src="/assets/analytics.js" defer></script>
+</head>
+<body>
+
+    <!-- Hero: the board itself, always dark like wall mode -->
+    <header class="hero">
+        <div class="container hero-grid">
+            <div class="hero-text">
+                <img src="Assets/icon.svg" alt="" class="app-icon" width="84" height="84">
+                <h1>My Bus Stop</h1>
+                <p class="hero-lede">Every bus to your stop, live.</p>
+                <p class="hero-body">Pick the stop you use every day and up to three lines. The board shows how many minutes until the next bus, the one after it, and where each bus is on its route right now.</p>
+                <div class="cta-row">
+                    <span class="store-button" aria-disabled="true">
+                        <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M16.37 12.64c-.02-2.3 1.88-3.4 1.96-3.46-1.07-1.56-2.73-1.78-3.32-1.8-1.41-.14-2.76.83-3.47.83-.72 0-1.82-.81-2.99-.79-1.54.02-2.96.9-3.75 2.27-1.6 2.78-.41 6.89 1.15 9.14.76 1.1 1.67 2.34 2.86 2.3 1.15-.05 1.58-.74 2.97-.74 1.38 0 1.77.74 2.98.72 1.23-.02 2.01-1.12 2.76-2.23.87-1.28 1.23-2.51 1.25-2.58-.03-.01-2.39-.92-2.4-3.66ZM14.1 5.9c.63-.77 1.06-1.83.94-2.9-.91.04-2.02.61-2.67 1.37-.58.67-1.1 1.76-.96 2.8 1.02.08 2.06-.51 2.69-1.27Z"/></svg>
+                        Coming soon to the App Store
+                    </span>
+                </div>
+                <p class="platforms">iPhone, iPad, Mac, Apple Watch and Apple TV</p>
+            </div>
+
+            <figure class="board" aria-label="A demo board: two lines on their way to your stop, with the minutes to the next bus">
+                <div class="board-head">
+                    <span class="board-stop">Harbor Gate</span>
+                    <span class="board-live"><i></i><span id="board-clock">09:41</span></span>
+                </div>
+                <svg id="board-map" viewBox="0 0 480 440" role="img" aria-hidden="true">
+                    <g id="rails"></g>
+                    <g id="stations"></g>
+                    <g id="labels" class="map-label">
+                        <text x="150" y="18" text-anchor="middle" class="term term-41">VISTA PARK</text>
+                        <text x="290" y="18" text-anchor="middle" class="term term-18">NORTHGATE</text>
+                        <text x="312" y="425" class="your-stop">YOUR STOP</text>
+                    </g>
+                    <g id="buses"></g>
+                    <circle id="stop-ring" cx="284" cy="420" r="16" />
+                </svg>
+                <div class="readout">
+                    <div class="readout-next">
+                        <span class="readout-kicker">Next arrival</span>
+                        <div class="readout-main">
+                            <span class="badge badge-big" id="next-badge" data-line="41">41</span>
+                            <span class="readout-min"><b id="next-min">2</b><small id="next-unit">MIN</small></span>
+                        </div>
+                        <span class="readout-sub" id="next-sub">ARRIVES 09:43</span>
+                    </div>
+                    <div class="readout-then">
+                        <span class="readout-kicker">Then</span>
+                        <div class="readout-main">
+                            <span class="badge" id="then-badge" data-line="18">18</span>
+                            <span class="readout-min readout-min-small"><b id="then-min">8</b><small>MIN</small></span>
+                        </div>
+                        <span class="readout-sub" id="then-sub">09:49</span>
+                    </div>
+                </div>
+                <figcaption>Demo board, running at six times real speed.</figcaption>
+            </figure>
+        </div>
+    </header>
+
+    <main>
+        <!-- Wall mode: always dark -->
+        <section class="section wall">
+            <div class="container">
+                <div class="wall-text">
+                    <h2>A board for your front door</h2>
+                    <p class="section-lede">Wall mode turns a spare iPad, iPhone or Mac into an always-on bus board for the hallway. Glance at it with your shoes on, and leave when the bus does.</p>
+                </div>
+                <div class="wall-scene">
+                    <img src="Assets/entryway.webp" alt="An entryway with the front door closed and an iPhone mounted sideways on the wall beside it, showing the board: line 18 in 2 minutes" class="wall-photo" width="1600" height="1308" loading="lazy">
+                    <ul class="wall-facts">
+                        <li><h3>Stays awake, stays dark</h3><p>The board keeps the screen on and dims at night, so it doesn't light up the room.</p></li>
+                        <li><h3>On when you need it</h3><p>Choose the days and hours, like weekday mornings only.</p></li>
+                        <li><h3>Kind to the screen</h3><p>It shifts by a few pixels every few minutes to protect the display.</p></li>
+                        <li><h3>Recovers on its own</h3><p>After a dropped connection it keeps the last board, checks again, and comes back without a touch.</p></li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Setup: an actual sequence, so it's numbered, with line badges -->
+        <section class="section">
+            <div class="container">
+                <h2>Set it up once</h2>
+                <p class="section-lede">No account and nothing to configure. The app finds your region from your location.</p>
+                <ol class="steps">
+                    <li class="step">
+                        <picture>
+                            <img src="Assets/iphone-stops-dark.webp" alt="The stop screen, listing stops nearby" class="phone" width="660" height="1434" loading="lazy">
+                        </picture>
+                        <div class="step-text">
+                            <span class="step-badge" data-line="18">1</span>
+                            <h3>Choose your stop</h3>
+                            <p>Stops nearby come first. You can also search by name, stop code, street or line, or move the map and search that area.</p>
+                        </div>
+                    </li>
+                    <li class="step">
+                        <picture>
+                            <img src="Assets/iphone-lines-dark.webp" alt="Choosing two lines at the stop" class="phone" width="660" height="1434" loading="lazy">
+                        </picture>
+                        <div class="step-text">
+                            <span class="step-badge" data-line="41">2</span>
+                            <h3>Pick up to three lines</h3>
+                            <p>Each line gets its own route on the board, so the one you're waiting for is never lost in a list.</p>
+                        </div>
+                    </li>
+                    <li class="step">
+                        <picture>
+                            <source srcset="Assets/iphone-board-dark.webp" media="(prefers-color-scheme: dark)">
+                            <img src="Assets/iphone-board-light.webp" alt="The board, with line 18 two minutes away and line 41 twelve minutes away" class="phone" width="660" height="1434" loading="lazy">
+                        </picture>
+                        <div class="step-text">
+                            <span class="step-badge" data-line="7">3</span>
+                            <h3>Watch the buses come in</h3>
+                            <p>The next bus, how many stops it still has to go, and the one after it. Tap any bus on the route to see when it reaches you.</p>
+                        </div>
+                    </li>
+                </ol>
+                <p class="note">Home, work and school stay in your history, one tap apart. Pin the ones you use most.</p>
+            </div>
+        </section>
+
+
+        <!-- Every device -->
+        <section class="section everywhere">
+            <div class="container">
+                <h2>On every screen in the house</h2>
+                <p class="section-lede">iPhone, iPad, Mac, Apple Watch and Apple TV. Save a stop once and it's on all of them: your stops sync through iCloud, and Apple Watch follows your iPhone.</p>
+                <img src="Assets/everywhere.webp" alt="A living room with the board running on a wall-mounted TV, and on a MacBook, an iPad, an iPhone and an Apple Watch on the console below: line 18 in 2 minutes on each" class="everywhere-photo" width="1600" height="1074" loading="lazy">
+            </div>
+        </section>
+
+        <!-- Regions: drawn as lines with stations -->
+        <section class="section">
+            <div class="container">
+                <h2>Where it runs</h2>
+                <p class="section-lede">Arrival times come straight from the open data each transit agency publishes. Where an agency shares bus positions too, you see the buses move along the route.</p>
+                <div class="network">
+                    <div class="route" data-line="18">
+                        <h3>Middle East</h3>
+                        <ul><li>Israel, nationwide</li><li>Istanbul</li></ul>
+                    </div>
+                    <div class="route" data-line="41">
+                        <h3>Europe</h3>
+                        <ul>
+                            <li>Norway</li><li>Switzerland</li><li>London</li><li>Vienna</li><li>Linz</li>
+                            <li>Rennes</li><li>Lisbon area</li><li>Turku</li><li>Tampere</li><li>Tallinn</li>
+                            <li>Vilnius</li><li>Kaunas</li><li>Poznań</li><li>Gdańsk</li>
+                        </ul>
+                    </div>
+                    <div class="route" data-line="7">
+                        <h3>North America</h3>
+                        <ul><li>New York City</li><li>Boston</li><li>Seattle &amp; Puget Sound</li><li>Minneapolis–St Paul</li><li>Toronto</li></ul>
+                    </div>
+                    <div class="route" data-line="green">
+                        <h3>Asia</h3>
+                        <ul><li>Hong Kong</li><li>Tokyo</li></ul>
+                    </div>
+                </div>
+                <p class="note">Not on the map yet? Send feedback from the app and tell us where you ride.</p>
+            </div>
+        </section>
+
+        <!-- Privacy -->
+        <section class="section">
+            <div class="container privacy">
+                <h2>Nothing to sign up for</h2>
+                <ul class="privacy-list">
+                    <li><h3>No account</h3><p>Your stops and settings stay on your devices.</p></li>
+                    <li><h3>Location only while open</h3><p>Used to pick your region and find stops near you. There's no record of where you go.</p></li>
+                    <li><h3>Anonymous diagnostics</h3><p>Crash reports and basic usage statistics help find bugs. Nothing that identifies you.</p></li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- FAQ -->
+        <section class="section">
+            <div class="container faq">
+                <h2>Questions</h2>
+                <details>
+                    <summary>What's the difference between LIVE and SCHEDULED?</summary>
+                    <p>LIVE means the time comes from the bus's real position and the agency's live predictions. SCHEDULED means there's no live data for that bus yet, so the board shows the timetable. If the feed goes quiet, the board marks its numbers as stale and tells you when the last data arrived.</p>
+                </details>
+                <details>
+                    <summary>Why don't I see buses moving on the map?</summary>
+                    <p>Some agencies publish arrival times but not bus positions, so the board shows the minutes without buses on the route. Elsewhere it can mean no bus is on its way right now, or the next one hasn't started sending its position.</p>
+                </details>
+                <details>
+                    <summary>Is this an official app of the bus operator?</summary>
+                    <p>No. My Bus Stop is an independent app. It isn't made or endorsed by any transit agency or operator; it displays the public data they publish, and credits the source at the bottom of Settings.</p>
+                </details>
+                <details>
+                    <summary>Can I use it in my language?</summary>
+                    <p>The app follows your device's language, and you can pick another one for this app alone, including right-to-left layouts for Hebrew and Arabic. Widgets, Apple Watch and Apple TV follow your choice.</p>
+                </details>
+                <details>
+                    <summary>Is there a light theme?</summary>
+                    <p>Yes: System, Light and Dark. In wall mode the board always stays dark.</p>
+                </details>
+                <details>
+                    <summary>What happens when an agency's feed breaks?</summary>
+                    <p>Rather than show you wrong times, live data for that region is paused until the feed is healthy again. The board comes back by itself.</p>
+                </details>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>My Bus Stop © 2026, for iPhone, iPad, Mac, Apple Watch and Apple TV.</p>
+            <p>Made by <a href="https://amirhayek.dev/">Amir Hayek</a>. See <a href="/apps.html">more apps</a>.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
