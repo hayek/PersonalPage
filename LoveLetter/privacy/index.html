@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<!--
+Love Letter: privacy policy.
+This is the URL for App Store Connect's Privacy Policy field (app and TestFlight). It is
+self-contained (its own styles, no shared stylesheet or scripts besides site analytics) so it cannot
+break when something else on the site moves; the web fonts are optional and fall back to Georgia.
+Keep it in step with the app's data handling (LoveLetter repo: KeychainService, AppSchema cloud/local
+types, GitHub*/AppStoreConnectClient/Mail services, DeviceName's appledb.dev lookup, Intelligence/)
+and with the App Privacy label. As the app stands: no analytics, no crash reporting SDK, no tracking;
+everything goes to services the user connects, their own iCloud, or stays on device.
+-->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Privacy Policy - Love Letter</title>
+<meta name="description" content="What Love Letter stores, where it sends it, what it never collects, and how to remove it.">
+<link rel="icon" type="image/png" href="../Assets/icon.png">
+<link rel="apple-touch-icon" href="../Assets/icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300..700;1,6..72,300..700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+    --ink: #2447B8;
+    --paper: #F4EEE2;
+    --card: #FBF8F1;
+    --text: #1E2433;
+    --body: #3A3F4B;
+    --muted: #5B5A55;
+    --rule: #D9CFBC;
+    --card-rule: #E2D8C5;
+    --red: #B83A3A;
+    --serif: 'Newsreader', Georgia, serif;
+    --mono: 'IBM Plex Mono', ui-monospace, monospace;
+}
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+    font-family: var(--serif);
+    background: var(--paper);
+    color: var(--body);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+.page { max-width: 720px; margin: 0 auto; padding: 56px 16px 96px; }
+.back { display: inline-flex; align-items: center; gap: 12px; text-decoration: none; color: var(--text); font-size: 20px; font-weight: 600; }
+.back img { width: 40px; height: 40px; border-radius: 9px; }
+h1 {
+    font-size: clamp(38px, 7vw, 56px);
+    font-weight: 500;
+    color: var(--text);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin: 36px 0 12px;
+}
+.updated { font-family: var(--mono); color: var(--muted); font-size: 13px; letter-spacing: 0.04em; text-transform: uppercase; }
+h2 {
+    font-size: 26px;
+    font-weight: 500;
+    color: var(--text);
+    line-height: 1.25;
+    margin: 48px 0 12px;
+    padding-top: 22px;
+    border-top: 1px solid var(--rule);
+}
+p, li { font-size: 18px; }
+p { margin: 12px 0; }
+ul { margin: 12px 0 12px 22px; }
+li { margin: 6px 0; }
+a { color: var(--ink); text-underline-offset: 3px; }
+a:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; border-radius: 4px; }
+strong { font-weight: 600; color: var(--text); }
+.lede {
+    background: var(--card);
+    border: 1px solid var(--card-rule);
+    border-left: 6px solid var(--red);
+    border-radius: 14px;
+    padding: 20px 22px;
+    margin: 32px 0 8px;
+}
+.lede p { margin: 8px 0; }
+.lede p:first-child { margin-top: 0; }
+.lede p:last-child { margin-bottom: 0; }
+.table-scroll { overflow-x: auto; margin: 16px 0; }
+table { border-collapse: collapse; width: 100%; min-width: 560px; font-size: 16px; }
+th, td { text-align: left; padding: 10px 14px 10px 0; vertical-align: top; border-bottom: 1px solid var(--rule); }
+th { font-weight: 600; color: var(--text); }
+footer { margin-top: 56px; padding-top: 22px; border-top: 1px solid var(--rule); font-family: var(--mono); color: var(--muted); font-size: 13px; letter-spacing: 0.04em; }
+</style>
+<script src="/assets/analytics.js" defer></script>
+</head>
+<body>
+<main class="page">
+    <a class="back" href="/LoveLetter/"><img src="../Assets/icon.png" alt="">Love Letter</a>
+    <h1>Privacy Policy</h1>
+    <p class="updated">Last updated 27 September 2026</p>
+
+    <div class="lede">
+        <p><strong>No account with us, no ads, no analytics, no tracking.</strong> Love Letter has no server of its own. It doesn't send us usage statistics or crash reports.</p>
+        <p><strong>It talks only to the services you connect.</strong> Your GitHub, your mail accounts and App Store Connect get only what they need to show and answer your feedback.</p>
+        <p><strong>Your data stays yours.</strong> It's stored on your devices, synced through your own iCloud, and any AI features run on your device.</p>
+    </div>
+
+    <p>Love Letter ("the app") is made by Amir Hayek ("we"). This policy explains what the app stores, where it sends it, and how to remove it. It covers the app on iPhone, iPad and Mac, and its command-line tool.</p>
+
+    <h2>Services you connect</h2>
+    <p>Love Letter gathers feedback about your own apps. To do that, it connects directly from your device to the services you add. Each one handles your data under its own privacy policy:</p>
+    <ul>
+        <li><strong>GitHub.</strong> When you sign in with GitHub, the app reads and writes issues, comments, labels, milestones and releases in the repositories you choose, and can create a new feedback repository for you. <a href="https://docs.github.com/site-policy/privacy-policies/github-general-privacy-statement">GitHub's privacy statement</a>.</li>
+        <li><strong>Your mail accounts.</strong> When you add a mail account (for example iCloud, Gmail or Outlook), the app signs in to that provider's IMAP and SMTP servers to read feedback email and send your replies. It can also file the replies you send in your Sent folder.</li>
+        <li><strong>App Store Connect.</strong> If you add an App Store Connect API key, the app reads your apps' customer reviews and posts the responses you write. <a href="https://www.apple.com/legal/privacy/">Apple's privacy policy</a>.</li>
+    </ul>
+    <p>The app only acts on these services when you ask it to, or on a schedule you set to check for new feedback.</p>
+
+    <h2>What stays on your devices</h2>
+    <p>Your products, repositories, mail threads, reply templates, translations, summaries and settings are stored on your device. The app also keeps a local cache of issues and attachments so it works offline.</p>
+    <p>Most of this syncs through <strong>your own iCloud account</strong> (CloudKit), so it appears on your Mac, iPad and iPhone. Your GitHub token, mail passwords and App Store Connect key are kept in <strong>iCloud Keychain</strong>. That data belongs to your Apple Account and is handled by Apple under <a href="https://www.apple.com/legal/privacy/">Apple's privacy policy</a>. We can't read it.</p>
+
+    <h2>AI features</h2>
+    <p>Summaries and triage use <strong>Apple Intelligence on your device</strong>, and translation uses Apple's on-device Translation framework. The text you process isn't sent to us or to any AI provider.</p>
+
+    <h2>Everything else the app contacts</h2>
+    <ul>
+        <li><strong>Device names.</strong> The app downloads a public list of Apple device model names from <a href="https://appledb.dev">appledb.dev</a> so it can show "iPhone 17 Pro" instead of a model code. Nothing about you or your feedback is sent.</li>
+        <li><strong>Notifications.</strong> If you allow them, the app shows notifications on your device about new feedback. They're created on your device, not sent from a server.</li>
+        <li><strong>Links.</strong> Help, documentation and account pages open in your browser, under that website's own policy.</li>
+    </ul>
+
+    <h2>The Love Letter SDK</h2>
+    <p>Developers can add the Love Letter SDK to their own apps so their users can send feedback. That feedback goes to the developer's own repository or relay, not to us. The developer who ships the SDK is responsible for telling their users how that feedback is handled.</p>
+
+    <h2>Who else is involved</h2>
+    <div class="table-scroll">
+        <table>
+            <thead>
+                <tr><th>Service</th><th>What it's for</th><th>What it receives</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>GitHub</td><td>Your feedback repositories</td><td>The issues, comments, labels and releases you create or change</td></tr>
+                <tr><td>Your mail provider</td><td>Reading and answering feedback email</td><td>Your sign-in, and the messages you send</td></tr>
+                <tr><td>Apple (iCloud, App Store Connect)</td><td>Sync, credentials, App Store reviews</td><td>Your app data in your own iCloud; your review responses</td></tr>
+                <tr><td>appledb.dev</td><td>Device model names</td><td>A request for the public list, and your IP address</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <h2>How long things are kept</h2>
+    <ul>
+        <li><strong>On your devices and in your iCloud:</strong> until you remove it in the app or delete the app.</li>
+        <li><strong>On GitHub, your mail provider and App Store Connect:</strong> under your accounts there, for as long as you keep it.</li>
+        <li><strong>With us:</strong> nothing, unless you email us.</li>
+    </ul>
+
+    <h2>Your choices</h2>
+    <ul>
+        <li><strong>Disconnect an account</strong> in the app's Settings. Its credentials are removed from your Keychain.</li>
+        <li><strong>Turn off iCloud</strong> for the app in the Settings app, under your Apple Account.</li>
+        <li><strong>Delete the app</strong> to remove everything it stored on that device.</li>
+        <li><strong>Ask us</strong> at <a href="mailto:hayek_dev@icloud.com">hayek_dev@icloud.com</a> about any data we hold. Depending on where you live you may have rights under the GDPR, the CCPA or a similar law. We honour them wherever you are, free of charge.</li>
+    </ul>
+
+    <h2>TestFlight</h2>
+    <p>If you test a beta through TestFlight, Apple shares your TestFlight feedback, crash reports and basic device information with us, under <a href="https://www.apple.com/legal/privacy/">Apple's privacy policy</a>. We use it only to fix the app.</p>
+
+    <h2>Children</h2>
+    <p>The app is a tool for app developers. It isn't directed at children under 13, and we don't knowingly collect personal information from them.</p>
+
+    <h2>Changes to this policy</h2>
+    <p>If the app's data handling changes, this page changes with it and the date at the top moves.</p>
+
+    <h2>Contact</h2>
+    <p>Amir Hayek, <a href="mailto:hayek_dev@icloud.com">hayek_dev@icloud.com</a>.</p>
+
+    <footer>
+        <p><a href="/">AMIR HAYEK</a> · <a href="/LoveLetter/">LOVE LETTER</a></p>
+    </footer>
+</main>
+</body>
+</html>
