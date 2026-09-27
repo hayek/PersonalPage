@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<!--
+My Bus Stop: privacy policy.
+This is the URL for App Store Connect's Privacy Policy field. It is self-contained (its own styles,
+no shared stylesheet or scripts besides site analytics) so it cannot break when something else on
+the site moves; the web fonts are optional and fall back to the system font.
+Keep it in step with the app's data handling (BusBus repo: Telemetry/, HTTPClient redaction,
+functions/src proxy, CloudHistory, Feedback.swift) and with the App Privacy label. As the app
+stands: Analytics (Product Interaction, Device ID), Diagnostics (Crash Data, Performance Data),
+Coarse/Precise Location sent to transit services for nearby stops, Search History in crash
+reports on a failed search; none linked to identity, no tracking.
+-->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Privacy Policy - My Bus Stop</title>
+<meta name="description" content="What My Bus Stop sends, to whom, what it never collects, and how to remove it.">
+<link rel="icon" type="image/svg+xml" href="../favicon/favicon.svg">
+<link rel="apple-touch-icon" sizes="180x180" href="../favicon/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..900&display=swap" rel="stylesheet">
+<style>
+:root {
+    --bg: #F4F2EC;
+    --ink: #14140F;
+    --muted: #5C5A52;
+    --rule: #DBD7CD;
+    --card: #ECE9E1;
+    --link: #0B636B;
+    --l18: #D32029;
+    --l41: #EFA400;
+}
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg: #08080B;
+        --ink: #FFFFFF;
+        --muted: #A0A0AE;
+        --rule: #24242E;
+        --card: #15151B;
+        --link: #22D3EE;
+        --l18: #FF3B3F;
+        --l41: #FFC300;
+    }
+}
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+    font-family: 'Archivo', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+.page { max-width: 720px; margin: 0 auto; padding: 56px 16px 96px; }
+.back { display: inline-flex; align-items: center; gap: 12px; text-decoration: none; color: var(--ink); font-weight: 800; }
+.back img { width: 40px; height: 40px; border-radius: 9px; }
+h1 {
+    font-size: clamp(34px, 7vw, 52px);
+    font-weight: 900;
+    font-stretch: 112%;
+    line-height: 1.02;
+    letter-spacing: -0.025em;
+    margin: 36px 0 12px;
+}
+.updated { color: var(--muted); font-size: 15px; }
+h2 {
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    line-height: 1.25;
+    margin: 48px 0 12px;
+    padding-top: 22px;
+    border-top: 1px solid var(--rule);
+}
+p, li { font-size: 16px; }
+p { margin: 12px 0; }
+ul { margin: 12px 0 12px 22px; }
+li { margin: 6px 0; }
+a { color: var(--link); text-underline-offset: 3px; }
+a:focus-visible { outline: 3px solid var(--link); outline-offset: 3px; border-radius: 4px; }
+strong { font-weight: 700; }
+.lede {
+    background: var(--card);
+    border-left: 6px solid var(--l18);
+    border-radius: 14px;
+    padding: 20px 22px;
+    margin: 32px 0 8px;
+}
+.lede p { margin: 8px 0; }
+.lede p:first-child { margin-top: 0; }
+.lede p:last-child { margin-bottom: 0; }
+.table-scroll { overflow-x: auto; margin: 16px 0; }
+table { border-collapse: collapse; width: 100%; min-width: 560px; font-size: 15px; }
+th, td { text-align: left; padding: 10px 14px 10px 0; vertical-align: top; border-bottom: 1px solid var(--rule); }
+th { font-weight: 700; }
+footer { margin-top: 56px; padding-top: 22px; border-top: 1px solid var(--rule); color: var(--muted); font-size: 14px; }
+</style>
+<script src="/assets/analytics.js" defer></script>
+</head>
+<body>
+<main class="page">
+    <a class="back" href="/MyBusStop/"><img src="../Assets/icon.svg" alt="">My Bus Stop</a>
+    <h1>Privacy Policy</h1>
+    <p class="updated">Last updated 27 September 2026</p>
+
+    <div class="lede">
+        <p><strong>No account, no ads, no tracking.</strong> There's nothing to sign up for, and the app never asks to track you across other companies' apps and websites.</p>
+        <p><strong>To show arrivals, the app has to ask a transit service.</strong> It sends the stop and lines you chose and, when you look for stops near you, your location. It doesn't keep a record of where you've been.</p>
+        <p><strong>We collect usage statistics and crash reports</strong> to find bugs. They aren't tied to your name or email, and they're never used for advertising.</p>
+    </div>
+
+    <p>My Bus Stop ("the app") is made by Amir Hayek ("we"). This policy explains what the app sends, to whom, what it keeps on your devices, and how to remove it. It covers the app on iPhone, iPad, Mac, Apple Watch and Apple TV, and its widgets and Top Shelf.</p>
+
+    <h2>Getting arrival times</h2>
+    <p>The arrival times come from the open, real-time data that transit agencies publish. To show your board, the app asks your region's transit data service for the stop and lines you picked. When you search, what you type is sent so the service can find matching stops.</p>
+    <p>Most regions are asked directly, from your device, and each service handles the request under its own privacy policy. The app tells you which service your data comes from at the bottom of Settings.</p>
+    <p>In <strong>New York City</strong> and <strong>Seattle &amp; Puget Sound</strong>, the agency requires a key that can't be kept on your device, so the request goes through a small relay we run on Google Cloud (Cloud Functions for Firebase, in the United States). The relay forwards only what the agency needs, such as the stop, the line, your search or the coordinates for stops nearby, and keeps the agency's reply in memory for between 10 seconds and an hour so repeat requests are faster. Its own logs don't record coordinates, stops or searches. Google Cloud's standard request logs may record the address that was requested and your IP address, and are kept according to Google Cloud's retention settings.</p>
+
+    <h2>Your location</h2>
+    <p>The app asks for your location only <strong>while it's open</strong>, and only when you choose to use it. It's used to pick your region, to show you on the map, and to find stops nearby, which means sending your coordinates to your region's transit service (through the relay above in New York and Seattle). The app takes one reading at a time and doesn't store it. On Apple TV, "Use this Apple TV's location" takes a single, approximate reading.</p>
+    <p>You can search for a stop, or move the map and search that area, without sharing your location at all. You can change the permission at any time in <strong>Settings → Privacy &amp; Security → Location Services → My Bus Stop</strong>.</p>
+
+    <h2>What stays on your devices</h2>
+    <p>Your saved stops and lines, your recent searches and your settings (colours, appearance, language, wall mode and its schedule) are stored on your device. Widgets and the Top Shelf keep a copy of the latest board so they can show it.</p>
+    <p>Your saved stops also sync through <strong>your own iCloud account</strong>, so they appear on your iPhone, iPad, Mac and Apple TV. That data belongs to your Apple Account and is handled by Apple under <a href="https://www.apple.com/legal/privacy/">Apple's privacy policy</a>; we can't read it. Your iPhone also sends your saved stops and the latest arrivals to your paired Apple Watch.</p>
+    <p>Maps, and the street address shown for a stop, come from Apple Maps. In New York City, stop searches also use Apple's map search.</p>
+
+    <h2>Usage statistics and crash reports</h2>
+    <p>The app uses <a href="https://firebase.google.com/support/privacy">Firebase</a> from Google for usage statistics (Google Analytics for Firebase), crash reports (Crashlytics), remote settings (Remote Config) and to check that requests to our relay come from the real app (App Check).</p>
+    <p><strong>Usage statistics</strong> include Firebase's standard events, such as the app being opened, and a few of our own: the welcome screens being shown and finished, the Apple Watch app being installed and synced, and a region's live data going down and coming back. Firebase also records the device model, OS version, app version, country and a random identifier for the app installation. None of our events contain your stops, lines, searches or location.</p>
+    <p><strong>Crash reports</strong> include the state of the app when it crashed. When a transit service fails to answer properly, the app also sends an error report so we can fix it. That report can include the address the app requested and the first part of the service's reply, which can contain stop names, line numbers or the text of a search you made. Keys and coordinates are removed from these reports before they're sent.</p>
+    <p>This data isn't linked to your name, email or Apple Account. The app doesn't use the advertising identifier, doesn't ask for tracking permission, and doesn't share anything with advertisers or data brokers.</p>
+
+    <h2>Feedback you send us</h2>
+    <p>When you send feedback from the app, it becomes an entry in a <strong>private</strong> issue tracker on <a href="https://docs.github.com/site-policy/privacy-policies/github-general-privacy-statement">GitHub</a>. It contains what you wrote, the email address if you chose to give one, any screenshots you attached, and your app version, device model and OS version. Location and camera details are removed from attached images before they're uploaded. Only send what you're happy for us to read.</p>
+
+    <h2>Who else is involved</h2>
+    <div class="table-scroll">
+        <table>
+            <thead>
+                <tr><th>Service</th><th>What it's for</th><th>What it receives</th></tr>
+            </thead>
+            <tbody>
+                <tr><td>Your region's transit data service</td><td>Stops and arrival times</td><td>The stops, lines and searches you ask about, and your coordinates when you look for stops nearby</td></tr>
+                <tr><td>Google Cloud (our relay)</td><td>New York City and Seattle &amp; Puget Sound only</td><td>The same requests, forwarded to the agency; your IP address in standard request logs</td></tr>
+                <tr><td>Apple (iCloud, Maps, App Store)</td><td>Syncing saved stops, maps and addresses, distribution</td><td>Your saved stops in your own iCloud; stop locations for addresses; New York stop searches</td></tr>
+                <tr><td>Google Firebase</td><td>Usage statistics, crash reports, remote settings, App Check</td><td>Usage events, device information, crash logs and failed-request reports</td></tr>
+                <tr><td>GitHub</td><td>Feedback inbox</td><td>Only what you send from the feedback form</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <h2>How long things are kept</h2>
+    <ul>
+        <li><strong>On your devices and in your iCloud:</strong> until you remove a saved stop or delete the app.</li>
+        <li><strong>Usage statistics and crash reports:</strong> for as long as Firebase's retention settings allow.</li>
+        <li><strong>The relay's cached replies:</strong> an hour at most, in memory. Its request logs follow Google Cloud's retention settings.</li>
+        <li><strong>Feedback:</strong> until the issue it describes is resolved and tidied up.</li>
+    </ul>
+
+    <h2>Your choices</h2>
+    <ul>
+        <li><strong>Remove a saved stop</strong> from your history on the stop screen. It's removed from your other devices too.</li>
+        <li><strong>Don't share your location</strong>, and search or use the map instead, or turn it off later in the Settings app.</li>
+        <li><strong>Turn off iCloud</strong> for the app in the Settings app, under your Apple Account.</li>
+        <li><strong>Delete the app</strong> to remove everything it stored on that device.</li>
+        <li><strong>Ask us</strong> at <a href="mailto:hayek_dev@icloud.com">hayek_dev@icloud.com</a> about any data we hold. Depending on where you live you may have rights under the GDPR, the CCPA or a similar law. We honour them wherever you are, free of charge.</li>
+    </ul>
+
+    <h2>Children</h2>
+    <p>The app isn't directed at children under 13, and we don't knowingly collect personal information from them.</p>
+
+    <h2>Changes to this policy</h2>
+    <p>If the app's data handling changes, this page changes with it and the date at the top moves.</p>
+
+    <h2>Contact</h2>
+    <p>Amir Hayek, <a href="mailto:hayek_dev@icloud.com">hayek_dev@icloud.com</a>.</p>
+
+    <footer>
+        <p><a href="/">amirhayek.dev</a> · <a href="/MyBusStop/">My Bus Stop</a></p>
+    </footer>
+</main>
+</body>
+</html>
