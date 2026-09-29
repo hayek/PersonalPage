@@ -2,6 +2,22 @@
   "alerts": [
     {
       "enabled": true,
+      "startDate": "2026-09-29",
+      "endDate": "2026-09-30",
+      "startHour": null,
+      "endHour": null,
+      "days": null,
+      "timezone": null,
+      "icon": "sparkles",
+      "badgeIcon": "sparkles",
+      "type": "news",
+      "severity": "low",
+      "text": "Claude Sonnet 5.5 is here",
+      "dashboardText": "Claude Sonnet 5.5 launched Sept 28. It's more than 30% faster than Sonnet 5 and costs up to 30% less per task because it uses fewer tokens, at the same $2/M input and $10/M output price. Tap to read more.",
+      "url": "https://www.anthropic.com/claude-sonnet-5-5"
+    },
+    {
+      "enabled": true,
       "startDate": "2026-09-25",
       "endDate": "2026-09-27",
       "startHour": null,
