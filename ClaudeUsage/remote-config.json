@@ -1,4 +1,5 @@
 {
+  "testFlightUnlockBuilds": ["102"],
   "alerts": [
     {
       "enabled": true,
