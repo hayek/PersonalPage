@@ -133,7 +133,7 @@
 
     <p class="eyebrow">Usage for Claude</p>
     <h1>Privacy Policy</h1>
-    <p class="updated">Last updated 16 September 2026</p>
+    <p class="updated">Last updated 2 October 2026</p>
 
     <div class="lede">
         <p><strong>Your Claude account stays between you and Anthropic.</strong> You sign in to claude.ai inside the app, and your usage is read straight from Anthropic by your own device. We run no server in the middle, and we never see your password or your session.</p>
@@ -150,6 +150,14 @@
     <p>The session cookies that sign-in produces are stored in your device's <strong>Keychain</strong>, which is encrypted by the operating system. If you have iCloud Keychain switched on, Apple may sync them to your other devices in the same way it syncs your other passwords. They are used for one thing: asking claude.ai for your own usage figures.</p>
 
     <p>Those requests go <strong>directly from your device to Anthropic</strong>. What Anthropic sees is what it would see from a browser signed in to your account, and what it does with that is covered by <a href="https://www.anthropic.com/legal/privacy">Anthropic's privacy policy</a>. Signing out from the Accounts screen deletes the stored cookies.</p>
+
+    <h2>Signing in to ChatGPT (Codex beta)</h2>
+
+    <p>In the TestFlight beta you can also add a ChatGPT account to see your Codex usage. You sign in on OpenAI's own sign-in page, shown in a secure system sign-in sheet, the same way other apps offer "Sign in with" a service. We never receive, and never ask for, your ChatGPT password.</p>
+
+    <p>That sign-in gives the app access tokens, which are stored in your device's <strong>Keychain</strong> on that device only. They are not synced to your other devices, and you sign in again on each device where you want the account. They are used for one thing: asking chatgpt.com for your own usage figures, directly from your device. The account list, meaning the name, email and plan shown for the account, syncs through iCloud Keychain like your Claude accounts, so your other devices can offer to sign in to it.</p>
+
+    <p>What OpenAI does with those requests is covered by <a href="https://openai.com/policies/privacy-policy/">OpenAI's privacy policy</a>. Signing out of the account deletes its tokens from the device and asks OpenAI to revoke them.</p>
 
     <h2>What stays on your device</h2>
 
@@ -174,9 +182,9 @@
 
     <p>What is sent is limited by an internal rule that the app's own tests enforce. It covers things like which screen or setting was used and the value it was set to, a category for a failure (an HTTP status, "network", "rate limited"), your device model, OS version, app version and region, and counts and buckets — your plan family, for example, rather than your account.</p>
 
-    <p>Two identifiers travel with that: a random <strong>install identifier</strong> created by the app, and an <strong>account hash</strong>. The account hash is the first 16 hexadecimal characters of a SHA-256 digest of your lowercased Claude account email. It is one-way — the email cannot be recovered from it — and it exists so that when you write in about a problem, we can find the diagnostics for your own installation instead of guessing. <strong>Your email address itself is never sent to analytics.</strong></p>
+    <p>Two identifiers travel with that: a random <strong>install identifier</strong> created by the app, and an <strong>account hash</strong>. The account hash is the first 16 hexadecimal characters of a SHA-256 digest of the lowercased email of the account you are viewing, Claude or ChatGPT. It is one-way — the email cannot be recovered from it — and it exists so that when you write in about a problem, we can find the diagnostics for your own installation instead of guessing. <strong>Your email address itself is never sent to analytics.</strong></p>
 
-    <p>What is <strong>never</strong> sent, in any event: your Claude password or session cookies, your email address in readable form, the text of anything you type into the app, or the contents of your Claude Code files.</p>
+    <p>What is <strong>never</strong> sent, in any event: your Claude or ChatGPT password, session cookies or access tokens, your email address in readable form, the text of anything you type into the app, or the contents of your Claude Code files.</p>
 
     <p>No advertising identifier (IDFA) is read, no tracking permission is requested, and nothing is shared with advertising networks.</p>
 
@@ -207,6 +215,7 @@
             </thead>
             <tbody>
                 <tr><td>Anthropic (claude.ai)</td><td>Your Claude account and your usage figures</td><td>Requests from your device, signed in as you</td></tr>
+                <tr><td>OpenAI (chatgpt.com), Codex beta only</td><td>Your ChatGPT account and your Codex usage figures, if you add one</td><td>Requests from your device, signed in as you</td></tr>
                 <tr><td>Apple (iCloud, Keychain, App Store, TestFlight)</td><td>Private sync, credential storage, payments, betas</td><td>Your history in your own private database; payment; beta participation</td></tr>
                 <tr><td>Google Firebase</td><td>Analytics, crash reports, performance</td><td>Diagnostics, the install identifier and the account hash</td></tr>
                 <tr><td>GitHub</td><td>Feedback inbox and the Codex beta sign-up</td><td>Only what you send from those forms</td></tr>
@@ -220,7 +229,7 @@
     <h2>Your choices and how to delete things</h2>
 
     <ul>
-        <li><strong>Sign out</strong> from the Accounts screen to delete the stored Claude session for that account.</li>
+        <li><strong>Sign out</strong> from the Accounts screen to delete the stored Claude session for that account. For a ChatGPT account, signing out also asks OpenAI to revoke its tokens.</li>
         <li><strong>Delete your history</strong> from Settings, on either platform. Deleting it removes the iCloud copy too.</li>
         <li><strong>Uninstall the app</strong> to stop all collection. Removing it from every device and deleting its iCloud data leaves nothing of yours on our side, because we hold nothing centrally.</li>
         <li><strong>Written to us?</strong> Email us and we will delete your feedback entry or your Codex beta sign-up.</li>
