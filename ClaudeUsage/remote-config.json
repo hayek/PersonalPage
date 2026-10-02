@@ -3,6 +3,22 @@
   "alerts": [
     {
       "enabled": true,
+      "startDate": "2026-10-02",
+      "endDate": "2026-10-04",
+      "startHour": null,
+      "endHour": null,
+      "days": null,
+      "timezone": null,
+      "icon": "checkmark.circle.fill",
+      "badgeIcon": "checkmark.circle.fill",
+      "type": "news",
+      "severity": "low",
+      "text": "Claude Code now wraps up at your 5-hour limit",
+      "dashboardText": "When you hit your 5-hour limit mid-task, Claude Code now looks for a clean place to stop instead of cutting off mid-edit. To do that it uses a small, fixed allowance that counts against your weekly limit. Max and Team Premium get this at every 5-hour limit; Pro gets it once a week. Needs Claude Code 2.1.277 or later. Tap to read more.",
+      "url": "https://x.com/ClaudeDevs/status/2103561342057943314"
+    },
+    {
+      "enabled": true,
       "startDate": "2026-09-29",
       "endDate": "2026-09-30",
       "startHour": null,
