@@ -104,7 +104,7 @@ footer { margin-top: 56px; padding-top: 22px; border-top: 1px solid var(--rule);
 <main class="page">
     <a class="back" href="/MyBusStop/"><img src="../Assets/icon.svg" alt="">My Bus Stop</a>
     <h1>Privacy Policy</h1>
-    <p class="updated">Last updated 1 October 2026</p>
+    <p class="updated">Last updated 2 October 2026</p>
 
     <div class="lede">
         <p><strong>No account, no ads, no tracking.</strong> There's nothing to sign up for, and the app never asks to track you across other companies' apps and websites.</p>
@@ -117,10 +117,10 @@ footer { margin-top: 56px; padding-top: 22px; border-top: 1px solid var(--rule);
     <h2>Getting arrival times</h2>
     <p>The arrival times come from the open, real-time data that transit agencies publish. To show your board, the app asks your region's transit data service for the stop and lines you picked. When you search, what you type is sent so the service can find matching stops.</p>
     <p>Most regions are asked directly, from your device, and each service handles the request under its own privacy policy. The app tells you which service your data comes from at the bottom of Settings.</p>
-    <p>In <strong>New York City</strong>, <strong>Seattle &amp; Puget Sound</strong>, <strong>Tampa</strong> and <strong>Luxembourg</strong>, the agency requires a key that can't be kept on your device, so the request goes through a small relay we run on Google Cloud (Cloud Functions for Firebase, in the United States). The relay forwards only what the agency needs, such as the stop, the line, your search or the coordinates for stops nearby, and keeps the agency's reply in memory for between 10 seconds and an hour so repeat requests are faster. Its own logs don't record coordinates, stops or searches. Google Cloud's standard request logs may record the address that was requested and your IP address, and are kept according to Google Cloud's retention settings.</p>
+    <p>In <strong>New York City</strong>, <strong>Seattle &amp; Puget Sound</strong>, <strong>Tampa</strong>, <strong>Luxembourg</strong> and <strong>Berlin &amp; Brandenburg</strong>, the agency requires a key that can't be kept on your device, so the request goes through a small relay we run on Google Cloud (Cloud Functions for Firebase, in the United States). The relay forwards only what the agency needs, such as the stop, the line, your search or the coordinates for stops nearby, and keeps the agency's reply in memory for between 10 seconds and an hour so repeat requests are faster. Its own logs don't record coordinates, stops or searches. Google Cloud's standard request logs may record the address that was requested and your IP address, and are kept according to Google Cloud's retention settings.</p>
 
     <h2>Your location</h2>
-    <p>The app asks for your location only <strong>while it's open</strong>, and only when you choose to use it. It's used to pick your region, to show you on the map, and to find stops nearby, which means sending your coordinates to your region's transit service (through the relay above in New York, Seattle, Tampa and Luxembourg). The app takes one reading at a time and doesn't store it. On Apple TV, "Use this Apple TV's location" takes a single, approximate reading.</p>
+    <p>The app asks for your location only <strong>while it's open</strong>, and only when you choose to use it. It's used to pick your region, to show you on the map, and to find stops nearby, which means sending your coordinates to your region's transit service (through the relay above in New York, Seattle, Tampa, Luxembourg and Berlin &amp; Brandenburg). The app takes one reading at a time and doesn't store it. On Apple TV, "Use this Apple TV's location" takes a single, approximate reading.</p>
     <p>You can search for a stop, or move the map and search that area, without sharing your location at all. You can change the permission at any time in <strong>Settings → Privacy &amp; Security → Location Services → My Bus Stop</strong>.</p>
 
     <h2>What stays on your devices</h2>
@@ -145,7 +145,7 @@ footer { margin-top: 56px; padding-top: 22px; border-top: 1px solid var(--rule);
             </thead>
             <tbody>
                 <tr><td>Your region's transit data service</td><td>Stops and arrival times</td><td>The stops, lines and searches you ask about, and your coordinates when you look for stops nearby</td></tr>
-                <tr><td>Google Cloud (our relay)</td><td>New York City, Seattle &amp; Puget Sound, Tampa and Luxembourg only</td><td>The same requests, forwarded to the agency; your IP address in standard request logs</td></tr>
+                <tr><td>Google Cloud (our relay)</td><td>New York City, Seattle &amp; Puget Sound, Tampa, Luxembourg and Berlin &amp; Brandenburg only</td><td>The same requests, forwarded to the agency; your IP address in standard request logs</td></tr>
                 <tr><td>Apple (iCloud, Maps, App Store)</td><td>Syncing saved stops, maps and addresses, distribution</td><td>Your saved stops in your own iCloud; stop locations for addresses; New York stop searches</td></tr>
                 <tr><td>Google Firebase</td><td>Usage statistics, crash reports, remote settings, App Check</td><td>Usage events, device information, crash logs and failed-request reports</td></tr>
                 <tr><td>GitHub</td><td>Feedback inbox</td><td>Only what you send from the feedback form</td></tr>
