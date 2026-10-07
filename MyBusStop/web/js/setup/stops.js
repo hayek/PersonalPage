@@ -137,8 +137,7 @@ export function showSetup(root) {
     }
 
     async function loadNearby(point) {
-        nearbyBody.replaceChildren(h('p', { class: 'status' }, 'LOOKING FOR STOPS…'),
-            provider.nearbyNote ? h('p', { class: 'hint-text' }, provider.nearbyNote) : null);
+        nearbyBody.replaceChildren(h('p', { class: 'status' }, 'LOOKING FOR STOPS…'));
         try {
             let radius = NEARBY_RADII[0];
             let stops = await provider.stopsNearby(point, radius);
