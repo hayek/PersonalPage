@@ -4,6 +4,8 @@
 import { regionByID, WORLDWIDE } from '../transit/regions.js';
 
 const BY_ZONE = {
+    'Asia/Jerusalem': 'IL',
+    'Asia/Tel_Aviv': 'IL',
     'Europe/Oslo': 'NO',
     'Europe/Helsinki': 'FI-TKU',
     'Europe/Lisbon': 'PT-LIS',

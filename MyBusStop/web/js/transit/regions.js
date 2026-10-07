@@ -6,6 +6,9 @@
 
 /** bounds: [minLat, minLon, maxLat, maxLon] */
 export const REGIONS = [
+    // Through the web relay (bus.gov.il sends no CORS headers); see providers/bus.gov.il.js.
+    { id: 'IL', name: 'Israel', group: 'Middle East', providerID: 'bus.gov.il', fit: 'full', bounds: [29.4, 34.2, 33.4, 35.9] },
+
     // Europe
     { id: 'NO', name: 'Norway', group: 'Europe', providerID: 'entur', fit: 'full', bounds: [57.9, 4.5, 71.2, 31.2] },
     { id: 'FI-TKU', name: 'Turku', group: 'Europe', providerID: 'foli', fit: 'full', bounds: [60.0, 21.3, 60.76, 23.53] },
@@ -30,7 +33,7 @@ export const REGIONS = [
     { id: 'JP-TYO', name: 'Tokyo', group: 'Asia', providerID: 'odpt-toei', fit: 'full', bounds: [35.52, 139.2, 35.83, 139.93] },
 ];
 
-/** Anywhere else, including Israel on the web: times from Transitous, no buses on the map. */
+/** Anywhere else: times from Transitous, no buses on the map. */
 export const WORLDWIDE = {
     id: 'WORLD', name: 'Everywhere else', group: 'Worldwide', providerID: 'transitous', fit: 'arrivalsOnly', bounds: [-90, -180, 90, 180],
 };

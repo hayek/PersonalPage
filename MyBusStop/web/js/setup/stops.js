@@ -6,7 +6,8 @@ import { REGIONS, WORLDWIDE, regionByID, regionsContaining } from '../transit/re
 import { Capability } from '../transit/model.js';
 import { session, go, providerFor, applyTheme } from '../main.js';
 
-const NEARBY_RADIUS = 1000;
+/** As in the app: stops within 500 m, widened to 1 km when nothing is that close. */
+const NEARBY_RADII = [500, 1000];
 /** Kept for the visit only, never stored: the rider's location is used and forgotten. */
 let lastPoint = null;
 let lastNearby = null;
@@ -136,24 +137,31 @@ export function showSetup(root) {
     }
 
     async function loadNearby(point) {
-        nearbyBody.replaceChildren(h('p', { class: 'status' }, 'LOOKING FOR STOPS…'));
+        nearbyBody.replaceChildren(h('p', { class: 'status' }, 'LOOKING FOR STOPS…'),
+            provider.nearbyNote ? h('p', { class: 'hint-text' }, provider.nearbyNote) : null);
         try {
-            const stops = await provider.stopsNearby(point, NEARBY_RADIUS);
-            lastNearby = { regionID: session.region.id, stops };
-            renderNearby(stops);
+            let radius = NEARBY_RADII[0];
+            let stops = await provider.stopsNearby(point, radius);
+            if (!stops.length) {
+                radius = NEARBY_RADII[1];
+                stops = await provider.stopsNearby(point, radius);
+            }
+            lastNearby = { regionID: session.region.id, stops, radius };
+            renderNearby(stops, radius);
         } catch (error) {
             nearbyBody.replaceChildren(h('p', { class: 'status status-error' }, friendly(error)));
         }
     }
 
-    function renderNearby(stops) {
-        nearbyCount.textContent = `${plural(stops.length, 'STOP', 'STOPS')} WITHIN 1 KM`;
+    function renderNearby(stops, radius = NEARBY_RADII[1]) {
+        const within = radius >= 1000 ? `${radius / 1000} KM` : `${radius} M`;
+        nearbyCount.textContent = `${plural(stops.length, 'STOP', 'STOPS')} WITHIN ${within}`;
         nearbyBody.replaceChildren(stops.length
             ? h('ul', { class: 'rows' }, stops.slice(0, 20).map((nearby) => stopRow(nearby.stop, {
                 lines: nearby.lines, providerID: provider.id, distance: nearby.distanceMeters,
                 onclick: () => pick(nearby.stop),
             })))
-            : h('p', { class: 'status' }, 'NO STOPS WITHIN 1 KM. SEARCH INSTEAD.'));
+            : h('p', { class: 'status' }, `NO STOPS WITHIN ${within}. SEARCH INSTEAD.`));
     }
 
     const nearbySection = h('section', { class: 'nearby' },
@@ -162,7 +170,7 @@ export function showSetup(root) {
     if (!supportsNearby) {
         nearbyBody.append(h('p', { class: 'status' }, `NEARBY STOPS AREN’T AVAILABLE FOR ${region.name.toUpperCase()}. SEARCH INSTEAD.`));
     } else if (lastNearby?.regionID === region.id && lastNearby.stops) {
-        renderNearby(lastNearby.stops);
+        renderNearby(lastNearby.stops, lastNearby.radius);
     } else if (lastNearby?.regionID === region.id && lastPoint) {
         loadNearby(lastPoint);
     } else {
