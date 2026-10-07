@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Route Map Demo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root { color-scheme: dark; }
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            padding: 24px;
+            background: #1b1b22;
+            color: #c4c4ce;
+            font: 700 13px/1.4 'Space Mono', monospace;
+            letter-spacing: 0.08em;
+        }
+        h1 { font: 900 22px 'Archivo', sans-serif; letter-spacing: -0.01em; margin: 0 0 8px; color: #fff; }
+        h2 { font-size: 12px; margin: 32px 0 12px; text-transform: uppercase; color: #8c8c9a; }
+        .controls { display: flex; gap: 16px; align-items: center; flex-wrap: wrap; }
+        .controls label { display: inline-flex; gap: 6px; align-items: center; cursor: pointer; }
+        .row { display: flex; flex-wrap: wrap; gap: 20px; align-items: flex-start; }
+        .panel { border-radius: 14px; overflow: hidden; }
+        .panel .caption { padding: 10px 14px 0; font-size: 11px; opacity: 0.7; }
+        /* Room above the map for the angled names, as the app's header band gives them. */
+        .panel .map { display: block; padding: 64px 0 16px; }
+        .panel.portrait .map, .panel.short .map { padding: 16px 0; }
+        .panel.wide .map { padding: 96px 0 16px; }
+        .panel.dark { background: #08080B; color: #8c8c9a; }
+        .panel.light { background: #F4F2EC; color: #55555F; }
+        svg { display: block; }
+        .log { margin-top: 8px; min-height: 1.4em; color: #fff; }
+    </style>
+</head>
+<body>
+    <h1>Route map</h1>
+    <div class="controls">
+        <label><input type="checkbox" id="animate"> Move the buses</label>
+        <label><input type="checkbox" id="swap"> Swap the trunk</label>
+        <span class="log" id="log"></span>
+    </div>
+    <div id="out"></div>
+
+    <script type="module">
+        import { renderMap } from './index.js';
+        import * as F from './fixtures.js';
+
+        const params = new URLSearchParams(location.search);
+        const themes = params.get('theme') === 'light' ? ['light'] : params.get('theme') === 'dark' ? ['dark'] : ['dark', 'light'];
+
+        const scenarios = [
+            {
+                title: '1 line',
+                lines: [F.line41Main],
+                trunk: '41',
+                vehicles: [
+                    { id: 'a', lineID: '41', lastStopIndex: 1, progressToNext: 0.6 },
+                    { id: 'b', lineID: '41', lastStopIndex: 8, progressToNext: 0.5, isSelected: true },
+                ],
+            },
+            {
+                title: '2 lines · corridor',
+                lines: F.corridorPair,
+                trunk: '18',
+                vehicles: [
+                    { id: 'c', lineID: '18', lastStopIndex: 1, progressToNext: 0.5 },
+                    { id: 'd', lineID: '18', lastStopIndex: 22, progressToNext: 0.3 },
+                    { id: 'e', lineID: '18', lastStopIndex: 27, progressToNext: 0.6, isSelected: true },
+                    { id: 'f', lineID: '41', lastStopIndex: 1, progressToNext: 0.5 },
+                    { id: 'g', lineID: '41', lastStopIndex: 18, progressToNext: 0.7 },
+                ],
+            },
+            {
+                title: '3 lines · merge B',
+                lines: F.mergeB,
+                trunk: '41',
+                vehicles: [
+                    { id: 'h', lineID: '41', lastStopIndex: 3, progressToNext: 0.5 },
+                    { id: 'i', lineID: '41', lastStopIndex: 11, progressToNext: 0.5, isSelected: true },
+                    { id: 'j', lineID: '18', lastStopIndex: 1, progressToNext: 0.5 },
+                    { id: 'k', lineID: '18', lastStopIndex: 9, progressToNext: 0.5 },
+                    { id: 'l', lineID: '7', lastStopIndex: 5, progressToNext: 0.5 },
+                    { id: 'm', lineID: '7', lastStopIndex: 11, progressToNext: 0.2 },
+                ],
+            },
+            {
+                title: '3 lines · main (nothing merges)',
+                lines: F.main,
+                trunk: '41',
+                vehicles: [
+                    { id: 'n', lineID: '41', lastStopIndex: 9, progressToNext: 0.5, isSelected: true },
+                    { id: 'o', lineID: '18', lastStopIndex: 1, progressToNext: 0.5 },
+                    { id: 'p', lineID: '18', lastStopIndex: 10, progressToNext: 0.6 },
+                    { id: 'q', lineID: '7', lastStopIndex: 2, progressToNext: 0.1 },
+                ],
+            },
+        ];
+
+        // Real names, as long as a feed sends them (TfL): they must stay inside the canvas.
+        const london = {
+            title: 'London · 2 lines, long real names',
+            lines: F.londonPair,
+            trunk: '12',
+            user: F.LONDON_USER_CODE,
+            vehicles: [
+                { id: 'r', lineID: '12', lastStopIndex: 1, progressToNext: 0.5 },
+                { id: 's', lineID: '12', lastStopIndex: 14, progressToNext: 0.5, isSelected: true },
+                { id: 't', lineID: '88', lastStopIndex: 13, progressToNext: 0.4 },
+            ],
+        };
+        scenarios.push(london);
+
+        // The shell first draws before its readout arrives, into a taller box, then shrinks it:
+        // the buses near the stop must land beside it, not slide in from below.
+        const rennes = {
+            title: 'Rennes · 3 lines merging late, drawn at 560 then 400 tall',
+            lines: F.rennesTriple,
+            trunk: 'C2',
+            user: F.RENNES_USER_CODE,
+            vehicles: F.rennesTriple.flatMap((l) => [
+                { id: `${l.id}-2`, lineID: l.id, lastStopIndex: l.stops.length - 3, progressToNext: 0.5, isSelected: l.id === '11' },
+                { id: `${l.id}-1`, lineID: l.id, lastStopIndex: l.stops.length - 2, progressToNext: 0.4 },
+            ]),
+        };
+
+        const sizes = [
+            { name: 'portrait', width: 390, height: 520 },
+            { name: 'landscape', width: 1200, height: 420, only: scenarios.slice(0, 3) },
+            { name: 'wide', width: 1300, height: 500, only: [london] },
+            { name: 'short', width: 350, height: 400, firstHeight: 560, only: [rennes] },
+        ].filter((size) => !params.get('size') || params.get('size') === size.name);
+
+        const log = document.getElementById('log');
+        const out = document.getElementById('out');
+        const panels = [];
+
+        for (const theme of themes) {
+            for (const size of sizes) {
+                const h2 = document.createElement('h2');
+                h2.textContent = `${theme} · ${size.name} ${size.width}×${size.height}`;
+                out.appendChild(h2);
+                const row = document.createElement('div');
+                row.className = 'row';
+                out.appendChild(row);
+                const list = size.only ?? scenarios;
+                for (const scenario of list) {
+                    const panel = document.createElement('div');
+                    panel.className = `panel ${theme} ${size.name}`;
+                    const caption = document.createElement('div');
+                    caption.className = 'caption';
+                    caption.textContent = scenario.title;
+                    const wrap = document.createElement('div');
+                    wrap.className = 'map';
+                    const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+                    wrap.appendChild(svg);
+                    panel.append(caption, wrap);
+                    row.appendChild(panel);
+                    panels.push({
+                        svg, theme, size, scenario,
+                        vehicles: scenario.vehicles.map((v) => ({ ...v })),
+                        trunk: scenario.trunk,
+                        height: size.firstHeight ?? size.height,
+                    });
+                }
+            }
+        }
+
+        function draw() {
+            for (const p of panels) {
+                renderMap(p.svg, {
+                    lines: p.scenario.lines,
+                    trunkLineID: p.trunk,
+                    userStopCode: p.scenario.user ?? F.USER_CODE,
+                    vehicles: p.vehicles,
+                    width: p.size.width,
+                    height: p.height,
+                    theme: p.theme,
+                    hint: true,
+                    onBusTap: (busID) => {
+                        for (const v of p.vehicles) v.isSelected = v.id === busID;
+                        log.textContent = `tapped bus ${busID}`;
+                        draw();
+                    },
+                });
+            }
+        }
+
+        function advance() {
+            for (const p of panels) {
+                for (const v of p.vehicles) {
+                    const line = p.scenario.lines.find((l) => l.id === v.lineID);
+                    v.progressToNext += 0.5;
+                    if (v.progressToNext >= 1) {
+                        v.progressToNext -= 1;
+                        v.lastStopIndex += 1;
+                        if (v.lastStopIndex >= line.stops.length - 1) v.lastStopIndex = 0;
+                    }
+                }
+            }
+        }
+
+        let timer = null;
+        document.getElementById('animate').addEventListener('change', (event) => {
+            clearInterval(timer);
+            if (event.target.checked) timer = setInterval(() => { advance(); draw(); }, 1500);
+        });
+        document.getElementById('swap').addEventListener('change', (event) => {
+            for (const p of panels) {
+                const ids = p.scenario.lines.map((l) => l.id);
+                const other = ids.find((id) => id !== p.scenario.trunk) ?? p.scenario.trunk;
+                p.trunk = event.target.checked ? other : p.scenario.trunk;
+            }
+            draw();
+        });
+
+        draw();
+        // Settle every board at its real size, as the shell's ResizeObserver does.
+        for (const p of panels) p.height = p.size.height;
+        draw();
+        // Fonts change no geometry, but redraw once they land so badge numerals refit.
+        document.fonts?.ready.then(draw);
+    </script>
+</body>
+</html>

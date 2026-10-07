@@ -104,7 +104,7 @@ footer { margin-top: 56px; padding-top: 22px; border-top: 1px solid var(--rule);
 <main class="page">
     <a class="back" href="/MyBusStop/"><img src="../Assets/icon.svg" alt="">My Bus Stop</a>
     <h1>Privacy Policy</h1>
-    <p class="updated">Last updated 2 October 2026</p>
+    <p class="updated">Last updated 7 October 2026</p>
 
     <div class="lede">
         <p><strong>No account, no ads, no tracking.</strong> There's nothing to sign up for, and the app never asks to track you across other companies' apps and websites.</p>
@@ -137,6 +137,11 @@ footer { margin-top: 56px; padding-top: 22px; border-top: 1px solid var(--rule);
     <h2>Feedback you send us</h2>
     <p>When you send feedback from the app, it becomes an entry in a <strong>private</strong> issue tracker on <a href="https://docs.github.com/site-policy/privacy-policies/github-general-privacy-statement">GitHub</a>. It contains what you wrote, the email address if you chose to give one, any screenshots you attached, and your app version, device model and OS version. Location and camera details are removed from attached images before they're uploaded. Only send what you're happy for us to read.</p>
 
+    <h2>My Bus Stop on the web</h2>
+    <p>The web version at <a href="/MyBusStop/web/">amirhayek.dev/MyBusStop/web</a> asks each region's transit service directly from your browser. It never goes through our relay, so it only offers regions whose services need no key. Outside those regions, arrival times come from <a href="https://transitous.org/">Transitous</a>, a community-run service built on transit agencies' open data, which receives the stops, lines and searches you ask about.</p>
+    <p>Your location is used only when you tap <strong>Find stops near me</strong>, after your browser asks for permission. It's sent to your region's transit service to find stops around you, and isn't stored. Your saved stops, line colours and theme are kept in your browser's own storage on that device, along with copies of stop lists so the next visit is faster. Clearing the site's data in your browser removes them all.</p>
+    <p>Like every page on amirhayek.dev, the web version counts page views with Google Analytics. It sends no stops, lines, searches or location to it. Fonts load from Google Fonts.</p>
+
     <h2>Who else is involved</h2>
     <div class="table-scroll">
         <table>
@@ -149,6 +154,8 @@ footer { margin-top: 56px; padding-top: 22px; border-top: 1px solid var(--rule);
                 <tr><td>Apple (iCloud, Maps, App Store)</td><td>Syncing saved stops, maps and addresses, distribution</td><td>Your saved stops in your own iCloud; stop locations for addresses; New York stop searches</td></tr>
                 <tr><td>Google Firebase</td><td>Usage statistics, crash reports, remote settings, App Check</td><td>Usage events, device information, crash logs and failed-request reports</td></tr>
                 <tr><td>GitHub</td><td>Feedback inbox</td><td>Only what you send from the feedback form</td></tr>
+                <tr><td>Transitous</td><td>The web version, outside its listed regions</td><td>The stops, lines and searches you ask about, and your coordinates when you look for stops nearby</td></tr>
+                <tr><td>Google Analytics and Google Fonts</td><td>The web version's page views and fonts</td><td>Standard page-view data and your IP address; no stops, lines, searches or location</td></tr>
             </tbody>
         </table>
     </div>

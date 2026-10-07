@@ -109,7 +109,7 @@ p { max-width: 62ch; }
 }
 .hero-lede { font-size: clamp(22px, 2.6vw, 30px); font-weight: 800; margin-top: 26px; letter-spacing: -0.01em; }
 .hero-body { font-size: 18px; color: var(--board-muted); margin-top: 14px; max-width: 46ch; }
-.cta-row { margin-top: 32px; }
+.cta-row { margin-top: 32px; display: flex; flex-wrap: wrap; gap: 12px; }
 .store-button {
     display: inline-flex;
     align-items: center;
