@@ -79,10 +79,10 @@ export function showSetup(root) {
         go('lines');
     }
 
-    // History
+    // My stops
     const history = store.sortedHistory();
     const historySection = history.length ? h('section', { class: 'history' },
-        h('div', { class: 'section-head' }, h('h2', {}, 'HISTORY')),
+        h('div', { class: 'section-head' }, h('h2', {}, 'MY STOPS')),
         h('ul', { class: 'rows' }, history.map((entry) => historyRow(entry))),
     ) : null;
 
@@ -92,7 +92,7 @@ export function showSetup(root) {
             caption: regionByID(entry.regionID)?.name,
             onclick: () => { store.openBoard(entry); go('board'); },
         });
-        const remove = h('button', { class: 'row-remove', 'aria-label': `Remove ${entry.stop.name} from history`, title: 'Remove',
+        const remove = h('button', { class: 'row-remove', 'aria-label': `Remove ${entry.stop.name} from My stops`, title: 'Remove',
             onclick: (e) => { e.stopPropagation(); store.forget(entry.id); go('setup', { push: false }); } }, icon('close', 16));
         row.append(remove);
         return row;
