@@ -6,11 +6,11 @@ The landing page for Vanishing List, a checklist app for iPhone, iPad and Mac wh
 
 The images are rendered from the app repo (`Vanishing-List/MarketingAssets`) with headless Chrome:
 
-- `Hero*.png`: the raw app captures from `MarketingAssets/Screenshots/iphone/<light|dark>/01-lists.png` inside the iPhone frame from `MarketingAssets/AppStore/assets` (1:1, cropped and faded).
+- `Hero*.png`: rendered by `Scripts/web-images.sh` in the app repo from `MarketingAssets/AppStore/templates/web/hero.html`: the raw app captures from `MarketingAssets/Screenshots/iphone/<light|dark>/01-lists.png` inside the iPhone frame from `MarketingAssets/AppStore/assets` (1:1, cropped and faded). `assets/vl-*.png` (the home page's app card) is the top of `Hero-mobile*.png`, scaled to 150 px wide.
 - `ecosystem*.png`: rendered by `Scripts/web-images.sh` in the app repo from `MarketingAssets/AppStore/templates/web/ecosystem.html`.
 - `widget-*.png`: HTML mockups of the small and medium widgets (`VanishingListWidget/WidgetViews.swift`).
 - `iconVL.png`, `favicon/`: exported from `VanishingList.icon` with Icon Composer's `ictool`.
-- `og-image.png`: 1200×630, same layout as the Vanishing Notes one.
+- `og-image.png`: 1200×630, same layout as the Vanishing Notes one. Its phone is `Hero.png` at 340 px wide.
 - `actionButton.png`, `icloud-icon.png`, `shortcuts-icon.png`, `siri-icon.png`: copied from Vanishing Notes.
 
 ## Before launch
