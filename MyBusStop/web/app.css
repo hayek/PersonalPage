@@ -441,7 +441,7 @@ body.wall .minutes b { font-size: clamp(96px, 16vw, 220px); }
 /* Stops that open their card */
 .map-stop { cursor: pointer; }
 .map-stop:focus-visible { outline: none; }
-.fr-stop:focus-visible > circle:first-child { fill: var(--focus); fill-opacity: 0.25; }
+.fr-stop:focus-visible > rect:first-child { fill: var(--focus); fill-opacity: 0.25; }
 
 /* ---------------------------------------------------------------- Full lines view */
 
@@ -473,8 +473,8 @@ body.wall .minutes b { font-size: clamp(96px, 16vw, 220px); }
 }
 .fr-mini-svg { position: absolute; inset: 0; display: block; }
 .fr-mini-window {
-    position: absolute; top: 4px; bottom: 4px;
-    border: 2.5px solid var(--ink); border-radius: 10px;
+    position: absolute;
+    border: 2px solid var(--ink); border-radius: 6px;
     background: color-mix(in srgb, var(--ink) 10%, transparent);
     cursor: grab;
 }

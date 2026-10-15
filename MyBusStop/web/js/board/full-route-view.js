@@ -1,28 +1,26 @@
 // The full lines view: every watched line over its whole route, every stop drawn, scrolled along
-// the way travel runs (sideways on a wide screen, down on a tall one). A strip at the foot shows
-// the whole of it, with a window over the part in view; dragging the window, or tapping the strip,
-// moves the view there.
+// the way travel runs (sideways on a wide screen, down on a tall one). Lines that share stops run
+// together as a bundle and part where their routes do. A strip at the foot shows the whole of it,
+// with a window over the part in view; dragging the window, or tapping the strip, moves the view.
 //
-// Layout is `layoutFullRoute` (js/map/full-route.js); this file only draws it and wires it up. The
-// marks, names and pucks are the board map's own, from the same metrics and the same palette.
+// Layout is `layoutFullRoute` (js/map/full-route.js); this file only draws it and wires it up, as
+// BusBus/Board/FullRouteView.swift does in the app. The pucks and the palette are the board's own.
 
 import { h, icon, isLightTheme } from '../ui.js';
 import {
-    layoutFullRoute, scrollToCentre, miniWindow, scrollForMini,
-    chooseMapLayout, makeMetrics, wrapLabelLines, AXIS, READABLE_MINIMUM,
-    THEMES, railColor, numeralColor, labelColor,
+    layoutFullRoute, centreOnUserStop, clampOffset, minimapPoint, minimapWindow, minimapOffset,
+    chooseMapLayout, AXIS, READABLE_MINIMUM, THEMES, railColor, numeralColor, labelColor,
 } from '../map/index.js';
-import { svgElement as el, textStyle, textNode, measureText, wrapTwoLines, centredBaseline, drawNumeral, drawPuckContent, MONO } from '../map/render.js';
-import { LINE_HEIGHT_EM, MONO_ADVANCE_EM, charCount } from '../map/metrics.js';
+import { svgElement as el, textStyle, textNode, measureText, wrapTwoLines, centredBaseline, drawNumeral, drawPuckContent } from '../map/render.js';
+import { LINE_HEIGHT_EM } from '../map/metrics.js';
 
-/** The part of a route after the rider's stop: still there to read, but not where their bus is. */
-const AFTER_OPACITY = 0.38;
-/** Angled names, as on the landscape board. */
-const LABEL_ANGLE = -35;
-/** How long an angled name may run before it wraps onto a second line. */
-const LABEL_MAX_WIDTH = 150;
+/** The part of a route past the rider's stop: still there to read, but no bus there is coming. */
+const FADED = 0.35;
+const LABEL_FADED = 0.5;
 const MINI_HEIGHT = 64;
-const MINI_PAD = 14;
+const MINI_PAD = { x: 16, y: 10 };
+/** The board's terminus bar radius: the last stop of a line on its own is a square, not a ring. */
+const LAST_STOP_RADIUS = 5;
 
 let current = null;
 
@@ -62,14 +60,12 @@ export function openFullRoute({ stopName, read, onStopTap }) {
     let layoutKey = null;
     let frame = 0;
 
-    const isHorizontal = () => scene?.axis === AXIS.horizontal;
-    const scrollPos = () => (isHorizontal() ? scroller.scrollLeft : scroller.scrollTop);
-    const viewport = () => (isHorizontal() ? scroller.clientWidth : scroller.clientHeight);
-    const content = () => Math.max(scene?.along ?? 0, viewport());
-    const stripLength = () => Math.max(1, mini.clientWidth - 2 * MINI_PAD);
-    function scrollTo(position) {
-        if (isHorizontal()) scroller.scrollLeft = position;
-        else scroller.scrollTop = position;
+    const visible = () => ({ x: scroller.scrollLeft, y: scroller.scrollTop, width: scroller.clientWidth, height: scroller.clientHeight });
+    const strip = () => ({ width: Math.max(1, mini.clientWidth - 2 * MINI_PAD.x), height: MINI_HEIGHT - 2 * MINI_PAD.y });
+    const minimap = () => ({ axis: scene.axis, content: scene.contentSize, strip: strip() });
+    function scrollTo({ x, y }) {
+        scroller.scrollLeft = x;
+        scroller.scrollTop = y;
     }
 
     // MARK: Drawing
@@ -78,7 +74,11 @@ export function openFullRoute({ stopName, read, onStopTap }) {
         const data = read();
         const width = scroller.clientWidth;
         const height = scroller.clientHeight;
-        if (!data.lines.length || width < 1 || height < 1) {
+        const axis = chooseMapLayout(Math.max(1, width), Math.max(1, height), data.lines.length).axis;
+        const next = data.lines.length && width > 0 && height > 0
+            ? layoutFullRoute({ lines: data.lines, userStopCode: data.userStopCode, vehicles: data.vehicles, axis, viewport: { width, height } })
+            : null;
+        if (!next || next.isEmpty) {
             svg.replaceChildren();
             miniSvg.replaceChildren();
             windowBox.hidden = true;
@@ -91,205 +91,167 @@ export function openFullRoute({ stopName, read, onStopTap }) {
         note.hidden = true;
         windowBox.hidden = false;
         const theme = THEMES[isLightTheme() ? 'light' : 'dark'];
-        const key = [width, height, theme.isLight, data.userStopCode,
-            data.lines.map((l) => `${l.id}:${l.colorIndex}:${l.stops.length}`).join(',')].join('|');
+        const key = [width, height, axis, theme.isLight, data.userStopCode,
+            data.lines.map((l) => `${l.id}:${l.colorIndex}:${l.stops.map((st) => st.code).join(',')}`).join(';')].join('|');
 
         if (key !== layoutKey) {
-            // Where the view was, as a share of the route, so a resize or a turn keeps the place.
-            const centre = scene ? (scrollPos() + viewport() / 2) / content() : null;
+            // Where the view was, as a share of the drawing, so a resize or a turn keeps the place.
+            let place = null;
+            if (scene) {
+                const v = visible();
+                place = scene.axis === AXIS.horizontal ? (v.x + v.width / 2) / scene.contentSize.width
+                    : (v.y + v.height / 2) / scene.contentSize.height;
+            }
             layoutKey = key;
-            scene = drawBase(data, width, height, theme);
-            if (centre === null) scrollTo(scrollToCentre(scene.userAlong, viewport(), content()));
-            else scrollTo(scrollToCentre(centre * content(), viewport(), content()));
+            scene = next;
+            drawBase(theme);
+            const viewport = { width, height };
+            // Across, the rider's lane stays in view either way.
+            const home = centreOnUserStop(scene, viewport);
+            if (place === null) {
+                scrollTo(home);
+            } else {
+                const target = scene.axis === AXIS.horizontal
+                    ? { x: place * scene.contentSize.width - width / 2, y: home.y }
+                    : { x: home.x, y: place * scene.contentSize.height - height / 2 };
+                scrollTo(clampOffset(target, viewport, scene.contentSize));
+            }
         } else {
             // Same routes, new positions: only the buses move.
-            scene = { ...scene, ...layoutFullRoute({ ...scene.request, vehicles: data.vehicles }), request: scene.request, style: scene.style };
+            scene = next;
         }
         drawPucks(theme);
         drawMini(theme);
         updateWindow();
     }
 
-    function drawBase(data, width, height, theme) {
-        const count = data.lines.length;
-        const mode = chooseMapLayout(width, height, count);
-        const axis = mode.axis;
-        // The board shrinks to fit a screen; here the route scrolls instead, so names stay readable.
-        const scale = Math.min(1.25, Math.max(0.85, mode.scale));
-        const m = makeMetrics(mode.preset, scale, count);
-        const fontSize = Math.max(READABLE_MINIMUM, m.stopNameFontSize);
-        const tracking = fontSize * m.stopNameTrackingEm;
-        const lineHeight = fontSize * LINE_HEIGHT_EM;
-        const badgeSide = Math.max(26, 30 * scale);
-        const ring = m.ringRadius;
-        const leadIn = badgeSide + ring + 24;
-        const style = { m, fontSize, tracking, lineHeight, badgeSide, ring, scale };
-
-        let request;
-        let size;
-        let labelRoom = [];
-        if (axis === AXIS.horizontal) {
-            // Angled names rise to the right of their stop into the band above the row, so each row
-            // is given that band; the row above keeps clear of it.
-            const angle = Math.abs(LABEL_ANGLE) * Math.PI / 180;
-            const rise = LABEL_MAX_WIDTH * Math.sin(angle) + 2 * lineHeight * Math.cos(angle) + ring + 6;
-            const below = Math.max(ring, m.puckSize.height / 2) + 8;
-            const rowGap = rise + below;
-            const top = rise + 8;
-            const across = data.lines.map((_, i) => top + i * rowGap);
-            const tall = top + (count - 1) * rowGap + below + lineHeight + 6;
-            // A short drawing sits in the middle of a tall view rather than at its top.
-            const shift = Math.max(0, (height - tall) / 2);
-            request = {
-                lines: data.lines, userStopCode: data.userStopCode, axis,
-                pitch: Math.max(60, Math.min(m.stopPitch, 92)),
-                leadIn, leadOut: LABEL_MAX_WIDTH * Math.cos(angle) + 24,
-                across: across.map((a) => a + shift),
-            };
-            size = { height: Math.max(height, tall) };
-        } else {
-            // Columns share the width, each name running right of its rail up to the next column.
-            // Room on the left for the first column's badge, and for a ringed bus on it whole.
-            const pad = 8 + Math.max(badgeSide / 2, (m.puckSize.width / 2 + m.puckHalo + m.puckRing) * 1.14);
-            const gap = Math.max(84, (width - pad - 8) / count);
-            const across = data.lines.map((_, i) => pad + i * gap);
-            labelRoom = across.map((a, i) => (i < count - 1 ? gap : width - a) - ring - 16);
-            request = {
-                lines: data.lines, userStopCode: data.userStopCode, axis,
-                pitch: Math.max(52, Math.min(m.stopPitch, 72)),
-                leadIn, leadOut: 40, across,
-            };
-            size = { width: Math.max(width, across[count - 1] + 96) };
-        }
-        const layout = layoutFullRoute({ ...request, vehicles: data.vehicles });
-        const svgWidth = axis === AXIS.horizontal ? layout.along : size.width;
-        const svgHeight = axis === AXIS.horizontal ? size.height : layout.along;
-        svg.setAttribute('viewBox', `0 0 ${svgWidth} ${svgHeight}`);
-        svg.setAttribute('width', svgWidth);
-        svg.setAttribute('height', svgHeight);
+    function drawBase(theme) {
+        const { width, height } = scene.contentSize;
+        svg.setAttribute('viewBox', `0 0 ${width} ${height}`);
+        svg.setAttribute('width', width);
+        svg.setAttribute('height', height);
         svg.setAttribute('role', 'group');
-        svg.setAttribute('aria-label', `${data.lines.length === 1 ? 'Line' : 'Lines'} ${data.lines.map((l) => l.number).join(', ')}, every stop`);
+        svg.setAttribute('aria-label', `${scene.lines.length === 1 ? 'Line' : 'Lines'} ${scene.lines.map((l) => l.number).join(', ')}, every stop`);
         svg.replaceChildren();
 
-        const base = el('g', {}, svg);
-        drawGuide(base, layout, style, theme, axis);
-        for (const row of layout.rows) drawRail(base, row, style, theme, axis);
+        const rails = el('g', { 'pointer-events': 'none' }, svg);
+        for (const line of scene.lines) drawRail(rails, line, theme);
         const stops = el('g', { class: 'fr-stops' }, svg);
-        layout.rows.forEach((row, i) => drawStops(stops, row, style, theme, axis, labelRoom[i]));
+        for (const stop of scene.stops) drawStop(stops, stop, theme);
         el('g', { class: 'fr-pucks', 'pointer-events': 'none' }, svg);
-        drawCaption(svg, layout, style, theme, axis, request.pitch);
-        return { ...layout, request, style };
     }
 
-    /** The rider's stop, one line through every row: where each bus is headed. */
-    function drawGuide(group, layout, style, theme, axis) {
-        const first = layout.rows[0].across - style.ring - 6;
-        const last = layout.rows[layout.rows.length - 1].across + style.ring + 6;
-        const [x1, y1, x2, y2] = axis === AXIS.horizontal
-            ? [layout.userAlong, first, layout.userAlong, last]
-            : [first, layout.userAlong, last, layout.userAlong];
-        el('line', { x1, y1, x2, y2, stroke: theme.primaryText, 'stroke-width': 2, 'stroke-opacity': 0.3, 'stroke-linecap': 'round' }, group);
-    }
-
-    function drawRail(group, row, style, theme, axis) {
-        const color = railColor(row.colorIndex, theme.isLight);
-        const width = style.m.railWidth;
-        const badgeAlong = row.firstAlong - (style.ring + 10 + style.badgeSide / 2);
-        const at = (along) => (axis === AXIS.horizontal ? `${along} ${row.across}` : `${row.across} ${along}`);
-        const user = row.stops[row.userIndex].along;
-        el('path', { d: `M${at(badgeAlong)}L${at(user)}`, stroke: color, 'stroke-width': width, 'stroke-linecap': 'round', fill: 'none' }, group);
-        if (row.lastAlong > user) {
-            el('path', { d: `M${at(user)}L${at(row.lastAlong)}`, stroke: color, 'stroke-width': width, 'stroke-linecap': 'round', fill: 'none', 'stroke-opacity': AFTER_OPACITY }, group);
-        }
-        // The line's badge leads its row, as the terminus badge leads a board's rail.
-        const [cx, cy] = axis === AXIS.horizontal ? [badgeAlong, row.across] : [row.across, badgeAlong];
-        const side = style.badgeSide;
-        el('rect', { x: cx - side / 2, y: cy - side / 2, width: side, height: side, rx: side * 0.23, fill: color }, group);
-        drawNumeral(group, row.number, cx, cy, Math.max(READABLE_MINIMUM, 16 * style.scale), side, side * 0.14, numeralColor(row.colorIndex, theme.isLight));
-    }
-
-    function drawStops(group, row, style, theme, axis, room) {
-        for (const stop of row.stops) {
-            const g = el('g', {
-                class: 'fr-stop map-stop', 'data-stop-code': stop.code, role: 'button', tabindex: 0,
-                'aria-label': `${stop.name}, line ${row.number}${stop.isUser ? ', your stop' : ''}`,
-                opacity: stop.isAfter ? AFTER_OPACITY : null,
-            }, group);
-            const { x, y } = stop.point;
-            el('circle', { cx: x, cy: y, r: Math.max(22, style.ring), fill: 'transparent' }, g);
-            if (stop.isUser) {
-                el('circle', { cx: x, cy: y, r: style.ring * 1.25, fill: theme.background, stroke: theme.primaryText, 'stroke-width': style.m.ringStroke * 1.2 }, g);
-            } else {
-                el('circle', { cx: x, cy: y, r: style.ring, fill: theme.background, stroke: railColor(row.colorIndex, theme.isLight), 'stroke-width': style.m.ringStroke }, g);
+    /** One path for the rail up to the rider's stop and one, drawn back, for the rest. */
+    function drawRail(group, line, theme) {
+        const color = railColor(line.colorIndex, theme.isLight);
+        for (const faded of [false, true]) {
+            let d = '';
+            let cursor = null;
+            for (const s of line.segments) {
+                if (s.faded !== faded) { cursor = null; continue; }
+                if (!cursor || cursor.x !== s.from.x || cursor.y !== s.from.y) d += `M${s.from.x} ${s.from.y}`;
+                d += s.bends ? `C${s.control1.x} ${s.control1.y} ${s.control2.x} ${s.control2.y} ${s.to.x} ${s.to.y}` : `L${s.to.x} ${s.to.y}`;
+                cursor = s.to;
             }
-            const fill = stop.isUser ? theme.primaryText
-                : stop.isTerminus ? labelColor(row.colorIndex, theme.isLight) : theme.stopName;
-            const text = stop.name.toUpperCase();
-            if (axis === AXIS.horizontal) drawAngledName(g, text, x + style.ring * 0.5, y - style.ring - 3, style, fill);
-            else drawSideName(g, text, x + style.ring + 10, y, style, fill, room);
+            if (!d) continue;
+            el('path', {
+                d, fill: 'none', stroke: color, 'stroke-width': scene.railWidth,
+                'stroke-linecap': 'round', 'stroke-linejoin': 'round', 'stroke-opacity': faded ? FADED : null,
+            }, group);
         }
+        // The line's badge leads its rail, as the terminus badge leads a board's rail.
+        const side = scene.badgeSide;
+        const { x, y } = line.badgeCenter;
+        el('rect', { x: x - side / 2, y: y - side / 2, width: side, height: side, rx: side * 0.23, fill: color }, group);
+        drawNumeral(group, line.number, x, y, 17, side, side * 0.14, numeralColor(line.colorIndex, theme.isLight));
     }
 
-    /** As the landscape board sets them: anchored at the bottom-leading corner, turned about it. */
-    function drawAngledName(group, text, x, y, style, fill) {
-        const run = textStyle(text, style.fontSize, style.tracking);
-        const glyph = run.family === MONO ? run.size * MONO_ADVANCE_EM + run.tracking : run.size * 0.55;
-        const wrapped = wrapLabelLines(text, LABEL_MAX_WIDTH, glyph, 2);
-        const lines = wrapped.lines.slice();
-        if (wrapped.truncated) {
-            const capacity = Math.max(1, Math.floor(LABEL_MAX_WIDTH / glyph));
-            const last = lines[lines.length - 1];
-            lines[lines.length - 1] = charCount(last) + 1 > capacity ? [...last].slice(0, Math.max(1, capacity - 1)).join('') + '…' : `${last}…`;
-        }
-        const g = el('g', { transform: `rotate(${LABEL_ANGLE} ${x} ${y})` }, group);
-        const node = textNode(g, '', run, { fill });
-        lines.forEach((line, i) => {
-            const span = el('tspan', { x, y: y - (lines.length - 1 - i) * style.lineHeight - run.descent * run.size }, node);
-            span.textContent = line;
-        });
-        if (wrapped.truncated) el('title', {}, node).textContent = text;
-    }
+    function drawStop(group, stop, theme) {
+        const numbers = stop.lineIDs.map((id) => scene.lines.find((l) => l.lineID === id)?.number ?? id);
+        const g = el('g', {
+            class: 'fr-stop map-stop', 'data-stop-code': stop.code, role: 'button', tabindex: 0,
+            'aria-label': `${stop.name}, ${numbers.length === 1 ? 'line' : 'lines'} ${numbers.join(' and ')}${stop.role === 'userStop' ? ', your stop' : ''}`,
+        }, group);
 
-    /** Beside its stop, on two lines where one is not enough: a column is narrow, a stop is not. */
-    function drawSideName(group, text, x, y, style, fill, room) {
-        const run = textStyle(text, style.fontSize, style.tracking);
-        const available = Math.max(0, room);
-        const lines = measureText(text, run) <= available ? [text] : wrapTwoLines(text, run, available);
-        const node = textNode(group, '', run, { fill });
-        lines.forEach((line, i) => {
-            const span = el('tspan', { x, y: centredBaseline(y, run) + (i - (lines.length - 1) / 2) * style.lineHeight }, node);
-            span.textContent = line;
-        });
-        if (lines.join(' ') !== text) el('title', {}, group).textContent = text;
-    }
+        // A finger's worth around the mark, however small it is drawn.
+        const xs = stop.memberCenters.map((p) => p.x);
+        const ys = stop.memberCenters.map((p) => p.y);
+        const bounds = { x0: Math.min(...xs), x1: Math.max(...xs), y0: Math.min(...ys), y1: Math.max(...ys) };
+        const cx = (bounds.x0 + bounds.x1) / 2;
+        const cy = (bounds.y0 + bounds.y1) / 2;
+        const tw = Math.max(44, bounds.x1 - bounds.x0 + 2 * scene.ringRadius);
+        const th = Math.max(44, bounds.y1 - bounds.y0 + 2 * scene.ringRadius);
+        el('rect', { x: cx - tw / 2, y: cy - th / 2, width: tw, height: th, fill: 'transparent' }, g);
 
-    function drawCaption(group, layout, style, theme, axis, pitch) {
-        const text = 'YOUR STOP';
-        const run = textStyle(text, Math.max(READABLE_MINIMUM, 12 * style.scale), 12 * style.scale * 0.16);
-        const lastRow = layout.rows[layout.rows.length - 1];
-        if (axis === AXIS.horizontal) {
-            const y = lastRow.across + Math.max(style.ring, style.m.puckSize.height / 2) + 6 + run.ascent * run.size;
-            textNode(group, text, run, { x: layout.userAlong, y, fill: theme.primaryText, 'text-anchor': 'middle', 'pointer-events': 'none' });
+        const past = stop.isPastUserStop ? FADED : null;
+        if (stop.role === 'userStop') {
+            capsule(g, bounds, scene.nodeRadius, scene.ringStroke + 1, theme.primaryText, null, theme);
+        } else if (stop.role === 'lastStop' && !stop.isShared) {
+            const side = scene.ringRadius * 2 + scene.ringStroke;
+            el('rect', {
+                x: stop.center.x - side / 2, y: stop.center.y - side / 2, width: side, height: side, rx: LAST_STOP_RADIUS,
+                fill: railColor(stop.colorIndex, theme.isLight), 'fill-opacity': past,
+            }, g);
         } else {
-            // Between the stop before and the rider's own, where no name sits.
-            const x = layout.rows[0].across + style.ring + 10;
-            textNode(group, text, run, { x, y: centredBaseline(layout.userAlong - pitch / 2, run), fill: theme.primaryText, 'pointer-events': 'none' });
+            // One capsule across lines calling together, in the ink rather than any one line's
+            // colour: the wait there is shared, as on the board.
+            capsule(g, bounds, scene.ringRadius, scene.ringStroke,
+                stop.isShared ? theme.primaryText : railColor(stop.colorIndex, theme.isLight), past, theme);
         }
+        drawName(g, stop, theme);
+    }
+
+    /** A ring on one line, or a capsule spanning every line calling at the stop together. */
+    function capsule(group, b, radius, width, stroke, opacity, theme) {
+        el('rect', {
+            x: b.x0 - radius, y: b.y0 - radius, width: b.x1 - b.x0 + 2 * radius, height: b.y1 - b.y0 + 2 * radius,
+            rx: radius, fill: theme.background, stroke, 'stroke-width': width, 'stroke-opacity': opacity,
+        }, group);
+    }
+
+    /**
+     * The name, on up to two lines of the room the layout gave it, and "YOUR STOP" under the
+     * rider's own. Landscape sets it at −35°, anchored at its bottom-leading corner; portrait sets it
+     * level, centred on the anchor.
+     */
+    function drawName(group, stop, theme) {
+        const size = Math.max(READABLE_MINIMUM, scene.labelFontSize);
+        const text = stop.name.toUpperCase();
+        const run = textStyle(text, size, size * 0.04);
+        const room = Math.max(0, stop.labelMaxWidth);
+        const lines = measureText(text, run) <= room ? [text] : wrapTwoLines(text, run, room);
+        const fill = stop.role === 'userStop' ? theme.primaryText
+            : stop.role === 'lastStop' ? labelColor(stop.colorIndex, theme.isLight) : theme.stopName;
+        const rows = lines.map((line) => ({ line, run }));
+        if (stop.role === 'userStop') {
+            const small = textStyle('YOUR STOP', Math.max(11, size - 1), size * 0.06);
+            rows.push({ line: 'YOUR STOP', run: small });
+        }
+        const lineHeight = size * LINE_HEIGHT_EM;
+        const { x, y } = stop.labelAnchor;
+        const node = el('g', {
+            opacity: stop.isPastUserStop ? LABEL_FADED : null,
+            transform: scene.labelRotation ? `rotate(${scene.labelRotation} ${x} ${y})` : null,
+        }, group);
+        rows.forEach((row, i) => {
+            const baseline = scene.labelRotation
+                ? y - (rows.length - 1 - i) * lineHeight - row.run.descent * row.run.size
+                : centredBaseline(y, row.run) + (i - (rows.length - 1) / 2) * lineHeight;
+            textNode(node, row.line, row.run, { x, y: baseline, fill });
+        });
+        if (lines.join(' ') !== text) el('title', {}, group).textContent = stop.name;
     }
 
     function drawPucks(theme) {
         const layer = svg.querySelector('.fr-pucks');
         if (!layer || !scene) return;
         layer.replaceChildren();
-        const m = scene.style.m;
-        for (const puck of scene.pucks) {
-            const g = el('g', { transform: `translate(${puck.point.x} ${puck.point.y})` }, layer);
+        // The bus the readout is about goes last, so its ring is drawn over any bus beside it.
+        const pucks = [...scene.pucks].sort((a, b) => Number(a.isSelected) - Number(b.isSelected));
+        for (const puck of pucks) {
+            const g = el('g', { transform: `translate(${puck.center.x} ${puck.center.y})` }, layer);
             const inner = el('g', { transform: puck.isSelected ? 'scale(1.14)' : null }, g);
-            drawPuckContent(inner, {
-                lineNumber: puck.number, colorIndex: puck.colorIndex, size: m.puckSize,
-                cornerRadius: m.puckCornerRadius, fontSize: m.puckFontSize,
-                haloWidth: m.puckHalo, ringWidth: m.puckRing, isSelected: puck.isSelected,
-            }, theme, { hitTarget: false });
+            drawPuckContent(inner, puck, theme, { hitTarget: false });
         }
     }
 
@@ -299,41 +261,53 @@ export function openFullRoute({ stopName, read, onStopTap }) {
         miniSvg.replaceChildren();
         if (!scene) return;
         const width = mini.clientWidth;
-        const height = MINI_HEIGHT;
-        miniSvg.setAttribute('viewBox', `0 0 ${width} ${height}`);
+        miniSvg.setAttribute('viewBox', `0 0 ${width} ${MINI_HEIGHT}`);
         miniSvg.setAttribute('width', width);
-        miniSvg.setAttribute('height', height);
-        const strip = stripLength();
-        const k = strip / content();
-        const x = (along) => MINI_PAD + along * k;
-        const rows = scene.rows.length;
-        const yOf = (i) => 12 + (i + 0.5) * ((height - 24) / rows);
-        const railWidth = Math.max(3, Math.min(6, (height - 24) / rows / 3));
-
-        el('line', { x1: x(scene.userAlong), y1: 6, x2: x(scene.userAlong), y2: height - 6, stroke: theme.primaryText, 'stroke-width': 2, 'stroke-opacity': 0.5 }, miniSvg);
-        scene.rows.forEach((row, i) => {
-            const color = railColor(row.colorIndex, theme.isLight);
-            const y = yOf(i);
-            const user = row.stops[row.userIndex].along;
-            el('line', { x1: x(row.firstAlong), y1: y, x2: x(user), y2: y, stroke: color, 'stroke-width': railWidth, 'stroke-linecap': 'round' }, miniSvg);
-            if (row.lastAlong > user) {
-                el('line', { x1: x(user), y1: y, x2: x(row.lastAlong), y2: y, stroke: color, 'stroke-width': railWidth, 'stroke-linecap': 'round', 'stroke-opacity': AFTER_OPACITY }, miniSvg);
+        miniSvg.setAttribute('height', MINI_HEIGHT);
+        const map = minimap();
+        const at = (p) => {
+            const q = minimapPoint(map, p);
+            return { x: MINI_PAD.x + q.x, y: MINI_PAD.y + q.y };
+        };
+        // A path per line and shade, not a line per segment: drawn back, the round ends of one
+        // segment would lay over the next and leave the rail looking dotted.
+        for (const line of scene.lines) {
+            const color = railColor(line.colorIndex, theme.isLight);
+            for (const faded of [false, true]) {
+                const parts = line.segments.filter((s) => s.faded === faded);
+                if (!parts.length) continue;
+                const d = parts.map((s, i) => {
+                    const a = at(s.from);
+                    const b = at(s.to);
+                    const joined = i > 0 && parts[i - 1].to === s.from;
+                    return `${joined ? '' : `M${a.x} ${a.y}`}L${b.x} ${b.y}`;
+                }).join('');
+                el('path', { d, fill: 'none', stroke: color, 'stroke-width': 4, 'stroke-linecap': 'round', 'stroke-linejoin': 'round', 'stroke-opacity': faded ? FADED : null }, miniSvg);
             }
-        });
+        }
+        for (const stop of scene.stops) {
+            if (stop.role !== 'userStop') continue;
+            for (const c of stop.memberCenters) {
+                const p = at(c);
+                el('circle', { cx: p.x, cy: p.y, r: 4, fill: theme.primaryText }, miniSvg);
+            }
+        }
         for (const puck of scene.pucks) {
-            const i = scene.rows.findIndex((r) => r.lineID === puck.lineID);
+            const p = at(puck.center);
             el('rect', {
-                x: x(puck.along) - 5, y: yOf(i) - 4.5, width: 10, height: 9, rx: 3,
-                fill: railColor(puck.colorIndex, theme.isLight), stroke: puck.isSelected ? theme.primaryText : theme.background, 'stroke-width': 2,
+                x: p.x - 5, y: p.y - 4, width: 10, height: 8, rx: 2,
+                fill: railColor(puck.colorIndex, theme.isLight), stroke: puck.isSelected ? theme.primaryText : null, 'stroke-width': 1.5,
             }, miniSvg);
         }
     }
 
     function updateWindow() {
         if (!scene) return;
-        const { start, length } = miniWindow({ scroll: scrollPos(), viewport: viewport(), content: content(), strip: stripLength() });
-        windowBox.style.left = `${MINI_PAD + start}px`;
-        windowBox.style.width = `${Math.max(12, length)}px`;
+        const w = minimapWindow(minimap(), visible());
+        windowBox.style.left = `${MINI_PAD.x + w.x - 2}px`;
+        windowBox.style.top = `${MINI_PAD.y + w.y - 2}px`;
+        windowBox.style.width = `${Math.max(12, w.width + 4)}px`;
+        windowBox.style.height = `${Math.max(12, w.height + 4)}px`;
     }
 
     // MARK: Moving about
@@ -346,21 +320,27 @@ export function openFullRoute({ stopName, read, onStopTap }) {
     // A tap on the strip centres the view there; a drag carries the window, from wherever on it
     // the finger landed rather than jumping its middle under the finger.
     let grab = null;
-    const stripAt = (event) => event.clientX - mini.getBoundingClientRect().left - MINI_PAD;
-    function seek(at) {
-        scrollTo(scrollForMini({ at, viewport: viewport(), content: content(), strip: stripLength() }));
-    }
+    const stripAt = (event) => {
+        const box = mini.getBoundingClientRect();
+        return { x: event.clientX - box.left - MINI_PAD.x, y: event.clientY - box.top - MINI_PAD.y };
+    };
+    const seek = (p) => scrollTo(minimapOffset(minimap(), p, { width: scroller.clientWidth, height: scroller.clientHeight }));
     mini.addEventListener('pointerdown', (event) => {
         if (!scene || event.button > 0) return;
-        const at = stripAt(event);
-        const { start, length } = miniWindow({ scroll: scrollPos(), viewport: viewport(), content: content(), strip: stripLength() });
-        grab = at >= start && at <= start + length ? at - (start + length / 2) : 0;
+        const p = stripAt(event);
+        const w = minimapWindow(minimap(), visible());
+        const inside = p.x >= w.x && p.x <= w.x + w.width && p.y >= w.y - 4 && p.y <= w.y + w.height + 4;
+        grab = inside ? { x: p.x - (w.x + w.width / 2), y: p.y - (w.y + w.height / 2) } : { x: 0, y: 0 };
         mini.setPointerCapture(event.pointerId);
         mini.classList.add('dragging');
-        seek(at - grab);
+        seek({ x: p.x - grab.x, y: p.y - grab.y });
         event.preventDefault();
     });
-    mini.addEventListener('pointermove', (event) => { if (grab !== null) seek(stripAt(event) - grab); });
+    mini.addEventListener('pointermove', (event) => {
+        if (!grab) return;
+        const p = stripAt(event);
+        seek({ x: p.x - grab.x, y: p.y - grab.y });
+    });
     const release = () => { grab = null; mini.classList.remove('dragging'); };
     mini.addEventListener('pointerup', release);
     mini.addEventListener('pointercancel', release);
