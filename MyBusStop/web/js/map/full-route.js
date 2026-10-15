@@ -205,16 +205,19 @@ export function layoutFullRoute({ lines: input, userStopCode = null, vehicles = 
         };
     });
 
-    /** Where a line's rail crosses column `c`, whether it calls there or passes. */
-    const railAcross = (line, c) => {
+    /**
+     * Where a line's rail is at a point along the route, between its stops or on a bend; null
+     * before its first stop or after its last.
+     */
+    const railAcross = (line, a) => {
         const cols = columnOf[line];
-        if (c < cols[0] || c > cols[cols.length - 1]) return null;
-        const stop = cols.indexOf(c);
-        if (stop >= 0) return across[line][stop];
-        const next = cols.findIndex((col) => col > c);
-        if (next <= 0) return null;
-        const t = (along[c] - along[cols[next - 1]]) / Math.max(1, along[cols[next]] - along[cols[next - 1]]);
-        const p = segmentPoint(routeLines[line].segments[next - 1], t);
+        if (a < along[cols[0]] - 0.5 || a > along[cols[cols.length - 1]] + 0.5) return null;
+        const next = cols.findIndex((col) => along[col] >= a);
+        if (next < 0) return null;
+        if (next === 0 || Math.abs(along[cols[next]] - a) < 0.5) return across[line][next];
+        const a0 = along[cols[next - 1]];
+        const a1 = along[cols[next]];
+        const p = segmentPoint(routeLines[line].segments[next - 1], (a - a0) / Math.max(1, a1 - a0));
         return horizontal ? p.y : p.x;
     };
 
@@ -232,8 +235,8 @@ export function layoutFullRoute({ lines: input, userStopCode = null, vehicles = 
             const memberCenters = memberAcross.map((x) => point(along[c], x));
             const low = Math.min(...memberAcross);
             const high = Math.max(...memberAcross);
-            const others = lines.map((_, l) => l).filter((l) => !members.includes(l))
-                .map((l) => railAcross(l, c)).filter((x) => x != null);
+            const otherLines = lines.map((_, l) => l).filter((l) => !members.includes(l));
+            const railsAt = (a) => otherLines.map((l) => railAcross(l, a)).filter((x) => x != null);
             const role = c === userColumn ? 'userStop'
                 : members.length === 1 && column[first] === lines[first].stops.length - 1 ? 'lastStop'
                     : 'stop';
@@ -241,16 +244,29 @@ export function layoutFullRoute({ lines: input, userStopCode = null, vehicles = 
             let labelMaxWidth;
             if (horizontal) {
                 labelAnchor = point(along[c], low - labelGap);
-                // The name climbs at −35° until it would meet the next rail up.
-                const above = others.filter((x) => x < low - 1);
-                const ceiling = above.length ? Math.max(...above) + F.railWidth / 2 + 6 : 0;
+                // The name climbs at −35° from its stop and reaches on past it, so it is walked
+                // along: it stops short of the first rail it would meet, whether that rail runs
+                // straight above or bends down across its path.
                 const textLines = role === 'userStop' ? 3 : 2;
-                const rise = labelAnchor.y - ceiling - textLines * fontSize * 1.25 * Math.cos(ANGLE);
-                labelMaxWidth = Math.min(112, Math.max(40, rise / Math.sin(ANGLE)));
+                const thickness = textLines * fontSize * 1.25 / Math.cos(ANGLE);
+                let reach = 112;
+                for (let step = 0; step <= 14; step++) {
+                    const dx = step * 112 * Math.cos(ANGLE) / 14;
+                    const baseline = labelAnchor.y - dx * Math.tan(ANGLE);
+                    const top = baseline - thickness;
+                    const hit = railsAt(along[c] + dx).some((x) => x + F.railWidth / 2 + 4 > top
+                        && x - F.railWidth / 2 < labelAnchor.y && x < low - 1);
+                    // Above the content's top edge counts as a rail too.
+                    if (hit || top < 0) { reach = dx / Math.cos(ANGLE) - 6; break; }
+                }
+                labelMaxWidth = Math.min(112, Math.max(40, reach));
             } else {
                 labelAnchor = point(along[c], high + labelGap);
-                const after = others.filter((x) => x > high + 1);
-                const wall = after.length ? Math.min(...after) - F.railWidth / 2 - 8 : contentAcross - 8;
+                // Two lines of name take a band either side of the stop; a rail bending through
+                // that band is as much in the way as one running past.
+                const band = fontSize * 1.25;
+                const nearby = [-band, 0, band].flatMap((d) => railsAt(along[c] + d)).filter((x) => x > high + 1);
+                const wall = nearby.length ? Math.min(...nearby) - F.railWidth / 2 - 8 : contentAcross - 8;
                 labelMaxWidth = Math.min(240, Math.max(48, wall - labelAnchor.x));
             }
             stops.push({
