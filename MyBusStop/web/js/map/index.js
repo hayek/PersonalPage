@@ -1,10 +1,11 @@
 // The route map ("board map"), ported from the app's MapEngine and Board views.
 //
-// Pure layout (no DOM): layoutMap, RouteCompressor, JunctionDetector, chooseMapLayout,
+// Pure layout (no DOM): layoutMap, layoutFullRoute, RouteCompressor, JunctionDetector, chooseMapLayout,
 // createTrunkSelector, assignLineColors and the palette helpers all run in Node as well.
 // Drawing: renderMap(svg, options).
 
 export { renderMap, isTrackedText } from './render.js';
+export { layoutFullRoute, scrollToCentre, miniWindow, scrollForMini } from './full-route.js';
 export { layoutMap, sceneRail, railAcrossAt, AxisTransform, wrapLabelLines, keepingNamesInside, offsetScene } from './engine.js';
 export { RouteCompressor, JunctionDetector } from './routes.js';
 export { AXIS, PRESET, makeMetrics, READABLE_MINIMUM } from './metrics.js';

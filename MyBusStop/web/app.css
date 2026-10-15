@@ -413,6 +413,7 @@ h1, .row-title, .count-title {
     .badge-medium { min-width: 52px; height: 52px; font-size: 24px; border-radius: 12px; }
     .then-row { gap: 12px; }
     .live-label { display: none; }
+    .full-route-button { display: none; }
     .board-head { align-items: flex-start; }
     .board-head .back, .board-status { margin-top: -6px; }
     .board-status { gap: 8px; }
@@ -427,6 +428,97 @@ h1, .row-title, .count-title {
 /* Wall mode: a bigger readout, nothing to tap but the board */
 body.wall .board-foot { display: none; }
 body.wall .minutes b { font-size: clamp(96px, 16vw, 220px); }
+
+/* A stop row's ⓘ sits on the row, beside its button rather than inside it: the row picks the stop,
+   the ⓘ opens its card. Bottom corner, so a history row's × keeps the top one. */
+.row-item.has-info .row { padding-inline-end: 60px; }
+.row-info {
+    position: absolute; right: 8px; bottom: 8px; width: 40px; height: 40px; border-radius: 50%;
+    display: inline-flex; align-items: center; justify-content: center; color: var(--secondary);
+}
+.row-info:hover { background: var(--menu); color: var(--ink); }
+
+/* Stops that open their card */
+.map-stop { cursor: pointer; }
+.map-stop:focus-visible { outline: none; }
+.fr-stop:focus-visible > circle:first-child { fill: var(--focus); fill-opacity: 0.25; }
+
+/* ---------------------------------------------------------------- Full lines view */
+
+.full-route {
+    position: fixed; inset: 0; z-index: 40;
+    display: flex; flex-direction: column;
+    background: var(--bg);
+    padding: max(14px, env(safe-area-inset-top)) max(var(--gutter), env(safe-area-inset-right)) max(12px, env(safe-area-inset-bottom)) max(var(--gutter), env(safe-area-inset-left));
+}
+.fr-head { display: flex; align-items: center; gap: 16px; padding-bottom: 10px; }
+.fr-title { flex: 1; min-width: 0; }
+.fr-title .caption { margin: 0 0 4px; font-size: 11px; letter-spacing: 0.22em; color: var(--stop-name); }
+.fr-title h2 {
+    font-weight: 900; font-stretch: 112%; text-transform: uppercase; letter-spacing: -0.015em; line-height: 1.05;
+    font-size: clamp(20px, 3vw, 30px); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.fr-scroller {
+    position: relative; flex: 1; min-height: 0; overflow: auto;
+    overscroll-behavior: contain; -webkit-overflow-scrolling: touch;
+    margin: 0 calc(-1 * var(--gutter));
+}
+.fr-scroller:focus-visible { outline-offset: -3px; border-radius: 0; }
+.fr-svg { display: block; overflow: visible; }
+.fr-note { position: absolute; }
+.fr-mini {
+    position: relative; flex: none; height: 64px; margin-top: 10px;
+    border-radius: 16px; background: var(--card); border: 2px solid var(--card-outline);
+    touch-action: none; cursor: pointer; user-select: none; -webkit-user-select: none; overflow: hidden;
+}
+.fr-mini-svg { position: absolute; inset: 0; display: block; }
+.fr-mini-window {
+    position: absolute; top: 4px; bottom: 4px;
+    border: 2.5px solid var(--ink); border-radius: 10px;
+    background: color-mix(in srgb, var(--ink) 10%, transparent);
+    cursor: grab;
+}
+.fr-mini.dragging, .fr-mini.dragging .fr-mini-window { cursor: grabbing; }
+
+/* ---------------------------------------------------------------- Stop card */
+
+.stop-card-backdrop {
+    position: fixed; inset: 0; z-index: 60;
+    display: flex; align-items: center; justify-content: center;
+    padding: max(16px, env(safe-area-inset-top)) 16px max(16px, env(safe-area-inset-bottom));
+    background: rgba(0, 0, 0, 0.55);
+}
+.stop-card {
+    width: min(520px, 100%); max-height: 100%; overflow: auto; overscroll-behavior: contain;
+    border-radius: 24px; background: var(--bg); border: 2px solid var(--card-outline);
+    padding: 22px; display: flex; flex-direction: column; gap: 18px;
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+}
+@media (max-width: 520px) {
+    .stop-card-backdrop { align-items: flex-end; padding: 0; }
+    .stop-card { border-radius: 24px 24px 0 0; max-height: 92dvh; padding-bottom: max(22px, env(safe-area-inset-bottom)); border-bottom: 0; }
+}
+.stop-card-head { display: flex; align-items: flex-start; gap: 14px; }
+.stop-card-title { flex: 1; min-width: 0; }
+.stop-card-title .caption { margin: 0 0 6px; color: var(--stop-name); }
+.stop-card-title h2 {
+    font-weight: 900; font-stretch: 112%; text-transform: uppercase; letter-spacing: -0.015em; line-height: 1.05;
+    font-size: clamp(24px, 4vw, 32px); overflow-wrap: anywhere;
+}
+.stop-card-section { display: flex; flex-direction: column; gap: 10px; }
+.stop-card-label { font-family: var(--mono); font-weight: 700; font-size: 11px; letter-spacing: 0.22em; color: var(--dim); }
+.stop-card-line-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+.stop-card-line { display: flex; align-items: center; gap: 12px; min-width: 0; }
+.stop-card-towards { flex: 1; min-width: 0; font-family: var(--mono); font-weight: 700; font-size: 13px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--secondary); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.stop-card-tag { font-family: var(--mono); font-weight: 700; font-size: 10px; letter-spacing: 0.18em; color: var(--live); flex: none; }
+.stop-card-quiet { display: flex; align-items: center; gap: 10px; font-family: var(--mono); font-weight: 700; font-size: 12px; letter-spacing: 0.12em; color: var(--secondary); }
+.stop-card-address { font-size: 17px; font-weight: 700; color: var(--caption); }
+.stop-card-map { position: relative; height: 200px; border-radius: 16px; overflow: hidden; border: 2px solid var(--card-outline); background: var(--card); }
+.stop-card-map iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+.stop-card-maps-link { align-self: flex-start; display: inline-flex; align-items: center; gap: 8px; font-family: var(--mono); font-weight: 700; font-size: 12px; letter-spacing: 0.14em; text-decoration: none; color: var(--ink); padding: 10px 0; }
+.stop-card-maps-link:hover { text-decoration: underline; }
+.spinner { width: 14px; height: 14px; border-radius: 50%; border: 2.5px solid var(--dot); border-top-color: var(--ink); animation: spin 0.8s linear infinite; flex: none; }
+@keyframes spin { to { transform: rotate(360deg); } }
 
 .fatal, .noscript { padding: 40px 20px; font-size: 18px; }
 

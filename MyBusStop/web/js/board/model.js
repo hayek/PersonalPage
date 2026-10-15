@@ -36,7 +36,9 @@ export class BoardModel {
         this.provider = provider;
         this.configuration = configuration;
         this.onChange = onChange;
-        this.snapshot = { fetchedAt: null, arrivals: [], buses: [], patterns: {} };
+        // `patterns` are trimmed at the rider's stop, as the board map draws them; `fullPatterns`
+        // keep each route to its last stop, for the full lines view.
+        this.snapshot = { fetchedAt: null, arrivals: [], buses: [], patterns: {}, fullPatterns: {} };
         this.lastSuccessAt = null;
         this.lastError = null;
         this.selectedBusID = null;
@@ -51,6 +53,16 @@ export class BoardModel {
     }
 
     get stop() { return this.configuration.stop; }
+
+    /** A stop on any watched route, by code: the whole route, so a stop past the rider's is found too. */
+    stopByCode(code) {
+        if (code === this.stop.code) return this.stop;
+        for (const pattern of Object.values(this.snapshot.fullPatterns)) {
+            const hit = pattern.stops.find((s) => s.stop.code === code);
+            if (hit) return hit.stop;
+        }
+        return null;
+    }
     get lines() { return this.configuration.lines; }
     line(id) { return this.lines.find((l) => l.id === id) ?? null; }
 
@@ -140,14 +152,18 @@ export class BoardModel {
     /** Puts the routes on screen before the first request goes out, when they are already known. */
     async showCachedRoutes() {
         const routes = {};
+        const full = {};
         for (const line of this.lines) {
             try {
                 const cached = await peekStatic(this.patternKey(line));
-                if (cached) routes[line.id] = trim(cached, this.stop);
+                if (cached) {
+                    routes[line.id] = trim(cached, this.stop);
+                    full[line.id] = cached;
+                }
             } catch { /* nothing cached */ }
         }
         if (Object.keys(routes).length && !Object.keys(this.snapshot.patterns).length) {
-            this.snapshot = { ...this.snapshot, patterns: routes };
+            this.snapshot = { ...this.snapshot, patterns: routes, fullPatterns: full };
             this.onChange();
         }
     }
@@ -190,6 +206,7 @@ export class BoardModel {
         let complete = true;
         const previousArrivals = this.snapshot.arrivals;
         const routes = { ...this.snapshot.patterns };
+        const fullRoutes = { ...this.snapshot.fullPatterns };
         const refreshed = new Set(results.map((r) => r.lineID));
         const retargeted = new Set();
         const buses = this.snapshot.buses.filter((b) => !refreshed.has(b.lineID));
@@ -198,6 +215,7 @@ export class BoardModel {
         for (const result of results) {
             const trimmed = trim(result.pattern, this.stop);
             routes[result.lineID] = trimmed;
+            fullRoutes[result.lineID] = result.pattern;
             const targetIndex = trimmed.stops.length - 1;
             const geometry = new RouteGeometry(trimmed);
 
@@ -261,7 +279,7 @@ export class BoardModel {
             }
         }
 
-        this.snapshot = { fetchedAt: now, arrivals: arrivals.sort((a, b) => a.expectedAt - b.expectedAt), buses, patterns: routes };
+        this.snapshot = { fetchedAt: now, arrivals: arrivals.sort((a, b) => a.expectedAt - b.expectedAt), buses, patterns: routes, fullPatterns: fullRoutes };
         if (this.selectedBusID && (!buses.some((b) => b.id === this.selectedBusID) || retargeted.has(this.selectedBusID))) {
             this.selectedBusID = null;
         }

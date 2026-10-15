@@ -5,6 +5,8 @@ import { store } from '../storage.js';
 import { REGIONS, WORLDWIDE, regionByID, regionsContaining } from '../transit/regions.js';
 import { Capability } from '../transit/model.js';
 import { session, go, providerFor, applyTheme } from '../main.js';
+import { loadProvider } from '../transit/providers/index.js';
+import { showStopCard, closeStopCard } from '../board/stop-card.js';
 
 /** As in the app: stops within 500 m, widened to 1 km when nothing is that close. */
 const NEARBY_RADII = [500, 1000];
@@ -64,7 +66,10 @@ export function showSetup(root) {
             results.replaceChildren(
                 h('div', { class: 'section-head' }, h('h2', {}, 'RESULTS'), h('span', { class: 'section-aside' }, plural(stops.length, 'STOP', 'STOPS'))),
                 stops.length
-                    ? h('ul', { class: 'rows' }, stops.slice(0, 30).map((stop) => stopRow(stop, { onclick: () => pick(stop) })))
+                    ? h('ul', { class: 'rows' }, stops.slice(0, 30).map((stop) => stopRow(stop, {
+                        onclick: () => pick(stop),
+                        onInfo: () => showStopCard({ stop, providerID: provider.id, linesAtStop: () => provider.linesAtStop(stop) }),
+                    })))
                     : h('p', { class: 'status' }, searchesByName ? 'NO STOPS FOUND. TRY ANOTHER NAME.' : 'NO STOP WITH THAT CODE.'),
             );
         } catch (error) {
@@ -91,6 +96,11 @@ export function showSetup(root) {
             lines: entry.lines, providerID: entry.providerID,
             caption: regionByID(entry.regionID)?.name,
             onclick: () => { store.openBoard(entry); go('board'); },
+            // A board from another region asks its own provider, not the one setup has open now.
+            onInfo: () => showStopCard({
+                stop: entry.stop, providerID: entry.providerID, watched: entry.lines,
+                linesAtStop: async () => (await loadProvider(entry.providerID)).linesAtStop(entry.stop),
+            }),
         });
         const remove = h('button', { class: 'row-remove', 'aria-label': `Remove ${entry.stop.name} from My stops`, title: 'Remove',
             onclick: (e) => { e.stopPropagation(); store.forget(entry.id); go('setup', { push: false }); } }, icon('close', 16));
@@ -159,6 +169,11 @@ export function showSetup(root) {
             ? h('ul', { class: 'rows' }, stops.slice(0, 20).map((nearby) => stopRow(nearby.stop, {
                 lines: nearby.lines, providerID: provider.id, distance: nearby.distanceMeters,
                 onclick: () => pick(nearby.stop),
+                // The nearby answer already lists every line there; nothing more to ask.
+                onInfo: () => showStopCard({
+                    stop: nearby.stop, providerID: provider.id, lines: nearby.lines,
+                    linesAtStop: () => provider.linesAtStop(nearby.stop),
+                }),
             })))
             : h('p', { class: 'status' }, `NO STOPS WITHIN ${within}. SEARCH INSTEAD.`));
     }
@@ -204,7 +219,10 @@ export function showSetup(root) {
         ),
     ));
     if (!history.length) setTimeout(() => input.focus({ preventScroll: true }), 0);
-    return () => clearTimeout(searchTimer);
+    return () => {
+        clearTimeout(searchTimer);
+        closeStopCard();
+    };
 }
 
 function groupOptions(selectedID) {
@@ -216,12 +234,15 @@ function groupOptions(selectedID) {
     ];
 }
 
-/** A stop in a list: its name, where it is, and the lines that call there. */
-function stopRow(stop, { lines = [], providerID = null, distance = null, caption = null, onclick }) {
+/**
+ * A stop in a list: its name, where it is, and the lines that call there. Tapping the row picks the
+ * stop; its ⓘ, beside the row's own button rather than inside it, opens the stop's card instead.
+ */
+function stopRow(stop, { lines = [], providerID = null, distance = null, caption = null, onclick, onInfo = null }) {
     // Poles of one stop often share its name; the code tells them apart.
     const where = [stop.address, stop.city, caption, /^[\w-]{1,12}$/.test(stop.code) ? `STOP ${stop.code}` : null].filter((part, i, all) => part && all.findIndex((p) => p?.toLowerCase() === part.toLowerCase()) === i).join(' · ');
     const shown = lines.slice(0, 3);
-    return h('li', { class: 'row-item' },
+    const item = h('li', { class: `row-item${onInfo ? ' has-info' : ''}` },
         h('button', { class: 'row', onclick },
             distance != null ? h('span', { class: 'row-distance' }, distanceText(distance)) : null,
             h('span', { class: 'row-text' },
@@ -231,6 +252,13 @@ function stopRow(stop, { lines = [], providerID = null, distance = null, caption
                 shown.map((line) => badge(line, colorIndexFor(providerID, line))),
                 lines.length > 3 ? h('span', { class: 'row-more' }, `+${lines.length - 3}`) : null) : null,
         ));
+    if (onInfo) {
+        item.append(h('button', {
+            class: 'row-info', 'aria-label': `About ${stop.name}`, title: 'About this stop',
+            onclick: (e) => { e.stopPropagation(); onInfo(); },
+        }, icon('info', 20)));
+    }
+    return item;
 }
 
 export function friendly(error) {

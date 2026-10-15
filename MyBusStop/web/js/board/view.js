@@ -7,6 +7,8 @@ import { BoardModel } from './model.js';
 import { renderMap, railColor } from '../map/index.js';
 import { go, session } from '../main.js';
 import { friendly } from '../setup/stops.js';
+import { openFullRoute, closeFullRoute } from './full-route-view.js';
+import { showStopCard, closeStopCard } from './stop-card.js';
 
 export function showBoard(root, { board, provider, region }) {
     const configuration = { stop: board.stop, lines: board.lines };
@@ -15,11 +17,13 @@ export function showBoard(root, { board, provider, region }) {
     const model = new BoardModel(provider, configuration, () => renderAll());
     let hasTappedOnce = false;
     let wakeLock = null;
+    let fullView = null;
 
     // Header
     const clock = h('span', { class: 'clock' });
     const live = h('span', { class: 'live' }, h('i', { class: 'live-dot' }), h('span', { class: 'live-label' }, 'CONNECTING'));
     const menu = h('div', { class: 'menu', hidden: true, role: 'menu' },
+        h('button', { role: 'menuitem', onclick: () => { closeMenu(); openFull(); } }, icon('route', 18), 'Full lines view'),
         h('button', { role: 'menuitem', onclick: () => { closeMenu(); changeLines(); } }, 'Change lines'),
         h('button', { role: 'menuitem', onclick: () => { closeMenu(); toggleWall(); } }, icon('expand', 18), 'Wall mode'),
         h('button', { role: 'menuitem', onclick: () => { closeMenu(); store.closeBoard(); go('setup'); } }, 'Choose another stop'),
@@ -30,10 +34,16 @@ export function showBoard(root, { board, provider, region }) {
     // The code printed on the sign, when the feed's id is one; an internal id helps nobody.
     const code = /^[\w-]{1,12}$/.test(board.stop.code) ? `STOP ${board.stop.code}` : null;
     const caption = [code, board.stop.city].filter(Boolean).join(' · ');
+    // Beside the clock where there is room for it; a phone keeps the stop's name instead, and has
+    // the same view first in the options menu.
+    const fullButton = h('button', {
+        class: 'icon-button full-route-button', 'aria-label': 'Full lines view', title: 'Full lines view',
+        onclick: (e) => { e.stopPropagation(); closeMenu(); openFull(); },
+    }, icon('route', 24));
     const header = h('header', { class: 'board-head' },
         h('button', { class: 'icon-button back', 'aria-label': 'Choose another stop', onclick: () => { store.closeBoard(); go('setup'); } }, icon('back', 26)),
         h('div', { class: 'board-title' }, h('h1', { dir: 'auto' }, board.stop.name), caption ? h('p', { class: 'caption' }, caption) : null),
-        h('div', { class: 'board-status' }, live, clock, h('div', { class: 'menu-wrap' }, gear, menu)),
+        h('div', { class: 'board-status' }, live, clock, fullButton, h('div', { class: 'menu-wrap' }, gear, menu)),
     );
 
     // Map
@@ -52,6 +62,46 @@ export function showBoard(root, { board, provider, region }) {
     const screen = h('main', { class: 'screen board' }, header, mapBox, readout, foot);
     root.append(screen);
 
+    // MARK: The full lines view and the stop card
+
+    /** London's "(Stop RC)" pole letters are on the sign, not worth a map's scarce width. */
+    const mapName = (name) => name.replace(/\s*\(Stop [A-Z0-9]{1,3}\)$/i, '');
+
+    function vehiclesOn(lines) {
+        const ringed = model.ringedBusID;
+        return model.snapshot.buses
+            .filter((bus) => lines.some((l) => l.id === bus.lineID))
+            .map((bus) => ({ id: bus.id, lineID: bus.lineID, lastStopIndex: bus.lastStopIndex, progressToNext: bus.progressToNext, isSelected: bus.id === ringed }));
+    }
+
+    function openFull() {
+        fullView = openFullRoute({
+            stopName: board.stop.name,
+            read: () => {
+                const full = model.snapshot.fullPatterns;
+                const lines = board.lines
+                    .filter((line) => full[line.id]?.stops.length >= 2)
+                    .map((line) => ({
+                        id: line.id, number: line.shortName, colorIndex: color(line.id),
+                        stops: full[line.id].stops.map((s) => ({ code: s.stop.code, name: mapName(s.stop.name) })),
+                    }));
+                const note = model.lastError && !model.lastSuccessAt ? friendly(model.lastError)
+                    : model.lastSuccessAt ? 'NO ROUTE TO DRAW FOR THESE LINES RIGHT NOW.' : 'LOADING THE ROUTE…';
+                return { lines, userStopCode: board.stop.code, vehicles: vehiclesOn(lines), note };
+            },
+            onStopTap: openStop,
+        });
+    }
+
+    function openStop(code) {
+        const stop = model.stopByCode(code);
+        if (!stop) return;
+        showStopCard({
+            stop, providerID: provider.id, watched: board.lines, isRidersStop: stop.code === board.stop.code,
+            linesAtStop: () => provider.linesAtStop(stop),
+        });
+    }
+
     function changeLines() {
         session.stop = board.stop;
         session.preselected = board.lines;
@@ -64,6 +114,7 @@ export function showBoard(root, { board, provider, region }) {
         renderHeader();
         renderMapNow();
         renderReadout();
+        fullView?.update();
     }
 
     function renderHeader(now = Date.now()) {
@@ -75,18 +126,15 @@ export function showBoard(root, { board, provider, region }) {
     }
 
     function renderMapNow() {
-        const { patterns, buses } = model.snapshot;
+        const { patterns } = model.snapshot;
         const lines = board.lines
             .filter((line) => patterns[line.id]?.stops.length >= 2)
             .map((line) => ({
                 id: line.id, number: line.shortName, colorIndex: color(line.id),
                 // London's "(Stop RC)" pole letters are on the sign, not worth a map's scarce width.
-                stops: patterns[line.id].stops.map((s) => ({ code: s.stop.code, name: s.stop.name.replace(/\s*\(Stop [A-Z0-9]{1,3}\)$/i, '') })),
+                stops: patterns[line.id].stops.map((s) => ({ code: s.stop.code, name: mapName(s.stop.name) })),
             }));
-        const ringed = model.ringedBusID;
-        const vehicles = buses
-            .filter((bus) => lines.some((l) => l.id === bus.lineID))
-            .map((bus) => ({ id: bus.id, lineID: bus.lineID, lastStopIndex: bus.lastStopIndex, progressToNext: bus.progressToNext, isSelected: bus.id === ringed }));
+        const vehicles = vehiclesOn(lines);
         const { width, height } = mapBox.getBoundingClientRect();
         if (!lines.length) {
             svg.replaceChildren();
@@ -105,6 +153,7 @@ export function showBoard(root, { board, provider, region }) {
                 // Where the layout has room for it (landscape), until the rider has tapped once.
                 hint: !hasTappedOnce && vehicles.length > 0,
                 onBusTap: (id) => { hasTappedOnce = true; model.tap(id); },
+                onStopTap: openStop,
             });
         } catch (error) {
             console.error('[map]', error);
@@ -209,6 +258,9 @@ export function showBoard(root, { board, provider, region }) {
     model.start();
 
     return () => {
+        // The card first: each puts back the page's scrolling as it found it, so they unwind in order.
+        closeStopCard();
+        closeFullRoute();
         model.stopPolling();
         clearInterval(tick);
         resize.disconnect();

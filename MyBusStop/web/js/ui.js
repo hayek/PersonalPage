@@ -39,6 +39,8 @@ export function icon(name, size = 22) {
         pin: '<path d="M9 3h6l-1 6 3 3H7l3-3-1-6zM12 12v9"/>',
         check: '<path d="M6 12.5l4 4 8-9"/>',
         expand: '<path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/>',
+        route: '<circle cx="5" cy="5.5" r="2.2"/><circle cx="19" cy="18.5" r="2.2"/><path d="M7.5 5.5H16a3.5 3.5 0 0 1 0 7H8a3.5 3.5 0 0 0 0 7h8.5"/>',
+        info: '<circle cx="12" cy="12" r="9"/><path d="M12 11v6"/><circle cx="12" cy="7.6" r="0.6" fill="currentColor"/>',
     };
     const span = document.createElement('span');
     span.className = 'icon';

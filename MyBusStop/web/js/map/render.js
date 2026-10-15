@@ -269,6 +269,7 @@ function drawRings(group, scene, theme) {
             cx: r2(mark.center.x), cy: r2(mark.center.y), r: r2(mark.ringRadius),
             fill: theme.background, stroke: railColor(mark.colorIndex, theme.isLight),
             'stroke-width': r2(mark.strokeWidth), 'stroke-opacity': mark.dimmed ? DIMMED : null,
+            'data-stop-code': mark.stopCode,
         }, group);
     }
 }
@@ -284,7 +285,7 @@ function drawCapsules(group, scene, theme) {
         el('rect', {
             x: r2(r.x), y: r2(r.y), width: r2(r.width), height: r2(r.height), rx: r2(mark.capsuleCornerRadius),
             fill: theme.background, stroke: theme.primaryText, 'stroke-width': r2(mark.strokeWidth),
-            'stroke-opacity': mark.dimmed ? DIMMED : null,
+            'stroke-opacity': mark.dimmed ? DIMMED : null, 'data-stop-code': mark.stopCode,
         }, group);
     }
 }
@@ -345,7 +346,7 @@ function drawLabels(group, scene, theme, passedStopCode, width) {
             }
             const g = el('g', { transform: `rotate(${label.rotationDegrees} ${r2(x)} ${r2(y)})`, opacity }, group);
             const lineHeight = style.size * LINE_HEIGHT_EM;
-            const text = textNode(g, '', style, { fill });
+            const text = textNode(g, '', style, { fill, 'data-stop-code': label.stopCode });
             lines.forEach((line, i) => {
                 const span = el('tspan', {
                     x: r2(x),
@@ -357,7 +358,7 @@ function drawLabels(group, scene, theme, passedStopCode, width) {
         } else {
             const lines = fitted.get(label) ?? [label.text];
             const lineHeight = style.size * LINE_HEIGHT_EM;
-            const text = textNode(group, '', style, { fill, opacity, 'text-anchor': anchorFor(label.alignment) });
+            const text = textNode(group, '', style, { fill, opacity, 'text-anchor': anchorFor(label.alignment), 'data-stop-code': label.stopCode });
             // Centred on the anchor as a block, one line or two.
             lines.forEach((line, i) => {
                 const span = el('tspan', {
@@ -427,16 +428,19 @@ function drawBadges(group, scene, theme) {
  * What a puck looks like: a badge carrying the line number, punched through the rail it sits on,
  * ringed when it is the bus the readout is about. Drawn centred on (0, 0).
  */
-function drawPuckContent(inner, puck, theme) {
+export function drawPuckContent(inner, puck, theme, { hitTarget = true } = {}) {
     const { width: w, height: h } = puck.size;
     const halo = puck.haloWidth;
     const ring = puck.ringWidth;
     const target = { w: Math.max(44, w), h: Math.max(44, h) };
-    // The mark is 44×36, but the target is never smaller than 44 in either direction.
-    el('rect', {
-        x: r2(-target.w / 2), y: r2(-target.h / 2), width: r2(target.w), height: r2(target.h),
-        fill: 'transparent', 'pointer-events': 'all',
-    }, inner);
+    // The mark is 44×36, but the target is never smaller than 44 in either direction. A puck with
+    // nothing to press (the full lines view's) leaves it out, so it does not cover the stop under it.
+    if (hitTarget) {
+        el('rect', {
+            x: r2(-target.w / 2), y: r2(-target.h / 2), width: r2(target.w), height: r2(target.h),
+            fill: 'transparent', 'pointer-events': 'all',
+        }, inner);
+    }
     // The halo punches the puck through the rail it sits on.
     el('rect', {
         x: r2(-w / 2 - halo), y: r2(-h / 2 - halo), width: r2(w + 2 * halo), height: r2(h + 2 * halo),
@@ -576,6 +580,25 @@ function drawOverlay(group, scene, theme, hintText) {
     }
 }
 
+// MARK: - Stops to tap
+
+/**
+ * A mark is smaller than a finger, so each stop that can be tapped gets a clear circle of the
+ * minimum target under it. They sit in the base layer, under the pucks: a bus beside a stop still
+ * wins its own tap. Names and marks answer too (their `data-stop-code`); the base layer itself
+ * stays deaf, so the gaps between stops are still a tap on the board.
+ */
+function drawStopTargets(group, scene) {
+    for (const mark of scene.stops) {
+        if (!mark.stopCode) continue;
+        const r = Math.max(22, mark.ringRadius ?? 0);
+        el('circle', {
+            class: 'map-stop-target', cx: r2(mark.center.x), cy: r2(mark.center.y), r: r2(r),
+            fill: 'transparent', 'data-stop-code': mark.stopCode,
+        }, group);
+    }
+}
+
 // MARK: - Entry point
 
 /**
@@ -593,6 +616,7 @@ function drawOverlay(group, scene, theme, hintText) {
  * @param {number} options.height
  * @param {'dark'|'light'} [options.theme]
  * @param {(busID: string) => void} [options.onBusTap]
+ * @param {(stopCode: string) => void} [options.onStopTap] makes every stop's mark and name a button
  * Optional overrides: axis, preset, scale, orientation ('landscape'|'portrait'), namedLineIDs
  * (null = all), highlightedLineID (dims every other line), passedStopCode (drawn in primary text),
  * hint (true or a string: the "TAP A BUS TO INSPECT IT" line, landscape only), tailBudget,
@@ -647,8 +671,16 @@ export function renderMap(svg, options) {
         // The −35° angle lets a long name reach a little way above the map, into the header band;
         // only the sides and the foot of the map are a boundary.
         svg.style.overflow = 'visible';
+        // One listener for the svg's whole life: the layer it listens to is rebuilt every render.
+        svg.addEventListener('click', (event) => {
+            const node = event.target.closest?.('[data-stop-code]');
+            if (!node || !state.onStopTap || !state.baseLayer.contains(node)) return;
+            event.stopPropagation();
+            state.onStopTap(node.getAttribute('data-stop-code'));
+        });
     }
     state.onBusTap = options.onBusTap ?? null;
+    state.onStopTap = options.onStopTap ?? null;
     state.lastOptions = options;
     // A name set solid is measured to fit it; measured before the web font arrives it would be cut
     // to the fallback's width, so draw once more when the fonts are in.
@@ -675,6 +707,15 @@ export function renderMap(svg, options) {
     drawLabels(base, scene, theme, options.passedStopCode ?? null, width);
     drawDashCaptions(base, scene, theme, width);
     drawBadges(base, scene, theme);
+    if (options.onStopTap) {
+        const targets = el('g', {});
+        base.insertBefore(targets, base.firstChild);
+        drawStopTargets(targets, scene);
+        for (const node of base.querySelectorAll('[data-stop-code]')) {
+            node.setAttribute('pointer-events', 'all');
+            node.classList.add('map-stop');
+        }
+    }
 
     const previous = state.base;
     const trunkChanged = previous && state.trunkLineID !== null && state.trunkLineID !== scene.trunkLineID;
@@ -712,3 +753,6 @@ export function renderMap(svg, options) {
     drawOverlay(state.overlay, scene, theme, hintText);
     return scene;
 }
+
+// The pieces the full lines view draws with, so its marks and names are the board's own.
+export { el as svgElement, textStyle, textNode, measureText, ellipsize, wrapTwoLines, centredBaseline, drawNumeral, MONO, DIMMED };
