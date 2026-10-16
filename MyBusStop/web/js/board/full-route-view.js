@@ -2,13 +2,14 @@
 // the way travel runs (sideways on a wide screen, down on a tall one). Lines that share stops run
 // together as a bundle and part where their routes do. A strip at the foot shows the whole of it,
 // with a window over the part in view; dragging the window, or tapping the strip, moves the view.
+// Beside the strip, Previous and Next step from bus to bus along the line, and My stop goes back.
 //
 // Layout is `layoutFullRoute` (js/map/full-route.js); this file only draws it and wires it up, as
 // BusBus/Board/FullRouteView.swift does in the app. The pucks and the palette are the board's own.
 
 import { h, icon, isLightTheme } from '../ui.js';
 import {
-    layoutFullRoute, centreOnUserStop, clampOffset, minimapPoint, minimapWindow, minimapOffset,
+    layoutFullRoute, centreOnUserStop, clampOffset, minimapPoint, minimapWindow, minimapOffset, FOCUS, stepBus,
     chooseMapLayout, AXIS, READABLE_MINIMUM, THEMES, railColor, numeralColor, labelColor,
 } from '../map/index.js';
 import { svgElement as el, textStyle, textNode, measureText, wrapTwoLines, centredBaseline, drawNumeral, drawPuckContent } from '../map/render.js';
@@ -46,6 +47,13 @@ export function openFullRoute({ stopName, read, onStopTap }) {
     // The strip repeats what the view shows, for a pointer to move it; the view itself scrolls by
     // keyboard, so the strip is kept out of the accessibility tree.
     const mini = h('div', { class: 'fr-mini', 'aria-hidden': 'true' }, miniSvg, windowBox);
+    const navButton = (name, label, onclick, flips) => h('button', { class: 'fr-nav-button', 'aria-label': label, title: label, onclick },
+        Object.assign(icon(name, 17), { className: `icon${flips ? ' flip-rtl' : ''}` }));
+    const previousButton = navButton('chevronBack', 'Previous bus', () => step(-1), true);
+    const myStopButton = navButton('scope', 'My stop', () => moveTo(FOCUS.userStop));
+    const nextButton = navButton('chevronForward', 'Next bus', () => step(1), true);
+    // Where the bus the view moved to is said, for a screen reader: the view itself has no words.
+    const announcer = h('p', { class: 'visually-hidden', 'aria-live': 'polite' });
     const closeButton = h('button', { class: 'round-button', 'aria-label': 'Close the full lines view', onclick: () => closeFullRoute() }, icon('close', 20));
     const overlay = h('div', { class: 'full-route', role: 'dialog', 'aria-modal': 'true', 'aria-labelledby': titleID },
         h('header', { class: 'fr-head' },
@@ -54,18 +62,31 @@ export function openFullRoute({ stopName, read, onStopTap }) {
                 h('h2', { id: titleID, dir: 'auto' }, stopName)),
             closeButton),
         scroller,
-        mini);
+        h('div', { class: 'fr-foot' }, mini, h('div', { class: 'fr-nav' }, previousButton, myStopButton, nextButton)),
+        announcer);
 
     let scene = null;
     let layoutKey = null;
     let frame = 0;
+    /** What Previous, My stop and Next go from; the view opens on the rider's stop. */
+    let focus = FOCUS.userStop;
+    /**
+     * True while the view moves itself, so its scroll events are not taken for the rider's. The
+     * rider's own wheel, touch, key or press ends it at once.
+     */
+    let selfScrolling = false;
+    let selfScrollTimer = 0;
 
     const visible = () => ({ x: scroller.scrollLeft, y: scroller.scrollTop, width: scroller.clientWidth, height: scroller.clientHeight });
     const strip = () => ({ width: Math.max(1, mini.clientWidth - 2 * MINI_PAD.x), height: MINI_HEIGHT - 2 * MINI_PAD.y });
     const minimap = () => ({ axis: scene.axis, content: scene.contentSize, strip: strip() });
-    function scrollTo({ x, y }) {
-        scroller.scrollLeft = x;
-        scroller.scrollTop = y;
+    function scrollTo({ x, y }, smooth = false) {
+        selfScrolling = true;
+        clearTimeout(selfScrollTimer);
+        const instant = !smooth || window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        scroller.scrollTo({ left: x, top: y, behavior: instant ? 'instant' : 'smooth' });
+        // `scrollend` ends it where the browser has it; the timer where it has not.
+        selfScrollTimer = setTimeout(() => { selfScrolling = false; }, instant ? 100 : 900);
     }
 
     // MARK: Drawing
@@ -119,6 +140,11 @@ export function openFullRoute({ stopName, read, onStopTap }) {
         } else {
             // Same routes, new positions: only the buses move.
             scene = next;
+        }
+        // The bus Previous or Next went to carries the ring, so the eye finds it once the view has
+        // moved; until then, and once it has gone, the ring stays where the board puts it.
+        if (focus.kind === 'bus' && scene.pucks.some((p) => p.vehicleID === focus.id)) {
+            scene = { ...scene, pucks: scene.pucks.map((p) => ({ ...p, isSelected: p.vehicleID === focus.id })) };
         }
         drawPucks(theme);
         drawMini(theme);
@@ -302,6 +328,7 @@ export function openFullRoute({ stopName, read, onStopTap }) {
     }
 
     function updateWindow() {
+        updateNav();
         if (!scene) return;
         const w = minimapWindow(minimap(), visible());
         windowBox.style.left = `${MINI_PAD.x + w.x - 2}px`;
@@ -313,9 +340,57 @@ export function openFullRoute({ stopName, read, onStopTap }) {
     // MARK: Moving about
 
     scroller.addEventListener('scroll', () => {
+        // The rider moved the view: the steps now go from whatever is in its middle.
+        if (!selfScrolling && focus.kind !== 'free') setFocus(FOCUS.free);
         cancelAnimationFrame(frame);
         frame = requestAnimationFrame(updateWindow);
     }, { passive: true });
+    scroller.addEventListener('scrollend', () => { selfScrolling = false; });
+    for (const type of ['wheel', 'touchstart', 'keydown', 'pointerdown']) {
+        scroller.addEventListener(type, () => { selfScrolling = false; }, { passive: true });
+    }
+
+    const middleAlong = () => {
+        const v = visible();
+        return scene.axis === AXIS.horizontal ? v.x + v.width / 2 : v.y + v.height / 2;
+    };
+
+    function setFocus(next) {
+        const ringMoves = focus.kind === 'bus' || next.kind === 'bus';
+        focus = next;
+        if (ringMoves && scene) draw();
+        else updateNav();
+    }
+
+    /** A button whose step would find nothing is shown, but greyed and out of reach. */
+    function updateNav() {
+        const has = scene && !scene.isEmpty;
+        previousButton.disabled = !has || !stepBus(-1, focus, scene, middleAlong());
+        nextButton.disabled = !has || !stepBus(1, focus, scene, middleAlong());
+        myStopButton.disabled = !has;
+    }
+
+    function step(direction) {
+        if (!scene) return;
+        const bus = stepBus(direction, focus, scene, middleAlong());
+        if (bus) moveTo(FOCUS.bus(bus.vehicleID), bus);
+    }
+
+    /** Centres the view on the rider's stop or on a bus, and says which bus. */
+    function moveTo(target, bus = null) {
+        if (!scene) return;
+        const viewport = { width: scroller.clientWidth, height: scroller.clientHeight };
+        const offset = bus
+            ? clampOffset({ x: bus.center.x - viewport.width / 2, y: bus.center.y - viewport.height / 2 }, viewport, scene.contentSize)
+            : centreOnUserStop(scene, viewport);
+        setFocus(target);
+        scrollTo(offset, true);
+        if (bus) {
+            // Emptied first, so the same words said twice are still said.
+            announcer.textContent = '';
+            requestAnimationFrame(() => { announcer.textContent = `Bus ${bus.lineNumber}`; });
+        }
+    }
 
     // A tap on the strip centres the view there; a drag carries the window, from wherever on it
     // the finger landed rather than jumping its middle under the finger.
@@ -324,7 +399,10 @@ export function openFullRoute({ stopName, read, onStopTap }) {
         const box = mini.getBoundingClientRect();
         return { x: event.clientX - box.left - MINI_PAD.x, y: event.clientY - box.top - MINI_PAD.y };
     };
-    const seek = (p) => scrollTo(minimapOffset(minimap(), p, { width: scroller.clientWidth, height: scroller.clientHeight }));
+    const seek = (p) => {
+        setFocus(FOCUS.free);
+        scrollTo(minimapOffset(minimap(), p, { width: scroller.clientWidth, height: scroller.clientHeight }));
+    };
     mini.addEventListener('pointerdown', (event) => {
         if (!scene || event.button > 0) return;
         const p = stripAt(event);
@@ -367,7 +445,7 @@ export function openFullRoute({ stopName, read, onStopTap }) {
         if (event.defaultPrevented) return;
         if (event.key === 'Escape') { event.preventDefault(); closeFullRoute(); return; }
         if (event.key !== 'Tab') return;
-        const focusable = [...overlay.querySelectorAll('button, [tabindex]:not([tabindex="-1"])')];
+        const focusable = [...overlay.querySelectorAll('button:not([disabled]), [tabindex]:not([tabindex="-1"])')];
         const first = focusable[0];
         const last = focusable[focusable.length - 1];
         if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
@@ -389,6 +467,7 @@ export function openFullRoute({ stopName, read, onStopTap }) {
             if (current !== controller) return;
             current = null;
             cancelAnimationFrame(frame);
+            clearTimeout(selfScrollTimer);
             resize.disconnect();
             document.removeEventListener('keydown', onKey);
             document.body.style.overflow = scrollLock;

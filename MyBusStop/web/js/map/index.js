@@ -8,6 +8,7 @@ export { renderMap, isTrackedText } from './render.js';
 export {
     layoutFullRoute, laneOrder, alignRoutes, segmentPoint, FULL_ROUTE,
     centreOnUserStop, clampOffset, minimapPoint, minimapWindow, minimapOffset,
+    FOCUS, orderedBuses, stepBus,
 } from './full-route.js';
 export { layoutMap, sceneRail, railAcrossAt, AxisTransform, wrapLabelLines, keepingNamesInside, offsetScene } from './engine.js';
 export { RouteCompressor, JunctionDetector } from './routes.js';

@@ -487,3 +487,44 @@ export function minimapOffset(minimap, stripPoint, visible) {
     const centre = minimap.axis === AXIS.horizontal ? { x: along, y: across } : { x: across, y: along };
     return clampOffset({ x: centre.x - visible.width / 2, y: centre.y - visible.height / 2 }, visible, minimap.content);
 }
+
+// MARK: - Prev, my stop and next
+
+/**
+ * What the view was last moved to: `{kind: 'userStop'}`, `{kind: 'bus', id}`, or `{kind: 'free'}`
+ * once the rider has scrolled it themselves, when the steps go from whatever is in the middle.
+ */
+export const FOCUS = Object.freeze({
+    userStop: Object.freeze({ kind: 'userStop' }),
+    free: Object.freeze({ kind: 'free' }),
+    bus: (id) => ({ kind: 'bus', id }),
+});
+
+/** The buses in the order they come along the route; level ones go by where they sit across it. */
+export function orderedBuses(pucks, axis) {
+    const horizontal = axis === AXIS.horizontal;
+    const along = (p) => (horizontal ? p.center.x : p.center.y);
+    const across = (p) => (horizontal ? p.center.y : p.center.x);
+    return [...pucks].sort((a, b) => (Math.abs(along(a) - along(b)) > 0.5 ? along(a) - along(b) : across(a) - across(b)));
+}
+
+/**
+ * The bus one step before (`-1`) or after (`+1`) the focus, or null at the end of the line.
+ * @param {number} visibleCenterAlong the middle of the view along the route, for a free focus
+ */
+export function stepBus(direction, focus, scene, visibleCenterAlong) {
+    const buses = orderedBuses(scene.pucks, scene.axis);
+    const along = (p) => (scene.axis === AXIS.horizontal ? p.center.x : p.center.y);
+    let reference = visibleCenterAlong;
+    if (focus.kind === 'bus') {
+        const index = buses.findIndex((p) => p.vehicleID === focus.id);
+        // A bus that has finished its run since steps from where the view is.
+        if (index >= 0) return buses[index + direction] ?? null;
+    } else if (focus.kind === 'userStop') {
+        reference = scene.userStopAlong;
+    }
+    // A bus standing at the rider's stop is the first one back from it, not one to skip.
+    const slack = focus.kind === 'userStop' ? -0.5 : 0.5;
+    if (direction < 0) return [...buses].reverse().find((p) => along(p) < reference - slack) ?? null;
+    return buses.find((p) => along(p) > reference + 0.5) ?? null;
+}

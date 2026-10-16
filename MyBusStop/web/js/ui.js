@@ -40,6 +40,9 @@ export function icon(name, size = 22) {
         check: '<path d="M6 12.5l4 4 8-9"/>',
         expand: '<path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/>',
         route: '<circle cx="5" cy="5.5" r="2.2"/><circle cx="19" cy="18.5" r="2.2"/><path d="M7.5 5.5H16a3.5 3.5 0 0 1 0 7H8a3.5 3.5 0 0 0 0 7h8.5"/>',
+        chevronBack: '<path d="M14.5 5.5L8 12l6.5 6.5"/>',
+        chevronForward: '<path d="M9.5 5.5L16 12l-6.5 6.5"/>',
+        scope: '<circle cx="12" cy="12" r="6.5"/><path d="M12 2.5v4M12 17.5v4M2.5 12h4M17.5 12h4"/><circle cx="12" cy="12" r="1.4" fill="currentColor"/>',
         info: '<circle cx="12" cy="12" r="9"/><path d="M12 11v6"/><circle cx="12" cy="7.6" r="0.6" fill="currentColor"/>',
     };
     const span = document.createElement('span');
