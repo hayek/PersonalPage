@@ -47,7 +47,7 @@ const ANGLE = 35 * Math.PI / 180;
 const EMPTY = Object.freeze({
     axis: AXIS.horizontal, contentSize: { width: 0, height: 0 }, lines: [], stops: [], pucks: [],
     userStopAlong: 0, railWidth: 0, ringRadius: 0, ringStroke: 0, nodeRadius: 0, badgeSide: 0,
-    labelRotation: 0, labelFontSize: 0, isEmpty: true,
+    labelRotation: 0, labelFontSize: 0, railsAcross: null, isEmpty: true,
 });
 
 /** Where a segment is at `t` (0…1): along its curve where it bends, straight where it does not. */
@@ -300,6 +300,8 @@ export function layoutFullRoute({ lines: input, userStopCode = null, vehicles = 
     }
 
     const alongLength = along[along.length - 1] + (horizontal ? F.horizontalTrailingInset : F.verticalTrailingInset);
+    // The band the rails take across: the strip maps this, not the names' room either side.
+    const acrossValues = routeLines.flatMap((l) => l.stopCenters.map((p) => (horizontal ? p.y : p.x)));
     return {
         axis,
         contentSize: horizontal ? { width: alongLength, height: contentAcross } : { width: contentAcross, height: alongLength },
@@ -307,6 +309,7 @@ export function layoutFullRoute({ lines: input, userStopCode = null, vehicles = 
         userStopAlong: along[userColumn],
         railWidth: F.railWidth, ringRadius: F.ringRadius, ringStroke: F.ringStroke, nodeRadius: F.nodeRadius,
         badgeSide: F.badgeSide, labelRotation: horizontal ? -35 : 0, labelFontSize: fontSize,
+        railsAcross: { low: Math.min(...acrossValues), high: Math.max(...acrossValues) },
         isEmpty: false,
     };
 }
@@ -446,44 +449,71 @@ export function centreOnUserStop(scene, viewport) {
         viewport, scene.contentSize);
 }
 
+/** Kept clear at the strip's top and bottom, for a rail's stroke and a bus's mark. */
+export const MINIMAP_PADDING = 6;
+/** How far the window's outline sits inside the strip, so it is never cut off at an edge. */
+export const WINDOW_INSET = 1.5;
+
 /**
  * The strip under the full route: the whole of it squeezed into a few pixels, with a window on the
  * part the main view shows. The route always runs left to right in the strip, whichever way the
- * main view scrolls, so the strip reads the same in both orientations.
- * @param {{axis:string, content:{width:number,height:number}, strip:{width:number,height:number}}} minimap
+ * main view scrolls, so the strip reads the same in both orientations. Across, it maps only the
+ * band the rails take (`railsAcross`, `{low, high}`), centred: a single line runs through the
+ * middle of the strip, rather than along its foot under its names' empty room. Without it the
+ * whole content is mapped.
+ * @param {{axis:string, content:{width:number,height:number}, strip:{width:number,height:number},
+ *          railsAcross?:{low:number, high:number}|null}} minimap
  */
-export function minimapScales({ axis, content, strip }) {
-    const contentAlong = axis === AXIS.horizontal ? content.width : content.height;
-    const contentAcross = axis === AXIS.horizontal ? content.height : content.width;
+function minimapGeometry({ axis, content, strip, railsAcross = null }) {
+    const horizontal = axis === AXIS.horizontal;
+    const contentAlong = horizontal ? content.width : content.height;
+    const contentAcross = horizontal ? content.height : content.width;
+    const band = railsAcross ?? { low: 0, high: contentAcross };
+    const span = band.high - band.low;
     return {
+        band,
+        middle: (band.low + band.high) / 2,
         along: contentAlong > 0 ? strip.width / contentAlong : 0,
-        across: contentAcross > 0 ? strip.height / contentAcross : 0,
+        across: span > 0 ? (railsAcross ? Math.max(0, strip.height - 2 * MINIMAP_PADDING) : strip.height) / span : 0,
     };
 }
 
 /** A point of the content, in the strip. */
 export function minimapPoint(minimap, p) {
-    const k = minimapScales(minimap);
+    const g = minimapGeometry(minimap);
     const horizontal = minimap.axis === AXIS.horizontal;
-    return { x: (horizontal ? p.x : p.y) * k.along, y: (horizontal ? p.y : p.x) * k.across };
+    return {
+        x: (horizontal ? p.x : p.y) * g.along,
+        y: minimap.strip.height / 2 + ((horizontal ? p.y : p.x) - g.middle) * g.across,
+    };
 }
 
-/** What the main view shows (`visible`, a rect of the content), in the strip. */
+/**
+ * What the main view shows (`visible`, a rect of the content), in the strip, kept inside it so its
+ * outline is drawn whole. A view that takes in every rail across is the strip's full height.
+ */
 export function minimapWindow(minimap, visible) {
+    const { strip } = minimap;
+    const g = minimapGeometry(minimap);
     const a = minimapPoint(minimap, { x: visible.x, y: visible.y });
     const b = minimapPoint(minimap, { x: visible.x + visible.width, y: visible.y + visible.height });
-    const x0 = Math.max(0, Math.min(a.x, b.x));
-    const y0 = Math.max(0, Math.min(a.y, b.y));
-    const x1 = Math.min(minimap.strip.width, Math.max(a.x, b.x));
-    const y1 = Math.min(minimap.strip.height, Math.max(a.y, b.y));
+    const horizontal = minimap.axis === AXIS.horizontal;
+    const from = horizontal ? visible.y : visible.x;
+    const to = from + (horizontal ? visible.height : visible.width);
+    const coversBand = from <= g.band.low + 0.5 && to >= g.band.high - 0.5;
+    const inside = (v, size) => Math.min(Math.max(v, WINDOW_INSET), size - WINDOW_INSET);
+    const x0 = inside(Math.min(a.x, b.x), strip.width);
+    const x1 = inside(Math.max(a.x, b.x), strip.width);
+    const y0 = coversBand ? WINDOW_INSET : inside(Math.min(a.y, b.y), strip.height);
+    const y1 = coversBand ? strip.height - WINDOW_INSET : inside(Math.max(a.y, b.y), strip.height);
     return { x: x0, y: y0, width: Math.max(0, x1 - x0), height: Math.max(0, y1 - y0) };
 }
 
 /** Where to scroll the main view so its window centres on a point of the strip. */
 export function minimapOffset(minimap, stripPoint, visible) {
-    const k = minimapScales(minimap);
-    const along = k.along > 0 ? stripPoint.x / k.along : 0;
-    const across = k.across > 0 ? stripPoint.y / k.across : 0;
+    const g = minimapGeometry(minimap);
+    const along = g.along > 0 ? stripPoint.x / g.along : 0;
+    const across = g.across > 0 ? g.middle + (stripPoint.y - minimap.strip.height / 2) / g.across : g.middle;
     const centre = minimap.axis === AXIS.horizontal ? { x: along, y: across } : { x: across, y: along };
     return clampOffset({ x: centre.x - visible.width / 2, y: centre.y - visible.height / 2 }, visible, minimap.content);
 }

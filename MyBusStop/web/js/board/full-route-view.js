@@ -18,7 +18,6 @@ import { LINE_HEIGHT_EM } from '../map/metrics.js';
 /** The part of a route past the rider's stop: still there to read, but no bus there is coming. */
 const FADED = 0.35;
 const LABEL_FADED = 0.5;
-const MINI_HEIGHT = 64;
 const MINI_PAD = { x: 16, y: 10 };
 /** The board's terminus bar radius: the last stop of a line on its own is a square, not a ring. */
 const LAST_STOP_RADIUS = 5;
@@ -78,8 +77,9 @@ export function openFullRoute({ stopName, read, onStopTap }) {
     let selfScrollTimer = 0;
 
     const visible = () => ({ x: scroller.scrollLeft, y: scroller.scrollTop, width: scroller.clientWidth, height: scroller.clientHeight });
-    const strip = () => ({ width: Math.max(1, mini.clientWidth - 2 * MINI_PAD.x), height: MINI_HEIGHT - 2 * MINI_PAD.y });
-    const minimap = () => ({ axis: scene.axis, content: scene.contentSize, strip: strip() });
+    // Measured inside the strip's border, where its drawing and its window are placed.
+    const strip = () => ({ width: Math.max(1, mini.clientWidth - 2 * MINI_PAD.x), height: Math.max(1, mini.clientHeight - 2 * MINI_PAD.y) });
+    const minimap = () => ({ axis: scene.axis, content: scene.contentSize, strip: strip(), railsAcross: scene.railsAcross });
     function scrollTo({ x, y }, smooth = false) {
         selfScrolling = true;
         clearTimeout(selfScrollTimer);
@@ -287,9 +287,10 @@ export function openFullRoute({ stopName, read, onStopTap }) {
         miniSvg.replaceChildren();
         if (!scene) return;
         const width = mini.clientWidth;
-        miniSvg.setAttribute('viewBox', `0 0 ${width} ${MINI_HEIGHT}`);
+        const height = mini.clientHeight;
+        miniSvg.setAttribute('viewBox', `0 0 ${width} ${height}`);
         miniSvg.setAttribute('width', width);
-        miniSvg.setAttribute('height', MINI_HEIGHT);
+        miniSvg.setAttribute('height', height);
         const map = minimap();
         const at = (p) => {
             const q = minimapPoint(map, p);
@@ -330,11 +331,12 @@ export function openFullRoute({ stopName, read, onStopTap }) {
     function updateWindow() {
         updateNav();
         if (!scene) return;
+        // The 2px outline straddles the window's edge, as a stroked path does in the app.
         const w = minimapWindow(minimap(), visible());
-        windowBox.style.left = `${MINI_PAD.x + w.x - 2}px`;
-        windowBox.style.top = `${MINI_PAD.y + w.y - 2}px`;
-        windowBox.style.width = `${Math.max(12, w.width + 4)}px`;
-        windowBox.style.height = `${Math.max(12, w.height + 4)}px`;
+        windowBox.style.left = `${MINI_PAD.x + w.x - 1}px`;
+        windowBox.style.top = `${MINI_PAD.y + w.y - 1}px`;
+        windowBox.style.width = `${w.width + 2}px`;
+        windowBox.style.height = `${w.height + 2}px`;
     }
 
     // MARK: Moving about
