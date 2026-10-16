@@ -19,6 +19,8 @@ import { LINE_HEIGHT_EM } from '../map/metrics.js';
 const FADED = 0.35;
 const LABEL_FADED = 0.5;
 const MINI_PAD = { x: 16, y: 10 };
+/** A stop in the strip: smaller than its 4 px rail, so it is a hole in the rail and not a dash. */
+const STOP_DOT = 2.5;
 /** The board's terminus bar radius: the last stop of a line on its own is a square, not a ring. */
 const LAST_STOP_RADIUS = 5;
 
@@ -310,6 +312,17 @@ export function openFullRoute({ stopName, read, onStopTap }) {
                     return `${joined ? '' : `M${a.x} ${a.y}`}L${b.x} ${b.y}`;
                 }).join('');
                 el('path', { d, fill: 'none', stroke: color, 'stroke-width': 4, 'stroke-linecap': 'round', 'stroke-linejoin': 'round', 'stroke-opacity': faded ? FADED : null }, miniSvg);
+            }
+        }
+        // Every stop as a dot punched in its rail, the strip's own scale of the route's length.
+        // Filled with the strip's ground, so it reads as a hole rather than a mark of its own, and
+        // smaller than a bus or the rider's stop, which are drawn over them.
+        const ground = getComputedStyle(mini).backgroundColor;
+        for (const stop of scene.stops) {
+            if (stop.role === 'userStop') continue;
+            for (const c of stop.memberCenters) {
+                const p = at(c);
+                el('circle', { cx: p.x, cy: p.y, r: STOP_DOT / 2, fill: ground }, miniSvg);
             }
         }
         for (const stop of scene.stops) {
