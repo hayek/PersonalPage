@@ -5,6 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blog - Usage for Claude</title>
     <meta name="description" content="Changelog, news, and pro tips for getting the most out of your Claude usage.">
+    <!-- static on purpose: filtered views (?tag=...) canonicalize to the unfiltered blog -->
+    <link rel="canonical" href="https://amirhayek.dev/ClaudeUsage/blog/">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Usage for Claude">
+    <meta property="og:title" content="Blog - Usage for Claude">
+    <meta property="og:description" content="Changelog, news, and pro tips for getting the most out of your Claude usage.">
+    <meta property="og:url" content="https://amirhayek.dev/ClaudeUsage/blog/">
+    <meta property="og:image" content="https://amirhayek.dev/ClaudeUsage/Assets/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary_large_image">
     <link rel="icon" type="image/png" href="../Assets/Favicon/favicon-96x96.png" sizes="96x96" />
     <link rel="icon" type="image/svg+xml" href="../Assets/Favicon/favicon.svg" />
     <link rel="shortcut icon" href="../Assets/Favicon/favicon.ico" />
@@ -32,7 +43,44 @@
         </section>
 
         <nav class="tag-filter" id="tagFilter" aria-label="Filter posts by tag"></nav>
-        <section class="post-grid" id="postList"></section>
+        <section class="post-grid" id="postList">
+        <a class="post-card" href="how-to-check-claude-usage.html">
+            <div class="tag-list"><span class="tag">#pro-tip</span><span class="tag">#limits</span></div>
+            <h3>How to check your Claude usage</h3>
+            <p>The Usage page on claude.ai, the /usage command in Claude Code, and how to keep your session and weekly limits in the menu bar or on your iPhone.</p>
+            <time datetime="2026-10-18">October 18, 2026</time>
+        </a>
+        <a class="post-card" href="claude-usage-limits-reset.html">
+            <div class="tag-list"><span class="tag">#pro-tip</span><span class="tag">#limits</span></div>
+            <h3>When do Claude's usage limits reset?</h3>
+            <p>Claude's 5-hour session window and its weekly limit reset on very different clocks. How each one works, where to see your reset times, and what a limit reset is.</p>
+            <time datetime="2026-10-18">October 18, 2026</time>
+        </a>
+        <a class="post-card" href="claude-usage-limit-reached.html">
+            <div class="tag-list"><span class="tag">#pro-tip</span><span class="tag">#limits</span></div>
+            <h3>Hit your Claude usage limit? What happens and what you can do</h3>
+            <p>What happens at your Claude session or weekly limit, the options you have right now (a limit reset, usage credits, upgrading), and how to make your usage last longer.</p>
+            <time datetime="2026-10-18">October 18, 2026</time>
+        </a>
+        <a class="post-card" href="claude-pro-vs-max-usage.html">
+            <div class="tag-list"><span class="tag">#pro-tip</span><span class="tag">#limits</span><span class="tag">#plans</span></div>
+            <h3>Claude Pro vs Max vs Team: how much usage each plan gets</h3>
+            <p>Free, Pro, Max 5x, Max 20x, Team and Enterprise side by side: what each plan's usage multiplier means and how to tell whether you need to upgrade.</p>
+            <time datetime="2026-10-18">October 18, 2026</time>
+        </a>
+        <a class="post-card" href="limit-reset-command.html">
+            <div class="tag-list"><span class="tag">#pro-tip</span><span class="tag">#claude-code</span></div>
+            <h3>Hit your session limit? Try /limit-reset</h3>
+            <p>Claude Code's new command clears your 5-hour session limit on the spot. How to use it, why it might not work for you yet, and why it still counts toward your weekly limit.</p>
+            <time datetime="2026-09-14">September 14, 2026</time>
+        </a>
+        <a class="post-card" href="usage-for-claude-3-1.html">
+            <div class="tag-list"><span class="tag">#changelog</span></div>
+            <h3>Usage for Claude 3.1: multiple accounts, made solid</h3>
+            <p>Accounts that never blend together, sign-in that pairs correctly, named accounts, synced notification rules, and a weekly line on the chart.</p>
+            <time datetime="2026-08-13">August 13, 2026</time>
+        </a>
+            </section>
 
         <footer class="footer">
             <p class="footer-text">
@@ -43,7 +91,7 @@
         </footer>
     </main>
 
-    <script src="posts.js"></script>
+    <script src="posts.js?v=4.1"></script>
     <script>
     /* ?tag=pro-tip filters the list; chips link rather than toggle so a filtered view is shareable */
     (function renderBlog() {

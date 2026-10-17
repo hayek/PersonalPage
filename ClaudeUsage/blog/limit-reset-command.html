@@ -5,6 +5,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Skip the wait with /limit-reset in Claude Code - Usage for Claude</title>
     <meta name="description" content="What Claude Code's /limit-reset command does, how to use it, why it may not work on your account yet, and why it still counts against your weekly limit.">
+    <link rel="canonical" href="https://amirhayek.dev/ClaudeUsage/blog/limit-reset-command.html">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Usage for Claude">
+    <meta property="og:title" content="Hit your session limit? Try /limit-reset">
+    <meta property="og:description" content="What Claude Code's /limit-reset command does, how to use it, why it may not work on your account yet, and why it still counts against your weekly limit.">
+    <meta property="og:url" content="https://amirhayek.dev/ClaudeUsage/blog/limit-reset-command.html">
+    <meta property="og:image" content="https://amirhayek.dev/ClaudeUsage/Assets/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="article:published_time" content="2026-09-14">
+    <meta property="article:author" content="Amir Hayek">
+    <meta name="twitter:card" content="summary_large_image">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Hit your session limit? Try /limit-reset",
+        "description": "What Claude Code's /limit-reset command does, how to use it, why it may not work on your account yet, and why it still counts against your weekly limit.",
+        "datePublished": "2026-09-14",
+        "author": {
+            "@type": "Person",
+            "name": "Amir Hayek",
+            "url": "https://amirhayek.dev/"
+        },
+        "image": "https://amirhayek.dev/ClaudeUsage/Assets/og-image.png",
+        "url": "https://amirhayek.dev/ClaudeUsage/blog/limit-reset-command.html",
+        "mainEntityOfPage": "https://amirhayek.dev/ClaudeUsage/blog/limit-reset-command.html",
+        "publisher": {
+            "@type": "Person",
+            "name": "Amir Hayek",
+            "url": "https://amirhayek.dev/"
+        }
+    }
+    </script>
     <link rel="icon" type="image/png" href="../Assets/Favicon/favicon-96x96.png" sizes="96x96" />
     <link rel="icon" type="image/svg+xml" href="../Assets/Favicon/favicon.svg" />
     <link rel="shortcut icon" href="../Assets/Favicon/favicon.ico" />
@@ -37,6 +71,8 @@
         </header>
 
         <article class="post-body">
+            <p><a href="../">I built Usage for Claude to see these limits before you hit them →</a></p>
+
             <h2>What it does</h2>
             <p>Claude plans have two limits that matter here: a <strong>session limit</strong> that rolls over every 5 hours, and a <strong>weekly limit</strong> on top of it. Normally, once you hit the session limit you wait for the window to reset.</p>
             <p><code>/limit-reset</code> clears your <strong>current session limit</strong> right away, so you can keep working. You can't use it whenever you like: after a reset, Claude Code tells you when the next one becomes available.</p>
@@ -70,7 +106,7 @@
             <p>If it doesn't work for you, the usual options still apply: wait for the session window to reset, or check <a href="https://code.claude.com/docs/en/errors#youve-hit-your-session-limit" target="_blank" rel="noopener noreferrer">what to do when you hit a usage limit</a> in the Claude Code docs.</p>
 
             <h2>Using it wisely</h2>
-            <p>Because a reset uses up your weekly limit faster, check how much weekly limit you have left before you use one. If you have plenty left, a reset is a good way to keep going. If you're close to the weekly limit, a reset only gets you there sooner, and the weekly limit takes much longer to come back.</p>
+            <p>Because a reset uses up your weekly limit faster, <a href="../">check how much weekly limit you have left</a> before you use one. If you have plenty left, a reset is a good way to keep going. If you're close to the weekly limit, a reset only gets you there sooner, and the weekly limit takes much longer to come back.</p>
             <p>Usage for Claude shows both at once in your menu bar: session and weekly limits side by side, plus a prediction of whether you'll hit a limit at your current pace. Two notification rules are especially useful here:</p>
             <ul>
                 <li><strong>Weekly usage above 80%</strong>, so you know when it's time to stop using resets.</li>

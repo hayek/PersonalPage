@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hit your Claude usage limit? What happens and what you can do - Usage for Claude</title>
+    <meta name="description" content="What happens when you reach your Claude session or weekly limit, your options (wait, a limit reset, usage credits, upgrading), and how to make your usage last longer.">
+    <link rel="canonical" href="https://amirhayek.dev/ClaudeUsage/blog/claude-usage-limit-reached.html">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Usage for Claude">
+    <meta property="og:title" content="Hit your Claude usage limit? What happens and what you can do">
+    <meta property="og:description" content="What happens when you reach your Claude session or weekly limit, your options (wait, a limit reset, usage credits, upgrading), and how to make your usage last longer.">
+    <meta property="og:url" content="https://amirhayek.dev/ClaudeUsage/blog/claude-usage-limit-reached.html">
+    <meta property="og:image" content="https://amirhayek.dev/ClaudeUsage/Assets/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="article:published_time" content="2026-10-18">
+    <meta property="article:author" content="Amir Hayek">
+    <meta name="twitter:card" content="summary_large_image">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Hit your Claude usage limit? What happens and what you can do",
+        "description": "What happens when you reach your Claude session or weekly limit, your options (wait, a limit reset, usage credits, upgrading), and how to make your usage last longer.",
+        "datePublished": "2026-10-18",
+        "dateModified": "2026-10-18",
+        "author": {
+            "@type": "Person",
+            "name": "Amir Hayek",
+            "url": "https://amirhayek.dev/"
+        },
+        "image": "https://amirhayek.dev/ClaudeUsage/Assets/og-image.png",
+        "url": "https://amirhayek.dev/ClaudeUsage/blog/claude-usage-limit-reached.html",
+        "mainEntityOfPage": "https://amirhayek.dev/ClaudeUsage/blog/claude-usage-limit-reached.html",
+        "publisher": {
+            "@type": "Person",
+            "name": "Amir Hayek",
+            "url": "https://amirhayek.dev/"
+        }
+    }
+    </script>
+    <link rel="icon" type="image/png" href="../Assets/Favicon/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="../Assets/Favicon/favicon.svg" />
+    <link rel="shortcut icon" href="../Assets/Favicon/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="../Assets/Favicon/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-title" content="Usage for Claude" />
+    <link rel="manifest" href="../Assets/Favicon/site.webmanifest" />
+    <link rel="stylesheet" href="../styles.css">
+    <script src="/assets/analytics.js" defer></script>
+</head>
+<body data-stars="subtle">
+    <!-- Decorative Stars -->
+    <div class="stars-decoration" aria-hidden="true">
+        <img src="../Assets/Star1.svg" alt="" class="star star-1">
+        <img src="../Assets/Star2.svg" alt="" class="star star-2">
+        <img src="../Assets/Star3.svg" alt="" class="star star-3">
+        <img src="../Assets/Star4.svg" alt="" class="star star-4">
+        <img src="../Assets/Star5.svg" alt="" class="star star-5">
+    </div>
+
+    <main class="page-content post-page">
+        <header class="post-header">
+            <a href="./" class="back-link">&lsaquo; Blog</a>
+            <div class="tag-list">
+                <a href="./?tag=pro-tip" class="tag">#pro-tip</a>
+                <a href="./?tag=limits" class="tag">#limits</a>
+            </div>
+            <h1 class="post-title">Hit your Claude usage limit? What happens and what you can do</h1>
+            <p class="post-lede">You're in the middle of something and Claude says you've hit your limit. Here's what that means, what you can do right now, and how to make the next session last longer.</p>
+            <p class="post-meta"><time datetime="2026-10-18">October 18, 2026</time> · 3 min read</p>
+        </header>
+
+        <article class="post-body">
+            <h2>First: which limit?</h2>
+            <p>Check <a href="https://claude.ai/settings/usage" target="_blank" rel="noopener noreferrer">Settings &rsaquo; Usage</a> or run <code>/usage</code> in Claude Code. If it's the <strong>5-hour session limit</strong>, you're waiting hours at most, and the reset time is right there. If it's the <strong>weekly limit</strong>, it resets at the fixed weekly time assigned to your account, which could be days away. <a href="claude-usage-limits-reset.html">How both limits reset</a>.</p>
+
+            <h2>Your options right now</h2>
+            <h3>Wait for the reset</h3>
+            <p>Free, and often the right call for the session limit. In Claude Code you don't even have to sit there: newer versions can wait at the limit and pick the task up again after the reset. <code>/rate-limit-options</code> lists your choices (<a href="https://code.claude.com/docs/en/interactive-mode" target="_blank" rel="noopener noreferrer">Claude Code docs</a>).</p>
+
+            <h3>Use a limit reset, if you have one</h3>
+            <p>Anthropic occasionally gives eligible plans a saved reset that refills your 5-hour or weekly limit. Look for <strong>Reset for free</strong> on Settings &rsaquo; Usage or on the limit message (<a href="https://support.claude.com/en/articles/17007452-what-is-a-limit-reset" target="_blank" rel="noopener noreferrer">What is a limit reset?</a>). Claude Code users may also have the undocumented <a href="limit-reset-command.html"><code>/limit-reset</code></a> command.</p>
+
+            <h3>Turn on usage credits</h3>
+            <p>On Pro and Max you can keep going past your limit with <strong>usage credits</strong> (Anthropic used to call this "extra usage"). They're billed at standard API rates, separately from your subscription (<a href="https://support.claude.com/en/articles/12429409" target="_blank" rel="noopener noreferrer">usage credits</a>):</p>
+            <ul>
+                <li>Turn them on in Settings &rsaquo; Usage, add funds, and set a monthly spend limit.</li>
+                <li>When they kick in, the notice changes to "Now using credits".</li>
+                <li>If you subscribe through the iPhone or Android app, turn them on from the web.</li>
+                <li>Prepaid bundles of $50, $250 or $1,000 come with a 10%, 20% or 30% discount (<a href="https://support.claude.com/en/articles/14246112-buy-usage-bundles" target="_blank" rel="noopener noreferrer">usage bundles</a>).</li>
+            </ul>
+
+            <h3>Upgrade</h3>
+            <p>A bigger plan's limits apply as soon as you upgrade (<a href="https://support.claude.com/en/articles/11647753-how-do-usage-and-length-limits-work" target="_blank" rel="noopener noreferrer">Anthropic</a>). If you hit the weekly limit week after week, that's the sign. <a href="claude-pro-vs-max-usage.html">Pro vs Max vs Team</a> compares the plans.</p>
+
+            <div class="callout">
+                <strong>Mid-task in Claude Code?</strong>
+                Anthropic is rolling out a wrap-up allowance: if you hit the 5-hour limit in the middle of a response, Claude Code can show "Usage limit reached · wrapping up" and finish the current step. Max gets it each time; Pro once per week (<a href="https://support.claude.com/en/articles/17040437" target="_blank" rel="noopener noreferrer">Anthropic</a>).
+            </div>
+
+            <h2>Make the next session last longer</h2>
+            <p>From Anthropic's own advice (<a href="https://support.claude.com/en/articles/9797557-usage-limit-best-practices" target="_blank" rel="noopener noreferrer">usage limit best practices</a>, <a href="https://support.claude.com/en/articles/11647753-how-do-usage-and-length-limits-work" target="_blank" rel="noopener noreferrer">how limits work</a>, <a href="https://support.claude.com/en/articles/14552983-models-usage-and-limits-in-claude-code" target="_blank" rel="noopener noreferrer">Claude Code</a>):</p>
+            <ul>
+                <li><strong>Start new chats.</strong> Long conversations cost more with every message, because the whole conversation is sent again each turn.</li>
+                <li><strong>Pick the model for the job.</strong> Opus costs several times more per turn than Sonnet.</li>
+                <li><strong>Turn off extended thinking</strong> and lower the effort level when you don't need them.</li>
+                <li><strong>Go easy on tools.</strong> Research, web search and connectors use tokens quickly.</li>
+                <li><strong>Keep big files in a Project.</strong> Project content is cached and counts for less while the cache is warm.</li>
+                <li><strong>In Claude Code, keep CLAUDE.md short</strong>, since it's added to every turn, and be careful with big parallel workflows: a burst like that can use up your weekly limit before the session even resets.</li>
+            </ul>
+
+            <h2>See it coming next time</h2>
+            <p>The limit message is the worst time to find out. <a href="../">Usage for Claude</a> keeps your session and weekly usage in the Mac menu bar and on your iPhone, predicts whether you'll run out at your current pace, and can warn you at the threshold you choose, like 80% of the week, while there's still time to change course.</p>
+
+            <div class="callout callout-muted">
+                <strong>Heads up</strong>
+                Usage for Claude is an independent app, not affiliated with Anthropic. Everything here was checked against Anthropic's help center and docs on October 18, 2026. Anthropic changes plans and limits from time to time, so the linked pages are the final word.
+            </div>
+        </article>
+
+        <nav class="post-footer">
+            <a href="./" class="link-arrow">&larr; All posts</a>
+            <a href="../" class="link-arrow">Get Usage for Claude →</a>
+        </nav>
+
+        <footer class="footer">
+            <p class="footer-text">
+                Created with <img src="../Assets/heart.svg" alt="love" class="heart-icon"> for the Claude community by
+                <a href="https://amirhayek.dev/" target="_blank" rel="noopener noreferrer" class="footer-link">Amir Hayek</a>
+                <a href="https://www.linkedin.com/in/amir-hayek-2a816415/" target="_blank" rel="noopener noreferrer" class="footer-link" aria-label="LinkedIn"><img src="../Assets/linkedin.svg" alt="LinkedIn" class="linkedin-icon"></a>
+            </p>
+        </footer>
+    </main>
+</body>
+</html>
