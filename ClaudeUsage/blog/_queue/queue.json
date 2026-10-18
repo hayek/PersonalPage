@@ -41,6 +41,17 @@
       ],
       "excerpt": "Free, Pro, Max 5x, Max 20x, Team and Enterprise side by side: what each plan's usage multiplier means and how to tell whether you need to upgrade.",
       "published": null
+    },
+    {
+      "slug": "codex-usage-limits",
+      "title": "Codex usage limits on ChatGPT plans, explained",
+      "tags": [
+        "pro-tip",
+        "limits",
+        "codex"
+      ],
+      "excerpt": "The 5-hour and weekly Codex windows on ChatGPT Plus, Pro and Business, how to check your Codex usage, and what to do when you run out.",
+      "published": null
     }
   ]
 }
