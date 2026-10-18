@@ -229,6 +229,8 @@ p { max-width: 62ch; }
     padding-bottom: clamp(72px, 10vw, 120px);
 }
 .wall .section-lede { color: var(--board-muted); }
+.wall-story { margin-top: 18px; font-size: 18px; font-weight: 800; }
+.wall-story a { color: var(--l7); }
 .wall-scene {
     display: grid;
     grid-template-columns: minmax(0, 7fr) minmax(0, 4fr);

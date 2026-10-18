@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<!--
+My Bus Stop blog: why the app exists. Linked from the landing page and from the App Store
+featuring nomination. Self-contained like privacy/ (its own styles, no shared stylesheet).
+The photo files have had their location and camera metadata stripped; keep it that way.
+-->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>"When is the bus coming?" - My Bus Stop</title>
+<meta name="description" content="My kids asked me every morning when the bus was coming, and I never knew. So I built My Bus Stop, and gave an old iPhone with a broken back a new job on our kitchen wall.">
+<meta name="theme-color" content="#08080B">
+<link rel="canonical" href="https://amirhayek.dev/MyBusStop/blog/when-is-the-bus-coming/">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://amirhayek.dev/MyBusStop/blog/when-is-the-bus-coming/">
+<meta property="og:title" content="&quot;When is the bus coming?&quot;">
+<meta property="og:description" content="Why I built My Bus Stop: our school mornings, and an old iPhone on the kitchen wall.">
+<meta property="og:image" content="https://amirhayek.dev/MyBusStop/blog/when-is-the-bus-coming/wall-og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/svg+xml" href="../../favicon/favicon.svg">
+<link rel="apple-touch-icon" sizes="180x180" href="../../favicon/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..900&display=swap" rel="stylesheet">
+<style>
+:root {
+    --bg: #F4F2EC;
+    --ink: #14140F;
+    --muted: #5C5A52;
+    --rule: #DBD7CD;
+    --card: #ECE9E1;
+    --link: #0B636B;
+    --l18: #D32029;
+    --l41: #EFA400;
+    --l7: #0E7C86;
+}
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg: #08080B;
+        --ink: #FFFFFF;
+        --muted: #A0A0AE;
+        --rule: #24242E;
+        --card: #15151B;
+        --link: #22D3EE;
+        --l18: #FF3B3F;
+        --l41: #FFC300;
+        --l7: #22D3EE;
+    }
+}
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+    font-family: 'Archivo', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+img { display: block; max-width: 100%; height: auto; }
+.page { max-width: 720px; margin: 0 auto; padding: 56px 16px 96px; }
+.back { display: inline-flex; align-items: center; gap: 12px; text-decoration: none; color: var(--ink); font-weight: 800; }
+.back img { width: 40px; height: 40px; border-radius: 9px; }
+.kicker { margin-top: 40px; color: var(--muted); font-size: 15px; }
+h1 {
+    font-size: clamp(38px, 8vw, 64px);
+    font-weight: 900;
+    font-stretch: 112%;
+    line-height: 1;
+    letter-spacing: -0.03em;
+    margin: 10px 0 20px;
+}
+.lede { font-size: clamp(19px, 2.4vw, 22px); color: var(--muted); }
+figure { margin: 40px 0; }
+figure img { width: 100%; border-radius: 18px; }
+figcaption { margin-top: 12px; color: var(--muted); font-size: 15px; }
+h2 {
+    font-size: 24px;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    line-height: 1.25;
+    margin: 48px 0 8px;
+}
+p { font-size: 18px; margin: 14px 0; }
+a { color: var(--link); text-underline-offset: 3px; }
+a:focus-visible { outline: 3px solid var(--link); outline-offset: 3px; border-radius: 4px; }
+blockquote {
+    margin: 32px 0;
+    padding: 4px 0 4px 22px;
+    border-left: 6px solid var(--l18);
+    font-size: clamp(24px, 4vw, 32px);
+    font-weight: 800;
+    line-height: 1.2;
+    letter-spacing: -0.015em;
+}
+.cta { margin-top: 48px; background: var(--card); border-left: 6px solid var(--l7); border-radius: 14px; padding: 20px 22px; }
+.cta p { margin: 6px 0; font-size: 17px; }
+footer { margin-top: 56px; padding-top: 22px; border-top: 1px solid var(--rule); color: var(--muted); font-size: 14px; }
+</style>
+<script src="/assets/analytics.js" defer></script>
+</head>
+<body>
+<main class="page">
+    <a class="back" href="/MyBusStop/"><img src="../../Assets/icon.svg" alt="">My Bus Stop</a>
+    <article>
+        <p class="kicker"><time datetime="2026-10-18">October 18, 2026</time> · Amir Hayek</p>
+        <h1>"When is the bus coming?"</h1>
+        <p class="lede">Every school morning my kids asked me the same question, and I never had the answer. So I built one.</p>
+
+        <figure>
+            <img src="wall.webp" alt="Two children with school bags in a kitchen, looking at an old iPhone mounted sideways on the wall. It shows the My Bus Stop board: the next bus in large numbers beside the line's route." width="2000" height="1500">
+            <figcaption>A school morning at our place. The board on the wall is an old iPhone with a broken back.</figcaption>
+        </figure>
+
+        <p>That was the question, every morning, shoes half on, bags by the door. I didn't know. I could open a transit app, find the stop, scroll to the line and wait for it to load, but by then the moment was gone. So we guessed. Either we left too early and stood at the stop in the sun or the rain, or we left too late and ran.</p>
+
+        <h2>One question, one glance</h2>
+        <p>I built My Bus Stop to answer that one question the moment you look at it. You pick your stop and up to three lines, once. After that the screen shows how many minutes until the next bus, the one after it, and where each bus is on its route right now, in type big enough to read from across the room.</p>
+
+        <h2>A new job for an old iPhone</h2>
+        <p>I had an old iPhone lying in a drawer. Its back is broken, but its screen is fine. I 3D-printed a MagSafe holder for it, mounted it on the kitchen wall, and plugged it in. The app's Wall Mode keeps the screen on during the hours you choose, stays dark, dims at night, and shifts a little to protect the display. If the Wi-Fi drops, it recovers by itself.</p>
+        <p>Now the kids don't ask me anymore. They look at the wall. When the number is right, we go. Since then nobody in our house waits at the bus stop in the sun or the rain. We leave just in time.</p>
+        <p>Most families have an old phone or tablet like that somewhere. This gives it something useful to do again.</p>
+
+        <h2>On every screen in the house</h2>
+        <p>The same board runs on iPhone, iPad, Mac, Apple Watch and Apple TV, where the Top Shelf shows the next buses without even opening the app. Stops you save on one device show up on the others through your own iCloud. There's no account, no ads, and it's free.</p>
+        <p>It started with our stop in Israel. Today it works across Israel, Norway, and cities from London and Lisbon to New York, Seattle, Hong Kong and Tokyo, using the open real-time data that transit agencies publish.</p>
+
+        <div class="cta">
+            <p><strong>My Bus Stop is on the App Store.</strong></p>
+            <p><a href="https://apps.apple.com/app/id6814983455">Get it for iPhone, iPad, Mac, Apple Watch and Apple TV</a>, or <a href="/MyBusStop/web/">try it on the web</a>.</p>
+        </div>
+    </article>
+
+    <footer>
+        <p>My Bus Stop is an independent app by <a href="https://amirhayek.dev/">Amir Hayek</a>. <a href="/MyBusStop/">About the app</a> · <a href="/MyBusStop/privacy/">Privacy policy</a></p>
+    </footer>
+</main>
+</body>
+</html>
