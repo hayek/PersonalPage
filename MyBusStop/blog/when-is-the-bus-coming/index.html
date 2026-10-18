@@ -75,6 +75,8 @@ h1 {
 figure { margin: 40px 0; }
 figure img { width: 100%; border-radius: 18px; }
 figcaption { margin-top: 12px; color: var(--muted); font-size: 15px; }
+.phones { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(10px, 3vw, 24px); }
+.phones img { border-radius: clamp(14px, 3.5vw, 30px); border: 1px solid var(--rule); }
 h2 {
     font-size: 24px;
     font-weight: 800;
@@ -118,14 +120,36 @@ footer { margin-top: 56px; padding-top: 22px; border-top: 1px solid var(--rule);
         <h2>One question, one glance</h2>
         <p>I built My Bus Stop to answer that one question the moment you look at it. You pick your stop and up to three lines, once. After that the screen shows how many minutes until the next bus, the one after it, and where each bus is on its route right now, in type big enough to read from across the room.</p>
 
+        <figure>
+            <div class="phones">
+                <img src="../../Assets/iphone-stops-dark.webp" alt="The stop screen, listing the stops nearby" width="660" height="1434" loading="lazy">
+                <img src="../../Assets/iphone-lines-dark.webp" alt="Choosing two lines at the stop" width="660" height="1434" loading="lazy">
+                <picture>
+                    <source srcset="../../Assets/iphone-board-dark.webp" media="(prefers-color-scheme: dark)">
+                    <img src="../../Assets/iphone-board-light.webp" alt="The board: line 18 in two minutes and line 41 in twelve, with both buses on the route map" width="660" height="1434" loading="lazy">
+                </picture>
+            </div>
+            <figcaption>Set it up once: choose your stop, pick up to three lines, and the board shows the minutes to the next bus and where each bus is on its route.</figcaption>
+        </figure>
+
         <h2>A new job for an old iPhone</h2>
         <p>I had an old iPhone lying in a drawer. Its back is broken, but its screen is fine. I 3D-printed a MagSafe holder for it, mounted it on the kitchen wall, and plugged it in. The app's Wall Mode keeps the screen on during the hours you choose, stays dark, dims at night, and shifts a little to protect the display. If the Wi-Fi drops, it recovers by itself.</p>
+
+        <figure>
+            <img src="../../Assets/entryway.webp" alt="An entryway with an iPad mounted on the wall beside the front door, showing the board in Wall Mode: line 18 in 2 minutes, in large numbers beside the route map" width="1600" height="1308" loading="lazy">
+            <figcaption>Wall Mode works on any spare iPhone, iPad or Mac: an always-on bus board by the front door that you can read with your shoes on.</figcaption>
+        </figure>
         <p>Now the kids don't ask me anymore. They look at the wall. When the number is right, we go. Since then nobody in our house waits at the bus stop in the sun or the rain. We leave just in time.</p>
         <p>Most families have an old phone or tablet like that somewhere. This gives it something useful to do again.</p>
 
         <h2>On every screen in the house</h2>
         <p>The same board runs on iPhone, iPad, Mac, Apple Watch and Apple TV, where the Top Shelf shows the next buses without even opening the app. Stops you save on one device show up on the others through your own iCloud. There's no account, no ads, and it's free.</p>
         <p>It started with our stop in Israel. Today it works across Israel, Norway, and cities from London and Lisbon to New York, Seattle, Hong Kong and Tokyo, using the open real-time data that transit agencies publish.</p>
+
+        <figure>
+            <img src="../../Assets/everywhere.webp" alt="A living room with the board running on a wall-mounted TV, and on a MacBook, an iPad, an iPhone and an Apple Watch on the console below: line 18 in 2 minutes on each" width="1600" height="1074" loading="lazy">
+            <figcaption>On every screen in the house: Apple TV, Mac, iPad, iPhone and Apple Watch, with the same stops on each through iCloud.</figcaption>
+        </figure>
 
         <div class="cta">
             <p><strong>My Bus Stop is on the App Store.</strong></p>
