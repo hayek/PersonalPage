@@ -1,0 +1,28 @@
+{
+ "cities": "Cidades",
+ "what_h2": "O que vê {in_region}",
+ "fit_full": "Horas de chegada e posição dos autocarros em tempo real: cada autocarro avança no percurso do painel à medida que comunica onde está, e os minutos fazem a contagem decrescente até à sua paragem.",
+ "fit_arrivals": "Horas de chegada em tempo real, em contagem decrescente até à sua paragem. Aqui os autocarros não partilham a sua posição, por isso o painel mostra os minutos sem autocarros a avançar no percurso.",
+ "coverage_h3": "Que autocarros",
+ "source_h3": "De onde vêm os horários",
+ "source_p": "Diretamente dos dados abertos publicados por {source}. A minha paragem é uma app independente; não é feita nem apoiada por nenhum operador de transportes.",
+ "web_p": "Está num computador? <a href=\"{web}\">Abra A minha paragem na web</a>, grátis e sem descarregar nada.",
+ "faq_official_q": "É uma app oficial de transportes?",
+ "faq_official_a": "Não. A minha paragem é uma app independente. Mostra os dados abertos publicados por {source} e não é feita nem apoiada por nenhum operador de transportes.",
+ "faq_cover_q": "Que autocarros inclui a app {in_region}?",
+ "faq_web_q": "Posso usá-la num computador?",
+ "faq_web_a": "Sim. Abra A minha paragem na web em qualquer browser, grátis e sem registo. A app acrescenta o modo parede, os widgets, o Apple Watch e a Apple TV.",
+ "other_h2": "Autocarros em tempo real noutras cidades",
+ "regions": {
+  "lisbon": {
+   "name": "Área Metropolitana de Lisboa",
+   "in_name": "na área de Lisboa",
+   "title": "Autocarros Carris Metropolitana em tempo real | A minha paragem",
+   "description": "Chegadas em tempo real da Carris Metropolitana na área de Lisboa e onde está cada autocarro agora. Grátis para iPhone, iPad, Mac, Apple Watch e Apple TV.",
+   "h1": "Autocarros em tempo real na área de Lisboa",
+   "lede": "O autocarro da Carris Metropolitana que apanha todos os dias, num só painel: os minutos até chegar à sua paragem e onde está agora no percurso.",
+   "coverage": "Carris Metropolitana, a rede de autocarros dos municípios à volta de Lisboa. A Carris, os autocarros da própria cidade de Lisboa, ainda não está incluída.",
+   "source": "Carris Metropolitana (CC BY 4.0)"
+  }
+ }
+}

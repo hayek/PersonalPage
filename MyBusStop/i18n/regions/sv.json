@@ -1,0 +1,28 @@
+{
+ "cities": "Städer",
+ "what_h2": "Det här ser du {in_region}",
+ "fit_full": "Ankomsttider och bussarnas positioner i realtid: varje buss rör sig längs sin linje på tavlan i takt med att den rapporterar var den är, och minuterna räknas ned till din hållplats.",
+ "fit_arrivals": "Ankomsttider i realtid som räknas ned till din hållplats. Bussarna här delar inte sina positioner, så tavlan visar minuterna utan bussar som rör sig längs linjen.",
+ "coverage_h3": "Vilka bussar",
+ "source_h3": "Var tiderna kommer ifrån",
+ "source_p": "Direkt från de öppna data som publiceras av {source}. Min hållplats är en fristående app; den är inte gjord eller godkänd av något trafikbolag eller någon operatör.",
+ "web_p": "Sitter du vid en dator? <a href=\"{web}\">Öppna Min hållplats på webben</a>, gratis och utan nedladdning.",
+ "faq_official_q": "Är det här en officiell kollektivtrafikapp?",
+ "faq_official_a": "Nej. Min hållplats är en fristående app. Den visar de öppna data som publiceras av {source}, och är inte gjord eller godkänd av något trafikbolag eller någon operatör.",
+ "faq_cover_q": "Vilka bussar täcker den {in_region}?",
+ "faq_web_q": "Kan jag använda den på en dator?",
+ "faq_web_a": "Ja. Öppna Min hållplats på webben i valfri webbläsare, gratis och utan registrering. Appen har dessutom väggläge, widgetar, Apple Watch och Apple TV.",
+ "other_h2": "Bussar i realtid i andra städer",
+ "regions": {
+  "turku": {
+   "name": "Åbo",
+   "in_name": "i Åbo",
+   "title": "Föli-bussar i realtid i Åbo – ankomsttider | Min hållplats",
+   "description": "Föli-bussarnas ankomsttider i realtid i Åbo och grannkommunerna, och var varje buss är just nu. Gratis för iPhone, iPad, Mac, Apple Watch och Apple TV.",
+   "h1": "Bussar i realtid i Åbo",
+   "lede": "Föli-bussen du åker med varje dag på en tavla: hur många minuter det är tills den når din hållplats, och var den är på sin linje just nu.",
+   "coverage": "Föli-bussar i Åbo och grannkommunerna S:t Karins, Reso, Nådendal, Lundo och Rusko.",
+   "source": "Åbo stad, data.foli.fi (CC BY 4.0)"
+  }
+ }
+}

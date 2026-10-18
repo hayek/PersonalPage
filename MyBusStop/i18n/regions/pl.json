@@ -1,0 +1,48 @@
+{
+ "cities": "Miasta",
+ "what_h2": "Co zobaczysz {in_region}",
+ "fit_full": "Przyjazdy i pozycje autobusów na żywo: każdy autobus przesuwa się po trasie na tablicy, gdy podaje, gdzie jest, a minuty odliczają czas do przyjazdu na Twój przystanek.",
+ "fit_arrivals": "Przyjazdy na żywo, z minutami odliczanymi do przyjazdu na Twój przystanek. Autobusy tutaj nie udostępniają swoich pozycji, więc tablica pokazuje minuty bez autobusów jadących po trasie.",
+ "coverage_h3": "Które autobusy",
+ "source_h3": "Skąd pochodzą czasy przyjazdów",
+ "source_p": "Prosto z otwartych danych, które publikuje {source}. Mój przystanek to niezależna aplikacja; nie jest tworzona ani rekomendowana przez żadnego przewoźnika czy zarząd transportu.",
+ "web_p": "Siedzisz przy komputerze? <a href=\"{web}\">Otwórz Mój przystanek w przeglądarce</a>, za darmo i bez pobierania.",
+ "faq_official_q": "Czy to oficjalna aplikacja komunikacji miejskiej?",
+ "faq_official_a": "Nie. Mój przystanek to niezależna aplikacja. Pokazuje otwarte dane, które publikuje {source}, i nie jest tworzona ani rekomendowana przez żadnego przewoźnika czy zarząd transportu.",
+ "faq_cover_q": "Jakie autobusy obejmuje aplikacja {in_region}?",
+ "faq_web_q": "Czy działa na komputerze?",
+ "faq_web_a": "Tak. Otwórz Mój przystanek w dowolnej przeglądarce, za darmo i bez rejestracji. Aplikacja dodaje tryb ścienny, widżety, Apple Watch i Apple TV.",
+ "other_h2": "Autobusy na żywo w innych miastach",
+ "regions": {
+  "poznan": {
+   "name": "Poznań",
+   "in_name": "w Poznaniu",
+   "title": "ZTM Poznań na żywo – kiedy przyjedzie autobus | Mój przystanek",
+   "description": "Autobusy ZTM Poznań na żywo: za ile minut przyjedzie autobus i gdzie jest teraz na trasie. Za darmo na iPhone’a, iPada, Maca, Apple Watch i Apple TV.",
+   "h1": "Autobusy na żywo w Poznaniu",
+   "lede": "Autobus ZTM, którym jeździsz codziennie, na jednej tablicy: za ile minut będzie na Twoim przystanku i gdzie jest teraz na trasie.",
+   "coverage": "Autobusy ZTM Poznań w Poznaniu i okolicznych miejscowościach.",
+   "source": "ZTM Poznań (poznan.pl)"
+  },
+  "gdansk": {
+   "name": "Gdańsk",
+   "in_name": "w Gdańsku",
+   "title": "ZTM Gdańsk na żywo – kiedy przyjedzie autobus | Mój przystanek",
+   "description": "Autobusy ZTM Gdańsk na żywo: za ile minut przyjedzie autobus i gdzie jest teraz na trasie. Za darmo na iPhone’a, iPada, Maca, Apple Watch i Apple TV.",
+   "h1": "Autobusy na żywo w Gdańsku",
+   "lede": "Autobus ZTM, którym jeździsz codziennie, na jednej tablicy: za ile minut będzie na Twoim przystanku i gdzie jest teraz na trasie.",
+   "coverage": "Autobusy ZTM Gdańsk w całym Gdańsku.",
+   "source": "Zarząd Transportu Miejskiego w Gdańsku (Otwarty ZTM)"
+  },
+  "krakow": {
+   "name": "Kraków",
+   "in_name": "w Krakowie",
+   "title": "MPK Kraków na żywo – kiedy przyjedzie autobus | Mój przystanek",
+   "description": "Autobusy MPK Kraków na żywo: za ile minut przyjedzie autobus i gdzie jest teraz na trasie. Za darmo na iPhone’a, iPada, Maca, Apple Watch i Apple TV.",
+   "h1": "Autobusy na żywo w Krakowie",
+   "lede": "Autobus MPK, którym jeździsz codziennie, na jednej tablicy: za ile minut będzie na Twoim przystanku i gdzie jest teraz na trasie.",
+   "coverage": "Autobusy MPK Kraków. Tramwaje nie są jeszcze uwzględnione.",
+   "source": "MPK S.A. w Krakowie (ttss.mpk.krakow.pl)"
+  }
+ }
+}

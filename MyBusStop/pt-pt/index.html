@@ -174,7 +174,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="../styles.css?v=4">
+    <link rel="stylesheet" href="../styles.css?v=5">
     <script src="/assets/analytics.js" defer></script>
 </head>
 <body>
@@ -313,32 +313,32 @@
             </div>
         </section>
 
-        <!-- Regions: drawn as lines with stations -->
-        <section class="section">
+        <!-- Regions: drawn as lines with stations; each links to its page in bus-times/ -->
+        <section class="section" id="where">
             <div class="container">
                 <h2>Onde funciona</h2>
                 <p class="section-lede">Os horários de chegada vêm diretamente dos dados abertos que cada operador de transportes publica. Onde o operador também partilha a posição dos autocarros, vê os autocarros a avançar no percurso.</p>
                 <div class="network">
                     <div class="route" data-line="18">
                         <h3>Médio Oriente</h3>
-                        <ul><li>Israel, todo o país</li><li>Istambul</li></ul>
+                        <ul><li><a href="/MyBusStop/bus-times/israel/">Israel, todo o país</a></li><li><a href="/MyBusStop/bus-times/istanbul/">Istambul</a></li></ul>
                     </div>
                     <div class="route" data-line="41">
                         <h3>Europa</h3>
                         <ul>
-                            <li>Noruega</li><li>Suíça<span class="no-gps" aria-hidden="true">*</span><span class="sr-only"> (apenas horários de chegada)</span></li><li>Londres<span class="no-gps" aria-hidden="true">*</span><span class="sr-only"> (apenas horários de chegada)</span></li><li>Viena<span class="no-gps" aria-hidden="true">*</span><span class="sr-only"> (apenas horários de chegada)</span></li><li>Linz<span class="no-gps" aria-hidden="true">*</span><span class="sr-only"> (apenas horários de chegada)</span></li>
-                            <li>Rennes</li><li>Área Metropolitana de Lisboa</li><li>Turku</li><li>Tampere</li><li>Talin</li>
-                            <li>Vílnius</li><li>Kaunas</li><li>Poznań</li><li>Gdańsk</li><li>Cracóvia</li>
-                            <li>Bruxelas</li><li>Luxemburgo<span class="no-gps" aria-hidden="true">*</span><span class="sr-only"> (apenas horários de chegada)</span></li><li>Berlim e Brandeburgo<span class="no-gps" aria-hidden="true">*</span><span class="sr-only"> (apenas horários de chegada)</span></li><li>Nuremberga<span class="no-gps" aria-hidden="true">*</span><span class="sr-only"> (apenas horários de chegada)</span></li><li>Liubliana<span class="no-gps" aria-hidden="true">*</span><span class="sr-only"> (apenas horários de chegada)</span></li><li>Biscaia</li>
+                            <li><a href="/MyBusStop/bus-times/norway/">Noruega</a></li><li><a href="/MyBusStop/bus-times/switzerland/">Suíça</a><span class="no-gps" aria-hidden="true">*</span><span class="sr-only"> (apenas horários de chegada)</span></li><li><a href="/MyBusStop/bus-times/london/">Londres</a><span class="no-gps" aria-hidden="true">*</span><span class="sr-only"> (apenas horários de chegada)</span></li><li><a href="/MyBusStop/bus-times/vienna/">Viena</a><span class="no-gps" aria-hidden="true">*</span><span class="sr-only"> (apenas horários de chegada)</span></li><li><a href="/MyBusStop/bus-times/linz/">Linz</a><span class="no-gps" aria-hidden="true">*</span><span class="sr-only"> (apenas horários de chegada)</span></li>
+                            <li><a href="/MyBusStop/bus-times/rennes/">Rennes</a></li><li><a href="/MyBusStop/bus-times/lisbon/pt-pt/">Área Metropolitana de Lisboa</a></li><li><a href="/MyBusStop/bus-times/turku/">Turku</a></li><li><a href="/MyBusStop/bus-times/tampere/">Tampere</a></li><li><a href="/MyBusStop/bus-times/tallinn/">Talin</a></li>
+                            <li><a href="/MyBusStop/bus-times/vilnius/">Vílnius</a></li><li><a href="/MyBusStop/bus-times/kaunas/">Kaunas</a></li><li><a href="/MyBusStop/bus-times/poznan/">Poznań</a></li><li><a href="/MyBusStop/bus-times/gdansk/">Gdańsk</a></li><li><a href="/MyBusStop/bus-times/krakow/">Cracóvia</a></li>
+                            <li><a href="/MyBusStop/bus-times/brussels/">Bruxelas</a></li><li><a href="/MyBusStop/bus-times/luxembourg/">Luxemburgo</a><span class="no-gps" aria-hidden="true">*</span><span class="sr-only"> (apenas horários de chegada)</span></li><li><a href="/MyBusStop/bus-times/berlin/">Berlim e Brandeburgo</a><span class="no-gps" aria-hidden="true">*</span><span class="sr-only"> (apenas horários de chegada)</span></li><li><a href="/MyBusStop/bus-times/nuremberg/">Nuremberga</a><span class="no-gps" aria-hidden="true">*</span><span class="sr-only"> (apenas horários de chegada)</span></li><li><a href="/MyBusStop/bus-times/ljubljana/">Liubliana</a><span class="no-gps" aria-hidden="true">*</span><span class="sr-only"> (apenas horários de chegada)</span></li><li><a href="/MyBusStop/bus-times/bizkaia/">Biscaia</a></li>
                         </ul>
                     </div>
                     <div class="route" data-line="7">
                         <h3>América do Norte</h3>
-                        <ul><li>Nova Iorque</li><li>Boston</li><li>Seattle e Puget Sound</li><li>Tampa</li><li>Minneapolis–St. Paul</li><li>Toronto</li></ul>
+                        <ul><li><a href="/MyBusStop/bus-times/new-york/">Nova Iorque</a></li><li><a href="/MyBusStop/bus-times/boston/">Boston</a></li><li><a href="/MyBusStop/bus-times/seattle/">Seattle e Puget Sound</a></li><li><a href="/MyBusStop/bus-times/tampa/">Tampa</a></li><li><a href="/MyBusStop/bus-times/minneapolis/">Minneapolis–St. Paul</a></li><li><a href="/MyBusStop/bus-times/toronto/">Toronto</a></li></ul>
                     </div>
                     <div class="route" data-line="green">
                         <h3>Ásia e Oceânia</h3>
-                        <ul><li>Hong Kong<span class="no-gps" aria-hidden="true">*</span><span class="sr-only"> (apenas horários de chegada)</span></li><li>Tóquio</li><li>Adelaide</li></ul>
+                        <ul><li><a href="/MyBusStop/bus-times/hong-kong/">Hong Kong</a><span class="no-gps" aria-hidden="true">*</span><span class="sr-only"> (apenas horários de chegada)</span></li><li><a href="/MyBusStop/bus-times/tokyo/">Tóquio</a></li><li><a href="/MyBusStop/bus-times/adelaide/">Adelaide</a></li></ul>
                     </div>
                 </div>
                 <p class="note"><span aria-hidden="true">*</span> Apenas horários de chegada, sem a posição dos autocarros em direto. Em Hong Kong, a MTR Bus disponibiliza-a.</p>

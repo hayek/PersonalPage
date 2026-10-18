@@ -1,0 +1,38 @@
+{
+ "cities": "Miestai",
+ "what_h2": "Ką matysite {in_region}",
+ "fit_full": "Atvykimo laikai ir autobusų padėtis realiu laiku: kiekvienas autobusas švieslentėje juda savo maršrutu, kai praneša, kur yra, o švieslentė skaičiuoja minutes, kol jis pasieks jūsų stotelę.",
+ "fit_arrivals": "Atvykimo laikai realiu laiku: švieslentė skaičiuoja minutes, kol autobusas pasieks jūsų stotelę. Čia autobusai nesidalija savo padėtimi, todėl švieslentė rodo minutes, bet maršrute judančių autobusų nėra.",
+ "coverage_h3": "Kurie autobusai",
+ "source_h3": "Iš kur gaunami laikai",
+ "source_p": "Tiesiai iš atvirųjų duomenų, kuriuos skelbia {source}. „Mano stotelė“ – nepriklausoma programėlė; jos nekūrė ir nepatvirtino joks transporto vežėjas ar operatorius.",
+ "web_p": "Prie kompiuterio? <a href=\"{web}\">Atidarykite „Mano stotelę“ naršyklėje</a> – nemokamai ir nieko neatsisiunčiant.",
+ "faq_official_q": "Ar tai oficiali viešojo transporto programėlė?",
+ "faq_official_a": "Ne. „Mano stotelė“ – nepriklausoma programėlė. Ji rodo atviruosius duomenis, kuriuos skelbia {source}. Jos nekūrė ir nepatvirtino joks transporto vežėjas ar operatorius.",
+ "faq_cover_q": "Kokius autobusus programėlė rodo {in_region}?",
+ "faq_web_q": "Ar galiu ja naudotis kompiuteryje?",
+ "faq_web_a": "Taip. Atidarykite „Mano stotelę“ bet kurioje naršyklėje – nemokamai ir be registracijos. Programėlėje dar yra sieninis režimas, valdikliai, Apple Watch ir Apple TV.",
+ "other_h2": "Autobusai realiu laiku kituose miestuose",
+ "regions": {
+  "vilnius": {
+   "name": "Vilnius",
+   "in_name": "Vilniuje",
+   "title": "Vilniaus autobusai realiu laiku – atvykimo laikai | Mano stotelė",
+   "description": "Vilniaus viešojo transporto autobusų atvykimo laikai realiu laiku ir kur autobusas yra dabar. Nemokamai iPhone, iPad, Mac, Apple Watch ir Apple TV.",
+   "h1": "Autobusai realiu laiku Vilniuje",
+   "lede": "Kada atvažiuos autobusas? Autobusas, kuriuo važiuojate kasdien, vienoje švieslentėje: kiek minučių liko, kol jis pasieks jūsų stotelę, ir kur jis maršrute yra dabar.",
+   "coverage": "Vilniaus miesto autobusai.",
+   "source": "JUDU / Vilniaus miesto savivaldybė (stops.lt)"
+  },
+  "kaunas": {
+   "name": "Kaunas",
+   "in_name": "Kaune",
+   "title": "Kauno autobusai realiu laiku – atvykimo laikai | Mano stotelė",
+   "description": "Kauno miesto autobusų atvykimo laikai realiu laiku ir kur autobusas yra dabar. Nemokamai iPhone, iPad, Mac, Apple Watch ir Apple TV.",
+   "h1": "Autobusai realiu laiku Kaune",
+   "lede": "Kada atvažiuos autobusas? Autobusas, kuriuo važiuojate kasdien, vienoje švieslentėje: kiek minučių liko, kol jis pasieks jūsų stotelę, ir kur jis maršrute yra dabar.",
+   "coverage": "Kauno miesto autobusai.",
+   "source": "Kauno autobusai / Kauno miesto savivaldybė (stops.lt)"
+  }
+ }
+}

@@ -174,7 +174,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="../styles.css?v=4">
+    <link rel="stylesheet" href="../styles.css?v=5">
     <script src="/assets/analytics.js" defer></script>
 </head>
 <body>
@@ -313,32 +313,32 @@
             </div>
         </section>
 
-        <!-- Regions: drawn as lines with stations -->
-        <section class="section">
+        <!-- Regions: drawn as lines with stations; each links to its page in bus-times/ -->
+        <section class="section" id="where">
             <div class="container">
                 <h2>የት ይሠራል</h2>
                 <p class="section-lede">የመድረሻ ሰዓቶቹ እያንዳንዱ የትራንስፖርት ተቋም ከሚያወጣው ክፍት መረጃ በቀጥታ ይመጣሉ። ተቋሙ የአውቶቡሶችን አካባቢም በሚያጋራበት ቦታ፣ አውቶቡሶቹ በመስመሩ ላይ ሲንቀሳቀሱ ያያሉ።</p>
                 <div class="network">
                     <div class="route" data-line="18">
                         <h3>መካከለኛው ምሥራቅ</h3>
-                        <ul><li>እስራኤል፣ በመላ አገሪቱ</li><li>ኢስታንቡል</li></ul>
+                        <ul><li><a href="/MyBusStop/bus-times/israel/">እስራኤል፣ በመላ አገሪቱ</a></li><li><a href="/MyBusStop/bus-times/istanbul/">ኢስታንቡል</a></li></ul>
                     </div>
                     <div class="route" data-line="41">
                         <h3>አውሮፓ</h3>
                         <ul>
-                            <li>ኖርዌይ</li><li>ስዊዘርላንድ<span class="no-gps" aria-hidden="true">*</span><span class="sr-only"> (የመድረሻ ሰዓት ብቻ)</span></li><li>ለንደን<span class="no-gps" aria-hidden="true">*</span><span class="sr-only"> (የመድረሻ ሰዓት ብቻ)</span></li><li>ቪየና<span class="no-gps" aria-hidden="true">*</span><span class="sr-only"> (የመድረሻ ሰዓት ብቻ)</span></li><li>ሊንዝ<span class="no-gps" aria-hidden="true">*</span><span class="sr-only"> (የመድረሻ ሰዓት ብቻ)</span></li>
-                            <li>ሬን</li><li>የሊዝበን አካባቢ</li><li>ቱርኩ</li><li>ታምፔሬ</li><li>ታሊን</li>
-                            <li>ቪልኒየስ</li><li>ካውናስ</li><li>ፖዝናን</li><li>ግዳንስክ</li><li>ክራኮው</li>
-                            <li>ብራስልስ</li><li>ሉክሰምበርግ<span class="no-gps" aria-hidden="true">*</span><span class="sr-only"> (የመድረሻ ሰዓት ብቻ)</span></li><li>በርሊን እና ብራንደንበርግ<span class="no-gps" aria-hidden="true">*</span><span class="sr-only"> (የመድረሻ ሰዓት ብቻ)</span></li><li>ኑረምበርግ<span class="no-gps" aria-hidden="true">*</span><span class="sr-only"> (የመድረሻ ሰዓት ብቻ)</span></li><li>ሉብሊያና<span class="no-gps" aria-hidden="true">*</span><span class="sr-only"> (የመድረሻ ሰዓት ብቻ)</span></li><li>ቢስካይ</li>
+                            <li><a href="/MyBusStop/bus-times/norway/">ኖርዌይ</a></li><li><a href="/MyBusStop/bus-times/switzerland/">ስዊዘርላንድ</a><span class="no-gps" aria-hidden="true">*</span><span class="sr-only"> (የመድረሻ ሰዓት ብቻ)</span></li><li><a href="/MyBusStop/bus-times/london/">ለንደን</a><span class="no-gps" aria-hidden="true">*</span><span class="sr-only"> (የመድረሻ ሰዓት ብቻ)</span></li><li><a href="/MyBusStop/bus-times/vienna/">ቪየና</a><span class="no-gps" aria-hidden="true">*</span><span class="sr-only"> (የመድረሻ ሰዓት ብቻ)</span></li><li><a href="/MyBusStop/bus-times/linz/">ሊንዝ</a><span class="no-gps" aria-hidden="true">*</span><span class="sr-only"> (የመድረሻ ሰዓት ብቻ)</span></li>
+                            <li><a href="/MyBusStop/bus-times/rennes/">ሬን</a></li><li><a href="/MyBusStop/bus-times/lisbon/">የሊዝበን አካባቢ</a></li><li><a href="/MyBusStop/bus-times/turku/">ቱርኩ</a></li><li><a href="/MyBusStop/bus-times/tampere/">ታምፔሬ</a></li><li><a href="/MyBusStop/bus-times/tallinn/">ታሊን</a></li>
+                            <li><a href="/MyBusStop/bus-times/vilnius/">ቪልኒየስ</a></li><li><a href="/MyBusStop/bus-times/kaunas/">ካውናስ</a></li><li><a href="/MyBusStop/bus-times/poznan/">ፖዝናን</a></li><li><a href="/MyBusStop/bus-times/gdansk/">ግዳንስክ</a></li><li><a href="/MyBusStop/bus-times/krakow/">ክራኮው</a></li>
+                            <li><a href="/MyBusStop/bus-times/brussels/">ብራስልስ</a></li><li><a href="/MyBusStop/bus-times/luxembourg/">ሉክሰምበርግ</a><span class="no-gps" aria-hidden="true">*</span><span class="sr-only"> (የመድረሻ ሰዓት ብቻ)</span></li><li><a href="/MyBusStop/bus-times/berlin/">በርሊን እና ብራንደንበርግ</a><span class="no-gps" aria-hidden="true">*</span><span class="sr-only"> (የመድረሻ ሰዓት ብቻ)</span></li><li><a href="/MyBusStop/bus-times/nuremberg/">ኑረምበርግ</a><span class="no-gps" aria-hidden="true">*</span><span class="sr-only"> (የመድረሻ ሰዓት ብቻ)</span></li><li><a href="/MyBusStop/bus-times/ljubljana/">ሉብሊያና</a><span class="no-gps" aria-hidden="true">*</span><span class="sr-only"> (የመድረሻ ሰዓት ብቻ)</span></li><li><a href="/MyBusStop/bus-times/bizkaia/">ቢስካይ</a></li>
                         </ul>
                     </div>
                     <div class="route" data-line="7">
                         <h3>ሰሜን አሜሪካ</h3>
-                        <ul><li>ኒው ዮርክ ከተማ</li><li>ቦስተን</li><li>ሲያትል እና ፒውጀት ሳውንድ</li><li>ታምፓ</li><li>ሚኒያፖሊስ–ሴንት ፖል</li><li>ቶሮንቶ</li></ul>
+                        <ul><li><a href="/MyBusStop/bus-times/new-york/">ኒው ዮርክ ከተማ</a></li><li><a href="/MyBusStop/bus-times/boston/">ቦስተን</a></li><li><a href="/MyBusStop/bus-times/seattle/">ሲያትል እና ፒውጀት ሳውንድ</a></li><li><a href="/MyBusStop/bus-times/tampa/">ታምፓ</a></li><li><a href="/MyBusStop/bus-times/minneapolis/">ሚኒያፖሊስ–ሴንት ፖል</a></li><li><a href="/MyBusStop/bus-times/toronto/">ቶሮንቶ</a></li></ul>
                     </div>
                     <div class="route" data-line="green">
                         <h3>እስያ እና ኦሺያኒያ</h3>
-                        <ul><li>ሆንግ ኮንግ<span class="no-gps" aria-hidden="true">*</span><span class="sr-only"> (የመድረሻ ሰዓት ብቻ)</span></li><li>ቶኪዮ</li><li>አደሌድ</li></ul>
+                        <ul><li><a href="/MyBusStop/bus-times/hong-kong/">ሆንግ ኮንግ</a><span class="no-gps" aria-hidden="true">*</span><span class="sr-only"> (የመድረሻ ሰዓት ብቻ)</span></li><li><a href="/MyBusStop/bus-times/tokyo/">ቶኪዮ</a></li><li><a href="/MyBusStop/bus-times/adelaide/">አደሌድ</a></li></ul>
                     </div>
                 </div>
                 <p class="note"><span aria-hidden="true">*</span> የመድረሻ ሰዓት ብቻ፣ የአውቶቡሶች የቀጥታ አካባቢ የለም። በሆንግ ኮንግ፣ MTR Bus አካባቢውን ያጋራል።</p>

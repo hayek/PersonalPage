@@ -174,7 +174,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="../styles.css?v=4">
+    <link rel="stylesheet" href="../styles.css?v=5">
     <script src="/assets/analytics.js" defer></script>
 </head>
 <body>
@@ -313,32 +313,32 @@
             </div>
         </section>
 
-        <!-- Regions: drawn as lines with stations -->
-        <section class="section">
+        <!-- Regions: drawn as lines with stations; each links to its page in bus-times/ -->
+        <section class="section" id="where">
             <div class="container">
                 <h2>Где работает</h2>
                 <p class="section-lede">Время прибытия берётся напрямую из открытых данных, которые публикует каждый транспортный оператор. Если оператор передаёт и координаты автобусов, вы видите, как автобусы движутся по маршруту.</p>
                 <div class="network">
                     <div class="route" data-line="18">
                         <h3>Ближний Восток</h3>
-                        <ul><li>Израиль, вся страна</li><li>Стамбул</li></ul>
+                        <ul><li><a href="/MyBusStop/bus-times/israel/">Израиль, вся страна</a></li><li><a href="/MyBusStop/bus-times/istanbul/">Стамбул</a></li></ul>
                     </div>
                     <div class="route" data-line="41">
                         <h3>Европа</h3>
                         <ul>
-                            <li>Норвегия</li><li>Швейцария<span class="no-gps" aria-hidden="true">*</span><span class="sr-only"> (только время прибытия)</span></li><li>Лондон<span class="no-gps" aria-hidden="true">*</span><span class="sr-only"> (только время прибытия)</span></li><li>Вена<span class="no-gps" aria-hidden="true">*</span><span class="sr-only"> (только время прибытия)</span></li><li>Линц<span class="no-gps" aria-hidden="true">*</span><span class="sr-only"> (только время прибытия)</span></li>
-                            <li>Ренн</li><li>Лиссабон и окрестности</li><li>Турку</li><li>Тампере</li><li>Таллин</li>
-                            <li>Вильнюс</li><li>Каунас</li><li>Познань</li><li>Гданьск</li><li>Краков</li>
-                            <li>Брюссель</li><li>Люксембург<span class="no-gps" aria-hidden="true">*</span><span class="sr-only"> (только время прибытия)</span></li><li>Берлин и Бранденбург<span class="no-gps" aria-hidden="true">*</span><span class="sr-only"> (только время прибытия)</span></li><li>Нюрнберг<span class="no-gps" aria-hidden="true">*</span><span class="sr-only"> (только время прибытия)</span></li><li>Любляна<span class="no-gps" aria-hidden="true">*</span><span class="sr-only"> (только время прибытия)</span></li><li>Бискайя</li>
+                            <li><a href="/MyBusStop/bus-times/norway/">Норвегия</a></li><li><a href="/MyBusStop/bus-times/switzerland/">Швейцария</a><span class="no-gps" aria-hidden="true">*</span><span class="sr-only"> (только время прибытия)</span></li><li><a href="/MyBusStop/bus-times/london/">Лондон</a><span class="no-gps" aria-hidden="true">*</span><span class="sr-only"> (только время прибытия)</span></li><li><a href="/MyBusStop/bus-times/vienna/">Вена</a><span class="no-gps" aria-hidden="true">*</span><span class="sr-only"> (только время прибытия)</span></li><li><a href="/MyBusStop/bus-times/linz/">Линц</a><span class="no-gps" aria-hidden="true">*</span><span class="sr-only"> (только время прибытия)</span></li>
+                            <li><a href="/MyBusStop/bus-times/rennes/">Ренн</a></li><li><a href="/MyBusStop/bus-times/lisbon/">Лиссабон и окрестности</a></li><li><a href="/MyBusStop/bus-times/turku/">Турку</a></li><li><a href="/MyBusStop/bus-times/tampere/">Тампере</a></li><li><a href="/MyBusStop/bus-times/tallinn/">Таллин</a></li>
+                            <li><a href="/MyBusStop/bus-times/vilnius/">Вильнюс</a></li><li><a href="/MyBusStop/bus-times/kaunas/">Каунас</a></li><li><a href="/MyBusStop/bus-times/poznan/">Познань</a></li><li><a href="/MyBusStop/bus-times/gdansk/">Гданьск</a></li><li><a href="/MyBusStop/bus-times/krakow/">Краков</a></li>
+                            <li><a href="/MyBusStop/bus-times/brussels/">Брюссель</a></li><li><a href="/MyBusStop/bus-times/luxembourg/">Люксембург</a><span class="no-gps" aria-hidden="true">*</span><span class="sr-only"> (только время прибытия)</span></li><li><a href="/MyBusStop/bus-times/berlin/">Берлин и Бранденбург</a><span class="no-gps" aria-hidden="true">*</span><span class="sr-only"> (только время прибытия)</span></li><li><a href="/MyBusStop/bus-times/nuremberg/">Нюрнберг</a><span class="no-gps" aria-hidden="true">*</span><span class="sr-only"> (только время прибытия)</span></li><li><a href="/MyBusStop/bus-times/ljubljana/">Любляна</a><span class="no-gps" aria-hidden="true">*</span><span class="sr-only"> (только время прибытия)</span></li><li><a href="/MyBusStop/bus-times/bizkaia/">Бискайя</a></li>
                         </ul>
                     </div>
                     <div class="route" data-line="7">
                         <h3>Северная Америка</h3>
-                        <ul><li>Нью-Йорк</li><li>Бостон</li><li>Сиэтл и Пьюджет-Саунд</li><li>Тампа</li><li>Миннеаполис – Сент-Пол</li><li>Торонто</li></ul>
+                        <ul><li><a href="/MyBusStop/bus-times/new-york/">Нью-Йорк</a></li><li><a href="/MyBusStop/bus-times/boston/">Бостон</a></li><li><a href="/MyBusStop/bus-times/seattle/">Сиэтл и Пьюджет-Саунд</a></li><li><a href="/MyBusStop/bus-times/tampa/">Тампа</a></li><li><a href="/MyBusStop/bus-times/minneapolis/">Миннеаполис – Сент-Пол</a></li><li><a href="/MyBusStop/bus-times/toronto/">Торонто</a></li></ul>
                     </div>
                     <div class="route" data-line="green">
                         <h3>Азия и Океания</h3>
-                        <ul><li>Гонконг<span class="no-gps" aria-hidden="true">*</span><span class="sr-only"> (только время прибытия)</span></li><li>Токио</li><li>Аделаида</li></ul>
+                        <ul><li><a href="/MyBusStop/bus-times/hong-kong/">Гонконг</a><span class="no-gps" aria-hidden="true">*</span><span class="sr-only"> (только время прибытия)</span></li><li><a href="/MyBusStop/bus-times/tokyo/">Токио</a></li><li><a href="/MyBusStop/bus-times/adelaide/">Аделаида</a></li></ul>
                     </div>
                 </div>
                 <p class="note"><span aria-hidden="true">*</span> Только время прибытия, без положения автобусов онлайн. В Гонконге оно есть у MTR Bus.</p>

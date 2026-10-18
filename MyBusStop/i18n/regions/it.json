@@ -1,0 +1,28 @@
+{
+ "cities": "Città",
+ "what_h2": "Cosa vedi {in_region}",
+ "fit_full": "Orari di arrivo e posizione dei bus in tempo reale: ogni autobus si muove lungo il suo percorso sul tabellone man mano che comunica dove si trova, e il conto alla rovescia scorre fino alla tua fermata.",
+ "fit_arrivals": "Orari di arrivo in tempo reale, con il conto alla rovescia fino alla tua fermata. Qui gli autobus non condividono la loro posizione, quindi il tabellone mostra i minuti senza autobus in movimento sul percorso.",
+ "coverage_h3": "Quali autobus",
+ "source_h3": "Da dove arrivano gli orari",
+ "source_p": "Direttamente dai dati aperti pubblicati da {source}. La mia fermata è un'app indipendente; non è realizzata né approvata da alcuna azienda o gestore di trasporto.",
+ "web_p": "Sei al computer? <a href=\"{web}\">Apri La mia fermata sul web</a>, gratis e senza download.",
+ "faq_official_q": "È un'app ufficiale dei trasporti pubblici?",
+ "faq_official_a": "No. La mia fermata è un'app indipendente. Mostra i dati aperti pubblicati da {source} e non è realizzata né approvata da alcuna azienda o gestore di trasporto.",
+ "faq_cover_q": "Quali autobus mostra {in_region}?",
+ "faq_web_q": "Posso usarla sul computer?",
+ "faq_web_a": "Sì. Apri La mia fermata sul web in qualsiasi browser, gratis e senza registrazione. L'app aggiunge la modalità parete, i widget, Apple Watch e Apple TV.",
+ "other_h2": "Autobus in tempo reale in altre città",
+ "regions": {
+  "switzerland": {
+   "name": "Svizzera",
+   "in_name": "in Svizzera",
+   "title": "Bus in tempo reale in Svizzera – AutoPostale | La mia fermata",
+   "description": "Bus in tempo reale in tutta la Svizzera, da AutoPostale a Zurigo, Ginevra, Basilea e Berna. Gratis per iPhone, iPad, Mac, Apple Watch e Apple TV.",
+   "h1": "Autobus in tempo reale in Svizzera",
+   "lede": "Gli autobus di tutto il paese su un unico tabellone: i minuti che mancano all'arrivo del tuo bus alla fermata, con i ritardi in tempo reale dove l'azienda di trasporto li comunica.",
+   "coverage": "Autobus in tutta la Svizzera, da AutoPostale alle reti urbane come VBZ a Zurigo, TPG a Ginevra, BVB a Basilea e Bernmobil.",
+   "source": "transport.opendata.ch (search.ch)"
+  }
+ }
+}

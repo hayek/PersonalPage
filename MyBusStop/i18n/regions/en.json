@@ -1,0 +1,16 @@
+{
+ "cities": "Cities",
+ "what_h2": "What you see {in_region}",
+ "fit_full": "Live arrival times and live bus positions: each bus moves along its route on the board as it reports where it is, and the minutes count down to your stop.",
+ "fit_arrivals": "Live arrival times, counting down to your stop. Buses here don't share their positions, so the board shows the minutes without moving buses on the route.",
+ "coverage_h3": "Which buses",
+ "source_h3": "Where the times come from",
+ "source_p": "Straight from the open data published by {source}. My Bus Stop is an independent app; it isn't made or endorsed by any transit agency or operator.",
+ "web_p": "On a computer? <a href=\"{web}\">Open My Bus Stop on the web</a>, free and with no download.",
+ "faq_official_q": "Is this an official transit app?",
+ "faq_official_a": "No. My Bus Stop is an independent app. It shows the open data published by {source}, and isn't made or endorsed by any transit agency or operator.",
+ "faq_cover_q": "Which buses does it cover {in_region}?",
+ "faq_web_q": "Can I use it on a computer?",
+ "faq_web_a": "Yes. Open My Bus Stop on the web in any browser, free and with no sign-up. The app adds wall mode, widgets, Apple Watch and Apple TV.",
+ "other_h2": "Live bus times in other cities"
+}

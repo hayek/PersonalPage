@@ -291,6 +291,27 @@ p { max-width: 62ch; }
     border: 2px solid var(--ink);
 }
 
+.route li a { color: inherit; text-decoration: none; }
+.route li a:hover { text-decoration: underline; text-underline-offset: 3px; }
+
+/* ---------- Region pages (bus-times/<slug>/, built by i18n/regions.py) ---------- */
+
+.crumbs { font-size: 14px; font-weight: 700; color: var(--board-dim); margin-bottom: 22px; }
+.crumbs a { color: var(--board-muted); text-decoration: none; }
+.crumbs a:hover { color: #FFFFFF; text-decoration: underline; }
+.region-hero h1 { font-size: clamp(44px, 7vw, 88px); line-height: 0.92; }
+.region-hero .hero-body { font-size: 19px; margin-top: 22px; }
+.region-hero .hero-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 300px); }
+.region-phone .phone { border-color: var(--board-rule); display: block; margin-inline: auto; }
+.facts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px; margin-top: 40px; }
+.facts > div { border-top: 3px solid var(--p41); padding-top: 16px; }
+.facts > div + div { border-color: var(--p7); }
+.facts p { color: var(--muted); margin-top: 8px; font-size: 16px; }
+.facts .note { margin-top: 10px; overflow-wrap: anywhere; }
+.region-facts > .note { margin-top: 28px; }
+.region-wall-photo { margin-top: 40px; max-width: 760px; display: block; }
+.region-hero + main .everywhere + .section { padding-top: 0; }
+
 /* ---------- Privacy ---------- */
 
 .privacy-list { list-style: none; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px; margin-top: 44px; }
@@ -360,10 +381,13 @@ p { max-width: 62ch; }
     .wall-scene { grid-template-columns: 1fr; }
     .wall-facts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .network { grid-template-columns: 1fr 1fr; }
+    .region-hero .hero-grid { grid-template-columns: minmax(0, 1fr); }
+    .region-phone .phone { max-width: 240px; }
 }
 
 @media (max-width: 720px) {
     :root { --gutter: 16px; }
+    .facts { grid-template-columns: minmax(0, 1fr); gap: 24px; }
     .steps { grid-template-columns: 1fr; gap: 56px; }
     .step { display: grid; grid-template-columns: minmax(0, 150px) 1fr; gap: 20px; align-items: start; }
     .step-text { margin-top: 0; }

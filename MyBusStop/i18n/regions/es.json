@@ -1,0 +1,28 @@
+{
+ "cities": "Ciudades",
+ "what_h2": "Qué ves {in_region}",
+ "fit_full": "Horarios de llegada y posición de los autobuses en tiempo real: cada autobús avanza por su ruta en el panel según informa de dónde está, y los minutos bajan hasta que llega a tu parada.",
+ "fit_arrivals": "Horarios de llegada en tiempo real, con la cuenta atrás hasta tu parada. Aquí los autobuses no comparten su posición, así que el panel muestra los minutos sin autobuses moviéndose por la ruta.",
+ "coverage_h3": "Qué autobuses",
+ "source_h3": "De dónde vienen los horarios",
+ "source_p": "Directamente de los datos abiertos que publica {source}. Mi parada es una app independiente; no la crea ni la respalda ningún organismo ni operador de transporte.",
+ "web_p": "¿Estás en un ordenador? <a href=\"{web}\">Abre Mi parada en la web</a>, gratis y sin descargar nada.",
+ "faq_official_q": "¿Es una app oficial de transporte?",
+ "faq_official_a": "No. Mi parada es una app independiente. Muestra los datos abiertos que publica {source}, y no la crea ni la respalda ningún organismo ni operador de transporte.",
+ "faq_cover_q": "¿Qué autobuses cubre la app {in_region}?",
+ "faq_web_q": "¿Puedo usarla en un ordenador?",
+ "faq_web_a": "Sí. Abre Mi parada en la web desde cualquier navegador, gratis y sin registrarte. La app añade el modo pared, los widgets, el Apple Watch y el Apple TV.",
+ "other_h2": "Autobuses en tiempo real en otras ciudades",
+ "regions": {
+  "bizkaia": {
+   "name": "Bizkaia",
+   "in_name": "en Bizkaia",
+   "title": "Bizkaibus en tiempo real – Llegadas en Bizkaia | Mi parada",
+   "description": "Llegadas de Bizkaibus en tiempo real en toda Bizkaia y por dónde va cada autobús ahora mismo. Gratis para iPhone, iPad, Mac, Apple Watch y Apple TV.",
+   "h1": "Autobuses en tiempo real en Bizkaia",
+   "lede": "El Bizkaibus que coges cada día, en un solo panel: cuántos minutos faltan para que llegue a tu parada y por dónde va ahora mismo.",
+   "coverage": "Bizkaibus, los autobuses que conectan Bilbao con los municipios de Bizkaia. Bilbobus, los autobuses urbanos de Bilbao, todavía no está incluido.",
+   "source": "Bizkaibus, Diputación Foral de Bizkaia (data.ctb.eus, CC BY 4.0)"
+  }
+ }
+}

@@ -1,0 +1,28 @@
+{
+ "cities": "Mesta",
+ "what_h2": "Kaj vidiš {in_region}",
+ "fit_full": "Prihodi in položaji avtobusov v živo: vsak avtobus se na prikazovalniku premika po progi, ko sporoča, kje je, minute pa odštevajo do tvoje postaje.",
+ "fit_arrivals": "Prihodi v živo, ki odštevajo minute do tvoje postaje. Avtobusi tukaj ne delijo svojih položajev, zato prikazovalnik kaže minute brez avtobusov, ki bi se premikali po progi.",
+ "coverage_h3": "Kateri avtobusi",
+ "source_h3": "Od kod prihajajo časi",
+ "source_p": "Neposredno iz odprtih podatkov, ki jih objavlja {source}. Moja postaja je neodvisna aplikacija; ni je izdelal ali podprl noben prevoznik ali upravljavec prevoza.",
+ "web_p": "Si za računalnikom? <a href=\"{web}\">Odpri Mojo postajo v brskalniku</a>, brezplačno in brez prenašanja.",
+ "faq_official_q": "Je to uradna aplikacija javnega prevoza?",
+ "faq_official_a": "Ne. Moja postaja je neodvisna aplikacija. Prikazuje odprte podatke, ki jih objavlja {source}, in je ni izdelal ali podprl noben prevoznik ali upravljavec prevoza.",
+ "faq_cover_q": "Katere avtobuse zajema aplikacija {in_region}?",
+ "faq_web_q": "Jo lahko uporabljam na računalniku?",
+ "faq_web_a": "Da. Odpri Mojo postajo v katerem koli brskalniku, brezplačno in brez registracije. Aplikacija doda še stenski način, pripomočke, Apple Watch in Apple TV.",
+ "other_h2": "Prihodi avtobusov v živo v drugih mestih",
+ "regions": {
+  "ljubljana": {
+   "name": "Ljubljana",
+   "in_name": "v Ljubljani",
+   "title": "Prihodi avtobusov LPP v živo v Ljubljani | Moja postaja",
+   "description": "Prihodi avtobusov LPP v živo na tvoji postaji v Ljubljani, z odštevanjem do naslednjega avtobusa. Brezplačno za iPhone, iPad, Mac, Apple Watch in Apple TV.",
+   "h1": "Prihodi avtobusov v živo v Ljubljani",
+   "lede": "Avtobusi LPP, s katerimi se voziš vsak dan, na enem prikazovalniku: kdaj pride avtobus, z odštevanjem v živo do naslednjega in tistega za njim.",
+   "coverage": "Mestni avtobusi LPP po vsej Ljubljani.",
+   "source": "LPP d.o.o. (data.lpp.si)"
+  }
+ }
+}

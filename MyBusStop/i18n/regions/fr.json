@@ -1,0 +1,58 @@
+{
+ "cities": "Villes",
+ "what_h2": "Ce que vous voyez {in_region}",
+ "fit_full": "Les heures d'arrivée et la position des bus en direct : chaque bus avance sur sa ligne dans le tableau à mesure qu'il signale où il se trouve, et un compte à rebours indique les minutes avant son passage à votre arrêt.",
+ "fit_arrivals": "Les heures d'arrivée en direct, avec un compte à rebours jusqu'à votre arrêt. Ici, les bus ne partagent pas leur position : le tableau affiche les minutes, sans bus en mouvement sur la ligne.",
+ "coverage_h3": "Quels bus",
+ "source_h3": "D'où viennent les horaires",
+ "source_p": "Directement des données ouvertes publiées par {source}. Mon arrêt est une app indépendante ; elle n'est ni conçue ni approuvée par un réseau de transport ou un exploitant.",
+ "web_p": "Sur un ordinateur ? <a href=\"{web}\">Ouvrez Mon arrêt sur le web</a>, gratuitement et sans téléchargement.",
+ "faq_official_q": "Est-ce une app de transport officielle ?",
+ "faq_official_a": "Non. Mon arrêt est une app indépendante. Elle affiche les données ouvertes publiées par {source}, et n'est ni conçue ni approuvée par un réseau de transport ou un exploitant.",
+ "faq_cover_q": "Quels bus l'app affiche-t-elle {in_region} ?",
+ "faq_web_q": "Puis-je l'utiliser sur un ordinateur ?",
+ "faq_web_a": "Oui. Ouvrez Mon arrêt sur le web dans n'importe quel navigateur, gratuitement et sans inscription. L'app ajoute le mode mural, les widgets, l'Apple Watch et l'Apple TV.",
+ "other_h2": "Horaires de bus en direct dans d'autres villes",
+ "regions": {
+  "rennes": {
+   "name": "Rennes",
+   "in_name": "à Rennes",
+   "title": "Bus STAR Rennes en temps réel – prochains passages | Mon arrêt",
+   "description": "Les prochains passages des bus STAR à Rennes en temps réel, et la position de chaque bus sur sa ligne. Gratuit sur iPhone, iPad, Mac, Apple Watch et Apple TV.",
+   "h1": "Bus en temps réel à Rennes",
+   "lede": "Le bus STAR que vous prenez tous les jours sur un seul tableau : les minutes avant son passage à votre arrêt, et sa position sur la ligne en ce moment.",
+   "coverage": "Les bus STAR dans toute Rennes Métropole.",
+   "source": "STAR / Keolis Rennes (ODbL)"
+  },
+  "brussels": {
+   "name": "Bruxelles",
+   "in_name": "à Bruxelles",
+   "title": "Bus STIB Bruxelles en temps réel – prochains passages | Mon arrêt",
+   "description": "Prochains passages des bus STIB à Bruxelles en temps réel, et la position de chaque bus sur sa ligne. Gratuit sur iPhone, iPad, Mac, Apple Watch et Apple TV.",
+   "h1": "Bus en temps réel à Bruxelles",
+   "lede": "Le bus de la STIB que vous prenez tous les jours sur un seul tableau : les minutes avant son passage à votre arrêt, et sa position sur la ligne en ce moment.",
+   "coverage": "Les bus de la STIB-MIVB dans toute la Région de Bruxelles-Capitale. Les bus De Lijn et TEC ne sont pas encore inclus.",
+   "source": "STIB-MIVB Open Data"
+  },
+  "luxembourg": {
+   "name": "Luxembourg",
+   "in_name": "au Luxembourg",
+   "title": "Départs de bus en temps réel dans tout le Luxembourg | Mon arrêt",
+   "description": "Les départs de bus en temps réel partout au Luxembourg, à votre arrêt de tous les jours. Gratuit sur iPhone, iPad, Mac, Apple Watch et Apple TV.",
+   "h1": "Bus en temps réel au Luxembourg",
+   "lede": "Les bus de tout le pays sur un seul tableau, avec les départs en temps réel et un compte à rebours jusqu'au prochain bus et au suivant.",
+   "coverage": "Les bus de tout le Luxembourg, des bus AVL de la Ville au réseau national RGTR.",
+   "source": "Administration des transports publics / mobiliteit.lu (CC BY 4.0)"
+  },
+  "switzerland": {
+   "name": "Suisse",
+   "in_name": "en Suisse",
+   "title": "Bus en direct en Suisse – Genève, Zurich, CarPostal | Mon arrêt",
+   "description": "Les départs de bus en direct dans toute la Suisse, de CarPostal à Genève, Zurich, Bâle et Berne. Gratuit sur iPhone, iPad, Mac, Apple Watch et Apple TV.",
+   "h1": "Bus en temps réel en Suisse",
+   "lede": "Les bus de tout le pays sur un seul tableau : les minutes avant que votre bus arrive à l'arrêt, avec les retards en temps réel quand l'entreprise de transport les signale.",
+   "coverage": "Les bus de toute la Suisse, de CarPostal aux réseaux urbains comme les VBZ à Zurich, les TPG à Genève, les BVB à Bâle et Bernmobil.",
+   "source": "transport.opendata.ch (search.ch)"
+  }
+ }
+}

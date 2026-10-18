@@ -1,0 +1,28 @@
+{
+ "cities": "Hiriak",
+ "what_h2": "Zer ikusiko duzu {in_region}",
+ "fit_full": "Iriste-orduak eta autobusen kokapena denbora errealean: autobus bakoitza bere ibilbidean aurrera doa panelean, non dagoen jakinarazi ahala, eta minutuak atzera kontatzen dira zure geltokira iritsi arte.",
+ "fit_arrivals": "Iriste-orduak denbora errealean, zure geltokira iritsi arte atzera kontatuz. Hemen autobusek ez dute beren kokapena partekatzen, eta, beraz, panelak minutuak erakusten ditu, ibilbidean mugitzen diren autobusik gabe.",
+ "coverage_h3": "Zein autobus",
+ "source_h3": "Nondik datozen orduak",
+ "source_p": "Orduak zuzenean datu irekietatik datoz. Argitaratzailea: {source}. Nire geltokia aplikazio independentea da; ez du inongo garraio-agentziak edo operadorek egin edo babestu.",
+ "web_p": "Ordenagailuan zaude? <a href=\"{web}\">Ireki Nire geltokia webean</a>, doan eta ezer deskargatu gabe.",
+ "faq_official_q": "Garraio-aplikazio ofiziala da?",
+ "faq_official_a": "Ez. Nire geltokia aplikazio independentea da, eta ez du inongo garraio-agentziak edo operadorek egin edo babestu. Datu irekiak erakusten ditu; argitaratzailea: {source}.",
+ "faq_cover_q": "Zein autobus hartzen ditu aplikazioak {in_region}?",
+ "faq_web_q": "Ordenagailuan erabil dezaket?",
+ "faq_web_a": "Bai. Ireki Nire geltokia webean edozein nabigatzailetan, doan eta izena eman gabe. Aplikazioak horma-modua, widgetak, Apple Watch eta Apple TV gehitzen ditu.",
+ "other_h2": "Autobusen orduak denbora errealean beste hiri batzuetan",
+ "regions": {
+  "bizkaia": {
+   "name": "Bizkaia",
+   "in_name": "Bizkaian",
+   "title": "Bizkaibus denbora errealean – Bizkaiko autobusak | Nire geltokia",
+   "description": "Bizkaibusen iriste-orduak denbora errealean Bizkaia osoan, eta autobus bakoitza orain non dagoen. Doan iPhone, iPad, Mac, Apple Watch eta Apple TV-rako.",
+   "h1": "Autobusak denbora errealean Bizkaian",
+   "lede": "Egunero hartzen duzun Bizkaibusa panel bakarrean: zure geltokira iristeko zenbat minutu falta diren eta une honetan ibilbidean non dagoen.",
+   "coverage": "Bizkaibus, Bilbo Bizkaiko herriekin lotzen duten autobusak. Bilbobus, Bilboko hiri-autobusak, oraindik ez dago barne.",
+   "source": "Bizkaibus, Bizkaiko Foru Aldundia (data.ctb.eus, CC BY 4.0)"
+  }
+ }
+}

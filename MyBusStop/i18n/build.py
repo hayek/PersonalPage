@@ -272,7 +272,7 @@ def faq_jsonld(page):
 
 
 def extract():
-    src = open(os.path.join(ROOT, 'index.html')).read()
+    src = normalize(open(os.path.join(ROOT, 'index.html')).read())
     en = {}
     for a, b, text, kind in units(src):
         en.setdefault(key(text), text)
@@ -301,6 +301,28 @@ def langs_nav(current, available):
     return '\n'.join(links)
 
 
+REGION_LINK = re.compile(r'<li><a href="/MyBusStop/bus-times/[^"]*">(.*?)</a>')
+
+
+def normalize(src):
+    """index.html without the links build() puts on the region list, so its units never change."""
+    return REGION_LINK.sub(r'<li>\1', src)
+
+
+def link_regions(page, folder):
+    """Each place in 'Where it runs' links to its page (regions.py), in this language where it has one."""
+    regions = iter(json.load(open(os.path.join(I18N, 'regions.json')))['regions'])
+
+    def li(m):
+        r = next(regions)
+        href = f"/MyBusStop/bus-times/{r['slug']}/" + (f'{folder}/' if folder in r['langs'] else '')
+        name, rest = re.match(r'(.*?)(<span.*)?$', m.group(1), re.S).groups()
+        return f'<li><a href="{href}">{name}</a>{rest or ""}</li>'
+
+    return re.sub(r'(<div class="network">)(.*?)(\n                </div>)',
+                  lambda m: m.group(1) + re.sub(r'<li>(.*?)</li>', li, m.group(2)) + m.group(3), page, count=1, flags=re.S)
+
+
 def finish(page, folder, available):
     """What every page gets, English included: FAQ JSON-LD from its own answers, language links, hreflang."""
     page = re.sub(r'(<script type="application/ld\+json" id="faqData">).*?(</script>)',
@@ -308,11 +330,11 @@ def finish(page, folder, available):
                   page, count=1, flags=re.S)
     page = re.sub(r'(<nav class="langs" id="langs"[^>]*>).*?(</nav>)',
                   lambda m: m.group(1) + '\n' + langs_nav(folder, available) + '\n            ' + m.group(2), page, count=1, flags=re.S)
-    return set_hreflang(page, available)
+    return set_hreflang(link_regions(page, folder), available)
 
 
 def build():
-    src = open(os.path.join(ROOT, 'index.html')).read()
+    src = normalize(open(os.path.join(ROOT, 'index.html')).read())
     us = units(src)
     available = [f for f in LANGS if os.path.exists(os.path.join(I18N, f + '.json'))]
     bad = 0

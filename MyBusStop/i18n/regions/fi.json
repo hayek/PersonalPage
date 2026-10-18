@@ -1,0 +1,38 @@
+{
+ "cities": "Kaupungit",
+ "what_h2": "Mitä näet {in_region}",
+ "fit_full": "Saapumisajat ja bussien sijainnit reaaliajassa: jokainen bussi liikkuu taululla reittiään pitkin sitä mukaa kuin se ilmoittaa sijaintinsa, ja minuutit laskevat, kunnes bussi on pysäkilläsi.",
+ "fit_arrivals": "Saapumisajat reaaliajassa: minuutit laskevat, kunnes bussi on pysäkilläsi. Täällä bussit eivät jaa sijaintiaan, joten taulu näyttää minuutit ilman reitillä liikkuvia busseja.",
+ "coverage_h3": "Mitkä bussit",
+ "source_h3": "Mistä ajat tulevat",
+ "source_p": "Suoraan avoimesta datasta, jonka on julkaissut {source}. Oma pysäkki on itsenäinen sovellus, eikä sitä ole tehnyt tai hyväksynyt mikään joukkoliikenneviranomainen tai liikennöitsijä.",
+ "web_p": "Tietokoneella? <a href=\"{web}\">Avaa Oma pysäkki verkossa</a>, ilmaiseksi ja ilman latausta.",
+ "faq_official_q": "Onko tämä virallinen joukkoliikennesovellus?",
+ "faq_official_a": "Ei. Oma pysäkki on itsenäinen sovellus. Se näyttää avointa dataa, jonka on julkaissut {source}, eikä sitä ole tehnyt tai hyväksynyt mikään joukkoliikenneviranomainen tai liikennöitsijä.",
+ "faq_cover_q": "Mitä busseja sovellus näyttää {in_region}?",
+ "faq_web_q": "Voinko käyttää sitä tietokoneella?",
+ "faq_web_a": "Kyllä. Avaa Oma pysäkki verkossa missä tahansa selaimessa, ilmaiseksi ja ilman rekisteröitymistä. Sovelluksessa on lisäksi seinätila, widgetit, Apple Watch ja Apple TV.",
+ "other_h2": "Bussit reaaliajassa muissa kaupungeissa",
+ "regions": {
+  "turku": {
+   "name": "Turku",
+   "in_name": "Turussa",
+   "title": "Fölin bussit reaaliajassa Turussa – saapumisajat | Oma pysäkki",
+   "description": "Fölin bussit reaaliajassa Turun seudulla: saapumisajat ja missä bussi on nyt. Ilmainen iPhonelle, iPadille, Macille, Apple Watchille ja Apple TV:lle.",
+   "h1": "Bussit reaaliajassa Turussa",
+   "lede": "Föli-bussi, jolla kuljet joka päivä, yhdellä taululla: montako minuuttia on siihen, kun se saapuu pysäkillesi, ja missä se on reitillään juuri nyt.",
+   "coverage": "Fölin bussit Turussa ja naapurikunnissa Kaarinassa, Raisiossa, Naantalissa, Liedossa ja Ruskolla.",
+   "source": "Turun kaupunki, data.foli.fi (CC BY 4.0)"
+  },
+  "tampere": {
+   "name": "Tampere",
+   "in_name": "Tampereella",
+   "title": "Nyssen bussit reaaliajassa Tampereella | Oma pysäkki",
+   "description": "Nyssen bussit reaaliajassa Tampereen seudulla: saapumisajat ja missä bussi on nyt. Ilmainen iPhonelle, iPadille, Macille, Apple Watchille ja Apple TV:lle.",
+   "h1": "Bussit reaaliajassa Tampereella",
+   "lede": "Nysse-bussi, jolla kuljet joka päivä, yhdellä taululla: montako minuuttia on siihen, kun se saapuu pysäkillesi, ja missä se on reitillään juuri nyt.",
+   "coverage": "Nyssen bussit Tampereella ja ympäryskunnissa.",
+   "source": "Tampereen seudun joukkoliikenne (Nysse) / ITS Factory Journeys API (CC BY 4.0)"
+  }
+ }
+}

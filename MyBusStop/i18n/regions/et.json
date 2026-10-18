@@ -1,0 +1,28 @@
+{
+ "cities": "Linnad",
+ "what_h2": "Mida näed {in_region}",
+ "fit_full": "Saabumisajad ja busside asukohad reaalajas: iga buss liigub tablool mööda oma liini vastavalt sellele, kus ta oma teatel parasjagu on, ja minutid loevad alla sinu peatuseni.",
+ "fit_arrivals": "Saabumisajad reaalajas, minutid loevad alla sinu peatuseni. Siinsed bussid oma asukohta ei jaga, nii et tabloo näitab minuteid ilma liinil liikuvate bussideta.",
+ "coverage_h3": "Millised bussid",
+ "source_h3": "Kust ajad tulevad",
+ "source_p": "Otse avaandmetest, mida avaldab {source}. Minu peatus on sõltumatu rakendus; seda ei ole teinud ega heaks kiitnud ükski ühistranspordiasutus ega vedaja.",
+ "web_p": "Oled arvuti taga? <a href=\"{web}\">Ava Minu peatus veebis</a>, tasuta ja ilma allalaadimiseta.",
+ "faq_official_q": "Kas see on ametlik ühistranspordirakendus?",
+ "faq_official_a": "Ei. Minu peatus on sõltumatu rakendus. See näitab avaandmeid, mida avaldab {source}, ning seda ei ole teinud ega heaks kiitnud ükski ühistranspordiasutus ega vedaja.",
+ "faq_cover_q": "Milliseid busse see {in_region} näitab?",
+ "faq_web_q": "Kas saan seda arvutis kasutada?",
+ "faq_web_a": "Jah. Ava Minu peatus veebis mis tahes brauseris, tasuta ja ilma registreerumiseta. Rakendus lisab seinarežiimi, vidinad, Apple Watchi ja Apple TV.",
+ "other_h2": "Bussid reaalajas teistes linnades",
+ "regions": {
+  "tallinn": {
+   "name": "Tallinn",
+   "in_name": "Tallinnas",
+   "title": "Tallinna bussid reaalajas – saabumisajad | Minu peatus",
+   "description": "Tallinna linnabusside saabumisajad reaalajas ja see, kus iga buss oma liinil praegu on. Tasuta iPhone'ile, iPadile, Macile, Apple Watchile ja Apple TV-le.",
+   "h1": "Bussid reaalajas Tallinnas",
+   "lede": "Millal buss tuleb? Linnabuss, millega iga päev sõidad, ühel tablool: mitu minutit on jäänud, kuni see sinu peatusesse jõuab, ja kus see oma liinil praegu on.",
+   "coverage": "Tallinna linnabussid.",
+   "source": "Tallinna Transpordiamet (transport.tallinn.ee)"
+  }
+ }
+}

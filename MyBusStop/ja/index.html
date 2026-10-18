@@ -174,7 +174,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="../styles.css?v=4">
+    <link rel="stylesheet" href="../styles.css?v=5">
     <script src="/assets/analytics.js" defer></script>
 </head>
 <body>
@@ -313,32 +313,32 @@
             </div>
         </section>
 
-        <!-- Regions: drawn as lines with stations -->
-        <section class="section">
+        <!-- Regions: drawn as lines with stations; each links to its page in bus-times/ -->
+        <section class="section" id="where">
             <div class="container">
                 <h2>対応地域</h2>
                 <p class="section-lede">到着時刻は、各交通事業者が公開しているオープンデータから直接取得します。バスの位置情報も公開している事業者なら、路線上を走るバスの動きも見られます。</p>
                 <div class="network">
                     <div class="route" data-line="18">
                         <h3>中東</h3>
-                        <ul><li>イスラエル全土</li><li>イスタンブール</li></ul>
+                        <ul><li><a href="/MyBusStop/bus-times/israel/">イスラエル全土</a></li><li><a href="/MyBusStop/bus-times/istanbul/">イスタンブール</a></li></ul>
                     </div>
                     <div class="route" data-line="41">
                         <h3>ヨーロッパ</h3>
                         <ul>
-                            <li>ノルウェー</li><li>スイス<span class="no-gps" aria-hidden="true">*</span><span class="sr-only">（到着時刻のみ）</span></li><li>ロンドン<span class="no-gps" aria-hidden="true">*</span><span class="sr-only">（到着時刻のみ）</span></li><li>ウィーン<span class="no-gps" aria-hidden="true">*</span><span class="sr-only">（到着時刻のみ）</span></li><li>リンツ<span class="no-gps" aria-hidden="true">*</span><span class="sr-only">（到着時刻のみ）</span></li>
-                            <li>レンヌ</li><li>リスボン都市圏</li><li>トゥルク</li><li>タンペレ</li><li>タリン</li>
-                            <li>ビリニュス</li><li>カウナス</li><li>ポズナン</li><li>グダニスク</li><li>クラクフ</li>
-                            <li>ブリュッセル</li><li>ルクセンブルク<span class="no-gps" aria-hidden="true">*</span><span class="sr-only">（到着時刻のみ）</span></li><li>ベルリン・ブランデンブルク<span class="no-gps" aria-hidden="true">*</span><span class="sr-only">（到着時刻のみ）</span></li><li>ニュルンベルク<span class="no-gps" aria-hidden="true">*</span><span class="sr-only">（到着時刻のみ）</span></li><li>リュブリャナ<span class="no-gps" aria-hidden="true">*</span><span class="sr-only">（到着時刻のみ）</span></li><li>ビスカヤ</li>
+                            <li><a href="/MyBusStop/bus-times/norway/">ノルウェー</a></li><li><a href="/MyBusStop/bus-times/switzerland/">スイス</a><span class="no-gps" aria-hidden="true">*</span><span class="sr-only">（到着時刻のみ）</span></li><li><a href="/MyBusStop/bus-times/london/">ロンドン</a><span class="no-gps" aria-hidden="true">*</span><span class="sr-only">（到着時刻のみ）</span></li><li><a href="/MyBusStop/bus-times/vienna/">ウィーン</a><span class="no-gps" aria-hidden="true">*</span><span class="sr-only">（到着時刻のみ）</span></li><li><a href="/MyBusStop/bus-times/linz/">リンツ</a><span class="no-gps" aria-hidden="true">*</span><span class="sr-only">（到着時刻のみ）</span></li>
+                            <li><a href="/MyBusStop/bus-times/rennes/">レンヌ</a></li><li><a href="/MyBusStop/bus-times/lisbon/">リスボン都市圏</a></li><li><a href="/MyBusStop/bus-times/turku/">トゥルク</a></li><li><a href="/MyBusStop/bus-times/tampere/">タンペレ</a></li><li><a href="/MyBusStop/bus-times/tallinn/">タリン</a></li>
+                            <li><a href="/MyBusStop/bus-times/vilnius/">ビリニュス</a></li><li><a href="/MyBusStop/bus-times/kaunas/">カウナス</a></li><li><a href="/MyBusStop/bus-times/poznan/">ポズナン</a></li><li><a href="/MyBusStop/bus-times/gdansk/">グダニスク</a></li><li><a href="/MyBusStop/bus-times/krakow/">クラクフ</a></li>
+                            <li><a href="/MyBusStop/bus-times/brussels/">ブリュッセル</a></li><li><a href="/MyBusStop/bus-times/luxembourg/">ルクセンブルク</a><span class="no-gps" aria-hidden="true">*</span><span class="sr-only">（到着時刻のみ）</span></li><li><a href="/MyBusStop/bus-times/berlin/">ベルリン・ブランデンブルク</a><span class="no-gps" aria-hidden="true">*</span><span class="sr-only">（到着時刻のみ）</span></li><li><a href="/MyBusStop/bus-times/nuremberg/">ニュルンベルク</a><span class="no-gps" aria-hidden="true">*</span><span class="sr-only">（到着時刻のみ）</span></li><li><a href="/MyBusStop/bus-times/ljubljana/">リュブリャナ</a><span class="no-gps" aria-hidden="true">*</span><span class="sr-only">（到着時刻のみ）</span></li><li><a href="/MyBusStop/bus-times/bizkaia/">ビスカヤ</a></li>
                         </ul>
                     </div>
                     <div class="route" data-line="7">
                         <h3>北米</h3>
-                        <ul><li>ニューヨーク市</li><li>ボストン</li><li>シアトル・ピュージェット湾地域</li><li>タンパ</li><li>ミネアポリス・セントポール</li><li>トロント</li></ul>
+                        <ul><li><a href="/MyBusStop/bus-times/new-york/">ニューヨーク市</a></li><li><a href="/MyBusStop/bus-times/boston/">ボストン</a></li><li><a href="/MyBusStop/bus-times/seattle/">シアトル・ピュージェット湾地域</a></li><li><a href="/MyBusStop/bus-times/tampa/">タンパ</a></li><li><a href="/MyBusStop/bus-times/minneapolis/">ミネアポリス・セントポール</a></li><li><a href="/MyBusStop/bus-times/toronto/">トロント</a></li></ul>
                     </div>
                     <div class="route" data-line="green">
                         <h3>アジア・オセアニア</h3>
-                        <ul><li>香港<span class="no-gps" aria-hidden="true">*</span><span class="sr-only">（到着時刻のみ）</span></li><li>東京</li><li>アデレード</li></ul>
+                        <ul><li><a href="/MyBusStop/bus-times/hong-kong/">香港</a><span class="no-gps" aria-hidden="true">*</span><span class="sr-only">（到着時刻のみ）</span></li><li><a href="/MyBusStop/bus-times/tokyo/ja/">東京</a></li><li><a href="/MyBusStop/bus-times/adelaide/">アデレード</a></li></ul>
                     </div>
                 </div>
                 <p class="note"><span aria-hidden="true">*</span> 到着時刻のみで、バスのリアルタイムの位置は表示されません。香港では、MTR Busは位置情報にも対応しています。</p>

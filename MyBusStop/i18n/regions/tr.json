@@ -1,0 +1,28 @@
+{
+ "cities": "Şehirler",
+ "what_h2": "{in_region} neler görürsün",
+ "fit_full": "Canlı varış saatleri ve otobüslerin canlı konumları: her otobüs konumunu bildirdikçe panoda güzergâhı boyunca ilerler, dakikalar da durağına kadar geri sayar.",
+ "fit_arrivals": "Durağına kadar geri sayan canlı varış saatleri. Buradaki otobüsler konumlarını paylaşmadığı için pano, güzergâhta ilerleyen otobüsler olmadan yalnızca dakikaları gösterir.",
+ "coverage_h3": "Hangi otobüsler",
+ "source_h3": "Saatler nereden geliyor",
+ "source_p": "Doğrudan {source} tarafından yayımlanan açık verilerden. Durağım bağımsız bir uygulamadır; hiçbir ulaşım kurumu veya işletmeci tarafından yapılmamış ya da onaylanmamıştır.",
+ "web_p": "Bilgisayarda mısın? <a href=\"{web}\">Durağım'ı web'de aç</a>; ücretsiz, indirme gerekmez.",
+ "faq_official_q": "Bu resmi bir toplu taşıma uygulaması mı?",
+ "faq_official_a": "Hayır. Durağım bağımsız bir uygulamadır. {source} tarafından yayımlanan açık verileri gösterir; hiçbir ulaşım kurumu veya işletmeci tarafından yapılmamış ya da onaylanmamıştır.",
+ "faq_cover_q": "{in_region} hangi otobüsleri kapsıyor?",
+ "faq_web_q": "Bilgisayarda kullanabilir miyim?",
+ "faq_web_a": "Evet. Durağım'ı herhangi bir tarayıcıda web'de aç; ücretsiz, kayıt gerekmez. Uygulama buna duvar modunu, widget'ları, Apple Watch'u ve Apple TV'yi ekler.",
+ "other_h2": "Diğer şehirlerde canlı otobüs saatleri",
+ "regions": {
+  "istanbul": {
+   "name": "İstanbul",
+   "in_name": "İstanbul'da",
+   "title": "İETT Otobüs Nerede – İstanbul Canlı Varış Saatleri | Durağım",
+   "description": "İstanbul'da İETT otobüslerinin canlı varış saatleri ve her otobüsün şu an nerede olduğu. iPhone, iPad, Mac, Apple Watch ve Apple TV için ücretsiz.",
+   "h1": "İstanbul'da canlı otobüs saatleri",
+   "lede": "Her gün bindiğin İETT otobüsü tek panoda: durağına kaç dakikada geleceği ve şu an güzergâhın neresinde olduğu.",
+   "coverage": "Boğaz'ın iki yakasında, İstanbul genelinde İETT otobüsleri.",
+   "source": "İETT ve İstanbul Büyükşehir Belediyesi Açık Veri Portalı"
+  }
+ }
+}

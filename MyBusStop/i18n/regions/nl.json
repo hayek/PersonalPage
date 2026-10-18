@@ -1,0 +1,28 @@
+{
+ "cities": "Steden",
+ "what_h2": "Wat je {in_region} ziet",
+ "fit_full": "Live aankomsttijden en live busposities: elke bus rijdt op het bord over zijn route terwijl hij doorgeeft waar hij is, en de minuten tellen af tot hij aan je halte is.",
+ "fit_arrivals": "Live aankomsttijden die aftellen tot je halte. De bussen hier delen hun positie niet, dus het bord toont de minuten zonder rijdende bussen op de route.",
+ "coverage_h3": "Welke bussen",
+ "source_h3": "Waar de tijden vandaan komen",
+ "source_p": "Rechtstreeks uit de open data gepubliceerd door {source}. Mijn halte is een onafhankelijke app; hij is niet gemaakt of goedgekeurd door een vervoersautoriteit of vervoerder.",
+ "web_p": "Op een computer? <a href=\"{web}\">Open Mijn halte op het web</a>, gratis en zonder download.",
+ "faq_official_q": "Is dit een officiële app van een vervoersmaatschappij?",
+ "faq_official_a": "Nee. Mijn halte is een onafhankelijke app. Hij toont de open data gepubliceerd door {source} en is niet gemaakt of goedgekeurd door een vervoersautoriteit of vervoerder.",
+ "faq_cover_q": "Welke bussen toont de app {in_region}?",
+ "faq_web_q": "Kan ik hem op een computer gebruiken?",
+ "faq_web_a": "Ja. Open Mijn halte op het web in elke browser, gratis en zonder aanmelden. De app voegt wandmodus, widgets, Apple Watch en Apple TV toe.",
+ "other_h2": "Live bustijden in andere steden",
+ "regions": {
+  "brussels": {
+   "name": "Brussel",
+   "in_name": "in Brussel",
+   "title": "MIVB-bussen live in Brussel – doorkomsttijden | Mijn halte",
+   "description": "Live doorkomsttijden van de MIVB-bussen in Brussel, en waar elke bus nu op zijn route rijdt. Gratis voor iPhone, iPad, Mac, Apple Watch en Apple TV.",
+   "h1": "Live bustijden in Brussel",
+   "lede": "De MIVB-bus die je elke dag neemt op één bord: de minuten tot hij aan je halte is, en waar hij nu op zijn route rijdt.",
+   "coverage": "Bussen van de STIB-MIVB in het hele Brussels Hoofdstedelijk Gewest. Bussen van De Lijn en TEC zijn nog niet opgenomen.",
+   "source": "STIB-MIVB Open Data"
+  }
+ }
+}

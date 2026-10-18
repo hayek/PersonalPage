@@ -174,7 +174,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="../styles.css?v=4">
+    <link rel="stylesheet" href="../styles.css?v=5">
     <script src="/assets/analytics.js" defer></script>
 </head>
 <body>
@@ -313,32 +313,32 @@
             </div>
         </section>
 
-        <!-- Regions: drawn as lines with stations -->
-        <section class="section">
+        <!-- Regions: drawn as lines with stations; each links to its page in bus-times/ -->
+        <section class="section" id="where">
             <div class="container">
                 <h2>Kur veikia</h2>
                 <p class="section-lede">Atvykimo laikai gaunami tiesiai iš atvirųjų duomenų, kuriuos skelbia kiekvienas vežėjas. Kur vežėjas dalijasi ir autobusų padėtimi, matote, kaip autobusai juda maršrutu.</p>
                 <div class="network">
                     <div class="route" data-line="18">
                         <h3>Artimieji Rytai</h3>
-                        <ul><li>Izraelis, visoje šalyje</li><li>Stambulas</li></ul>
+                        <ul><li><a href="/MyBusStop/bus-times/israel/">Izraelis, visoje šalyje</a></li><li><a href="/MyBusStop/bus-times/istanbul/">Stambulas</a></li></ul>
                     </div>
                     <div class="route" data-line="41">
                         <h3>Europa</h3>
                         <ul>
-                            <li>Norvegija</li><li>Šveicarija<span class="no-gps" aria-hidden="true">*</span><span class="sr-only"> (tik atvykimo laikai)</span></li><li>Londonas<span class="no-gps" aria-hidden="true">*</span><span class="sr-only"> (tik atvykimo laikai)</span></li><li>Viena<span class="no-gps" aria-hidden="true">*</span><span class="sr-only"> (tik atvykimo laikai)</span></li><li>Lincas<span class="no-gps" aria-hidden="true">*</span><span class="sr-only"> (tik atvykimo laikai)</span></li>
-                            <li>Renas</li><li>Lisabonos regionas</li><li>Turku</li><li>Tamperė</li><li>Talinas</li>
-                            <li>Vilnius</li><li>Kaunas</li><li>Poznanė</li><li>Gdanskas</li><li>Krokuva</li>
-                            <li>Briuselis</li><li>Liuksemburgas<span class="no-gps" aria-hidden="true">*</span><span class="sr-only"> (tik atvykimo laikai)</span></li><li>Berlynas ir Brandenburgas<span class="no-gps" aria-hidden="true">*</span><span class="sr-only"> (tik atvykimo laikai)</span></li><li>Niurnbergas<span class="no-gps" aria-hidden="true">*</span><span class="sr-only"> (tik atvykimo laikai)</span></li><li>Liubliana<span class="no-gps" aria-hidden="true">*</span><span class="sr-only"> (tik atvykimo laikai)</span></li><li>Biskaja</li>
+                            <li><a href="/MyBusStop/bus-times/norway/">Norvegija</a></li><li><a href="/MyBusStop/bus-times/switzerland/">Šveicarija</a><span class="no-gps" aria-hidden="true">*</span><span class="sr-only"> (tik atvykimo laikai)</span></li><li><a href="/MyBusStop/bus-times/london/">Londonas</a><span class="no-gps" aria-hidden="true">*</span><span class="sr-only"> (tik atvykimo laikai)</span></li><li><a href="/MyBusStop/bus-times/vienna/">Viena</a><span class="no-gps" aria-hidden="true">*</span><span class="sr-only"> (tik atvykimo laikai)</span></li><li><a href="/MyBusStop/bus-times/linz/">Lincas</a><span class="no-gps" aria-hidden="true">*</span><span class="sr-only"> (tik atvykimo laikai)</span></li>
+                            <li><a href="/MyBusStop/bus-times/rennes/">Renas</a></li><li><a href="/MyBusStop/bus-times/lisbon/">Lisabonos regionas</a></li><li><a href="/MyBusStop/bus-times/turku/">Turku</a></li><li><a href="/MyBusStop/bus-times/tampere/">Tamperė</a></li><li><a href="/MyBusStop/bus-times/tallinn/">Talinas</a></li>
+                            <li><a href="/MyBusStop/bus-times/vilnius/lt/">Vilnius</a></li><li><a href="/MyBusStop/bus-times/kaunas/lt/">Kaunas</a></li><li><a href="/MyBusStop/bus-times/poznan/">Poznanė</a></li><li><a href="/MyBusStop/bus-times/gdansk/">Gdanskas</a></li><li><a href="/MyBusStop/bus-times/krakow/">Krokuva</a></li>
+                            <li><a href="/MyBusStop/bus-times/brussels/">Briuselis</a></li><li><a href="/MyBusStop/bus-times/luxembourg/">Liuksemburgas</a><span class="no-gps" aria-hidden="true">*</span><span class="sr-only"> (tik atvykimo laikai)</span></li><li><a href="/MyBusStop/bus-times/berlin/">Berlynas ir Brandenburgas</a><span class="no-gps" aria-hidden="true">*</span><span class="sr-only"> (tik atvykimo laikai)</span></li><li><a href="/MyBusStop/bus-times/nuremberg/">Niurnbergas</a><span class="no-gps" aria-hidden="true">*</span><span class="sr-only"> (tik atvykimo laikai)</span></li><li><a href="/MyBusStop/bus-times/ljubljana/">Liubliana</a><span class="no-gps" aria-hidden="true">*</span><span class="sr-only"> (tik atvykimo laikai)</span></li><li><a href="/MyBusStop/bus-times/bizkaia/">Biskaja</a></li>
                         </ul>
                     </div>
                     <div class="route" data-line="7">
                         <h3>Šiaurės Amerika</h3>
-                        <ul><li>Niujorkas</li><li>Bostonas</li><li>Sietlas ir Pjudžeto Saundas</li><li>Tampa</li><li>Mineapolis–Sent Polas</li><li>Torontas</li></ul>
+                        <ul><li><a href="/MyBusStop/bus-times/new-york/">Niujorkas</a></li><li><a href="/MyBusStop/bus-times/boston/">Bostonas</a></li><li><a href="/MyBusStop/bus-times/seattle/">Sietlas ir Pjudžeto Saundas</a></li><li><a href="/MyBusStop/bus-times/tampa/">Tampa</a></li><li><a href="/MyBusStop/bus-times/minneapolis/">Mineapolis–Sent Polas</a></li><li><a href="/MyBusStop/bus-times/toronto/">Torontas</a></li></ul>
                     </div>
                     <div class="route" data-line="green">
                         <h3>Azija ir Okeanija</h3>
-                        <ul><li>Honkongas<span class="no-gps" aria-hidden="true">*</span><span class="sr-only"> (tik atvykimo laikai)</span></li><li>Tokijas</li><li>Adelaidė</li></ul>
+                        <ul><li><a href="/MyBusStop/bus-times/hong-kong/">Honkongas</a><span class="no-gps" aria-hidden="true">*</span><span class="sr-only"> (tik atvykimo laikai)</span></li><li><a href="/MyBusStop/bus-times/tokyo/">Tokijas</a></li><li><a href="/MyBusStop/bus-times/adelaide/">Adelaidė</a></li></ul>
                     </div>
                 </div>
                 <p class="note"><span aria-hidden="true">*</span> Tik atvykimo laikai, be autobusų padėties realiu laiku. Honkonge ją teikia MTR Bus.</p>

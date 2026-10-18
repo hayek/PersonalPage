@@ -174,7 +174,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="../styles.css?v=4">
+    <link rel="stylesheet" href="../styles.css?v=5">
     <script src="/assets/analytics.js" defer></script>
 </head>
 <body>
@@ -313,32 +313,32 @@
             </div>
         </section>
 
-        <!-- Regions: drawn as lines with stations -->
-        <section class="section">
+        <!-- Regions: drawn as lines with stations; each links to its page in bus-times/ -->
+        <section class="section" id="where">
             <div class="container">
                 <h2>支持地区</h2>
                 <p class="section-lede">到站时间直接来自各公交机构发布的开放数据。如果机构同时提供车辆位置，你还能看到车辆沿线路行驶。</p>
                 <div class="network">
                     <div class="route" data-line="18">
                         <h3>中东</h3>
-                        <ul><li>以色列全境</li><li>伊斯坦布尔</li></ul>
+                        <ul><li><a href="/MyBusStop/bus-times/israel/">以色列全境</a></li><li><a href="/MyBusStop/bus-times/istanbul/">伊斯坦布尔</a></li></ul>
                     </div>
                     <div class="route" data-line="41">
                         <h3>欧洲</h3>
                         <ul>
-                            <li>挪威</li><li>瑞士<span class="no-gps" aria-hidden="true">*</span><span class="sr-only">（仅到站时间）</span></li><li>伦敦<span class="no-gps" aria-hidden="true">*</span><span class="sr-only">（仅到站时间）</span></li><li>维也纳<span class="no-gps" aria-hidden="true">*</span><span class="sr-only">（仅到站时间）</span></li><li>林茨<span class="no-gps" aria-hidden="true">*</span><span class="sr-only">（仅到站时间）</span></li>
-                            <li>雷恩</li><li>里斯本地区</li><li>图尔库</li><li>坦佩雷</li><li>塔林</li>
-                            <li>维尔纽斯</li><li>考纳斯</li><li>波兹南</li><li>格但斯克</li><li>克拉科夫</li>
-                            <li>布鲁塞尔</li><li>卢森堡<span class="no-gps" aria-hidden="true">*</span><span class="sr-only">（仅到站时间）</span></li><li>柏林和勃兰登堡<span class="no-gps" aria-hidden="true">*</span><span class="sr-only">（仅到站时间）</span></li><li>纽伦堡<span class="no-gps" aria-hidden="true">*</span><span class="sr-only">（仅到站时间）</span></li><li>卢布尔雅那<span class="no-gps" aria-hidden="true">*</span><span class="sr-only">（仅到站时间）</span></li><li>比斯开</li>
+                            <li><a href="/MyBusStop/bus-times/norway/">挪威</a></li><li><a href="/MyBusStop/bus-times/switzerland/">瑞士</a><span class="no-gps" aria-hidden="true">*</span><span class="sr-only">（仅到站时间）</span></li><li><a href="/MyBusStop/bus-times/london/">伦敦</a><span class="no-gps" aria-hidden="true">*</span><span class="sr-only">（仅到站时间）</span></li><li><a href="/MyBusStop/bus-times/vienna/">维也纳</a><span class="no-gps" aria-hidden="true">*</span><span class="sr-only">（仅到站时间）</span></li><li><a href="/MyBusStop/bus-times/linz/">林茨</a><span class="no-gps" aria-hidden="true">*</span><span class="sr-only">（仅到站时间）</span></li>
+                            <li><a href="/MyBusStop/bus-times/rennes/">雷恩</a></li><li><a href="/MyBusStop/bus-times/lisbon/">里斯本地区</a></li><li><a href="/MyBusStop/bus-times/turku/">图尔库</a></li><li><a href="/MyBusStop/bus-times/tampere/">坦佩雷</a></li><li><a href="/MyBusStop/bus-times/tallinn/">塔林</a></li>
+                            <li><a href="/MyBusStop/bus-times/vilnius/">维尔纽斯</a></li><li><a href="/MyBusStop/bus-times/kaunas/">考纳斯</a></li><li><a href="/MyBusStop/bus-times/poznan/">波兹南</a></li><li><a href="/MyBusStop/bus-times/gdansk/">格但斯克</a></li><li><a href="/MyBusStop/bus-times/krakow/">克拉科夫</a></li>
+                            <li><a href="/MyBusStop/bus-times/brussels/">布鲁塞尔</a></li><li><a href="/MyBusStop/bus-times/luxembourg/">卢森堡</a><span class="no-gps" aria-hidden="true">*</span><span class="sr-only">（仅到站时间）</span></li><li><a href="/MyBusStop/bus-times/berlin/">柏林和勃兰登堡</a><span class="no-gps" aria-hidden="true">*</span><span class="sr-only">（仅到站时间）</span></li><li><a href="/MyBusStop/bus-times/nuremberg/">纽伦堡</a><span class="no-gps" aria-hidden="true">*</span><span class="sr-only">（仅到站时间）</span></li><li><a href="/MyBusStop/bus-times/ljubljana/">卢布尔雅那</a><span class="no-gps" aria-hidden="true">*</span><span class="sr-only">（仅到站时间）</span></li><li><a href="/MyBusStop/bus-times/bizkaia/">比斯开</a></li>
                         </ul>
                     </div>
                     <div class="route" data-line="7">
                         <h3>北美</h3>
-                        <ul><li>纽约市</li><li>波士顿</li><li>西雅图和普吉特湾</li><li>坦帕</li><li>明尼阿波利斯–圣保罗</li><li>多伦多</li></ul>
+                        <ul><li><a href="/MyBusStop/bus-times/new-york/">纽约市</a></li><li><a href="/MyBusStop/bus-times/boston/">波士顿</a></li><li><a href="/MyBusStop/bus-times/seattle/">西雅图和普吉特湾</a></li><li><a href="/MyBusStop/bus-times/tampa/">坦帕</a></li><li><a href="/MyBusStop/bus-times/minneapolis/">明尼阿波利斯–圣保罗</a></li><li><a href="/MyBusStop/bus-times/toronto/">多伦多</a></li></ul>
                     </div>
                     <div class="route" data-line="green">
                         <h3>亚洲和大洋洲</h3>
-                        <ul><li>香港<span class="no-gps" aria-hidden="true">*</span><span class="sr-only">（仅到站时间）</span></li><li>东京</li><li>阿德莱德</li></ul>
+                        <ul><li><a href="/MyBusStop/bus-times/hong-kong/">香港</a><span class="no-gps" aria-hidden="true">*</span><span class="sr-only">（仅到站时间）</span></li><li><a href="/MyBusStop/bus-times/tokyo/">东京</a></li><li><a href="/MyBusStop/bus-times/adelaide/">阿德莱德</a></li></ul>
                     </div>
                 </div>
                 <p class="note"><span aria-hidden="true">*</span> 仅提供到站时间，没有车辆实时位置。在香港，港铁巴士（MTR Bus）提供车辆位置。</p>

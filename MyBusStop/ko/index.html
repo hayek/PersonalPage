@@ -174,7 +174,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="../styles.css?v=4">
+    <link rel="stylesheet" href="../styles.css?v=5">
     <script src="/assets/analytics.js" defer></script>
 </head>
 <body>
@@ -313,32 +313,32 @@
             </div>
         </section>
 
-        <!-- Regions: drawn as lines with stations -->
-        <section class="section">
+        <!-- Regions: drawn as lines with stations; each links to its page in bus-times/ -->
+        <section class="section" id="where">
             <div class="container">
                 <h2>지원 지역</h2>
                 <p class="section-lede">도착 시간은 각 교통 기관이 공개하는 오픈 데이터에서 바로 가져옵니다. 버스 위치까지 공개하는 기관이라면 노선을 따라 움직이는 버스도 볼 수 있습니다.</p>
                 <div class="network">
                     <div class="route" data-line="18">
                         <h3>중동</h3>
-                        <ul><li>이스라엘 전역</li><li>이스탄불</li></ul>
+                        <ul><li><a href="/MyBusStop/bus-times/israel/">이스라엘 전역</a></li><li><a href="/MyBusStop/bus-times/istanbul/">이스탄불</a></li></ul>
                     </div>
                     <div class="route" data-line="41">
                         <h3>유럽</h3>
                         <ul>
-                            <li>노르웨이</li><li>스위스<span class="no-gps" aria-hidden="true">*</span><span class="sr-only"> (도착 시간만)</span></li><li>런던<span class="no-gps" aria-hidden="true">*</span><span class="sr-only"> (도착 시간만)</span></li><li>빈<span class="no-gps" aria-hidden="true">*</span><span class="sr-only"> (도착 시간만)</span></li><li>린츠<span class="no-gps" aria-hidden="true">*</span><span class="sr-only"> (도착 시간만)</span></li>
-                            <li>렌</li><li>리스본 일대</li><li>투르쿠</li><li>탐페레</li><li>탈린</li>
-                            <li>빌뉴스</li><li>카우나스</li><li>포즈난</li><li>그단스크</li><li>크라쿠프</li>
-                            <li>브뤼셀</li><li>룩셈부르크<span class="no-gps" aria-hidden="true">*</span><span class="sr-only"> (도착 시간만)</span></li><li>베를린·브란덴부르크<span class="no-gps" aria-hidden="true">*</span><span class="sr-only"> (도착 시간만)</span></li><li>뉘른베르크<span class="no-gps" aria-hidden="true">*</span><span class="sr-only"> (도착 시간만)</span></li><li>류블랴나<span class="no-gps" aria-hidden="true">*</span><span class="sr-only"> (도착 시간만)</span></li><li>비스카이아</li>
+                            <li><a href="/MyBusStop/bus-times/norway/">노르웨이</a></li><li><a href="/MyBusStop/bus-times/switzerland/">스위스</a><span class="no-gps" aria-hidden="true">*</span><span class="sr-only"> (도착 시간만)</span></li><li><a href="/MyBusStop/bus-times/london/">런던</a><span class="no-gps" aria-hidden="true">*</span><span class="sr-only"> (도착 시간만)</span></li><li><a href="/MyBusStop/bus-times/vienna/">빈</a><span class="no-gps" aria-hidden="true">*</span><span class="sr-only"> (도착 시간만)</span></li><li><a href="/MyBusStop/bus-times/linz/">린츠</a><span class="no-gps" aria-hidden="true">*</span><span class="sr-only"> (도착 시간만)</span></li>
+                            <li><a href="/MyBusStop/bus-times/rennes/">렌</a></li><li><a href="/MyBusStop/bus-times/lisbon/">리스본 일대</a></li><li><a href="/MyBusStop/bus-times/turku/">투르쿠</a></li><li><a href="/MyBusStop/bus-times/tampere/">탐페레</a></li><li><a href="/MyBusStop/bus-times/tallinn/">탈린</a></li>
+                            <li><a href="/MyBusStop/bus-times/vilnius/">빌뉴스</a></li><li><a href="/MyBusStop/bus-times/kaunas/">카우나스</a></li><li><a href="/MyBusStop/bus-times/poznan/">포즈난</a></li><li><a href="/MyBusStop/bus-times/gdansk/">그단스크</a></li><li><a href="/MyBusStop/bus-times/krakow/">크라쿠프</a></li>
+                            <li><a href="/MyBusStop/bus-times/brussels/">브뤼셀</a></li><li><a href="/MyBusStop/bus-times/luxembourg/">룩셈부르크</a><span class="no-gps" aria-hidden="true">*</span><span class="sr-only"> (도착 시간만)</span></li><li><a href="/MyBusStop/bus-times/berlin/">베를린·브란덴부르크</a><span class="no-gps" aria-hidden="true">*</span><span class="sr-only"> (도착 시간만)</span></li><li><a href="/MyBusStop/bus-times/nuremberg/">뉘른베르크</a><span class="no-gps" aria-hidden="true">*</span><span class="sr-only"> (도착 시간만)</span></li><li><a href="/MyBusStop/bus-times/ljubljana/">류블랴나</a><span class="no-gps" aria-hidden="true">*</span><span class="sr-only"> (도착 시간만)</span></li><li><a href="/MyBusStop/bus-times/bizkaia/">비스카이아</a></li>
                         </ul>
                     </div>
                     <div class="route" data-line="7">
                         <h3>북미</h3>
-                        <ul><li>뉴욕시</li><li>보스턴</li><li>시애틀·퓨젓사운드</li><li>탬파</li><li>미니애폴리스–세인트폴</li><li>토론토</li></ul>
+                        <ul><li><a href="/MyBusStop/bus-times/new-york/">뉴욕시</a></li><li><a href="/MyBusStop/bus-times/boston/">보스턴</a></li><li><a href="/MyBusStop/bus-times/seattle/">시애틀·퓨젓사운드</a></li><li><a href="/MyBusStop/bus-times/tampa/">탬파</a></li><li><a href="/MyBusStop/bus-times/minneapolis/">미니애폴리스–세인트폴</a></li><li><a href="/MyBusStop/bus-times/toronto/">토론토</a></li></ul>
                     </div>
                     <div class="route" data-line="green">
                         <h3>아시아·오세아니아</h3>
-                        <ul><li>홍콩<span class="no-gps" aria-hidden="true">*</span><span class="sr-only"> (도착 시간만)</span></li><li>도쿄</li><li>애들레이드</li></ul>
+                        <ul><li><a href="/MyBusStop/bus-times/hong-kong/">홍콩</a><span class="no-gps" aria-hidden="true">*</span><span class="sr-only"> (도착 시간만)</span></li><li><a href="/MyBusStop/bus-times/tokyo/">도쿄</a></li><li><a href="/MyBusStop/bus-times/adelaide/">애들레이드</a></li></ul>
                     </div>
                 </div>
                 <p class="note"><span aria-hidden="true">*</span> 도착 시간만 제공되며 실시간 버스 위치는 표시되지 않습니다. 홍콩에서는 MTR Bus가 버스 위치도 제공합니다.</p>

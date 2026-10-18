@@ -1,0 +1,28 @@
+{
+ "cities": "Byer",
+ "what_h2": "Dette ser du {in_region}",
+ "fit_full": "Ankomsttider og bussposisjoner i sanntid: hver buss beveger seg langs ruten på tavlen etter hvert som den melder hvor den er, og minuttene teller ned til holdeplassen din.",
+ "fit_arrivals": "Ankomsttider i sanntid som teller ned til holdeplassen din. Bussene her deler ikke posisjonen sin, så tavlen viser minuttene uten busser som beveger seg langs ruten.",
+ "coverage_h3": "Hvilke busser",
+ "source_h3": "Hvor tidene kommer fra",
+ "source_p": "Rett fra de åpne dataene publisert av {source}. Min holdeplass er en uavhengig app; den er ikke laget eller godkjent av noe kollektivselskap eller operatør.",
+ "web_p": "Sitter du ved en datamaskin? <a href=\"{web}\">Åpne Min holdeplass på nettet</a>, gratis og uten nedlasting.",
+ "faq_official_q": "Er dette en offisiell kollektivapp?",
+ "faq_official_a": "Nei. Min holdeplass er en uavhengig app. Den viser de åpne dataene publisert av {source}, og er ikke laget eller godkjent av noe kollektivselskap eller operatør.",
+ "faq_cover_q": "Hvilke busser dekker den {in_region}?",
+ "faq_web_q": "Kan jeg bruke den på en datamaskin?",
+ "faq_web_a": "Ja. Åpne Min holdeplass på nettet i en hvilken som helst nettleser, gratis og uten registrering. Appen har i tillegg veggmodus, widgeter, Apple Watch og Apple TV.",
+ "other_h2": "Buss i sanntid i andre byer",
+ "regions": {
+  "norway": {
+   "name": "Norge",
+   "in_name": "i Norge",
+   "title": "Buss i sanntid i Norge – Ruter, Skyss, AtB m.fl. | Min holdeplass",
+   "description": "Sanntid for busser i hele Norge, fra Ruter i Oslo til Skyss i Bergen og AtB i Trondheim, og hvor hver buss er nå. Gratis på iPhone, iPad, Mac og Apple TV.",
+   "h1": "Buss i sanntid i Norge",
+   "lede": "Når går bussen? Sanntid for bussene over hele landet på én tavle: minuttene til bussen din er på holdeplassen, og hvor den er på ruten akkurat nå, enten du reiser med Ruter, Skyss, AtB eller Kolumbus.",
+   "coverage": "Busser over hele Norge, fra Ruter i Oslo, Skyss i Bergen, AtB i Trondheim og Kolumbus i Stavanger til alle andre operatører i Enturs nasjonale data.",
+   "source": "Entur, med data fra norske kollektivselskaper"
+  }
+ }
+}

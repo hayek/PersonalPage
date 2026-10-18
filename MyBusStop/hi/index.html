@@ -174,7 +174,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="../styles.css?v=4">
+    <link rel="stylesheet" href="../styles.css?v=5">
     <script src="/assets/analytics.js" defer></script>
 </head>
 <body>
@@ -313,32 +313,32 @@
             </div>
         </section>
 
-        <!-- Regions: drawn as lines with stations -->
-        <section class="section">
+        <!-- Regions: drawn as lines with stations; each links to its page in bus-times/ -->
+        <section class="section" id="where">
             <div class="container">
                 <h2>यह कहाँ चलता है</h2>
                 <p class="section-lede">आगमन समय सीधे उस ओपन डेटा से आते हैं जो हर परिवहन एजेंसी प्रकाशित करती है। जहाँ एजेंसी बसों की लोकेशन भी साझा करती है, वहाँ आप बसों को रूट पर चलते हुए देखते हैं।</p>
                 <div class="network">
                     <div class="route" data-line="18">
                         <h3>मध्य पूर्व</h3>
-                        <ul><li>इज़राइल, पूरे देश में</li><li>इस्तांबुल</li></ul>
+                        <ul><li><a href="/MyBusStop/bus-times/israel/">इज़राइल, पूरे देश में</a></li><li><a href="/MyBusStop/bus-times/istanbul/">इस्तांबुल</a></li></ul>
                     </div>
                     <div class="route" data-line="41">
                         <h3>यूरोप</h3>
                         <ul>
-                            <li>नॉर्वे</li><li>स्विट्ज़रलैंड<span class="no-gps" aria-hidden="true">*</span><span class="sr-only"> (सिर्फ़ आगमन समय)</span></li><li>लंदन<span class="no-gps" aria-hidden="true">*</span><span class="sr-only"> (सिर्फ़ आगमन समय)</span></li><li>वियना<span class="no-gps" aria-hidden="true">*</span><span class="sr-only"> (सिर्फ़ आगमन समय)</span></li><li>लिंज़<span class="no-gps" aria-hidden="true">*</span><span class="sr-only"> (सिर्फ़ आगमन समय)</span></li>
-                            <li>रेन</li><li>लिस्बन क्षेत्र</li><li>तुर्कू</li><li>टाम्पेरे</li><li>तालिन</li>
-                            <li>विलनियस</li><li>काउनास</li><li>पोज़्नान</li><li>ग्दान्स्क</li><li>क्राकोव</li>
-                            <li>ब्रसेल्स</li><li>लक्ज़मबर्ग<span class="no-gps" aria-hidden="true">*</span><span class="sr-only"> (सिर्फ़ आगमन समय)</span></li><li>बर्लिन और ब्रांडेनबर्ग<span class="no-gps" aria-hidden="true">*</span><span class="sr-only"> (सिर्फ़ आगमन समय)</span></li><li>न्यूरेमबर्ग<span class="no-gps" aria-hidden="true">*</span><span class="sr-only"> (सिर्फ़ आगमन समय)</span></li><li>ल्यूबल्याना<span class="no-gps" aria-hidden="true">*</span><span class="sr-only"> (सिर्फ़ आगमन समय)</span></li><li>बिज़काया</li>
+                            <li><a href="/MyBusStop/bus-times/norway/">नॉर्वे</a></li><li><a href="/MyBusStop/bus-times/switzerland/">स्विट्ज़रलैंड</a><span class="no-gps" aria-hidden="true">*</span><span class="sr-only"> (सिर्फ़ आगमन समय)</span></li><li><a href="/MyBusStop/bus-times/london/">लंदन</a><span class="no-gps" aria-hidden="true">*</span><span class="sr-only"> (सिर्फ़ आगमन समय)</span></li><li><a href="/MyBusStop/bus-times/vienna/">वियना</a><span class="no-gps" aria-hidden="true">*</span><span class="sr-only"> (सिर्फ़ आगमन समय)</span></li><li><a href="/MyBusStop/bus-times/linz/">लिंज़</a><span class="no-gps" aria-hidden="true">*</span><span class="sr-only"> (सिर्फ़ आगमन समय)</span></li>
+                            <li><a href="/MyBusStop/bus-times/rennes/">रेन</a></li><li><a href="/MyBusStop/bus-times/lisbon/">लिस्बन क्षेत्र</a></li><li><a href="/MyBusStop/bus-times/turku/">तुर्कू</a></li><li><a href="/MyBusStop/bus-times/tampere/">टाम्पेरे</a></li><li><a href="/MyBusStop/bus-times/tallinn/">तालिन</a></li>
+                            <li><a href="/MyBusStop/bus-times/vilnius/">विलनियस</a></li><li><a href="/MyBusStop/bus-times/kaunas/">काउनास</a></li><li><a href="/MyBusStop/bus-times/poznan/">पोज़्नान</a></li><li><a href="/MyBusStop/bus-times/gdansk/">ग्दान्स्क</a></li><li><a href="/MyBusStop/bus-times/krakow/">क्राकोव</a></li>
+                            <li><a href="/MyBusStop/bus-times/brussels/">ब्रसेल्स</a></li><li><a href="/MyBusStop/bus-times/luxembourg/">लक्ज़मबर्ग</a><span class="no-gps" aria-hidden="true">*</span><span class="sr-only"> (सिर्फ़ आगमन समय)</span></li><li><a href="/MyBusStop/bus-times/berlin/">बर्लिन और ब्रांडेनबर्ग</a><span class="no-gps" aria-hidden="true">*</span><span class="sr-only"> (सिर्फ़ आगमन समय)</span></li><li><a href="/MyBusStop/bus-times/nuremberg/">न्यूरेमबर्ग</a><span class="no-gps" aria-hidden="true">*</span><span class="sr-only"> (सिर्फ़ आगमन समय)</span></li><li><a href="/MyBusStop/bus-times/ljubljana/">ल्यूबल्याना</a><span class="no-gps" aria-hidden="true">*</span><span class="sr-only"> (सिर्फ़ आगमन समय)</span></li><li><a href="/MyBusStop/bus-times/bizkaia/">बिज़काया</a></li>
                         </ul>
                     </div>
                     <div class="route" data-line="7">
                         <h3>उत्तरी अमेरिका</h3>
-                        <ul><li>न्यूयॉर्क सिटी</li><li>बॉस्टन</li><li>सिएटल और प्यूजेट साउंड</li><li>टैम्पा</li><li>मिनियापोलिस–सेंट पॉल</li><li>टोरंटो</li></ul>
+                        <ul><li><a href="/MyBusStop/bus-times/new-york/">न्यूयॉर्क सिटी</a></li><li><a href="/MyBusStop/bus-times/boston/">बॉस्टन</a></li><li><a href="/MyBusStop/bus-times/seattle/">सिएटल और प्यूजेट साउंड</a></li><li><a href="/MyBusStop/bus-times/tampa/">टैम्पा</a></li><li><a href="/MyBusStop/bus-times/minneapolis/">मिनियापोलिस–सेंट पॉल</a></li><li><a href="/MyBusStop/bus-times/toronto/">टोरंटो</a></li></ul>
                     </div>
                     <div class="route" data-line="green">
                         <h3>एशिया और ओशिनिया</h3>
-                        <ul><li>हांगकांग<span class="no-gps" aria-hidden="true">*</span><span class="sr-only"> (सिर्फ़ आगमन समय)</span></li><li>टोक्यो</li><li>एडिलेड</li></ul>
+                        <ul><li><a href="/MyBusStop/bus-times/hong-kong/">हांगकांग</a><span class="no-gps" aria-hidden="true">*</span><span class="sr-only"> (सिर्फ़ आगमन समय)</span></li><li><a href="/MyBusStop/bus-times/tokyo/">टोक्यो</a></li><li><a href="/MyBusStop/bus-times/adelaide/">एडिलेड</a></li></ul>
                     </div>
                 </div>
                 <p class="note"><span aria-hidden="true">*</span> सिर्फ़ आगमन समय, बसों की लाइव लोकेशन नहीं। हांगकांग में MTR Bus की लोकेशन भी मिलती है।</p>

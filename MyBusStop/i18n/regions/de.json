@@ -1,0 +1,78 @@
+{
+ "cities": "Städte",
+ "what_h2": "Was du {in_region} siehst",
+ "fit_full": "Live-Ankunftszeiten und Live-Positionen der Busse: Jeder Bus fährt auf der Tafel seine Strecke entlang, sobald er meldet, wo er ist, und die Minuten bis zu deiner Haltestelle zählen herunter.",
+ "fit_arrivals": "Live-Ankunftszeiten mit Countdown bis zu deiner Haltestelle. Die Busse hier teilen ihre Position nicht, deshalb zeigt die Tafel die Minuten ohne fahrende Busse auf der Strecke.",
+ "coverage_h3": "Welche Busse",
+ "source_h3": "Woher die Zeiten kommen",
+ "source_p": "Direkt aus den offenen Daten von {source}. Meine Haltestelle ist eine unabhängige App; sie wird von keinem Verkehrsverbund oder Verkehrsunternehmen entwickelt oder unterstützt.",
+ "web_p": "Am Computer? <a href=\"{web}\">Öffne Meine Haltestelle im Web</a>, kostenlos und ohne Download.",
+ "faq_official_q": "Ist das eine offizielle App eines Verkehrsunternehmens?",
+ "faq_official_a": "Nein. Meine Haltestelle ist eine unabhängige App. Sie zeigt die offenen Daten von {source} und wird von keinem Verkehrsverbund oder Verkehrsunternehmen entwickelt oder unterstützt.",
+ "faq_cover_q": "Welche Busse zeigt die App {in_region}?",
+ "faq_web_q": "Kann ich sie am Computer nutzen?",
+ "faq_web_a": "Ja. Öffne Meine Haltestelle im Web in jedem Browser, kostenlos und ohne Anmeldung. Die App bietet zusätzlich den Wandmodus, Widgets, Apple Watch und Apple TV.",
+ "other_h2": "Live-Busabfahrten in anderen Städten",
+ "regions": {
+  "vienna": {
+   "name": "Wien",
+   "in_name": "in Wien",
+   "title": "Wiener Linien Abfahrten in Echtzeit – Wien | Meine Haltestelle",
+   "description": "Busse der Wiener Linien in Echtzeit: die Abfahrten an deiner Haltestelle in Wien, mit Countdown. Kostenlos für iPhone, iPad, Mac, Apple Watch und Apple TV.",
+   "h1": "Live-Busabfahrten in Wien",
+   "lede": "Die Busse der Wiener Linien, mit denen du jeden Tag fährst, auf einer Tafel: Echtzeit-Abfahrten an deiner Haltestelle, mit Countdown zum nächsten Bus und zum übernächsten.",
+   "coverage": "Busse der Wiener Linien in ganz Wien, mit Abfahrten in Echtzeit.",
+   "source": "Stadt Wien – data.wien.gv.at / Wiener Linien (CC BY 4.0)"
+  },
+  "linz": {
+   "name": "Linz",
+   "in_name": "in Linz",
+   "title": "LINZ AG LINIEN Abfahrten in Echtzeit – Linz | Meine Haltestelle",
+   "description": "Busse der LINZ AG LINIEN in Echtzeit: die Abfahrten an deiner Haltestelle in Linz, mit Countdown. Kostenlos für iPhone, iPad, Mac, Apple Watch und Apple TV.",
+   "h1": "Live-Busabfahrten in Linz",
+   "lede": "Die Busse der LINZ AG LINIEN, mit denen du jeden Tag fährst, auf einer Tafel: Echtzeit-Abfahrten an deiner Haltestelle, mit Countdown zum nächsten Bus und zum übernächsten.",
+   "coverage": "Busse der LINZ AG LINIEN in ganz Linz, mit Abfahrten in Echtzeit.",
+   "source": "LINZ AG LINIEN (CC BY 4.0)"
+  },
+  "luxembourg": {
+   "name": "Luxemburg",
+   "in_name": "in Luxemburg",
+   "title": "Bus-Abfahrten in Echtzeit in ganz Luxemburg | Meine Haltestelle",
+   "description": "Bus-Abfahrten in Echtzeit in ganz Luxemburg an deiner Haltestelle, mit Countdown zum nächsten Bus. Kostenlos für iPhone, iPad, Mac, Apple Watch und Apple TV.",
+   "h1": "Live-Busabfahrten in Luxemburg",
+   "lede": "Busse im ganzen Land, von den AVL-Bussen der Stadt bis zum RGTR, auf einer Tafel: Echtzeit-Abfahrten mit Countdown zum nächsten Bus und zum übernächsten.",
+   "coverage": "Busse in ganz Luxemburg, von den AVL-Bussen der Stadt bis zum landesweiten RGTR-Netz.",
+   "source": "Administration des transports publics / mobiliteit.lu (CC BY 4.0)"
+  },
+  "berlin": {
+   "name": "Berlin & Brandenburg",
+   "in_name": "in Berlin und Brandenburg",
+   "title": "Busabfahrten Berlin & Brandenburg – BVG, VBB | Meine Haltestelle",
+   "description": "Busabfahrten in Echtzeit in Berlin und Brandenburg, von der BVG bis zu allen Unternehmen im VBB. Kostenlos für iPhone, iPad, Mac und Apple TV.",
+   "h1": "Live-Busabfahrten in Berlin und Brandenburg",
+   "lede": "Busse in Berlin und Brandenburg, von der BVG bis zu den anderen Unternehmen im VBB, auf einer Tafel: Echtzeit-Abfahrten mit Countdown zum nächsten Bus und zum übernächsten.",
+   "coverage": "Busse in Berlin und ganz Brandenburg, von der BVG bis zu allen anderen Verkehrsunternehmen im VBB.",
+   "source": "VBB Verkehrsverbund Berlin-Brandenburg GmbH"
+  },
+  "nuremberg": {
+   "name": "Nürnberg",
+   "in_name": "in Nürnberg",
+   "title": "VAG Abfahrten in Echtzeit – Bus in Nürnberg | Meine Haltestelle",
+   "description": "VAG-Busse in Echtzeit: die Abfahrten an deiner Haltestelle in Nürnberg, mit Countdown. Kostenlos für iPhone, iPad, Mac, Apple Watch und Apple TV.",
+   "h1": "Live-Busabfahrten in Nürnberg",
+   "lede": "Die VAG-Busse, mit denen du jeden Tag fährst, auf einer Tafel: Echtzeit-Abfahrten an deiner Haltestelle, mit Countdown zum nächsten Bus und zum übernächsten.",
+   "coverage": "VAG-Busse in ganz Nürnberg.",
+   "source": "VAG Verkehrs-Aktiengesellschaft Nürnberg (CC BY 4.0)"
+  },
+  "switzerland": {
+   "name": "Schweiz",
+   "in_name": "in der Schweiz",
+   "title": "Busabfahrten Schweiz – Zürich, Genf, PostAuto | Meine Haltestelle",
+   "description": "Busabfahrten live in der ganzen Schweiz, von PostAuto bis Zürich, Genf, Basel und Bern. Kostenlos für iPhone, iPad, Mac, Apple Watch und Apple TV.",
+   "h1": "Live-Busabfahrten in der Schweiz",
+   "lede": "Busse im ganzen Land auf einer Tafel: die Minuten, bis dein Bus an der Haltestelle ist, mit Verspätungen in Echtzeit, wo das Transportunternehmen sie meldet.",
+   "coverage": "Busse in der ganzen Schweiz, von PostAuto bis zu Stadtnetzen wie den VBZ in Zürich, den TPG in Genf, den BVB in Basel und Bernmobil.",
+   "source": "transport.opendata.ch (search.ch)"
+  }
+ }
+}
