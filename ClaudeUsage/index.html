@@ -260,24 +260,20 @@
                 <a href="blog/" class="link-arrow">All posts →</a>
             </div>
             <div class="post-grid" id="latestPosts">
-        <a class="post-card" href="blog/how-to-check-claude-usage.html">
-            <div class="tag-list"><span class="tag">#pro-tip</span><span class="tag">#limits</span></div>
-            <h3>How to check your Claude usage</h3>
-            <p>The Usage page on claude.ai, the /usage command in Claude Code, and how to keep your session and weekly limits in the menu bar or on your iPhone.</p>
-            <time datetime="2026-10-18">October 18, 2026</time>
+                <!-- baked from blog/posts.js by blog/bake.js -->
+        <a class="post-card" href="blog/limit-reset-command.html">
+            <div class="tag-list"><span class="tag">#pro-tip</span><span class="tag">#claude-code</span></div>
+            <h3>Hit your session limit? Try /limit-reset</h3>
+            <p>Claude Code's new command clears your 5-hour session limit on the spot. How to use it, why it might not work for you yet, and why it still counts toward your weekly limit.</p>
+            <time datetime="2026-09-14">September 14, 2026</time>
         </a>
-        <a class="post-card" href="blog/claude-usage-limits-reset.html">
-            <div class="tag-list"><span class="tag">#pro-tip</span><span class="tag">#limits</span></div>
-            <h3>When do Claude's usage limits reset?</h3>
-            <p>Claude's 5-hour session window and its weekly limit reset on very different clocks. How each one works, where to see your reset times, and what a limit reset is.</p>
-            <time datetime="2026-10-18">October 18, 2026</time>
+        <a class="post-card" href="blog/usage-for-claude-3-1.html">
+            <div class="tag-list"><span class="tag">#changelog</span></div>
+            <h3>Usage for Claude 3.1: multiple accounts, made solid</h3>
+            <p>Accounts that never blend together, sign-in that pairs correctly, named accounts, synced notification rules, and a weekly line on the chart.</p>
+            <time datetime="2026-08-13">August 13, 2026</time>
         </a>
-        <a class="post-card" href="blog/claude-usage-limit-reached.html">
-            <div class="tag-list"><span class="tag">#pro-tip</span><span class="tag">#limits</span></div>
-            <h3>Hit your Claude usage limit? What happens and what you can do</h3>
-            <p>What happens at your Claude session or weekly limit, the options you have right now (a limit reset, usage credits, upgrading), and how to make your usage last longer.</p>
-            <time datetime="2026-10-18">October 18, 2026</time>
-        </a>
+                <!-- /baked -->
             </div>
         </section>
 
@@ -322,11 +318,11 @@
                 </details>
                 <details class="faq-item">
                     <summary>How do I check my Claude usage limit?<span class="q-mark"></span></summary>
-                    <div class="faq-body">Claude shows your current limits at <a href="https://claude.ai/settings/usage" target="_blank" rel="noopener noreferrer">claude.ai/settings/usage</a>, and <code>/usage</code> shows them in Claude Code. Usage for Claude reads the same numbers and keeps them in your Mac menu bar, on your iPhone and in widgets, refreshing in the background. More in <a href="blog/how-to-check-claude-usage.html">How to check your Claude usage</a>.</div>
+                    <div class="faq-body">Claude shows your current limits at <a href="https://claude.ai/settings/usage" target="_blank" rel="noopener noreferrer">claude.ai/settings/usage</a>, and <code>/usage</code> shows them in Claude Code. Usage for Claude reads the same numbers and keeps them in your Mac menu bar, on your iPhone and in widgets, refreshing in the background.</div>
                 </details>
                 <details class="faq-item">
                     <summary>When do Claude's 5-hour and weekly limits reset?<span class="q-mark"></span></summary>
-                    <div class="faq-body">The session limit runs on a 5-hour window, and the weekly limit resets at a fixed time each week assigned to your account. The app shows when each one resets, marks every reset on the History chart, and can notify you the moment a limit resets. More in <a href="blog/claude-usage-limits-reset.html">When do Claude's usage limits reset?</a></div>
+                    <div class="faq-body">The session limit runs on a 5-hour window, and the weekly limit resets at a fixed time each week assigned to your account. The app shows when each one resets, marks every reset on the History chart, and can notify you the moment a limit resets.</div>
                 </details>
                 <details class="faq-item">
                     <summary>Can I see my usage history over time?<span class="q-mark"></span></summary>
@@ -419,7 +415,7 @@
         </footer>
     </main>
 
-    <script src="blog/posts.js?v=4.1"></script>
+    <script src="blog/posts.js?v=4.2"></script>
     <script>
     /* ---------- Latest blog posts (newest three) ---------- */
     document.getElementById('latestPosts').innerHTML =

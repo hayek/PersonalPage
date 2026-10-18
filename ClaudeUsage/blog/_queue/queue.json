@@ -1,0 +1,46 @@
+{
+  "_comment": "Posts published one a week, in this order, by blog/publish-next.js (GitHub Action every Monday). `published` is filled in when a post goes out. Sources keep {{DATE}} / {{DATE_LONG}} for the publish date; links to posts still waiting are unlinked until they go out.",
+  "posts": [
+    {
+      "slug": "how-to-check-claude-usage",
+      "title": "How to check your Claude usage",
+      "tags": [
+        "pro-tip",
+        "limits"
+      ],
+      "excerpt": "The Usage page on claude.ai, the /usage command in Claude Code, and how to keep your session and weekly limits in the menu bar or on your iPhone.",
+      "published": null
+    },
+    {
+      "slug": "claude-usage-limits-reset",
+      "title": "When do Claude's usage limits reset?",
+      "tags": [
+        "pro-tip",
+        "limits"
+      ],
+      "excerpt": "Claude's 5-hour session window and its weekly limit reset on very different clocks. How each one works, where to see your reset times, and what a limit reset is.",
+      "published": null
+    },
+    {
+      "slug": "claude-usage-limit-reached",
+      "title": "Hit your Claude usage limit? What happens and what you can do",
+      "tags": [
+        "pro-tip",
+        "limits"
+      ],
+      "excerpt": "What happens at your Claude session or weekly limit, the options you have right now (a limit reset, usage credits, upgrading), and how to make your usage last longer.",
+      "published": null
+    },
+    {
+      "slug": "claude-pro-vs-max-usage",
+      "title": "Claude Pro vs Max vs Team: how much usage each plan gets",
+      "tags": [
+        "pro-tip",
+        "limits",
+        "plans"
+      ],
+      "excerpt": "Free, Pro, Max 5x, Max 20x, Team and Enterprise side by side: what each plan's usage multiplier means and how to tell whether you need to upgrade.",
+      "published": null
+    }
+  ]
+}

@@ -16,10 +16,12 @@ for (const [file, id, posts, base] of targets) {
     const p = path.join(root, file);
     if (!fs.existsSync(p)) continue;
     let html = fs.readFileSync(p, 'utf8');
-    const open = new RegExp(`(<(div|section) class="post-grid" id="${id}">)[\\s\\S]*?(</\\2>)`);
-    if (!open.test(html)) { console.error(`${file}: #${id} not found`); process.exitCode = 1; continue; }
+    // the cards sit between two markers, so a re-bake replaces exactly what the last one wrote
+    const B = '<!-- baked from blog/posts.js by blog/bake.js -->', E = '<!-- /baked -->';
+    const a = html.indexOf(B), b = html.indexOf(E, a);
+    if (a < 0 || b < 0) { console.error(`${file}: the ${B} … ${E} markers inside #${id} are missing`); process.exitCode = 1; continue; }
     const cards = posts.map((post) => renderPostCard(post, base)).join('');
-    html = html.replace(open, (m, start, tag, end) => `${start}${cards}\n            ${end}`);
+    html = html.slice(0, a + B.length) + cards + '\n                ' + html.slice(b);
     fs.writeFileSync(p, html);
     console.log(`${file}: ${posts.length} cards`);
 }
