@@ -8,6 +8,9 @@
 
     const NS = 'http://www.w3.org/2000/svg';
     const SPEED = 6;
+    // the readout's words, translated with the page (data-t-* on the board)
+    const T = svg.closest('.board').dataset;
+    const fill = (s, k, v) => s.replace('{' + k + '}', v);
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     // stations by height on the map: each line's own, then the ones both lines stop at
@@ -90,13 +93,22 @@
         badge.dataset.line = bus.line.id;
         set(badge, bus.line.id);
         const due = bus.eta < 60;
-        set($(prefix + '-min'), due ? 'NOW' : String(Math.ceil(bus.eta / 60)));
+        const big = $(prefix + '-min');
+        set(big, due ? T.tNow : String(Math.ceil(bus.eta / 60)));
+        // a long translated NOW (IMMINENT) shrinks until the readout holds it
+        if (big.dataset.due !== String(due)) {
+            big.dataset.due = due;
+            big.style.fontSize = '';
+            const box = big.closest('.readout');
+            const over = box.scrollWidth - box.clientWidth;
+            if (due && over > 0) big.style.fontSize = Math.floor(parseFloat(getComputedStyle(big).fontSize) * (big.offsetWidth - over) / big.offsetWidth) + 'px';
+        }
         const unit = $(prefix + '-unit');
         if (unit) unit.style.display = due ? 'none' : '';
         const at = hhmm(now + bus.eta * 1000);
         if (prefix === 'next') {
-            const stops = bus.stopsAway === 1 ? '1 STOP AWAY' : bus.stopsAway + ' STOPS AWAY';
-            set($('next-sub'), due ? 'ARRIVING NOW' : stops + ' • ARRIVES ' + at);
+            const stops = bus.stopsAway === 1 ? T.tStop : fill(T.tStops, 'n', bus.stopsAway);
+            set($('next-sub'), due ? T.tArriving : stops + ' • ' + fill(T.tArrives, 'time', at));
         } else {
             set($('then-sub'), at);
         }
@@ -129,9 +141,24 @@
 
     if (reduceMotion) {
         const cap = document.querySelector('.board figcaption');
-        if (cap) cap.textContent = 'Demo board.';
+        if (cap) cap.textContent = T.tDemo;
     }
     frame();
+})();
+
+// A long translated name (MEINE HALTESTELLE) mustn't run off the hero: shrink the h1 until its
+// longest word fits the column.
+(function () {
+    const h1 = document.querySelector('.hero h1');
+    if (!h1) return;
+    const fit = () => {
+        h1.style.fontSize = '';
+        const ratio = h1.clientWidth / h1.scrollWidth;
+        if (ratio < 1) h1.style.fontSize = Math.floor(parseFloat(getComputedStyle(h1).fontSize) * ratio * 0.97) + 'px';
+    };
+    fit();
+    window.addEventListener('resize', fit);
+    if (document.fonts) document.fonts.ready.then(fit);
 })();
 
 // Questions: animate each answer open and closed instead of letting <details> jump.

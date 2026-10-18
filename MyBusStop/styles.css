@@ -334,11 +334,28 @@ p { max-width: 62ch; }
 
 .footer { margin-top: clamp(80px, 11vw, 136px); padding: 36px 0 56px; border-top: 1px solid var(--rule); color: var(--muted); font-size: 15px; }
 .footer p + p { margin-top: 6px; }
+.langs { display: flex; flex-wrap: wrap; gap: 6px 16px; margin-top: 22px; padding-top: 18px; border-top: 1px solid var(--rule); font-size: 14px; }
+.langs a { color: var(--muted); text-decoration: none; }
+.langs a:hover { color: var(--ink); text-decoration: underline; }
+.langs a[aria-current] { color: var(--ink); font-weight: 700; }
+
+/* ---------- Right to left (Arabic, Hebrew): the words flip, the demo map doesn't ---------- */
+
+[dir="rtl"] #board-map { direction: ltr; }
+[dir="rtl"] .route ul { padding-left: 0; padding-right: 34px; }
+[dir="rtl"] .route ul::before { left: auto; right: 8px; }
+[dir="rtl"] .route li::before { left: auto; right: -30px; }
+[dir="rtl"] .route .no-gps { margin-left: 0; margin-right: 2px; }
+[dir="rtl"] .faq summary { padding: 20px 0 20px 40px; }
+[dir="rtl"] .faq summary::after { right: auto; left: 4px; }
+
+/* letter-spacing pulls apart joined scripts (Arabic, Devanagari, Gurmukhi) and Hebrew's letters */
+:lang(ar), :lang(he), :lang(hi), :lang(pa) { letter-spacing: normal !important; }
 
 /* ---------- Responsive ---------- */
 
 @media (max-width: 960px) {
-    .hero-grid { grid-template-columns: 1fr; }
+    .hero-grid { grid-template-columns: minmax(0, 1fr); }
     .board { max-width: 520px; }
     .wall-scene { grid-template-columns: 1fr; }
     .wall-facts { grid-template-columns: repeat(2, minmax(0, 1fr)); }

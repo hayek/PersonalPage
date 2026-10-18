@@ -1,0 +1,8 @@
+# My Bus Stop landing page
+
+- `index.html` (English) is the source page; `styles.css`, `script.js` (the hero's demo board and the FAQ animation). `web/` is the web app, `blog/` and `privacy/` are English only.
+- **Translated pages:** `i18n/build.py` (adapted from `ClaudeUsage/i18n/build.py`) cuts `index.html` into text units (`i18n/en.json`) and builds `<lang>/index.html` for each `i18n/<lang>.json`: the app's 34 languages (BusBus/Localizable.xcstrings; hmn-Latn's folder is `hmn`), with `hreflang`, canonical, `og:locale`, `lang`/`dir` and `../` paths. `build` also writes the FAQ JSON-LD and the footer's language links into every page, English included. After changing the English page: `python3 i18n/build.py extract` (new/changed sentences land in `i18n/todo/<lang>.json`), translate those keys into `i18n/<lang>.json`, `python3 i18n/build.py check <lang>`, then `python3 i18n/build.py build`. Never edit `<lang>/index.html` by hand.
+- The demo board's words that script.js writes (stops away, arrives, now, demo caption) live in `data-t-*` attributes on `.board`, so they translate with the page; `{n}` and `{time}` are placeholders.
+- Translations follow each locale's App Store name, subtitle and keywords (the `<title>` is `<localized name> (My Bus Stop) – <keywords>`), and the app's own UI terms.
+- Arabic and Hebrew are RTL: only the words flip; the demo map stays LTR (rules at the end of styles.css).
+- A new page or language: add it to `../sitemap.xml`.
