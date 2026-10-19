@@ -10,6 +10,13 @@
    which moves the next one here. */
 const BLOG_POSTS = [
     {
+        slug: 'how-to-check-claude-usage',
+        title: 'How to check your Claude usage',
+        date: '2026-10-19',
+        tags: ['pro-tip', 'limits'],
+        excerpt: 'The Usage page on claude.ai, the /usage command in Claude Code, and how to keep your session and weekly limits in the menu bar or on your iPhone.',
+    },
+    {
         slug: 'limit-reset-command',
         title: 'Hit your session limit? Try /limit-reset',
         date: '2026-09-14',
