@@ -638,3 +638,12 @@ body {
         padding: 5px 14px;
     }
 }
+
+/* Feature lead-ins are h2s for search engines and screen readers, styled as the bold run-in they were */
+.feature-lead {
+    display: inline;
+    font-size: inherit;
+    line-height: inherit;
+    font-weight: 600;
+    color: var(--text-primary);
+}

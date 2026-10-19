@@ -3,16 +3,179 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>What Did I Miss — Hear the notifications you missed</title>
-    <meta name="description" content="A macOS menu bar app that summarizes the notifications you missed and reads them aloud. Private on-device summaries with Apple Intelligence, spoken with ElevenLabs voices.">
+    <title>What Did I Miss – Hear Your Missed Mac Notifications, Summarized and Read Aloud</title>
+    <meta name="description" content="Free macOS menu bar app that summarizes the notifications you missed and reads them aloud. On-device summaries with Apple Intelligence, spoken in any ElevenLabs voice. Works with Shortcuts, Siri and Focus.">
+    <link rel="canonical" href="https://amirhayek.dev/WhatDidIMiss/">
     <link rel="icon" type="image/png" href="Assets/icon.png">
     <link rel="apple-touch-icon" href="Assets/icon.png">
+    <meta name="theme-color" content="#f6f2ec">
 
     <!-- Open Graph -->
     <meta property="og:type" content="website">
-    <meta property="og:title" content="What Did I Miss — Hear the notifications you missed">
-    <meta property="og:description" content="A menu bar app that summarizes missed notifications and reads them aloud, right from your Mac.">
-    <meta property="og:image" content="Assets/icon.png">
+    <meta property="og:site_name" content="What Did I Miss">
+    <meta property="og:url" content="https://amirhayek.dev/WhatDidIMiss/">
+    <meta property="og:title" content="What Did I Miss – Hear the notifications you missed">
+    <meta property="og:description" content="A free Mac menu bar app that summarizes missed notifications on-device with Apple Intelligence and reads them aloud.">
+    <meta property="og:image" content="https://amirhayek.dev/WhatDidIMiss/Assets/og-image.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="The What Did I Miss menu in the Mac menu bar and a spoken summary of missed notifications">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="What Did I Miss – Hear the notifications you missed">
+    <meta name="twitter:description" content="A free Mac menu bar app that summarizes missed notifications on-device with Apple Intelligence and reads them aloud.">
+    <meta name="twitter:image" content="https://amirhayek.dev/WhatDidIMiss/Assets/og-image.jpg">
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "What Did I Miss",
+        "description": "A macOS menu bar app that summarizes the notifications you missed on-device with Apple Intelligence and reads the summary aloud with ElevenLabs voices.",
+        "applicationCategory": "UtilitiesApplication",
+        "operatingSystem": "macOS",
+        "softwareVersion": "1.8.0",
+        "url": "https://amirhayek.dev/WhatDidIMiss/",
+        "downloadUrl": "https://amirhayek.dev/WhatDidIMiss/Assets/WhatDidIMiss.dmg.zip",
+        "image": "https://amirhayek.dev/WhatDidIMiss/Assets/og-image.jpg",
+        "screenshot": [
+            "https://amirhayek.dev/WhatDidIMiss/Assets/mainWindow.webp",
+            "https://amirhayek.dev/WhatDidIMiss/Assets/menu2.png"
+        ],
+        "featureList": "Spoken summary of missed notifications, On-device summarization with Apple Intelligence, ElevenLabs voices, Replay past summaries, Focus filters, Shortcuts and Siri",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+        "author": { "@type": "Person", "name": "Amir Hayek", "url": "https://amirhayek.dev/" }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "What is What Did I Miss?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "What Did I Miss is a macOS menu bar app that rounds up the notifications you've received while you were away, summarizes them with Apple Intelligence, and reads the summary aloud using an ElevenLabs voice. It's designed for moments when you step back to your Mac and want a quick spoken recap instead of scrolling through Notification Center."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Is this an official Apple or ElevenLabs app?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "No. This is an independent third-party app. It is not created, endorsed, or maintained by Apple, ElevenLabs, or any of the apps that deliver the notifications it summarizes."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "What does it cost?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "The app itself is free. It uses Apple Intelligence on your Mac for the summary (no cost), and ElevenLabs for the voice. ElevenLabs has a free tier that is usually enough for everyday use. You bring your own ElevenLabs API key."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "What are the system requirements?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "A Mac running a recent version of macOS with Apple Intelligence enabled (required for on-device summarization) and an internet connection (required only for text-to-speech)."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Why does the app need Full Disk Access?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "macOS stores delivered notifications in a protected SQLite database inside the Darwin user directory. Reading that file requires Full Disk Access. Without it, the app has no way to see which notifications you received."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "How do I get an ElevenLabs API key?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Sign in at elevenlabs.io, click your avatar, go to API Keys, and create a new key. Copy it and paste it into Settings → ElevenLabs → API key. The ? button next to the API key field in Settings walks you through the same steps."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Where do my notifications go?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Notifications are read locally from macOS, summarized locally by Apple Intelligence, and never uploaded anywhere. Only the short generated summary text is sent over the network, and only to ElevenLabs for text-to-speech."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Where is my ElevenLabs API key stored?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Your API key is stored in the macOS Keychain. It never leaves your Mac except when the app sends a request to ElevenLabs on your behalf."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Can I replay a past summary?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Yes. Open the main window, find the session in the list, and click Play. Click Stop to interrupt playback. Replayed audio does not call ElevenLabs again — the generated audio is cached per session."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Can I see a summary without hearing it read aloud?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Yes. Open Settings → Voice and turn off \"Speak out notifications\". The recap still appears on screen, just without any audio — handy in quiet places or meetings. Turn it back on for the spoken version. It's on by default and acts as the master switch for all summary audio."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Can the app stay silent automatically during a Focus, like Work?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Yes, in two ways. For a blanket rule, open Settings → Voice and turn on \"Silence during any Focus\" — while any macOS Focus or Do Not Disturb is active, summaries appear on screen without audio. For different behavior per Focus — say silent during Work but spoken during Personal — add What Did I Miss as a Focus Filter: System Settings → Focus → pick a Focus → Focus Filters → Add Filter → What Did I Miss, then set \"Read summaries aloud\" for that Focus. The in-app \"Speak out notifications\" toggle stays the master switch: when it's off, summaries are always silent."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Does the app keep running in the background?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Yes. What Did I Miss lives in the menu bar and stays out of the Dock until you open one of its windows."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Can I trigger a summary from Shortcuts, Spotlight, or Siri?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Yes. What Did I Miss registers an App Shortcut, so you can run it from the Shortcuts app, invoke it by asking Siri, or type a phrase like \"What did I miss\" or \"Catch me up\" in Spotlight. Running the shortcut generates the summary and plays it aloud, just like clicking the menu bar item."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "What if Apple Intelligence isn't available on my Mac?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Apple Intelligence is required because the summary is generated on-device. If it's not available (hardware not supported, disabled in System Settings, or still downloading), the summary will fail. Enable it in System Settings → Apple Intelligence & Siri and try again."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Do you collect analytics?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "The app sends a small number of anonymous usage events (e.g. \"app launched\", \"summary requested\") to help improve the app. No notification content, summaries, or personal data are included."
+                }
+            }
+        ]
+    }
+    </script>
 
     <link rel="stylesheet" href="styles.css">
     <script src="/assets/analytics.js" defer></script>
@@ -39,9 +202,9 @@
         <!-- Animated menu stack: floats top-right on desktop, jumps to the top on mobile via CSS order -->
         <aside class="menu-column" aria-label="What Did I Miss in the menu bar">
             <div class="menu-stack">
-                <img src="Assets/menuback.png" alt="Menu bar" class="menu-layer menu-back">
-                <img src="Assets/menu1.png" alt="Menu dropdown" class="menu-layer menu-one">
-                <img src="Assets/menu2.png" alt="Notification summary" class="menu-layer menu-two">
+                <img src="Assets/menuback.png" alt="The What Did I Miss bell icon in the Mac menu bar" width="848" height="361" class="menu-layer menu-back">
+                <img src="Assets/menu1.png" alt="The menu bar dropdown with &quot;What did I miss?&quot;, Open, Settings and Quit" width="848" height="361" class="menu-layer menu-one">
+                <img src="Assets/menu2.png" alt="A spoken summary of missed notifications: a design review request, a dinner question, a PR review and a calendar event" width="848" height="361" class="menu-layer menu-two">
             </div>
         </aside>
 
@@ -55,10 +218,10 @@
         <!-- Feature 1: Menu bar recap -->
         <section class="feature-tracking-section">
             <div class="feature-row">
-                <img src="Assets/icon.png" alt="What Did I Miss icon" class="app-icon">
-                <p class="feature-description">
-                    <strong>One click, spoken summary.</strong> Step back to your Mac and let the bell icon in your menu bar catch you up. What Did I Miss gathers every notification you received while you were away, condenses them into a short recap, and reads it aloud — so you can keep doing whatever you were doing.
-                </p>
+                <img src="Assets/icon.png" alt="What Did I Miss app icon" width="250" height="250" class="app-icon">
+                <div class="feature-description">
+                    <h2 class="feature-lead">Your missed notifications, summarized and read aloud.</h2> Step back to your Mac and let the bell icon in your menu bar catch you up. What Did I Miss gathers every notification you received while you were away, condenses them into a short recap, and reads it aloud — so you can keep doing whatever you were doing.
+                </div>
             </div>
             <div class="feature-cta">
                 <div class="download-block">
@@ -71,10 +234,10 @@
         <!-- Feature 2: Main window -->
         <section class="feature-section feature-card history-section">
             <div class="feature-card-content">
-                <img src="Assets/mainWindow.png" alt="What Did I Miss main window with past summaries" class="feature-card-image history-image">
-                <p class="feature-description">
-                    <strong>Replay any recap, see every notification behind it.</strong> Past summaries are listed in the main window with the time they were generated and the notification count. Hit Play to hear the audio again — no re-synthesis cost — or open the details sheet to see every notification that was included, with icons, titles, and delivery times.
-                </p>
+                <picture><source srcset="Assets/mainWindow.webp" type="image/webp"><img src="Assets/mainWindow.png" alt="The What Did I Miss main window listing past notification summaries with their time, notification count and a Play button" width="1744" height="1344" loading="lazy" decoding="async" class="feature-card-image history-image"></picture>
+                <div class="feature-description">
+                    <h2 class="feature-lead">Replay any recap, see every notification behind it.</h2> Past summaries are listed in the main window with the time they were generated and the notification count. Hit Play to hear the audio again — no re-synthesis cost — or open the details sheet to see every notification that was included, with icons, titles, and delivery times.
+                </div>
             </div>
         </section>
 
@@ -83,11 +246,11 @@
             <div class="feature-card ai-card">
                 <div class="feature-card-content">
                     <div class="capability-icon capability-icon-ai" aria-hidden="true">
-                        <img src="Assets/apple-intelligence.svg" alt="">
+                        <img src="Assets/apple-intelligence.svg" alt="" loading="lazy">
                     </div>
-                    <p class="feature-description">
-                        <strong>Summaries run on-device with Apple Intelligence.</strong> Related notifications are grouped and distilled into two to four spoken-style sentences. Your notifications never leave your Mac — only the short summary text ever touches the network.
-                    </p>
+                    <div class="feature-description">
+                        <h2 class="feature-lead">Summaries run on-device with Apple Intelligence.</h2> Related notifications are grouped and distilled into two to four spoken-style sentences. Your notifications never leave your Mac — only the short summary text ever touches the network.
+                    </div>
                 </div>
             </div>
 
@@ -98,9 +261,9 @@
                             <path d="M3 11V13M6 10V14M9 11V13M12 8V16M15 11V13M18 10V14M21 11V13"/>
                         </svg>
                     </div>
-                    <p class="feature-description">
-                        <strong>Any voice you like, via ElevenLabs.</strong> Bring your own API key and pick from every voice on your account — pre-made, cloned, or from the Voice Library. Choose Turbo v2.5 for balanced quality, Multilingual v2 for other languages, or Flash v2.5 for the lowest latency.
-                    </p>
+                    <div class="feature-description">
+                        <h2 class="feature-lead">Any voice you like, via ElevenLabs.</h2> Bring your own API key and pick from every voice on your account — pre-made, cloned, or from the Voice Library. Choose Turbo v2.5 for balanced quality, Multilingual v2 for other languages, or Flash v2.5 for the lowest latency.
+                    </div>
                 </div>
             </div>
         </section>
@@ -115,9 +278,9 @@
                     </svg>
                 </div>
                 <div class="privacy-text">
-                    <p class="feature-description">
-                        <strong>Private by construction.</strong> Notifications are read locally from macOS, summarized locally by Apple Intelligence, and never uploaded anywhere. Only the short generated summary is sent to ElevenLabs for text-to-speech — and your API key lives in the macOS Keychain.
-                    </p>
+                    <div class="feature-description">
+                        <h2 class="feature-lead">Private by construction.</h2> Notifications are read locally from macOS, summarized locally by Apple Intelligence, and never uploaded anywhere. Only the short generated summary is sent to ElevenLabs for text-to-speech — and your API key lives in the macOS Keychain.
+                    </div>
                 </div>
             </div>
         </section>
