@@ -1,7 +1,8 @@
 /* Publishes the next post waiting in blog/_queue/ (one a week; see .github/workflows/claudeusage-weekly-post.yml).
    Jekyll doesn't publish folders that start with "_", so queued posts aren't on the site until this moves them.
 
-   node blog/publish-next.js           publish the next post (dated today, or PUBLISH_DATE=YYYY-MM-DD)
+   node blog/publish-next.js           publish the next post (dated today, or PUBLISH_DATE=YYYY-MM-DD);
+                                       skips if one went out in the last 6 days (FORCE=1 overrides)
    node blog/publish-next.js --check   list links anywhere on the site to posts that are still queued
 
    Publishing: dates the post, adds it to posts.js and the sitemap, re-renders every published queue post
@@ -56,6 +57,12 @@ function publish() {
     const next = queue.posts.find((p) => !p.published);
     if (!next) { console.log('Queue is empty: nothing to publish.'); return; }
     const today = process.env.PUBLISH_DATE || new Date().toISOString().slice(0, 10);
+    // one a week: a late scheduled run after a manual one (or two runs in a week) doesn't publish twice
+    const last = queue.posts.map((p) => p.published).filter(Boolean).sort().pop();
+    if (last && !process.env.FORCE && (Date.parse(today) - Date.parse(last)) / 86400000 < 6) {
+        console.log(`The last post went out on ${last}; the next one waits for next week (FORCE=1 to publish anyway).`);
+        return;
+    }
     next.published = today;
     const unpublished = waiting();
 
