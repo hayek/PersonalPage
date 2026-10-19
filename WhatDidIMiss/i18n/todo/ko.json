@@ -1,0 +1,7 @@
+{
+ "6fcee7629b": "Free macOS menu bar app that summarizes the notifications you missed and reads them aloud. On-device summaries with Apple Intelligence, in a free built-in voice or any ElevenLabs voice.",
+ "511d74d621": "A free built-in voice, or any ElevenLabs voice.",
+ "11ea9550bc": "Out of the box, summaries are read by the macOS voice you choose — free, offline, no account needed. For a more natural sound, add your own ElevenLabs API key and pick from every voice on your account — pre-made, cloned, or from the Voice Library. Choose Turbo v2.5 for balanced quality, Multilingual v2 for other languages, or Flash v2.5 for the lowest latency.",
+ "23aaa43e19": "Notifications are read locally from macOS, summarized locally by Apple Intelligence, and never uploaded anywhere. With the built-in voice, nothing leaves your Mac at all. If you use ElevenLabs, only the short summary text is sent to it to be spoken — and your API key lives in the macOS Keychain.",
+ "e5d57b0d71": "Yes. Open the main window, find the summary in the list, and click Play. Click Stop to interrupt. ElevenLabs audio is saved with each summary, so replaying it doesn't use more of your ElevenLabs characters."
+}

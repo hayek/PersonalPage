@@ -4,8 +4,42 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>What Did I Miss – Hear Your Missed Mac Notifications, Summarized and Read Aloud</title>
-    <meta name="description" content="Free macOS menu bar app that summarizes the notifications you missed and reads them aloud. On-device summaries with Apple Intelligence, spoken in any ElevenLabs voice. Works with Shortcuts, Siri and Focus.">
+    <meta name="description" content="Free macOS menu bar app that summarizes the notifications you missed and reads them aloud. On-device summaries with Apple Intelligence, in a free built-in voice or any ElevenLabs voice.">
     <link rel="canonical" href="https://amirhayek.dev/WhatDidIMiss/">
+    <!-- hreflang (i18n/build.py) -->
+    <link rel="alternate" hreflang="en" href="https://amirhayek.dev/WhatDidIMiss/">
+    <link rel="alternate" hreflang="ar" href="https://amirhayek.dev/WhatDidIMiss/ar/">
+    <link rel="alternate" hreflang="cs" href="https://amirhayek.dev/WhatDidIMiss/cs/">
+    <link rel="alternate" hreflang="da" href="https://amirhayek.dev/WhatDidIMiss/da/">
+    <link rel="alternate" hreflang="de" href="https://amirhayek.dev/WhatDidIMiss/de/">
+    <link rel="alternate" hreflang="el" href="https://amirhayek.dev/WhatDidIMiss/el/">
+    <link rel="alternate" hreflang="es" href="https://amirhayek.dev/WhatDidIMiss/es/">
+    <link rel="alternate" hreflang="fi" href="https://amirhayek.dev/WhatDidIMiss/fi/">
+    <link rel="alternate" hreflang="fr" href="https://amirhayek.dev/WhatDidIMiss/fr/">
+    <link rel="alternate" hreflang="he" href="https://amirhayek.dev/WhatDidIMiss/he/">
+    <link rel="alternate" hreflang="hi" href="https://amirhayek.dev/WhatDidIMiss/hi/">
+    <link rel="alternate" hreflang="hu" href="https://amirhayek.dev/WhatDidIMiss/hu/">
+    <link rel="alternate" hreflang="id" href="https://amirhayek.dev/WhatDidIMiss/id/">
+    <link rel="alternate" hreflang="it" href="https://amirhayek.dev/WhatDidIMiss/it/">
+    <link rel="alternate" hreflang="ja" href="https://amirhayek.dev/WhatDidIMiss/ja/">
+    <link rel="alternate" hreflang="ko" href="https://amirhayek.dev/WhatDidIMiss/ko/">
+    <link rel="alternate" hreflang="ms" href="https://amirhayek.dev/WhatDidIMiss/ms/">
+    <link rel="alternate" hreflang="nb" href="https://amirhayek.dev/WhatDidIMiss/nb/">
+    <link rel="alternate" hreflang="nl" href="https://amirhayek.dev/WhatDidIMiss/nl/">
+    <link rel="alternate" hreflang="pl" href="https://amirhayek.dev/WhatDidIMiss/pl/">
+    <link rel="alternate" hreflang="pt-BR" href="https://amirhayek.dev/WhatDidIMiss/pt-br/">
+    <link rel="alternate" hreflang="pt-PT" href="https://amirhayek.dev/WhatDidIMiss/pt-pt/">
+    <link rel="alternate" hreflang="ro" href="https://amirhayek.dev/WhatDidIMiss/ro/">
+    <link rel="alternate" hreflang="ru" href="https://amirhayek.dev/WhatDidIMiss/ru/">
+    <link rel="alternate" hreflang="sv" href="https://amirhayek.dev/WhatDidIMiss/sv/">
+    <link rel="alternate" hreflang="th" href="https://amirhayek.dev/WhatDidIMiss/th/">
+    <link rel="alternate" hreflang="tr" href="https://amirhayek.dev/WhatDidIMiss/tr/">
+    <link rel="alternate" hreflang="uk" href="https://amirhayek.dev/WhatDidIMiss/uk/">
+    <link rel="alternate" hreflang="vi" href="https://amirhayek.dev/WhatDidIMiss/vi/">
+    <link rel="alternate" hreflang="zh-Hans" href="https://amirhayek.dev/WhatDidIMiss/zh-hans/">
+    <link rel="alternate" hreflang="zh-Hant" href="https://amirhayek.dev/WhatDidIMiss/zh-hant/">
+    <link rel="alternate" hreflang="x-default" href="https://amirhayek.dev/WhatDidIMiss/">
+    <!-- /hreflang -->
     <link rel="icon" type="image/png" href="Assets/icon.png">
     <link rel="apple-touch-icon" href="Assets/icon.png">
     <meta name="theme-color" content="#f6f2ec">
@@ -32,7 +66,7 @@
         "@context": "https://schema.org",
         "@type": "SoftwareApplication",
         "name": "What Did I Miss",
-        "description": "A macOS menu bar app that summarizes the notifications you missed on-device with Apple Intelligence and reads the summary aloud with ElevenLabs voices.",
+        "description": "Free macOS menu bar app that summarizes the notifications you missed and reads them aloud. On-device summaries with Apple Intelligence, in a free built-in voice or any ElevenLabs voice.",
         "applicationCategory": "UtilitiesApplication",
         "operatingSystem": "macOS",
         "softwareVersion": "1.8.0",
@@ -43,12 +77,12 @@
             "https://amirhayek.dev/WhatDidIMiss/Assets/mainWindow.webp",
             "https://amirhayek.dev/WhatDidIMiss/Assets/menu2.png"
         ],
-        "featureList": "Spoken summary of missed notifications, On-device summarization with Apple Intelligence, ElevenLabs voices, Replay past summaries, Focus filters, Shortcuts and Siri",
+        "featureList": "Spoken summary of missed notifications, On-device summarization with Apple Intelligence, Free built-in macOS voice, Optional ElevenLabs voices, Replay past summaries, Focus filters, Shortcuts and Siri",
         "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
         "author": { "@type": "Person", "name": "Amir Hayek", "url": "https://amirhayek.dev/" }
     }
     </script>
-    <script type="application/ld+json">
+    <script type="application/ld+json" id="faqData">
     {
         "@context": "https://schema.org",
         "@type": "FAQPage",
@@ -74,7 +108,15 @@
                 "name": "What does it cost?",
                 "acceptedAnswer": {
                     "@type": "Answer",
-                    "text": "The app itself is free. It uses Apple Intelligence on your Mac for the summary (no cost), and ElevenLabs for the voice. ElevenLabs has a free tier that is usually enough for everyday use. You bring your own ElevenLabs API key."
+                    "text": "The app is free. Summaries are generated on-device by Apple Intelligence at no cost, and the built-in macOS voice is free too. If you want a more natural voice, you can optionally connect your own ElevenLabs API key — ElevenLabs has a free tier that is usually enough for everyday use."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Do I need an ElevenLabs account?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "No. Without an API key, summaries are read aloud by the built-in macOS voice, which is free and works offline. ElevenLabs is optional and only changes how the summary sounds."
                 }
             },
             {
@@ -82,7 +124,7 @@
                 "name": "What are the system requirements?",
                 "acceptedAnswer": {
                     "@type": "Answer",
-                    "text": "A Mac running a recent version of macOS with Apple Intelligence enabled (required for on-device summarization) and an internet connection (required only for text-to-speech)."
+                    "text": "A Mac that supports Apple Intelligence, with Apple Intelligence turned on in System Settings — the summary is generated on-device and can't be produced without it. An internet connection is only needed if you use an ElevenLabs voice or want to check for updates."
                 }
             },
             {
@@ -98,7 +140,7 @@
                 "name": "How do I get an ElevenLabs API key?",
                 "acceptedAnswer": {
                     "@type": "Answer",
-                    "text": "Sign in at elevenlabs.io, click your avatar, go to API Keys, and create a new key. Copy it and paste it into Settings → ElevenLabs → API key. The ? button next to the API key field in Settings walks you through the same steps."
+                    "text": "Sign in at elevenlabs.io, click your avatar, choose API Keys, and create a new key. Either leave it with full access, or enable both Text to Speech and Voices — without the Voices permission, the voice list in the app stays empty. Paste the key into Settings → Voice → API key. The ? button next to the field walks you through the same steps."
                 }
             },
             {
@@ -106,7 +148,7 @@
                 "name": "Where do my notifications go?",
                 "acceptedAnswer": {
                     "@type": "Answer",
-                    "text": "Notifications are read locally from macOS, summarized locally by Apple Intelligence, and never uploaded anywhere. Only the short generated summary text is sent over the network, and only to ElevenLabs for text-to-speech."
+                    "text": "Nowhere. Notifications are read locally from macOS and summarized on-device by Apple Intelligence — they are never uploaded. If you use ElevenLabs, only the short summary text is sent to ElevenLabs to be spoken. With the built-in macOS voice, nothing leaves your Mac at all."
                 }
             },
             {
@@ -122,7 +164,7 @@
                 "name": "Can I replay a past summary?",
                 "acceptedAnswer": {
                     "@type": "Answer",
-                    "text": "Yes. Open the main window, find the session in the list, and click Play. Click Stop to interrupt playback. Replayed audio does not call ElevenLabs again — the generated audio is cached per session."
+                    "text": "Yes. Open the main window, find the summary in the list, and click Play. Click Stop to interrupt. ElevenLabs audio is saved with each summary, so replaying it doesn't use more of your ElevenLabs characters."
                 }
             },
             {
@@ -170,7 +212,7 @@
                 "name": "Do you collect analytics?",
                 "acceptedAnswer": {
                     "@type": "Answer",
-                    "text": "The app sends a small number of anonymous usage events (e.g. \"app launched\", \"summary requested\") to help improve the app. No notification content, summaries, or personal data are included."
+                    "text": "The app sends a small number of anonymous usage events (for example \"summary requested\") and crash reports to help improve it. No notification content, summaries, API keys, or personal data are ever included. You can turn this off in Settings → General → Anonymous analytics."
                 }
             }
         ]
@@ -262,7 +304,7 @@
                         </svg>
                     </div>
                     <div class="feature-description">
-                        <h2 class="feature-lead">Any voice you like, via ElevenLabs.</h2> Bring your own API key and pick from every voice on your account — pre-made, cloned, or from the Voice Library. Choose Turbo v2.5 for balanced quality, Multilingual v2 for other languages, or Flash v2.5 for the lowest latency.
+                        <h2 class="feature-lead">A free built-in voice, or any ElevenLabs voice.</h2> Out of the box, summaries are read by the macOS voice you choose — free, offline, no account needed. For a more natural sound, add your own ElevenLabs API key and pick from every voice on your account — pre-made, cloned, or from the Voice Library. Choose Turbo v2.5 for balanced quality, Multilingual v2 for other languages, or Flash v2.5 for the lowest latency.
                     </div>
                 </div>
             </div>
@@ -279,7 +321,7 @@
                 </div>
                 <div class="privacy-text">
                     <div class="feature-description">
-                        <h2 class="feature-lead">Private by construction.</h2> Notifications are read locally from macOS, summarized locally by Apple Intelligence, and never uploaded anywhere. Only the short generated summary is sent to ElevenLabs for text-to-speech — and your API key lives in the macOS Keychain.
+                        <h2 class="feature-lead">Private by construction.</h2> Notifications are read locally from macOS, summarized locally by Apple Intelligence, and never uploaded anywhere. With the built-in voice, nothing leaves your Mac at all. If you use ElevenLabs, only the short summary text is sent to it to be spoken — and your API key lives in the macOS Keychain.
                     </div>
                 </div>
             </div>
@@ -299,11 +341,15 @@
                 </div>
                 <div class="faq-item">
                     <h3 class="faq-question">What does it cost?</h3>
-                    <p class="faq-answer">The app itself is free. It uses Apple Intelligence on your Mac for the summary (no cost), and ElevenLabs for the voice. ElevenLabs has a free tier that is usually enough for everyday use. You bring your own ElevenLabs API key.</p>
+                    <p class="faq-answer">The app is free. Summaries are generated on-device by Apple Intelligence at no cost, and the built-in macOS voice is free too. If you want a more natural voice, you can optionally connect your own ElevenLabs API key — ElevenLabs has a free tier that is usually enough for everyday use.</p>
+                </div>
+                <div class="faq-item">
+                    <h3 class="faq-question">Do I need an ElevenLabs account?</h3>
+                    <p class="faq-answer">No. Without an API key, summaries are read aloud by the built-in macOS voice, which is free and works offline. ElevenLabs is optional and only changes how the summary sounds.</p>
                 </div>
                 <div class="faq-item">
                     <h3 class="faq-question">What are the system requirements?</h3>
-                    <p class="faq-answer">A Mac running a recent version of macOS with Apple Intelligence enabled (required for on-device summarization) and an internet connection (required only for text-to-speech).</p>
+                    <p class="faq-answer">A Mac that supports Apple Intelligence, with Apple Intelligence turned on in System Settings — the summary is generated on-device and can't be produced without it. An internet connection is only needed if you use an ElevenLabs voice or want to check for updates.</p>
                 </div>
                 <div class="faq-item">
                     <h3 class="faq-question">Why does the app need Full Disk Access?</h3>
@@ -311,11 +357,11 @@
                 </div>
                 <div class="faq-item">
                     <h3 class="faq-question">How do I get an ElevenLabs API key?</h3>
-                    <p class="faq-answer">Sign in at elevenlabs.io, click your avatar, go to API Keys, and create a new key. Copy it and paste it into Settings → ElevenLabs → API key. The ? button next to the API key field in Settings walks you through the same steps.</p>
+                    <p class="faq-answer">Sign in at elevenlabs.io, click your avatar, choose API Keys, and create a new key. Either leave it with full access, or enable both Text to Speech and Voices — without the Voices permission, the voice list in the app stays empty. Paste the key into Settings → Voice → API key. The ? button next to the field walks you through the same steps.</p>
                 </div>
                 <div class="faq-item">
                     <h3 class="faq-question">Where do my notifications go?</h3>
-                    <p class="faq-answer">Notifications are read locally from macOS, summarized locally by Apple Intelligence, and never uploaded anywhere. Only the short generated summary text is sent over the network, and only to ElevenLabs for text-to-speech.</p>
+                    <p class="faq-answer">Nowhere. Notifications are read locally from macOS and summarized on-device by Apple Intelligence — they are never uploaded. If you use ElevenLabs, only the short summary text is sent to ElevenLabs to be spoken. With the built-in macOS voice, nothing leaves your Mac at all.</p>
                 </div>
                 <div class="faq-item">
                     <h3 class="faq-question">Where is my ElevenLabs API key stored?</h3>
@@ -323,7 +369,7 @@
                 </div>
                 <div class="faq-item">
                     <h3 class="faq-question">Can I replay a past summary?</h3>
-                    <p class="faq-answer">Yes. Open the main window, find the session in the list, and click Play. Click Stop to interrupt playback. Replayed audio does not call ElevenLabs again — the generated audio is cached per session.</p>
+                    <p class="faq-answer">Yes. Open the main window, find the summary in the list, and click Play. Click Stop to interrupt. ElevenLabs audio is saved with each summary, so replaying it doesn't use more of your ElevenLabs characters.</p>
                 </div>
                 <div class="faq-item">
                     <h3 class="faq-question">Can I see a summary without hearing it read aloud?</h3>
@@ -347,7 +393,7 @@
                 </div>
                 <div class="faq-item">
                     <h3 class="faq-question">Do you collect analytics?</h3>
-                    <p class="faq-answer">The app sends a small number of anonymous usage events (e.g. "app launched", "summary requested") to help improve the app. No notification content, summaries, or personal data are included.</p>
+                    <p class="faq-answer">The app sends a small number of anonymous usage events (for example "summary requested") and crash reports to help improve it. No notification content, summaries, API keys, or personal data are ever included. You can turn this off in Settings → General → Anonymous analytics.</p>
                 </div>
             </div>
         </section>
@@ -366,6 +412,39 @@
             <p class="footer-text">
                 Created with <img src="Assets/heart.svg" alt="love" class="heart-icon"> by <a href="https://amirhayek.dev/" target="_blank" rel="noopener noreferrer" class="footer-link">Amir Hayek</a>
             </p>
+            <nav class="langs" id="langs" aria-label="Languages">
+                <a href="/WhatDidIMiss/" hreflang="en" lang="en" aria-current="page">English</a>
+                <a href="/WhatDidIMiss/ar/" hreflang="ar" lang="ar">العربية</a>
+                <a href="/WhatDidIMiss/cs/" hreflang="cs" lang="cs">Čeština</a>
+                <a href="/WhatDidIMiss/da/" hreflang="da" lang="da">Dansk</a>
+                <a href="/WhatDidIMiss/de/" hreflang="de" lang="de">Deutsch</a>
+                <a href="/WhatDidIMiss/el/" hreflang="el" lang="el">Ελληνικά</a>
+                <a href="/WhatDidIMiss/es/" hreflang="es" lang="es">Español</a>
+                <a href="/WhatDidIMiss/fi/" hreflang="fi" lang="fi">Suomi</a>
+                <a href="/WhatDidIMiss/fr/" hreflang="fr" lang="fr">Français</a>
+                <a href="/WhatDidIMiss/he/" hreflang="he" lang="he">עברית</a>
+                <a href="/WhatDidIMiss/hi/" hreflang="hi" lang="hi">हिन्दी</a>
+                <a href="/WhatDidIMiss/hu/" hreflang="hu" lang="hu">Magyar</a>
+                <a href="/WhatDidIMiss/id/" hreflang="id" lang="id">Bahasa Indonesia</a>
+                <a href="/WhatDidIMiss/it/" hreflang="it" lang="it">Italiano</a>
+                <a href="/WhatDidIMiss/ja/" hreflang="ja" lang="ja">日本語</a>
+                <a href="/WhatDidIMiss/ko/" hreflang="ko" lang="ko">한국어</a>
+                <a href="/WhatDidIMiss/ms/" hreflang="ms" lang="ms">Bahasa Melayu</a>
+                <a href="/WhatDidIMiss/nb/" hreflang="nb" lang="nb">Norsk bokmål</a>
+                <a href="/WhatDidIMiss/nl/" hreflang="nl" lang="nl">Nederlands</a>
+                <a href="/WhatDidIMiss/pl/" hreflang="pl" lang="pl">Polski</a>
+                <a href="/WhatDidIMiss/pt-br/" hreflang="pt-BR" lang="pt-BR">Português (Brasil)</a>
+                <a href="/WhatDidIMiss/pt-pt/" hreflang="pt-PT" lang="pt-PT">Português (Portugal)</a>
+                <a href="/WhatDidIMiss/ro/" hreflang="ro" lang="ro">Română</a>
+                <a href="/WhatDidIMiss/ru/" hreflang="ru" lang="ru">Русский</a>
+                <a href="/WhatDidIMiss/sv/" hreflang="sv" lang="sv">Svenska</a>
+                <a href="/WhatDidIMiss/th/" hreflang="th" lang="th">ไทย</a>
+                <a href="/WhatDidIMiss/tr/" hreflang="tr" lang="tr">Türkçe</a>
+                <a href="/WhatDidIMiss/uk/" hreflang="uk" lang="uk">Українська</a>
+                <a href="/WhatDidIMiss/vi/" hreflang="vi" lang="vi">Tiếng Việt</a>
+                <a href="/WhatDidIMiss/zh-hans/" hreflang="zh-Hans" lang="zh-Hans">简体中文</a>
+                <a href="/WhatDidIMiss/zh-hant/" hreflang="zh-Hant" lang="zh-Hant">繁體中文</a>
+            </nav>
         </footer>
     </main>
 </body>
