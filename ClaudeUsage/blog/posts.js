@@ -3,12 +3,22 @@
    entry at the TOP of this list (newest first). Use a category tag first —
    changelog, news, or pro-tip — then any extra topic tags. The new page must keep the
    /assets/analytics.js script tag, its first <h1> is what GA records as post_title,
-   and `slug` must match the HTML filename. Then run `node blog/bake.js` (from ClaudeUsage/): it
+   and `slug` must match the HTML filename. An entry can instead point at a page outside blog/
+   with `url` (relative to /ClaudeUsage/), like the 4.0 What's New page. Then run `node blog/bake.js` (from ClaudeUsage/): it
    writes the cards into the pages as plain HTML too, so search engines see them without the script.
    Posts waiting for their week live in blog/_queue/ (Jekyll doesn't publish _ folders); a GitHub
    Action (.github/workflows/claudeusage-weekly-post.yml) runs blog/publish-next.js every Monday,
    which moves the next one here. */
 const BLOG_POSTS = [
+    {
+        // not a blog page: the entry links to the What's New page (url is relative to /ClaudeUsage/)
+        slug: 'whats-new',
+        url: 'whats-new.html',
+        title: "What's new in Usage for Claude + ChatGPT 4.0",
+        date: '2026-10-18',
+        tags: ['changelog'],
+        excerpt: 'ChatGPT accounts tracked just like Claude, three ways to see all your accounts, several of them side by side in the menu bar, a redesigned Settings window and the full app on iPad.',
+    },
     {
         slug: 'how-to-check-claude-usage',
         title: 'How to check your Claude usage',
@@ -43,7 +53,7 @@ function formatPostDate(iso) {
 function renderPostCard(post, base) {
     const tags = post.tags.map((t) => `<span class="tag">#${t}</span>`).join('');
     return `
-        <a class="post-card" href="${base}${post.slug}.html">
+        <a class="post-card" href="${post.url ? (base.endsWith('blog/') ? base.slice(0, -5) + post.url : '../' + post.url) : base + post.slug + '.html'}">
             <div class="tag-list">${tags}</div>
             <h3>${post.title}</h3>
             <p>${post.excerpt}</p>
