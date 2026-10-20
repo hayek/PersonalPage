@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<!--
+  صنّف والعب — Sort and Play — landing page.
+
+  Arabic first (the game's only language), with an English section below it (#en).
+  Self-contained like the AnyCountdown privacy and support pages: no shared stylesheet,
+  no web fonts, and no scripts.
+
+  The meadow is the game's own art, re-encoded to WebP: the sky gradient follows
+  recovered/images/background.png, the grass strip is "grass back layer" + "grass frontlayer",
+  the hanging spiders are spider1–4, and the title is the game's title cut-out.
+  Screenshots are from the 2.0 build (DEBUG -debugRound colors4 / shapes3 / numbers4).
+
+  There is no analytics script on these pages on purpose: they describe an app for young
+  children, so the pages about it do not track either. (The app itself sends only anonymous play
+  statistics and crash reports; see privacy/.)
+-->
+<html lang="ar" dir="rtl" data-theme="system">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>صنّف والعب — Sort and Play</title>
+    <meta name="description" content="صنّف والعب: لعبة تصنيف لأطفال الثالثة إلى الخامسة، يصنّفون فيها الألوان والأشكال والأعداد بالعربية الفصحى. Sort and Play: an Arabic sorting game for children aged 3 to 5 — colors, shapes and numbers. iPhone, iPad and Mac.">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/icon-32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="assets/icon-96.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/icon-180.png">
+    <meta name="apple-mobile-web-app-title" content="صنّف والعب">
+    <meta name="apple-itunes-app" content="app-id=845110503">
+    <meta name="theme-color" content="#f3f7fb">
+
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="ar_AR">
+    <meta property="og:locale:alternate" content="en_US">
+    <meta property="og:title" content="صنّف والعب — Sort and Play">
+    <meta property="og:description" content="لعبة تصنيف لأطفال الثالثة إلى الخامسة: الألوان والأشكال والأعداد بالعربية الفصحى. An Arabic sorting game for ages 3–5.">
+    <meta property="og:url" content="https://amirhayek.dev/SortAndPlay/">
+    <meta property="og:image" content="https://amirhayek.dev/SortAndPlay/assets/og.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+
+    <style>
+        :root {
+            --bg: #ffffff;
+            --bg-secondary: #f2f6f4;
+            --ink: #1f2d33;
+            --muted: #5d6b70;
+            --rule: rgba(0, 0, 0, 0.1);
+            --accent: #1d7d73;
+            --button: #c4410f;
+            --button-ink: #ffffff;
+            --sky-top: #fdfefe;
+            --sky-mid: #ebf2f9;
+            --sky-bottom: #d4f2f9;
+            --sky-ink: #1f3a40;
+            --grass: #c5d28d;
+            --grass-filter: none;
+            --cloud-opacity: 0.95;
+            --frame: #1c1c1e;
+            --label: #ffffff;
+            --label-ink: #1f2d33;
+        }
+        [data-theme="dark"] {
+            --bg: #000000;
+            --bg-secondary: #1c1c1e;
+            --ink: #ffffff;
+            --muted: #a3a3aa;
+            --rule: rgba(255, 255, 255, 0.16);
+            --accent: #6fd3c6;
+            --button: #e8622c;
+            --button-ink: #ffffff;
+            --sky-top: #0c1626;
+            --sky-mid: #14263b;
+            --sky-bottom: #1f3c52;
+            --sky-ink: #eaf4f6;
+            --grass: #8c9864;
+            --grass-filter: brightness(0.72) saturate(0.9);
+            --cloud-opacity: 0.18;
+            --frame: #3a3a3c;
+            --label: #f4f6f8;
+            --label-ink: #1f2d33;
+        }
+        @media (prefers-color-scheme: dark) {
+            [data-theme="system"] {
+                --bg: #000000;
+                --bg-secondary: #1c1c1e;
+                --ink: #ffffff;
+                --muted: #a3a3aa;
+                --rule: rgba(255, 255, 255, 0.16);
+                --accent: #6fd3c6;
+                --button: #e8622c;
+                --button-ink: #ffffff;
+                --sky-top: #0c1626;
+                --sky-mid: #14263b;
+                --sky-bottom: #1f3c52;
+                --sky-ink: #eaf4f6;
+                --grass: #8c9864;
+                --grass-filter: brightness(0.72) saturate(0.9);
+                --cloud-opacity: 0.18;
+                --frame: #3a3a3c;
+                --label: #f4f6f8;
+                --label-ink: #1f2d33;
+            }
+        }
+
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+        @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Arabic', 'Geeza Pro', 'Noto Naskh Arabic', 'Segoe UI', Tahoma, 'Helvetica Neue', sans-serif;
+            background: var(--bg);
+            color: var(--ink);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            line-height: 1.7;
+        }
+
+        img { display: block; max-width: 100%; height: auto; }
+
+        a { color: var(--accent); text-decoration: none; border-bottom: 1px solid currentColor; }
+        a:hover { opacity: 0.75; }
+
+        .sr-only {
+            position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+            overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+        }
+
+        .wrap { max-width: 1040px; margin: 0 auto; padding: 0 20px; }
+
+        /* ── Store button (a plain link styled to the page, not Apple's badge artwork) ── */
+        .store {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 13px 24px;
+            border-radius: 999px;
+            border: 0;
+            background: var(--button);
+            color: var(--button-ink);
+            font-weight: 700;
+            font-size: 17px;
+            line-height: 1.2;
+            box-shadow: 0 6px 18px rgba(196, 65, 15, 0.25);
+        }
+        .store:hover { opacity: 0.88; }
+        .store svg { width: 18px; height: 18px; flex: none; }
+        .store--rtl svg { transform: scaleX(-1); }
+
+        /* ── Top bar ── */
+        .topbar {
+            position: absolute;
+            inset: 0 0 auto 0;
+            z-index: 3;
+        }
+        .topbar__inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            padding-top: 14px;
+        }
+        .brand {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            border: 0;
+            color: var(--sky-ink);
+            font-weight: 700;
+            font-size: 17px;
+        }
+        .brand img { width: 36px; height: 36px; border-radius: 9px; }
+        .topbar nav { display: flex; gap: 16px; font-size: 15px; }
+        .topbar nav a { color: var(--sky-ink); border: 0; font-weight: 600; }
+
+        /* ── The meadow (hero) ── */
+        .meadow {
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(180deg, var(--sky-top) 0%, var(--sky-mid) 55%, var(--sky-bottom) 100%);
+            color: var(--sky-ink);
+            text-align: center;
+        }
+        .cloud {
+            position: absolute;
+            width: clamp(120px, 22vw, 260px);
+            opacity: var(--cloud-opacity);
+            pointer-events: none;
+        }
+        .cloud--a { top: 36%; left: -3%; }
+        .cloud--b { top: 18%; right: 4%; width: clamp(90px, 14vw, 170px); }
+
+        /* Spiders hang across the top, as in the game, each with its word on a little cloud. */
+        .spiders {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            justify-content: space-around;
+            align-items: flex-start;
+            padding: 56px 4% 0;
+            min-height: clamp(190px, 24vw, 270px);
+        }
+        .spider {
+            position: relative;
+            width: clamp(78px, 11vw, 130px);
+            padding-top: var(--drop, 30px);
+            animation: dangle var(--speed, 5s) ease-in-out infinite alternate;
+        }
+        /* The thread runs from far above the meadow down to the spider's head. */
+        .spider::before {
+            content: "";
+            position: absolute;
+            left: 50%;
+            top: -400px;
+            bottom: 55%;
+            width: 1px;
+            background: rgba(60, 80, 90, 0.35);
+        }
+        [data-theme="dark"] .spider::before { background: rgba(220, 235, 240, 0.35); }
+        @media (prefers-color-scheme: dark) {
+            [data-theme="system"] .spider::before { background: rgba(220, 235, 240, 0.35); }
+        }
+        .spider__label {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 4px;
+            padding: 2px 12px 4px;
+            border-radius: 999px;
+            background: var(--label);
+            color: var(--label-ink);
+            font-weight: 800;
+            font-size: clamp(14px, 1.8vw, 19px);
+            line-height: 1.5;
+            border: 1px solid rgba(31, 58, 64, 0.14);
+            box-shadow: 0 2px 6px rgba(31, 58, 64, 0.12);
+            white-space: nowrap;
+        }
+        .spider img { position: relative; width: 100%; }
+        .spider--1 { --drop: 34px; --speed: 4.6s; }
+        .spider--2 { --drop: 4px;  --speed: 5.4s; animation-delay: -1.5s; }
+        .spider--3 { --drop: 46px; --speed: 4.9s; animation-delay: -3s; }
+        .spider--4 { --drop: 14px; --speed: 5.8s; animation-delay: -0.8s; }
+        @keyframes dangle {
+            from { transform: translateY(-6px); }
+            to   { transform: translateY(8px); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .spider { animation: none; }
+        }
+
+        .hero {
+            position: relative;
+            z-index: 2;
+            padding-top: 8px;
+            padding-bottom: 28px;
+        }
+        .hero h1 { margin: 0 auto; max-width: min(560px, 92%); }
+        .hero h1 img { width: 100%; }
+        .hero__lede {
+            max-width: 560px;
+            margin: 18px auto 0;
+            font-size: clamp(18px, 2.4vw, 21px);
+            line-height: 1.75;
+        }
+        .hero__cta { margin-top: 24px; }
+        .hero__platforms { margin-top: 12px; font-size: 15px; opacity: 0.8; }
+
+        .grass {
+            position: relative;
+            height: clamp(84px, 13vw, 170px);
+            margin-top: -10px;
+            background:
+                url("assets/grass-front.webp") center bottom / max(100%, 900px) auto no-repeat,
+                url("assets/grass-back.webp") center top / max(100%, 900px) auto no-repeat,
+                linear-gradient(transparent 40%, var(--grass) 40%);
+            filter: var(--grass-filter);
+        }
+
+        /* ── Sections ── */
+        .section { padding: 64px 0 8px; }
+        .eyebrow {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--accent);
+            letter-spacing: 0.02em;
+        }
+        h2 {
+            font-size: clamp(26px, 4.4vw, 36px);
+            line-height: 1.3;
+            margin: 6px 0 12px;
+        }
+        .section__intro { max-width: 680px; font-size: 18px; color: var(--muted); }
+
+        .games {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 22px;
+            margin-top: 30px;
+        }
+        .game {
+            background: var(--bg-secondary);
+            border-radius: 22px;
+            padding: 14px 14px 20px;
+        }
+        .game h3 { font-size: 22px; margin: 16px 6px 4px; }
+        .game p { margin: 0 6px; font-size: 16px; color: var(--muted); }
+
+        .device {
+            border: 6px solid var(--frame);
+            border-radius: 18px;
+            overflow: hidden;
+            background: var(--frame);
+        }
+        .device--ipad { border-width: 10px; border-radius: 24px; }
+
+        .points {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 26px 30px;
+            margin-top: 28px;
+            list-style: none;
+        }
+        .points h3 { font-size: 19px; margin-bottom: 4px; }
+        .points p { font-size: 16px; color: var(--muted); }
+
+        .ipads {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 22px;
+            margin-top: 30px;
+        }
+
+        .note {
+            margin-top: 64px;
+            background: var(--bg-secondary);
+            border-radius: 22px;
+            padding: 28px 24px;
+        }
+        .note h2 { font-size: clamp(22px, 3.4vw, 28px); margin-top: 0; }
+        .note p { font-size: 17px; max-width: 700px; }
+        .note .links { margin-top: 14px; display: flex; flex-wrap: wrap; gap: 10px 22px; font-weight: 600; }
+
+        .story { padding: 56px 0 8px; }
+        .story p:not(.eyebrow) { font-size: 17px; max-width: 700px; color: var(--muted); }
+
+        /* ── English ── */
+        .english {
+            margin-top: 72px;
+            padding: 64px 0 40px;
+            border-top: 1px solid var(--rule);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif;
+            line-height: 1.6;
+        }
+        .english .lede { font-size: 18px; max-width: 700px; }
+        .english ul { margin: 22px 0 0; padding-inline-start: 22px; max-width: 700px; }
+        .english li { margin: 8px 0; font-size: 16px; }
+        .english .actions { margin-top: 28px; display: flex; flex-wrap: wrap; align-items: center; gap: 14px 24px; }
+        .english .actions a:not(.store) { font-weight: 600; }
+
+        /* ── Footer ── */
+        .site-footer {
+            margin-top: 40px;
+            color: var(--muted);
+            font-size: 14px;
+        }
+        .site-footer .grass {
+            height: 90px;
+            margin-top: 0;
+            background:
+                url("assets/grass-back.webp") center top / max(100%, 900px) auto no-repeat,
+                linear-gradient(var(--bg), var(--sky-bottom));
+        }
+        .site-footer__inner {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 14px 24px;
+            padding-top: 22px;
+            padding-bottom: 40px;
+        }
+        .site-footer .brand { color: var(--ink); font-size: 15px; }
+        .site-footer .brand img { width: 28px; height: 28px; border-radius: 7px; }
+        .site-footer nav { display: flex; flex-wrap: wrap; gap: 8px 20px; }
+        .site-footer nav a { color: var(--muted); border: 0; }
+
+        @media (max-width: 640px) {
+            .spider--4 { display: none; }
+            .spiders { padding-top: 64px; min-height: 180px; }
+            .cloud--a { top: 44%; }
+            .section { padding-top: 52px; }
+        }
+    </style>
+</head>
+<body>
+
+<header class="topbar">
+    <div class="wrap topbar__inner">
+        <a class="brand" href="#top">
+            <img src="assets/icon-96.png" alt="" width="36" height="36">
+            <span>صنّف والعب</span>
+        </a>
+        <nav>
+            <a href="#en" lang="en" hreflang="en">English</a>
+            <a href="support/">الدعم</a>
+        </nav>
+    </div>
+</header>
+
+<main id="top">
+
+    <!-- ============================================================ the meadow -->
+    <section class="meadow">
+        <img class="cloud cloud--a" src="assets/cloud.webp" alt="" width="394" height="244">
+        <img class="cloud cloud--b" src="assets/cloud.webp" alt="" width="394" height="244">
+
+        <div class="spiders" aria-hidden="true">
+            <div class="spider spider--1">
+                <span class="spider__label" style="color:#d62f1f">أحمر</span>
+                <img src="assets/spider1.webp" alt="" width="300" height="244">
+            </div>
+            <div class="spider spider--2">
+                <span class="spider__label">نجمة</span>
+                <img src="assets/spider2.webp" alt="" width="300" height="244">
+            </div>
+            <div class="spider spider--3">
+                <span class="spider__label">٧</span>
+                <img src="assets/spider3.webp" alt="" width="300" height="244">
+            </div>
+            <div class="spider spider--4">
+                <span class="spider__label">مثلث</span>
+                <img src="assets/spider4.webp" alt="" width="300" height="244">
+            </div>
+        </div>
+
+        <div class="hero wrap">
+            <h1><img src="assets/title.webp" alt="صنّف والعب — Sort and Play" width="1000" height="261"></h1>
+            <p class="hero__lede">لعبة تصنيف لأطفال الثالثة إلى الخامسة. يسحب الطفل الألوان والأشكال والأعداد إلى العناكب التي تنتظرها، ويسمع كل كلمة بالعربية الفصحى.</p>
+            <p class="hero__cta">
+                <a class="store store--rtl" href="https://apps.apple.com/app/id845110503" target="_blank" rel="noopener">
+                    حمّلها من <span dir="ltr">App Store</span>
+                    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+                </a>
+            </p>
+            <p class="hero__platforms">للآيفون والآيباد والماك</p>
+        </div>
+
+        <div class="grass" aria-hidden="true"></div>
+    </section>
+
+    <!-- ============================================================ three games -->
+    <section class="section">
+        <div class="wrap">
+            <p class="eyebrow">ثلاث ألعاب</p>
+            <h2>ألوان وأشكال وأعداد في مرج واحد</h2>
+            <p class="section__intro">في كل جولة تتدلّى العناكب من خيوطها فوق المرج، وفوق كل عنكبوت غيمة صغيرة كُتبت عليها كلمته. وفي العشب عشرة أشياء، لكلٍّ منها عنكبوت ينتظره.</p>
+
+            <div class="games">
+                <article class="game">
+                    <div class="device">
+                        <img src="assets/phone-colors.webp" width="1600" height="736" loading="lazy" decoding="async"
+                             alt="لعبة الألوان على الآيفون: أربعة عناكب فوقها «أخضر فاتح» و«أحمر» و«أصفر» و«أسود»، وفي العشب أشياء ملوّنة">
+                    </div>
+                    <h3>الألوان</h3>
+                    <p>أحمر، أصفر، أزرق فاتح… يأخذ كل عنكبوت ما كان بلونه.</p>
+                </article>
+                <article class="game">
+                    <div class="device">
+                        <img src="assets/phone-shapes.webp" width="1600" height="736" loading="lazy" decoding="async"
+                             alt="لعبة الأشكال على الآيفون: ثلاثة عناكب فوقها «حلقة» و«نجمة» و«مثلث»، وفي العشب نجوم وحلقات ومثلثات">
+                    </div>
+                    <h3>الأشكال</h3>
+                    <p>نجمة، مثلث، حلقة، مربع… يأخذ كل عنكبوت ما كان على شكله.</p>
+                </article>
+                <article class="game">
+                    <div class="device">
+                        <img src="assets/phone-numbers.webp" width="1600" height="736" loading="lazy" decoding="async"
+                             alt="لعبة الأعداد على الآيفون: أربعة عناكب يحمل كلٌّ منها عددًا، وفي العشب مجموعات من الأشياء">
+                    </div>
+                    <h3>الأعداد</h3>
+                    <p>من ١ إلى ١٠: يأخذ كل عنكبوت المجموعة التي فيها عدده من الأشياء.</p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================ how it plays -->
+    <section class="section">
+        <div class="wrap">
+            <p class="eyebrow">كيف تُلعب</p>
+            <h2>اسحب، واسمع، وصنّف</h2>
+            <ul class="points">
+                <li>
+                    <h3>اسحب وأفلت</h3>
+                    <p>يسحب الطفل الشيء إلى العنكبوت الذي يناسبه. إن أصاب فرح العنكبوت وسمع الطفل كلمة تشجيع مثل «ممتاز» و«رائع»، وإن أخطأ سمع «مكانه ليس هنا» وعاد الشيء إلى مكانه ليحاول من جديد.</p>
+                </li>
+                <li>
+                    <h3>اسمع الكلمة</h3>
+                    <p>يلمس الطفل العنكبوت أو غيمته فيسمع كلمته متى شاء، فلا يحتاج إلى أن يقرأ.</p>
+                </li>
+                <li>
+                    <h3>١٢ مستوى في كل لعبة</h3>
+                    <p>يلمس الطفل اللعبة في صفحة البداية فتظهر خريطة مستوياتها: من عنكبوت واحد وشيئين إلى أربعة عناكب وعشرة أشياء، ويفتح كل مستوى ينهيه الطفل المستوى التالي، مع نجوم يكسبها.</p>
+                </li>
+                <li>
+                    <h3>جولات لا تنتهي</h3>
+                    <p>حين تُصنَّف الأشياء العشرة كلها يحتفل المرج، ثم تبدأ جولة جديدة بكلمات وصور أخرى.</p>
+                </li>
+                <li>
+                    <h3>نجوم وأصدقاء</h3>
+                    <p>تضيء نجمة مع كل شيء يُصنَّف، وفي آخر كل جولة يربح الطفل صديقًا جديدًا من الحيوانات يسكن ألبومه «مرجي»، وفيه ٤٥ صديقًا. يُفتح الألبوم من الزر في أعلى صفحة البداية.</p>
+                </li>
+                <li>
+                    <h3>مساعدة لطيفة</h3>
+                    <p>إن أخطأ الطفل مرتين في الشيء نفسه، أو توقّف عن اللعب قليلًا، يلمع أثرٌ ذهبي من الشيء إلى عنكبوته ويقول العنكبوت كلمته. لا وقت يلاحقه، ولا شيء يخسره.</p>
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- ============================================================ every screen -->
+    <section class="section">
+        <div class="wrap">
+            <p class="eyebrow">على كل شاشة</p>
+            <h2>على الآيباد والآيفون والماك</h2>
+            <p class="section__intro">يمتدّ المرج ليملأ الشاشة كلها: الآيفون والآيباد بالوضع الأفقي، وشاشتَي iPhone Duo، ونافذة الماك بأي حجم.</p>
+            <div class="ipads">
+                <div class="device device--ipad">
+                    <img src="assets/ipad-numbers.webp" width="1600" height="1112" loading="lazy" decoding="async"
+                         alt="لعبة الأعداد على الآيباد: عناكب فوقها ٦ و٨ و١٠ و٧، وفي العشب مجموعات من الأقلام والبط والتفاح">
+                </div>
+                <div class="device device--ipad">
+                    <img src="assets/ipad-shapes.webp" width="1600" height="1112" loading="lazy" decoding="async"
+                         alt="لعبة الأشكال على الآيباد: عناكب فوقها «حلقة» و«نجمة» و«مثلث»، وفي العشب أشكال ملوّنة">
+                </div>
+            </div>
+
+            <div class="note">
+                <h2>آمنة للصغار</h2>
+                <p>لا إعلانات، ولا مشتريات داخل التطبيق، ولا حسابات، ولا تتبّع. لا يجمع التطبيق أي معلومات عن الطفل، ويرسل إحصاءات لعب مجهولة وتقارير أعطال فقط، وتبقى إعداداته على الجهاز.</p>
+                <p class="links">
+                    <a href="privacy/">سياسة الخصوصية</a>
+                    <a href="support/">الدعم والأسئلة الشائعة</a>
+                </p>
+            </div>
+
+            <div class="story">
+                <p class="eyebrow">منذ ٢٠١٤</p>
+                <h2>عادت من جديد</h2>
+                <p>صدرت «صنّف والعب» أول مرة عام ٢٠١٤ للآيباد، وتعود اليوم في الإصدار ٢٫٠ مبنيّةً من جديد لأجهزة اليوم، برسومها وأصوات النطق الأصلية، مع ١٢ مستوى في كل لعبة وموسيقى جديدة، ونجومٍ وأصدقاء من الحيوانات تُجمع في ألبوم «مرجي»، ونطقٍ مولَّد آليًّا لاسمَي اللونين «برتقالي» و«أبيض».</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================ English -->
+    <section class="english" id="en" lang="en" dir="ltr">
+        <div class="wrap">
+            <p class="eyebrow">In English</p>
+            <h2>Sort and Play</h2>
+            <p class="lede">A sorting game for children aged 3 to 5. Children drag colors, shapes and numbers to the spiders waiting for them, and hear every word in classical Arabic. The game itself is entirely in Arabic.</p>
+            <ul>
+                <li><strong>Three games:</strong> colors, shapes, and numbers from 1 to 10.</li>
+                <li><strong>Drag and drop:</strong> the right spider is delighted and the child hears a word of praise; a wrong one looks sad, a voice says <span lang="ar" dir="rtl">«مكانه ليس هنا»</span> (“that’s not its place”), and the object slides back to try again.</li>
+                <li><strong>Hear the word:</strong> tap a spider or its little cloud to hear its word any time, so no reading is needed.</li>
+                <li><strong>12 levels in every game:</strong> tap a game on the start page to open its level map, from one spider and two objects up to four spiders and ten. Each finished level opens the next one, with stars to earn.</li>
+                <li><strong>Stars and animal friends:</strong> a star lights up for every object sorted, and every finished round earns a new animal friend for the child’s own album, “My Meadow” (<span lang="ar" dir="rtl">«مرجي»</span>), with 45 friends to collect. It opens from the button at the top of the start page.</li>
+                <li><strong>Gentle hints:</strong> after two misses with the same object, or a little while without play, a golden trail shows where the object goes and the spider says its word. There are no time limits and nothing to lose.</li>
+                <li><strong>Every screen:</strong> iPhone and iPad in landscape, both screens of iPhone Duo, and a Mac window of any size.</li>
+                <li><strong>Safe for little ones:</strong> no ads, no in-app purchases, no accounts and no tracking. The app collects nothing about your child and sends only anonymous play statistics and crash reports; its settings stay on the device.</li>
+                <li><strong>Back again:</strong> first released for iPad in 2014, version 2.0 brings it back, rebuilt for today’s devices, with its original art and original spoken voices, 12 levels in every game, new music, stars and animal friends to collect, plus computer-generated speech for the color names orange and white.</li>
+            </ul>
+            <div class="actions">
+                <a class="store" href="https://apps.apple.com/app/id845110503" target="_blank" rel="noopener">
+                    Get it on the App Store
+                    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+                </a>
+                <a href="privacy/#en">Privacy Policy</a>
+                <a href="support/#en">Support</a>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<footer class="site-footer">
+    <div class="grass" aria-hidden="true"></div>
+    <div class="wrap site-footer__inner">
+        <a class="brand" href="#top">
+            <img src="assets/icon-96.png" alt="" width="28" height="28">
+            <span>صنّف والعب · <span lang="en" dir="ltr">Sort and Play</span></span>
+        </a>
+        <nav>
+            <a href="privacy/">الخصوصية <span lang="en">Privacy</span></a>
+            <a href="support/">الدعم <span lang="en">Support</span></a>
+            <a href="https://apps.apple.com/app/id845110503" target="_blank" rel="noopener" lang="en" dir="ltr">App Store</a>
+            <a href="/" lang="en" dir="ltr">amirhayek.dev</a>
+        </nav>
+    </div>
+</footer>
+
+</body>
+</html>

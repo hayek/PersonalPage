@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<!--
+  صنّف والعب — Sort and Play — support page, in Arabic and English.
+
+  This is the URL for App Store Connect's Support field. App Review checks that a person can be
+  reached from it, so the contact address comes first, and it is the same real inbox as the other
+  apps' pages. Self-contained for the same reason the privacy page is (and no analytics).
+-->
+<html lang="ar" dir="rtl" data-theme="system">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الدعم — صنّف والعب · Support — Sort and Play</title>
+    <meta name="description" content="الدعم والأسئلة الشائعة للعبة صنّف والعب. Help with Sort and Play: contact, changing the game or level, music and sound, the animal friends album, supported devices.">
+    <link rel="icon" type="image/png" sizes="32x32" href="../assets/icon-32.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="../assets/icon-180.png">
+    <style>
+        :root {
+            --bg: #ffffff;
+            --bg-secondary: #f2f6f4;
+            --ink: #000000;
+            --muted: #6b6b70;
+            --rule: rgba(0, 0, 0, 0.12);
+            --accent: #1d7d73;
+        }
+        [data-theme="dark"] {
+            --bg: #000000;
+            --bg-secondary: #1c1c1e;
+            --ink: #ffffff;
+            --muted: #9a9aa0;
+            --rule: rgba(255, 255, 255, 0.16);
+            --accent: #6fd3c6;
+        }
+        @media (prefers-color-scheme: dark) {
+            [data-theme="system"] {
+                --bg: #000000;
+                --bg-secondary: #1c1c1e;
+                --ink: #ffffff;
+                --muted: #9a9aa0;
+                --rule: rgba(255, 255, 255, 0.16);
+                --accent: #6fd3c6;
+            }
+        }
+
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html { -webkit-text-size-adjust: 100%; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Arabic', 'Geeza Pro', 'Noto Naskh Arabic', 'Segoe UI', Tahoma, 'Helvetica Neue', sans-serif;
+            background: var(--bg);
+            color: var(--ink);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            line-height: 1.75;
+        }
+
+        .page {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 56px 22px 96px;
+        }
+
+        .langs { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+        .langs a { font-size: 14px; }
+
+        .eyebrow {
+            font-size: 13px;
+            letter-spacing: 0.04em;
+            color: var(--muted);
+        }
+
+        h1 {
+            font-size: clamp(30px, 6vw, 40px);
+            line-height: 1.25;
+            margin: 10px 0 14px;
+        }
+
+        .updated { color: var(--muted); font-size: 15px; }
+
+        h2 {
+            font-size: 21px;
+            margin: 44px 0 12px;
+            padding-top: 22px;
+            border-top: 1px solid var(--rule);
+        }
+
+        h3 { font-size: 17px; margin: 22px 0 6px; }
+
+        p, li { font-size: 16px; }
+        p { margin: 12px 0; }
+
+        ul { margin: 12px 0; padding-inline-start: 22px; }
+        li { margin: 6px 0; }
+
+        a { color: var(--accent); text-decoration: none; border-bottom: 1px solid currentColor; }
+        a:hover { opacity: 0.75; }
+
+        strong { font-weight: 600; }
+
+        .lede {
+            background: var(--bg-secondary);
+            border-radius: 14px;
+            padding: 20px 22px;
+            margin: 28px 0 8px;
+        }
+        .lede p { margin: 8px 0; }
+        .lede p:first-child { margin-top: 0; }
+        .lede p:last-child { margin-bottom: 0; }
+
+        .english {
+            margin-top: 72px;
+            padding-top: 40px;
+            border-top: 3px solid var(--rule);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif;
+            line-height: 1.6;
+        }
+        .english h1 { letter-spacing: -0.02em; line-height: 1.15; }
+        .english .eyebrow { text-transform: uppercase; letter-spacing: 0.12em; font-size: 12px; }
+
+        footer {
+            margin-top: 56px;
+            padding-top: 22px;
+            border-top: 1px solid var(--rule);
+            color: var(--muted);
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+<main class="page">
+
+    <!-- ============================================================ العربية -->
+    <div class="langs">
+        <p class="eyebrow">صنّف والعب</p>
+        <a href="#en" lang="en" hreflang="en">English</a>
+    </div>
+    <h1>الدعم</h1>
+    <p class="updated">كل رسالة يقرؤها شخص حقيقي.</p>
+
+    <div class="lede">
+        <p><strong>راسلنا على <a href="mailto:hayek_dev@icloud.com" dir="ltr">hayek_dev@icloud.com</a></strong> لأي سؤال أو مشكلة أو اقتراح، بالعربية أو بالإنجليزية.</p>
+        <p>يساعدنا أن تذكر الجهاز الذي تستخدمه (آيفون أو آيباد أو ماك)، وماذا كنت تتوقّع أن يحدث، وماذا حدث بدلًا منه. ولقطة شاشة تساعد كثيرًا.</p>
+    </div>
+
+    <h2>أسئلة شائعة</h2>
+
+    <h3>كيف أغيّر اللعبة أو المستوى؟</h3>
+    <p>عند فتح التطبيق تظهر <strong>صفحة البداية</strong>: المس غيمة اللعبة التي تريدها (الأعداد أو الألوان أو الأشكال)، فتظهر <strong>خريطة مستوياتها</strong>، ثم المس المستوى المضيء لتبدأ الجولة.</p>
+    <p>في كل لعبة ١٢ مستوى، من عنكبوت واحد وشيئين إلى أربعة عناكب وعشرة أشياء. ينهي الطفل المستوى فتنزل نجومه عليه ويُفتح المستوى التالي، ويمكنه أن يعيد أي مستوى مفتوح. ولتغيير اللعبة أثناء اللعب، المس <strong>زر البيت</strong> في أعلى يسار الشاشة للعودة إلى الخريطة ثم إلى صفحة البداية.</p>
+
+    <h3>كيف أوقف الموسيقى أو الأصوات؟</h3>
+    <p>من الزرّين في أعلى يسار صفحة البداية، أو أثناء اللعب من <strong>زر الأدوات</strong> في أعلى يمين الشاشة (وانقر عليه على الماك):</p>
+    <ul>
+        <li><strong>زر الموسيقى</strong> يوقف موسيقى البداية وأصوات المرج في الخلفية.</li>
+        <li><strong>زر الأصوات</strong> يوقف الكلمات المنطوقة وكلمات التشجيع والمؤثرات الصوتية الصغيرة.</li>
+    </ul>
+    <p>المس الزر مرة أخرى لإعادة التشغيل، ثم المس أي مكان خارج اللوحة لإغلاقها. ويتذكّر التطبيق هذين الإعدادين أيضًا.</p>
+
+    <h3>ما الأجهزة المدعومة؟</h3>
+    <ul>
+        <li><strong>الآيفون</strong> بنظام iOS 18 أو أحدث، بما في ذلك شاشتا iPhone Duo.</li>
+        <li><strong>الآيباد</strong> بنظام iPadOS 18 أو أحدث.</li>
+        <li><strong>الماك</strong> بنظام macOS 15 أو أحدث.</li>
+    </ul>
+    <p>على الآيفون والآيباد تُلعب اللعبة بالوضع الأفقي فقط، فأدِر الجهاز إن ظهرت الشاشة مائلة. وعلى الماك يمكن تكبير النافذة وتصغيرها كما تشاء.</p>
+
+    <h3>كيف يسمع الطفل الكلمة مرة أخرى؟</h3>
+    <p>يلمس العنكبوت أو الغيمة التي فوقه، فيقول العنكبوت كلمته من جديد. (إن لم يُسمع شيء، فتأكّد أن الأصوات مشغّلة من زر الأدوات، وأن صوت الجهاز مرتفع.)</p>
+
+    <h3>أين أجد أصدقاء الطفل من الحيوانات؟</h3>
+    <p>في ألبوم <strong>«مرجي»</strong>: المس الزر في أعلى يمين صفحة البداية، وعليه عدد الأصدقاء بعد أن يربح الطفل أولهم. يظهر في الألبوم كل صديق ربحه الطفل بألوانه، والباقون ظلال تنتظره. المس الصديق فيقفز، واسحب لترى الباقين، ثم المس السهم البرتقالي للعودة. يُحفظ الأصدقاء على الجهاز، وحذف التطبيق يحذفهم.</p>
+
+    <h3>هل تحتاج اللعبة إلى إنترنت؟ هل فيها إعلانات أو مشتريات؟</h3>
+    <p>لا. تعمل اللعبة كاملةً من دون إنترنت، ولا إعلانات فيها، ولا مشتريات داخل التطبيق، ولا حسابات. ولا تجمع أي معلومات عن الطفل، وترسل إحصاءات لعب مجهولة وتقارير أعطال فقط عندما يكون الجهاز متصلًا. التفاصيل في <a href="../privacy/">سياسة الخصوصية</a>.</p>
+
+    <!-- ============================================================ English -->
+    <section class="english" id="en" lang="en" dir="ltr">
+        <p class="eyebrow">Sort and Play</p>
+        <h1>Support</h1>
+        <p class="updated">A person reads every message.</p>
+
+        <div class="lede">
+            <p><strong>Email <a href="mailto:hayek_dev@icloud.com">hayek_dev@icloud.com</a></strong> with any question, problem or suggestion, in Arabic or English.</p>
+            <p>It helps to say which device you use (iPhone, iPad or Mac), what you expected to happen and what happened instead. A screenshot helps a lot.</p>
+        </div>
+
+        <h2>Common questions</h2>
+
+        <h3>How do I change the game or the level?</h3>
+        <p>When the app opens it shows the <strong>start page</strong>: tap the cloud of the game you want (numbers, colors or shapes) to open its <strong>level map</strong>, then tap the glowing level to start a round.</p>
+        <p>Every game has 12 levels, from one spider and two objects up to four spiders and ten. When your child finishes a level its stars land on it and the next level opens, and any open level can be played again. To switch games during play, tap the <strong>home button</strong> in the top-left corner to go back to the map, then to the start page.</p>
+
+        <h3>How do I turn the music or the sound off?</h3>
+        <p>With the two buttons in the top-left corner of the start page, or during play from the <strong>tools button</strong> in the top-right corner (click it on a Mac):</p>
+        <ul>
+            <li><strong>The music button</strong> turns off the opening music and the meadow’s background sounds.</li>
+            <li><strong>The sound button</strong> turns off the spoken words, the words of praise and the little sound effects.</li>
+        </ul>
+        <p>Tap a button again to turn it back on, then tap anywhere outside the panel to close it. The app remembers these two settings as well.</p>
+
+        <h3>Which devices are supported?</h3>
+        <ul>
+            <li><strong>iPhone</strong> with iOS 18 or later, including both screens of iPhone Duo.</li>
+            <li><strong>iPad</strong> with iPadOS 18 or later.</li>
+            <li><strong>Mac</strong> with macOS 15 or later.</li>
+        </ul>
+        <p>On iPhone and iPad the game plays in landscape only, so turn the device sideways. On a Mac the window can be resized freely.</p>
+
+        <h3>How does my child hear a word again?</h3>
+        <p>Tap the spider or the little cloud above it, and the spider says its word again. (If nothing plays, check that sound is on in the tools panel and that the device’s volume is up.)</p>
+
+        <h3>Where are the animal friends my child earned?</h3>
+        <p>In the album, <strong>“My Meadow”</strong>: tap the button in the top-right corner of the start page, which shows how many friends there are once the first one is earned. Every friend your child has earned is there in full color, and the ones still to come wait as soft shadows. Tap a friend to make it hop, drag to see the rest, and tap the orange arrow to go back. The friends are kept on the device; deleting the app deletes them.</p>
+
+        <h3>Does it need the internet? Are there ads or purchases?</h3>
+        <p>No. The game works entirely offline, with no ads, no in-app purchases and no accounts. It collects nothing about your child and sends only anonymous play statistics and crash reports when the device is online. The details are in the <a href="../privacy/#en">privacy policy</a>.</p>
+    </section>
+
+    <footer>
+        <p><a href="../">صنّف والعب · <span lang="en" dir="ltr">Sort and Play</span></a> · <a href="../privacy/">الخصوصية <span lang="en">Privacy</span></a> · <a href="/" lang="en" dir="ltr">amirhayek.dev</a></p>
+    </footer>
+
+</main>
+</body>
+</html>
