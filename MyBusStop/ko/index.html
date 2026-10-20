@@ -85,7 +85,9 @@
         "screenshot": [
             "https://amirhayek.dev/MyBusStop/Assets/iphone-board-light.webp",
             "https://amirhayek.dev/MyBusStop/Assets/iphone-stops-dark.webp",
-            "https://amirhayek.dev/MyBusStop/Assets/iphone-lines-dark.webp"
+            "https://amirhayek.dev/MyBusStop/Assets/iphone-lines-dark.webp",
+            "https://amirhayek.dev/MyBusStop/Assets/iphone-route-dark.webp",
+            "https://amirhayek.dev/MyBusStop/Assets/iphone-map-dark.webp"
         ],
         "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
         "author": { "@type": "Person", "name": "Amir Hayek", "url": "https://amirhayek.dev/" }
@@ -300,6 +302,30 @@
                     </li>
                 </ol>
                 <p class="note">집, 회사, 학교 정류장을 내 정류장에 저장해 두고 탭 한 번으로 오가세요. 자주 쓰는 정류장은 고정하고, 쓰지 않는 정류장은 쓸어서 지우면 됩니다.</p>
+            </div>
+        </section>
+
+        <!-- The whole line: two smaller views, side by side -->
+        <section class="section">
+            <div class="container">
+                <h2>노선 전체를 한눈에</h2>
+                <p class="section-lede">안내판은 노선의 먼 구간을 접어 둡니다. 전체 노선을 열면 모두 볼 수 있습니다.</p>
+                <div class="extras">
+                    <figure class="extra">
+                        <img src="../Assets/iphone-route-dark.webp" alt="전체 노선: 18번, 41번, 7번 노선의 모든 정류장을 나란히, 각 노선의 첫 정류장부터 기다리는 정류장까지 운행 중인 버스와 함께 보여 주는 화면" class="phone" width="660" height="1434" loading="lazy">
+                        <figcaption>
+                            <h3>처음부터 끝까지, 모든 정류장</h3>
+                            <p>각 노선을 첫 정류장부터 기다리는 정류장까지, 모든 버스의 현재 위치와 함께 보여 줍니다. 정류장을 탭하면 그곳에 무엇이 오는지 볼 수 있습니다.</p>
+                        </figcaption>
+                    </figure>
+                    <figure class="extra">
+                        <img src="../Assets/iphone-map-dark.webp" alt="노선도: 18번, 41번, 7번 노선이 도시의 거리 위에 그려져 기다리는 정류장에서 만나는 모습" class="phone" width="660" height="1434" loading="lazy">
+                        <figcaption>
+                            <h3>실제 지도 위에서</h3>
+                            <p>전체 노선을 노선도로 전환하면, 노선이 실제로 달리는 거리를 따라 표시됩니다.</p>
+                        </figcaption>
+                    </figure>
+                </div>
             </div>
         </section>
 

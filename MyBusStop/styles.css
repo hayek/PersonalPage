@@ -202,6 +202,9 @@ p { max-width: 62ch; }
 .phone { width: 100%; max-width: 320px; border-radius: 34px; border: 1px solid var(--rule); }
 .step-text { margin-top: 24px; }
 .step-text p { color: var(--muted); margin-top: 8px; font-size: 16px; }
+.extras { display: grid; grid-template-columns: repeat(2, minmax(0, 260px)); gap: clamp(24px, 4vw, 56px); margin-top: 48px; }
+.extra figcaption { margin-top: 20px; }
+.extra figcaption p { color: var(--muted); margin-top: 8px; font-size: 16px; }
 .step-badge {
     display: inline-grid;
     place-items: center;
@@ -389,6 +392,7 @@ p { max-width: 62ch; }
     :root { --gutter: 16px; }
     .facts { grid-template-columns: minmax(0, 1fr); gap: 24px; }
     .steps { grid-template-columns: 1fr; gap: 56px; }
+    .extras { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
     .step { display: grid; grid-template-columns: minmax(0, 150px) 1fr; gap: 20px; align-items: start; }
     .step-text { margin-top: 0; }
     .phone { border-radius: 20px; }
