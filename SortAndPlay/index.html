@@ -2,7 +2,7 @@
 <!--
   صنّف والعب — Sort and Play — landing page.
 
-  Arabic first (the game's only language), with an English section below it (#en).
+  English. The Arabic page is ar/ (the game speaks Arabic); each page links to its twin and both carry hreflang.
   Self-contained like the AnyCountdown privacy and support pages: no shared stylesheet,
   no web fonts, and no scripts.
 
@@ -15,24 +15,29 @@
   children, so the pages about it do not track either. (The app itself sends only anonymous play
   statistics and crash reports; see privacy/.)
 -->
-<html lang="ar" dir="rtl" data-theme="system">
+<html lang="en" dir="ltr" data-theme="system">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>صنّف والعب — Sort and Play</title>
-    <meta name="description" content="صنّف والعب: لعبة تصنيف لأطفال الثالثة إلى الخامسة، يصنّفون فيها الألوان والأشكال والأعداد بالعربية الفصحى. Sort and Play: an Arabic sorting game for children aged 3 to 5 — colors, shapes and numbers. iPhone, iPad and Mac.">
+    <title>Sort and Play — Arabic sorting game for kids 3–5</title>
+    <meta name="description" content="Sort and Play: a sorting game for children aged 3 to 5 who learn colors, shapes and numbers in classical Arabic. iPhone, iPad and Mac, with no ads and no purchases.">
+    <link rel="canonical" href="https://amirhayek.dev/SortAndPlay/">
+    <link rel="alternate" hreflang="en" href="https://amirhayek.dev/SortAndPlay/">
+    <link rel="alternate" hreflang="ar" href="https://amirhayek.dev/SortAndPlay/ar/">
+    <link rel="alternate" hreflang="x-default" href="https://amirhayek.dev/SortAndPlay/">
+
     <link rel="icon" type="image/png" sizes="32x32" href="assets/icon-32.png">
     <link rel="icon" type="image/png" sizes="96x96" href="assets/icon-96.png">
     <link rel="apple-touch-icon" sizes="180x180" href="assets/icon-180.png">
-    <meta name="apple-mobile-web-app-title" content="صنّف والعب">
+    <meta name="apple-mobile-web-app-title" content="Sort and Play">
     <meta name="apple-itunes-app" content="app-id=845110503">
     <meta name="theme-color" content="#f3f7fb">
 
     <meta property="og:type" content="website">
-    <meta property="og:locale" content="ar_AR">
-    <meta property="og:locale:alternate" content="en_US">
-    <meta property="og:title" content="صنّف والعب — Sort and Play">
-    <meta property="og:description" content="لعبة تصنيف لأطفال الثالثة إلى الخامسة: الألوان والأشكال والأعداد بالعربية الفصحى. An Arabic sorting game for ages 3–5.">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:locale:alternate" content="ar_AR">
+    <meta property="og:title" content="Sort and Play — Arabic sorting game for kids 3–5">
+    <meta property="og:description" content="Sort and Play: a sorting game for children aged 3 to 5 who learn colors, shapes and numbers in classical Arabic. iPhone, iPad and Mac, with no ads and no purchases.">
     <meta property="og:url" content="https://amirhayek.dev/SortAndPlay/">
     <meta property="og:image" content="https://amirhayek.dev/SortAndPlay/assets/og.jpg">
     <meta name="twitter:card" content="summary_large_image">
@@ -389,6 +394,9 @@
             .cloud--a { top: 44%; }
             .section { padding-top: 52px; }
         }
+    
+        html[lang="en"] body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif; line-height: 1.6; }
+        html[lang="en"] h1 { letter-spacing: -0.02em; }
     </style>
 </head>
 <body>
@@ -397,11 +405,11 @@
     <div class="wrap topbar__inner">
         <a class="brand" href="#top">
             <img src="assets/icon-96.png" alt="" width="36" height="36">
-            <span>صنّف والعب</span>
+            <span>Sort and Play</span>
         </a>
         <nav>
-            <a href="#en" lang="en" hreflang="en">English</a>
-            <a href="support/">الدعم</a>
+            <a href="ar/" lang="ar" hreflang="ar" dir="rtl">العربية</a>
+            <a href="support/">Support</a>
         </nav>
     </div>
 </header>
@@ -413,35 +421,36 @@
         <img class="cloud cloud--a" src="assets/cloud.webp" alt="" width="394" height="244">
         <img class="cloud cloud--b" src="assets/cloud.webp" alt="" width="394" height="244">
 
+        <!-- The spiders' clouds carry the game's own Arabic words, as in the game. -->
         <div class="spiders" aria-hidden="true">
             <div class="spider spider--1">
-                <span class="spider__label" style="color:#d62f1f">أحمر</span>
+                <span class="spider__label" style="color:#d62f1f" lang="ar">أحمر</span>
                 <img src="assets/spider1.webp" alt="" width="300" height="244">
             </div>
             <div class="spider spider--2">
-                <span class="spider__label">نجمة</span>
+                <span class="spider__label" lang="ar">نجمة</span>
                 <img src="assets/spider2.webp" alt="" width="300" height="244">
             </div>
             <div class="spider spider--3">
-                <span class="spider__label">٧</span>
+                <span class="spider__label" lang="ar">٧</span>
                 <img src="assets/spider3.webp" alt="" width="300" height="244">
             </div>
             <div class="spider spider--4">
-                <span class="spider__label">مثلث</span>
+                <span class="spider__label" lang="ar">مثلث</span>
                 <img src="assets/spider4.webp" alt="" width="300" height="244">
             </div>
         </div>
 
         <div class="hero wrap">
-            <h1><img src="assets/title.webp" alt="صنّف والعب — Sort and Play" width="1000" height="261"></h1>
-            <p class="hero__lede">لعبة تصنيف لأطفال الثالثة إلى الخامسة. يسحب الطفل الألوان والأشكال والأعداد إلى العناكب التي تنتظرها، ويسمع كل كلمة بالعربية الفصحى.</p>
+            <h1><img src="assets/title.webp" alt="Sort and Play" width="1000" height="261"></h1>
+            <p class="hero__lede">A sorting game for children aged 3 to 5. Your child drags colors, shapes and numbers to the spiders waiting for them, and hears every word in clear classical Arabic.</p>
             <p class="hero__cta">
-                <a class="store store--rtl" href="https://apps.apple.com/app/id845110503" target="_blank" rel="noopener">
-                    حمّلها من <span dir="ltr">App Store</span>
+                <a class="store" href="https://apps.apple.com/app/id845110503" target="_blank" rel="noopener">
+                    Get it on the App Store
                     <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
                 </a>
             </p>
-            <p class="hero__platforms">للآيفون والآيباد والماك</p>
+            <p class="hero__platforms">For iPhone, iPad and Mac</p>
         </div>
 
         <div class="grass" aria-hidden="true"></div>
@@ -450,34 +459,34 @@
     <!-- ============================================================ three games -->
     <section class="section">
         <div class="wrap">
-            <p class="eyebrow">ثلاث ألعاب</p>
-            <h2>ألوان وأشكال وأعداد في مرج واحد</h2>
-            <p class="section__intro">في كل جولة تتدلّى العناكب من خيوطها فوق المرج، وفوق كل عنكبوت غيمة صغيرة كُتبت عليها كلمته. وفي العشب عشرة أشياء، لكلٍّ منها عنكبوت ينتظره.</p>
+            <p class="eyebrow">Three games</p>
+            <h2>Colors, shapes and numbers in one meadow</h2>
+            <p class="section__intro">In every round the spiders hang from their threads above the meadow, each with its word on a little cloud. In the grass are the things to sort, and each one has a spider waiting for it. The game speaks and shows its words in Arabic.</p>
 
             <div class="games">
                 <article class="game">
                     <div class="device">
                         <img src="assets/phone-colors.webp" width="1600" height="736" loading="lazy" decoding="async"
-                             alt="لعبة الألوان على الآيفون: أربعة عناكب فوقها «أخضر فاتح» و«أحمر» و«أصفر» و«أسود»، وفي العشب أشياء ملوّنة">
+                             alt="The colors game on iPhone: four spiders labelled light green, red, yellow and black in Arabic, with colored objects in the grass">
                     </div>
-                    <h3>الألوان</h3>
-                    <p>أحمر، أصفر، أزرق فاتح… يأخذ كل عنكبوت ما كان بلونه.</p>
+                    <h3>Colors</h3>
+                    <p>Red, yellow, light blue… each spider takes everything in its color.</p>
                 </article>
                 <article class="game">
                     <div class="device">
                         <img src="assets/phone-shapes.webp" width="1600" height="736" loading="lazy" decoding="async"
-                             alt="لعبة الأشكال على الآيفون: ثلاثة عناكب فوقها «حلقة» و«نجمة» و«مثلث»، وفي العشب نجوم وحلقات ومثلثات">
+                             alt="The shapes game on iPhone: three spiders labelled ring, star and triangle in Arabic, with stars, rings and triangles in the grass">
                     </div>
-                    <h3>الأشكال</h3>
-                    <p>نجمة، مثلث، حلقة، مربع… يأخذ كل عنكبوت ما كان على شكله.</p>
+                    <h3>Shapes</h3>
+                    <p>Star, triangle, ring, square… each spider takes everything in its shape.</p>
                 </article>
                 <article class="game">
                     <div class="device">
                         <img src="assets/phone-numbers.webp" width="1600" height="736" loading="lazy" decoding="async"
-                             alt="لعبة الأعداد على الآيفون: أربعة عناكب يحمل كلٌّ منها عددًا، وفي العشب مجموعات من الأشياء">
+                             alt="The numbers game on iPhone: four spiders each showing a number, with groups of objects in the grass">
                     </div>
-                    <h3>الأعداد</h3>
-                    <p>من ١ إلى ١٠: يأخذ كل عنكبوت المجموعة التي فيها عدده من الأشياء.</p>
+                    <h3>Numbers</h3>
+                    <p>From 1 to 10: each spider takes the group with its number of things.</p>
                 </article>
             </div>
         </div>
@@ -486,32 +495,32 @@
     <!-- ============================================================ how it plays -->
     <section class="section">
         <div class="wrap">
-            <p class="eyebrow">كيف تُلعب</p>
-            <h2>اسحب، واسمع، وصنّف</h2>
+            <p class="eyebrow">How it plays</p>
+            <h2>Drag, listen and sort</h2>
             <ul class="points">
                 <li>
-                    <h3>اسحب وأفلت</h3>
-                    <p>يسحب الطفل الشيء إلى العنكبوت الذي يناسبه. إن أصاب فرح العنكبوت وسمع الطفل كلمة تشجيع مثل «ممتاز» و«رائع»، وإن أخطأ سمع «مكانه ليس هنا» وعاد الشيء إلى مكانه ليحاول من جديد.</p>
+                    <h3>Drag and drop</h3>
+                    <p>Your child drags each thing to the spider it belongs to. The right spider is delighted and your child hears a word of praise; a wrong one says <span lang="ar" dir="rtl">«مكانه ليس هنا»</span> (“that’s not its place”) and the thing slides back to try again.</p>
                 </li>
                 <li>
-                    <h3>اسمع الكلمة</h3>
-                    <p>يلمس الطفل العنكبوت أو غيمته فيسمع كلمته متى شاء، فلا يحتاج إلى أن يقرأ.</p>
+                    <h3>Hear the word</h3>
+                    <p>Tap a spider or its cloud to hear its word any time, so no reading is needed.</p>
                 </li>
                 <li>
-                    <h3>١٢ مستوى في كل لعبة</h3>
-                    <p>يلمس الطفل اللعبة في صفحة البداية فتظهر خريطة مستوياتها: من عنكبوت واحد وشيئين إلى أربعة عناكب وعشرة أشياء، ويفتح كل مستوى ينهيه الطفل المستوى التالي، مع نجوم يكسبها.</p>
+                    <h3>12 levels in every game</h3>
+                    <p>Tap a game on the start page to open its level map, from one spider and two things up to four spiders and ten. Each finished level opens the next one, with stars to earn.</p>
                 </li>
                 <li>
-                    <h3>جولات لا تنتهي</h3>
-                    <p>حين تُصنَّف الأشياء العشرة كلها يحتفل المرج، ثم تبدأ جولة جديدة بكلمات وصور أخرى.</p>
+                    <h3>A celebration for every level</h3>
+                    <p>When everything is sorted the meadow celebrates, a new friend appears, and the stars land on the level in the map as the next level opens.</p>
                 </li>
                 <li>
-                    <h3>نجوم وأصدقاء</h3>
-                    <p>تضيء نجمة مع كل شيء يُصنَّف، وفي آخر كل جولة يربح الطفل صديقًا جديدًا من الحيوانات يسكن ألبومه «مرجي»، وفيه ٤٥ صديقًا. يُفتح الألبوم من الزر في أعلى صفحة البداية.</p>
+                    <h3>Stars and friends</h3>
+                    <p>A star lights up for every thing sorted, and every finished round earns a new animal friend for your child’s album, “My Meadow”, with 45 friends to collect. The album opens from the button at the top of the start page.</p>
                 </li>
                 <li>
-                    <h3>مساعدة لطيفة</h3>
-                    <p>إن أخطأ الطفل مرتين في الشيء نفسه، أو توقّف عن اللعب قليلًا، يلمع أثرٌ ذهبي من الشيء إلى عنكبوته ويقول العنكبوت كلمته. لا وقت يلاحقه، ولا شيء يخسره.</p>
+                    <h3>Gentle hints</h3>
+                    <p>After two misses with the same thing, or a little while without play, a golden trail shows where it goes and the spider says its word. No time limits, and nothing to lose.</p>
                 </li>
             </ul>
         </div>
@@ -520,61 +529,33 @@
     <!-- ============================================================ every screen -->
     <section class="section">
         <div class="wrap">
-            <p class="eyebrow">على كل شاشة</p>
-            <h2>على الآيباد والآيفون والماك</h2>
-            <p class="section__intro">يمتدّ المرج ليملأ الشاشة كلها: الآيفون والآيباد بالوضع الأفقي، وشاشتَي iPhone Duo، ونافذة الماك بأي حجم.</p>
+            <p class="eyebrow">Every screen</p>
+            <h2>On iPad, iPhone and Mac</h2>
+            <p class="section__intro">The meadow stretches to fill the whole screen: iPhone and iPad in landscape, both screens of iPhone Duo, and a Mac window of any size.</p>
             <div class="ipads">
                 <div class="device device--ipad">
                     <img src="assets/ipad-numbers.webp" width="1600" height="1112" loading="lazy" decoding="async"
-                         alt="لعبة الأعداد على الآيباد: عناكب فوقها ٦ و٨ و١٠ و٧، وفي العشب مجموعات من الأقلام والبط والتفاح">
+                         alt="The numbers game on iPad: spiders showing 6, 8, 10 and 7, with groups of pencils, ducks and apples in the grass">
                 </div>
                 <div class="device device--ipad">
                     <img src="assets/ipad-shapes.webp" width="1600" height="1112" loading="lazy" decoding="async"
-                         alt="لعبة الأشكال على الآيباد: عناكب فوقها «حلقة» و«نجمة» و«مثلث»، وفي العشب أشكال ملوّنة">
+                         alt="The shapes game on iPad: spiders labelled ring, star and triangle in Arabic, with colored shapes in the grass">
                 </div>
             </div>
 
             <div class="note">
-                <h2>آمنة للصغار</h2>
-                <p>لا إعلانات، ولا مشتريات داخل التطبيق، ولا حسابات، ولا تتبّع. لا يجمع التطبيق أي معلومات عن الطفل، ويرسل إحصاءات لعب مجهولة وتقارير أعطال فقط، وتبقى إعداداته على الجهاز.</p>
+                <h2>Safe for little ones</h2>
+                <p>No ads, no in-app purchases, no accounts and no tracking. The app collects nothing about your child and sends only anonymous play statistics and crash reports; its settings stay on the device.</p>
                 <p class="links">
-                    <a href="privacy/">سياسة الخصوصية</a>
-                    <a href="support/">الدعم والأسئلة الشائعة</a>
+                    <a href="privacy/">Privacy Policy</a>
+                    <a href="support/">Support and FAQ</a>
                 </p>
             </div>
 
             <div class="story">
-                <p class="eyebrow">منذ ٢٠١٤</p>
-                <h2>عادت من جديد</h2>
-                <p>صدرت «صنّف والعب» أول مرة عام ٢٠١٤ للآيباد، وتعود اليوم في الإصدار ٢٫٠ مبنيّةً من جديد لأجهزة اليوم، برسومها وأصوات النطق الأصلية، مع ١٢ مستوى في كل لعبة وموسيقى جديدة، ونجومٍ وأصدقاء من الحيوانات تُجمع في ألبوم «مرجي»، ونطقٍ مولَّد آليًّا لاسمَي اللونين «برتقالي» و«أبيض».</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- ============================================================ English -->
-    <section class="english" id="en" lang="en" dir="ltr">
-        <div class="wrap">
-            <p class="eyebrow">In English</p>
-            <h2>Sort and Play</h2>
-            <p class="lede">A sorting game for children aged 3 to 5. Children drag colors, shapes and numbers to the spiders waiting for them, and hear every word in classical Arabic. The game itself is entirely in Arabic.</p>
-            <ul>
-                <li><strong>Three games:</strong> colors, shapes, and numbers from 1 to 10.</li>
-                <li><strong>Drag and drop:</strong> the right spider is delighted and the child hears a word of praise; a wrong one looks sad, a voice says <span lang="ar" dir="rtl">«مكانه ليس هنا»</span> (“that’s not its place”), and the object slides back to try again.</li>
-                <li><strong>Hear the word:</strong> tap a spider or its little cloud to hear its word any time, so no reading is needed.</li>
-                <li><strong>12 levels in every game:</strong> tap a game on the start page to open its level map, from one spider and two objects up to four spiders and ten. Each finished level opens the next one, with stars to earn.</li>
-                <li><strong>Stars and animal friends:</strong> a star lights up for every object sorted, and every finished round earns a new animal friend for the child’s own album, “My Meadow” (<span lang="ar" dir="rtl">«مرجي»</span>), with 45 friends to collect. It opens from the button at the top of the start page.</li>
-                <li><strong>Gentle hints:</strong> after two misses with the same object, or a little while without play, a golden trail shows where the object goes and the spider says its word. There are no time limits and nothing to lose.</li>
-                <li><strong>Every screen:</strong> iPhone and iPad in landscape, both screens of iPhone Duo, and a Mac window of any size.</li>
-                <li><strong>Safe for little ones:</strong> no ads, no in-app purchases, no accounts and no tracking. The app collects nothing about your child and sends only anonymous play statistics and crash reports; its settings stay on the device.</li>
-                <li><strong>Back again:</strong> first released for iPad in 2014, version 2.0 brings it back, rebuilt for today’s devices, with its original art and original spoken voices, 12 levels in every game, new music, stars and animal friends to collect, plus computer-generated speech for the color names orange and white.</li>
-            </ul>
-            <div class="actions">
-                <a class="store" href="https://apps.apple.com/app/id845110503" target="_blank" rel="noopener">
-                    Get it on the App Store
-                    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
-                </a>
-                <a href="privacy/#en">Privacy Policy</a>
-                <a href="support/#en">Support</a>
+                <p class="eyebrow">Since 2014</p>
+                <h2>Back again</h2>
+                <p>Sort and Play first came out for iPad in 2014. Version 2.0 brings it back, rebuilt for today’s devices with its original art and original spoken voices, 12 levels in every game, new music, stars and animal friends to collect in the “My Meadow” album, and computer-generated speech for the color names orange and white.</p>
             </div>
         </div>
     </section>
@@ -586,13 +567,13 @@
     <div class="wrap site-footer__inner">
         <a class="brand" href="#top">
             <img src="assets/icon-96.png" alt="" width="28" height="28">
-            <span>صنّف والعب · <span lang="en" dir="ltr">Sort and Play</span></span>
+            <span>Sort and Play</span>
         </a>
         <nav>
-            <a href="privacy/">الخصوصية <span lang="en">Privacy</span></a>
-            <a href="support/">الدعم <span lang="en">Support</span></a>
-            <a href="https://apps.apple.com/app/id845110503" target="_blank" rel="noopener" lang="en" dir="ltr">App Store</a>
-            <a href="/" lang="en" dir="ltr">amirhayek.dev</a>
+            <a href="privacy/">Privacy</a>
+            <a href="support/">Support</a>
+            <a href="https://apps.apple.com/app/id845110503" target="_blank" rel="noopener">App Store</a>
+            <a href="/">amirhayek.dev</a>
         </nav>
     </div>
 </footer>

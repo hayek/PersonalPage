@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<!--
+  صنّف والعب — Sort and Play — privacy policy, in Arabic and English.
+  This is the URL for App Store Connect's Privacy Policy field. Self-contained like the other
+  apps' privacy pages: no shared stylesheet, no fonts, no scripts, and no analytics on the page.
+  Everything below describes what the app actually does (2.0): Firebase Analytics without
+  advertising-identifier support (no IDFA, IDFV collection off, ad storage and personalization
+  denied) logs play events (GameAnalytics.swift), Crashlytics sends crash reports, and the device
+  keeps the settings, the best stars per level and the friends earned in UserDefaults. It matches
+  PrivacyInfo.xcprivacy and the App Store privacy label. When that changes, this page changes with it.
+-->
+<html lang="ar" dir="rtl" data-theme="system">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>سياسة الخصوصية — صنّف والعب</title>
+    <meta name="description" content="صنّف والعب لا يجمع أي معلومات عن طفلك: لا إعلانات ولا حسابات ولا تتبّع، ويرسل إحصاءات لعب مجهولة وتقارير أعطال فقط.">
+    <link rel="canonical" href="https://amirhayek.dev/SortAndPlay/ar/privacy/">
+    <link rel="alternate" hreflang="en" href="https://amirhayek.dev/SortAndPlay/privacy/">
+    <link rel="alternate" hreflang="ar" href="https://amirhayek.dev/SortAndPlay/ar/privacy/">
+    <link rel="alternate" hreflang="x-default" href="https://amirhayek.dev/SortAndPlay/privacy/">
+
+    <link rel="icon" type="image/png" sizes="32x32" href="../../assets/icon-32.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="../../assets/icon-180.png">
+    <style>
+        :root {
+            --bg: #ffffff;
+            --bg-secondary: #f2f6f4;
+            --ink: #000000;
+            --muted: #6b6b70;
+            --rule: rgba(0, 0, 0, 0.12);
+            --accent: #1d7d73;
+        }
+        [data-theme="dark"] {
+            --bg: #000000;
+            --bg-secondary: #1c1c1e;
+            --ink: #ffffff;
+            --muted: #9a9aa0;
+            --rule: rgba(255, 255, 255, 0.16);
+            --accent: #6fd3c6;
+        }
+        @media (prefers-color-scheme: dark) {
+            [data-theme="system"] {
+                --bg: #000000;
+                --bg-secondary: #1c1c1e;
+                --ink: #ffffff;
+                --muted: #9a9aa0;
+                --rule: rgba(255, 255, 255, 0.16);
+                --accent: #6fd3c6;
+            }
+        }
+
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html { -webkit-text-size-adjust: 100%; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Arabic', 'Geeza Pro', 'Noto Naskh Arabic', 'Segoe UI', Tahoma, 'Helvetica Neue', sans-serif;
+            background: var(--bg);
+            color: var(--ink);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            line-height: 1.75;
+        }
+
+        .page {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 56px 22px 96px;
+        }
+
+        .langs { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+        .langs a { font-size: 14px; }
+
+        .eyebrow {
+            font-size: 13px;
+            letter-spacing: 0.04em;
+            color: var(--muted);
+        }
+
+        h1 {
+            font-size: clamp(30px, 6vw, 40px);
+            line-height: 1.25;
+            margin: 10px 0 14px;
+        }
+
+        .updated { color: var(--muted); font-size: 15px; }
+
+        h2 {
+            font-size: 21px;
+            margin: 44px 0 12px;
+            padding-top: 22px;
+            border-top: 1px solid var(--rule);
+        }
+
+        p, li { font-size: 16px; }
+        p { margin: 12px 0; }
+
+        ul { margin: 12px 0; padding-inline-start: 22px; }
+        li { margin: 6px 0; }
+
+        a { color: var(--accent); text-decoration: none; border-bottom: 1px solid currentColor; }
+        a:hover { opacity: 0.75; }
+
+        strong { font-weight: 600; }
+
+        .lede {
+            background: var(--bg-secondary);
+            border-radius: 14px;
+            padding: 20px 22px;
+            margin: 28px 0 8px;
+        }
+        .lede p { margin: 8px 0; }
+        .lede p:first-child { margin-top: 0; }
+        .lede p:last-child { margin-bottom: 0; }
+
+        .english {
+            margin-top: 72px;
+            padding-top: 40px;
+            border-top: 3px solid var(--rule);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif;
+            line-height: 1.6;
+        }
+        .english h1 { letter-spacing: -0.02em; line-height: 1.15; }
+        .english .eyebrow { text-transform: uppercase; letter-spacing: 0.12em; font-size: 12px; }
+
+        footer {
+            margin-top: 56px;
+            padding-top: 22px;
+            border-top: 1px solid var(--rule);
+            color: var(--muted);
+            font-size: 14px;
+        }
+    
+        html[lang="en"] body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif; line-height: 1.6; }
+        html[lang="en"] h1 { letter-spacing: -0.02em; }
+    </style>
+</head>
+<body>
+<main class="page">
+
+    <!-- ============================================================ العربية -->
+    <div class="langs">
+        <p class="eyebrow">صنّف والعب</p>
+        <a href="../../privacy/" lang="en" hreflang="en">English</a>
+    </div>
+    <h1>سياسة الخصوصية</h1>
+    <p class="updated">تسري اعتبارًا من ٢٠ أكتوبر ٢٠٢٦</p>
+
+    <div class="lede">
+        <p><strong>لا يجمع «صنّف والعب» أي معلومات عن طفلك:</strong> لا اسم، ولا عمر، ولا صور، ولا صوت، ولا موقع دقيق، ولا معرّف الإعلانات.</p>
+        <p><strong>لا إعلانات، ولا حسابات، ولا مشتريات داخل التطبيق، ولا تتبّع.</strong></p>
+        <p><strong>يرسل التطبيق إحصاءات لعب مجهولة وتقارير أعطال فقط</strong>، عبر خدمة Firebase من Google، لنصلح الأعطال ونحسّن اللعبة.</p>
+    </div>
+
+    <p>«صنّف والعب» («التطبيق») لعبة تعليمية لأطفال الثالثة إلى الخامسة، من صنع أمير حايك («نحن»). تشرح هذه الصفحة ما يفعله التطبيق بالبيانات، وتشمل نسخه للآيفون والآيباد والماك.</p>
+
+    <h2>ما لا يجمعه التطبيق</h2>
+    <ul>
+        <li><strong>لا معلومات شخصية.</strong> لا اسم، ولا عمر، ولا بريد إلكتروني، ولا صور، ولا صوت، ولا جهات اتصال، ولا موقع دقيق.</li>
+        <li><strong>لا معرّف الإعلانات، ولا تتبّع.</strong> لا يستخدم التطبيق معرّف الإعلانات (IDFA)، ولا يتتبّع الطفل في تطبيقات أو مواقع أخرى، ولا يشارك أي بيانات لأغراض إعلانية.</li>
+        <li><strong>لا إعلانات، ولا حسابات، ولا مشتريات داخل التطبيق، ولا روابط تخرج منه.</strong></li>
+        <li><strong>لا أذونات.</strong> لا يطلب التطبيق الوصول إلى الكاميرا أو الميكروفون أو الصور أو الموقع أو جهات الاتصال.</li>
+    </ul>
+
+    <h2>ما يرسله التطبيق</h2>
+    <p>يستخدم التطبيق خدمتين من <a href="https://firebase.google.com/support/privacy" lang="en" dir="ltr">Google Firebase</a>، ولا يرتبط ما ترسلانه باسم أحد أو بحسابه:</p>
+    <ul>
+        <li><strong>إحصاءات لعب مجهولة (Firebase Analytics):</strong> أيّ لعبة اختيرت، والمستويات التي بدأت وانتهت، والنجوم المكتسبة، وعدد المحاولات الخاطئة، والمساعدات التي ظهرت، والأصدقاء الذين رُبحوا، وفتح الألبوم، وتشغيل الموسيقى أو الأصوات أو إيقافها. ومعها معلومات عامة مثل مدة الجلسة، وطراز الجهاز، وإصدار النظام والتطبيق، والبلد أو المنطقة التي تستنتجها Google تقريبيًا من عنوان الإنترنت.</li>
+        <li><strong>تقارير الأعطال (Firebase Crashlytics):</strong> إن توقّف التطبيق فجأة، تُرسل تفاصيل تقنية عن العطل، مع طراز الجهاز وإصدار النظام والتطبيق.</li>
+    </ul>
+    <p>تُعرَّف هذه البيانات برقم عشوائي خاص بهذا التثبيت، يتغيّر إذا حُذف التطبيق وثُبّت من جديد، وليس معرّف الإعلانات. وقد عطّلنا في Firebase كل ما يتعلّق بالإعلانات وتخصيصها. نستخدم هذه البيانات فقط لنفهم كيف تُلعب اللعبة ونصلح أعطالها، ولا نبيعها، ولا نشاركها مع أي جهة أخرى. وتعالجها Google نيابةً عنا وفق <a href="https://policies.google.com/privacy" lang="en" dir="ltr">سياسة خصوصية Google</a>.</p>
+    <p>تعمل اللعبة كاملةً من دون إنترنت، وتُرسل الإحصاءات عندما يكون الجهاز متصلًا.</p>
+
+    <h2>ما يُحفظ على الجهاز</h2>
+    <p>يتذكّر التطبيق اللعبة المختارة، وتشغيل الموسيقى أو الأصوات، وأفضل النجوم في كل مستوى، والأصدقاء الذين ربحهم الطفل في ألبوم «مرجي». تُحفظ هذه المعلومات على الجهاز نفسه ولا تُرسل إلينا. وقد تدخل في النسخة الاحتياطية لجهازك كسائر إعدادات التطبيقات، وحذف التطبيق يحذفها.</p>
+
+    <h2>الأطفال</h2>
+    <p>صُمّم التطبيق للأطفال الصغار وفق قواعد Apple لفئة الأطفال: لا يجمع أي معلومات تعرّف بالطفل، ولا يعرض إعلانات، ولا يحتوي على روابط إلى خارج التطبيق. ولأن البيانات المرسلة مجهولة وغير مرتبطة بأحد، لا نستطيع أن نجد بيانات طفل بعينه؛ وحذف التطبيق يبدأ رقمًا عشوائيًا جديدًا.</p>
+
+    <h2>التغييرات على هذه السياسة</h2>
+    <p>إذا تغيّر ما يفعله التطبيق بالبيانات، تتغيّر هذه الصفحة معه ويتغيّر تاريخ سريانها في أعلاها.</p>
+
+    <h2>التواصل</h2>
+    <p>أمير حايك — <a href="mailto:hayek_dev@icloud.com" dir="ltr">hayek_dev@icloud.com</a>. كل رسالة يقرؤها شخص حقيقي.</p>
+
+    <footer>
+        <p><a href="../">صنّف والعب</a> · <a href="../support/">الدعم</a> · <a href="/" dir="ltr">amirhayek.dev</a></p>
+    </footer>
+
+</main>
+</body>
+</html>
