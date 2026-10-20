@@ -40,9 +40,23 @@ export const FULL_ROUTE = Object.freeze({
     ringStroke: 4,
     nodeRadius: 12,
     labelFontSize: 12,
+    /**
+     * In landscape a stop's name starts this far above its stop and climbs at −35° for at most
+     * `horizontalLabelReach`, in two lines of the label type.
+     */
+    horizontalLabelGap: 23,
+    horizontalLabelReach: 112,
+    /** How far the buses hang below a landscape rail. */
+    horizontalBelowRail: 17,
 });
 
 const ANGLE = 35 * Math.PI / 180;
+/**
+ * How high the names reach above a landscape rail: with the buses below it, the band a lane's
+ * drawing takes, which landscape centres in the view.
+ */
+const NAME_RISE = FULL_ROUTE.horizontalLabelGap + FULL_ROUTE.horizontalLabelReach * Math.sin(ANGLE)
+    + 2 * FULL_ROUTE.labelFontSize * 1.25 * Math.cos(ANGLE);
 
 const EMPTY = Object.freeze({
     axis: AXIS.horizontal, contentSize: { width: 0, height: 0 }, lines: [], stops: [], pucks: [],
@@ -121,6 +135,19 @@ export function layoutFullRoute({ lines: input, userStopCode = null, vehicles = 
     // scroll across by the inset's height.
     const acrossViewport = horizontal ? viewport.height - topInset : viewport.width;
     const laneSize = Math.max(horizontal ? F.minimumHorizontalLane : F.minimumVerticalLane, acrossViewport / lines.length);
+    // In landscape a lane's rail sits at its foot, under the names that climb from it, so one line
+    // on a tall view would run along the bottom. The drawing — the top lane's names down to the
+    // bottom lane's buses — is raised until it sits in the middle of the view, but never so far
+    // that the top lane's names lose the room they climb into.
+    const raise = (() => {
+        if (!horizontal) return 0;
+        const topRail = topInset + laneSize - F.horizontalRailFromFoot;
+        const bottomRail = topInset + lines.length * laneSize - F.horizontalRailFromFoot;
+        const top = topRail - NAME_RISE;
+        const bottom = bottomRail + F.horizontalBelowRail;
+        const toMiddle = viewport.height / 2 - (top + bottom) / 2;
+        return Math.min(0, Math.max(toMiddle, -top));
+    })();
 
     const slot = (line, group) => {
         const members = [...group].sort((a, b) => lane[a] - lane[b]);
@@ -129,7 +156,7 @@ export function layoutFullRoute({ lines: input, userStopCode = null, vehicles = 
             // Gathered on the lowest member's rail: the names rise into the lanes above, which the
             // bundle has emptied.
             const anchor = Math.max(...members.map((m) => lane[m]));
-            const base = topInset + (anchor + 1) * laneSize - F.horizontalRailFromFoot;
+            const base = topInset + (anchor + 1) * laneSize - F.horizontalRailFromFoot + raise;
             return base - (members.length - 1) * F.bundleSpacing + k * F.bundleSpacing;
         }
         // Gathered on the first member's rail: the names run on into the lanes after it.
@@ -223,7 +250,7 @@ export function layoutFullRoute({ lines: input, userStopCode = null, vehicles = 
 
     // 6. Marks and names: one per stop per group of lines calling there.
     const contentAcross = topInset + laneSize * lines.length;
-    const labelGap = horizontal ? 23 : 32;
+    const labelGap = horizontal ? F.horizontalLabelGap : 32;
     const fontSize = F.labelFontSize;
     const stops = [];
     columns.forEach((column, c) => {
@@ -249,9 +276,9 @@ export function layoutFullRoute({ lines: input, userStopCode = null, vehicles = 
                 // straight above or bends down across its path.
                 const textLines = role === 'userStop' ? 3 : 2;
                 const thickness = textLines * fontSize * 1.25 / Math.cos(ANGLE);
-                let reach = 112;
+                let reach = F.horizontalLabelReach;
                 for (let step = 0; step <= 14; step++) {
-                    const dx = step * 112 * Math.cos(ANGLE) / 14;
+                    const dx = step * F.horizontalLabelReach * Math.cos(ANGLE) / 14;
                     const baseline = labelAnchor.y - dx * Math.tan(ANGLE);
                     const top = baseline - thickness;
                     const hit = railsAt(along[c] + dx).some((x) => x + F.railWidth / 2 + 4 > top
@@ -259,7 +286,7 @@ export function layoutFullRoute({ lines: input, userStopCode = null, vehicles = 
                     // Above the content's top edge counts as a rail too.
                     if (hit || top < 0) { reach = dx / Math.cos(ANGLE) - 6; break; }
                 }
-                labelMaxWidth = Math.min(112, Math.max(40, reach));
+                labelMaxWidth = Math.min(F.horizontalLabelReach, Math.max(40, reach));
             } else {
                 labelAnchor = point(along[c], high + labelGap);
                 // Two lines of name take a band either side of the stop; a rail bending through

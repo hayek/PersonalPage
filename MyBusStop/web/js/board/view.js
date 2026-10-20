@@ -24,7 +24,6 @@ export function showBoard(root, { board, provider, region }) {
     const live = h('span', { class: 'live' }, h('i', { class: 'live-dot' }), h('span', { class: 'live-label' }, 'CONNECTING'));
     const menu = h('div', { class: 'menu', hidden: true, role: 'menu' },
         h('button', { role: 'menuitem', onclick: () => { closeMenu(); openFull(); } }, icon('route', 18), 'Full lines view'),
-        h('button', { role: 'menuitem', onclick: () => { closeMenu(); changeLines(); } }, 'Change lines'),
         h('button', { role: 'menuitem', onclick: () => { closeMenu(); toggleWall(); } }, icon('expand', 18), 'Wall mode'),
         h('button', { role: 'menuitem', onclick: () => { closeMenu(); store.closeBoard(); go('setup'); } }, 'Choose another stop'),
     );
@@ -34,16 +33,25 @@ export function showBoard(root, { board, provider, region }) {
     // The code printed on the sign, when the feed's id is one; an internal id helps nobody.
     const code = /^[\w-]{1,12}$/.test(board.stop.code) ? `STOP ${board.stop.code}` : null;
     const caption = [code, board.stop.city].filter(Boolean).join(' · ');
-    // Beside the clock where there is room for it; a phone keeps the stop's name instead, and has
-    // the same view first in the options menu.
+    // Beside the stop's name where there is room for it, in a rounded rect of its own so it reads
+    // as the button it is; a phone keeps the room for the name, and has the same view first in the
+    // options menu.
     const fullButton = h('button', {
         class: 'icon-button full-route-button', 'aria-label': 'Full lines view', title: 'Full lines view',
         onclick: (e) => { e.stopPropagation(); closeMenu(); openFull(); },
-    }, icon('route', 24));
+    }, icon('route', 18));
+    // The back arrow is the way to another stop; the stop's name keeps the stop and changes which
+    // of its lines are watched.
+    const nameButton = h('button', {
+        class: 'board-name', dir: 'auto', 'aria-label': `${board.stop.name}, change lines`, title: 'Change lines',
+        onclick: (e) => { e.stopPropagation(); closeMenu(); changeLines(); },
+    }, h('span', { class: 'board-name-text' }, board.stop.name));
     const header = h('header', { class: 'board-head' },
         h('button', { class: 'icon-button back', 'aria-label': 'Choose another stop', onclick: () => { store.closeBoard(); go('setup'); } }, icon('back', 26)),
-        h('div', { class: 'board-title' }, h('h1', { dir: 'auto' }, board.stop.name), caption ? h('p', { class: 'caption' }, caption) : null),
-        h('div', { class: 'board-status' }, live, clock, fullButton, h('div', { class: 'menu-wrap' }, gear, menu)),
+        h('div', { class: 'board-title' },
+            h('div', { class: 'board-name-row' }, h('h1', { dir: 'auto' }, nameButton), fullButton),
+            caption ? h('p', { class: 'caption' }, caption) : null),
+        h('div', { class: 'board-status' }, live, clock, h('div', { class: 'menu-wrap' }, gear, menu)),
     );
 
     // Map
