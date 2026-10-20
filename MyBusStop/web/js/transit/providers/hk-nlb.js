@@ -19,7 +19,7 @@
 
 import { Capability, TransitError, makeLine, meters } from '../model.js';
 import { buildURL, getJSON, memo, staticData } from '../http.js';
-import { DAY_MS, compareHKLines, containsText, hkNameLanguage, mapLimit, pick } from './hk-shared.js';
+import { DAY_MS, compareHKLines, containsText, hkNameLanguage, hkRouteShape, mapLimit, pick } from './hk-shared.js';
 
 const BASE = 'https://rt.data.gov.hk/v2/transport/nlb';
 /** Parallel `stop.php?action=list` requests while the network loads. */
@@ -137,6 +137,8 @@ export default {
     displayName: 'NLB (Hong Kong)',
     /** Lines and patterns are cached with their names baked in, so each name language is its own dataset. */
     get datasetID() { return `hk-nlb.${hkNameLanguage()}`; },
+    /** A shape has no names in it. */
+    shapeDatasetID: 'hk-nlb',
     attribution: 'Data: New Lantao Bus / DATA.GOV.HK',
     capabilities: new Set([
         Capability.stopSearchByName, Capability.linesAtStop, Capability.routePattern,
@@ -173,6 +175,18 @@ export default {
             .filter(Boolean);
         if (stops.length < 2) throw new TransitError('notFound', `stops for NLB line ${line.id}`);
         return { line, stops };
+    },
+
+    /**
+     * TD's drawn line (`HKRouteLines` in hk-shared.js): one query answers every variant of the route
+     * number. NLB's route ids are not TD's, and TD's `ROUTE_SEQ` is not the direction (3M Tung Chung →
+     * Mui Wo is 2).
+     */
+    async routeShape(line, pattern) {
+        const number = line.providerRefs?.route
+            ?? (await network()).routes.find((route) => route.routeId === line.id)?.routeNo;
+        if (!number) throw new TransitError('notFound', `NLB route ${line.id}`);
+        return hkRouteShape(number, "COMPANY_CODE = 'NLB'", pattern);
     },
 
     /** NLB publishes no vehicle positions. */

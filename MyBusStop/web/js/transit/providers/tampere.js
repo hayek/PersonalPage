@@ -86,6 +86,44 @@ function parseClock(hhmm, day) {
     return zonedTime(day, `${hhmm.slice(0, 2)}:${hhmm.slice(2)}:00`, TIME_ZONE);
 }
 
+/** The pattern the line stands for: its own id while that lasts, else the line's longest that way. */
+async function journeyPattern(line) {
+    const { name, direction } = refsOf(line);
+    let pattern = null;
+    const id = line.providerRefs?.patternId;
+    if (id) {
+        try {
+            const response = await getJSON(`${BASE}/journey-patterns/${encodeURIComponent(id)}`, { query: { 'exclude-fields': PATTERN_FIELDS } });
+            pattern = response.body?.[0] ?? null;
+        } catch {
+            pattern = null;
+        }
+    }
+    if (!pattern?.stopPoints?.length) {
+        // Pattern ids are content hashes and change with each timetable; fall back to the line.
+        const response = await getJSON(`${BASE}/journey-patterns`, { query: { lineId: name, 'exclude-fields': PATTERN_FIELDS } });
+        pattern = longest((response.body ?? []).filter((p) => (p.direction ?? '0') === direction));
+    }
+    return pattern;
+}
+
+/**
+ * "6144766,2383534:-6,-1:0,20:…": the first pair is lat,lon × 1e5, and every pair after it is
+ * *subtracted* from the one before (adding them draws the line mirrored).
+ */
+function decodeProjection(text) {
+    let lat = 0, lon = 0;
+    return String(text).split(':').map((pair, index) => {
+        const values = pair.split(',').map(Number);
+        if (values.length !== 2 || !values.every(Number.isInteger)) {
+            throw new TransitError('badResponse', `Tampere route projection ${pair}`);
+        }
+        if (index === 0) [lat, lon] = values;
+        else { lat -= values[0]; lon -= values[1]; }
+        return { lat: lat / 1e5, lon: lon / 1e5 };
+    });
+}
+
 /** @type {import('../model.js').TransitProvider} */
 const provider = {
     id: 'tampere',
@@ -129,26 +167,32 @@ const provider = {
     },
 
     async routePattern(line) {
-        const { name, direction } = refsOf(line);
-        let pattern = null;
-        const id = line.providerRefs?.patternId;
-        if (id) {
-            try {
-                const response = await getJSON(`${BASE}/journey-patterns/${encodeURIComponent(id)}`, { query: { 'exclude-fields': PATTERN_FIELDS } });
-                pattern = response.body?.[0] ?? null;
-            } catch {
-                pattern = null;
-            }
-        }
-        if (!pattern?.stopPoints?.length) {
-            // Pattern ids are content hashes and change with each timetable; fall back to the line.
-            const response = await getJSON(`${BASE}/journey-patterns`, { query: { lineId: name, 'exclude-fields': PATTERN_FIELDS } });
-            pattern = longest((response.body ?? []).filter((p) => (p.direction ?? '0') === direction));
-        }
+        const pattern = await journeyPattern(line);
         const stops = (pattern?.stopPoints ?? []).map(toStop).filter(Boolean);
         if (!stops.length) throw new TransitError('notFound', `stops of Tampere line ${line.id}`);
         // The API returns stop points in travel order and publishes no sequence number of its own.
-        return { line, stops: stops.map((stop, i) => ({ stop, sequence: i + 1, distanceAlongRoute: null })) };
+        // The pattern's route is where its shape lives; kept so the shape needs no second look.
+        return {
+            line,
+            stops: stops.map((stop, i) => ({ stop, sequence: i + 1, distanceAlongRoute: null })),
+            shapeData: { routeId: lastPathComponent(pattern.routeUrl) },
+        };
+    },
+
+    /**
+     * The path of the pattern's route (one route per journey pattern, short turns included):
+     * `routes/{id}` without its journeys is 1–3 KB gzipped, with them ~425 KB.
+     */
+    async routeShape(line, pattern) {
+        const routeId = pattern?.shapeData?.routeId ?? lastPathComponent((await journeyPattern(line))?.routeUrl);
+        if (!routeId) throw new TransitError('notFound', `route of Tampere line ${line.id}`);
+        const response = await getJSON(`${BASE}/routes/${encodeURIComponent(routeId)}`, {
+            query: { 'exclude-fields': 'journeys,journeyPatterns' },
+        });
+        const projection = response.body?.[0]?.geographicCoordinateProjection;
+        if (!projection) return null;
+        const points = decodeProjection(projection);
+        return points.length >= 2 ? { branches: [points] } : null;
     },
 
     async vehicles(line) {

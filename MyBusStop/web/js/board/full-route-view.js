@@ -6,14 +6,21 @@
 //
 // Layout is `layoutFullRoute` (js/map/full-route.js); this file only draws it and wires it up, as
 // BusBus/Board/FullRouteView.swift does in the app. The pucks and the palette are the board's own.
+//
+// Where a watched line's road can be drawn, a toggle at the foot's leading end turns the strip into
+// a real map (FullRouteMapView.swift): each line on its streets, its stops, and the buses on the
+// road between the stops they are between. A line whose road is not known is simply not on it.
 
-import { h, icon, isLightTheme } from '../ui.js';
+import { h, icon, badge, isLightTheme } from '../ui.js';
 import {
     layoutFullRoute, centreOnUserStop, clampOffset, minimapPoint, minimapWindow, minimapOffset, FOCUS, stepBus,
     chooseMapLayout, AXIS, READABLE_MINIMUM, THEMES, railColor, numeralColor, labelColor,
 } from '../map/index.js';
 import { svgElement as el, textStyle, textNode, measureText, wrapTwoLines, centredBaseline, drawNumeral, drawPuckContent } from '../map/render.js';
 import { LINE_HEIGHT_EM } from '../map/metrics.js';
+import { hasRouteShape, loadRouteShape } from '../transit/shapes/route-shape.js';
+import { Projection, orderedMatches } from '../transit/shapes/shape-check.js';
+import { createRouteMap } from './route-map.js';
 
 /** The part of a route past the rider's stop: still there to read, but no bus there is coming. */
 const FADED = 0.35;
@@ -23,6 +30,10 @@ const MINI_PAD = { x: 16, y: 10 };
 const STOP_DOT = 2.5;
 /** The board's terminus bar radius: the last stop of a line on its own is a square, not a ring. */
 const LAST_STOP_RADIUS = 5;
+/** How much of the foot of the map the toggle takes, kept clear of the map's own marks (iOS toggleClearance). */
+const TOGGLE_CLEARANCE = 66;
+/** A folded map, for the toggle's second half. */
+const MAP_GLYPH = '<path d="M9 4.5 3.5 6.6v13L9 17.5l6 2.1 5.5-2.1v-13L15 6.6l-6-2.1z"/><path d="M9 4.5v13M15 6.6v13"/>';
 
 let current = null;
 
@@ -33,9 +44,17 @@ let current = null;
  *   userStopCode: string, vehicles: object[], note: string|null}} options.read
  *   what to draw, asked again on every `update()`
  * @param {(stopCode: string) => void} options.onStopTap
+ * @param {object} [options.routeMap] what the map face needs; without it there is only the strip
+ * @param {import('../transit/model.js').TransitProvider} options.routeMap.provider
+ * @param {import('../transit/model.js').TransitLine[]} options.routeMap.lines the watched lines
+ * @param {(lineID: string) => number} options.routeMap.colorIndex
+ * @param {string} options.routeMap.userStopCode
+ * @param {(lineID: string) => import('../transit/model.js').RoutePattern|null} options.routeMap.pattern the whole route
+ * @param {() => Array<{id: string, lineID: string, lastStopCode: string|null, progressToNext: number, isSelected: boolean}>} options.routeMap.buses
+ * @param {(line: import('../transit/model.js').TransitLine) => void} options.routeMap.onAboutLine a line's card
  * @returns {{update: () => void, close: () => void}}
  */
-export function openFullRoute({ stopName, read, onStopTap }) {
+export function openFullRoute({ stopName, read, onStopTap, routeMap = null }) {
     closeFullRoute();
     const returnFocus = document.activeElement;
     const titleID = 'full-route-title';
@@ -56,14 +75,39 @@ export function openFullRoute({ stopName, read, onStopTap }) {
     // Where the bus the view moved to is said, for a screen reader: the view itself has no words.
     const announcer = h('p', { class: 'visually-hidden', 'aria-live': 'polite' });
     const closeButton = h('button', { class: 'round-button', 'aria-label': 'Close the full lines view', onclick: () => closeFullRoute() }, icon('close', 20));
+
+    // Each badge opens its line's card, where its road can be drawn; otherwise it is just the badge.
+    const mapLines = routeMap ? routeMap.lines.filter((line) => hasRouteShape(routeMap.provider, line)) : [];
+    const badges = routeMap ? h('div', { class: 'fr-badges' }, routeMap.lines.map((line) => {
+        const mark = badge(line, routeMap.colorIndex(line.id), 'small');
+        return mapLines.includes(line)
+            ? h('button', { class: 'fr-badge', 'aria-label': `About line ${line.shortName}`, title: 'Route and stops', onclick: () => routeMap.onAboutLine(line) }, mark)
+            : h('span', { class: 'fr-badge', role: 'img', 'aria-label': `Line ${line.shortName}` }, mark);
+    })) : null;
+
+    // The strip or the map: two halves of one control, offered only when some line has a road.
+    const toggleHalf = (glyph, label, onclick) => h('button', { class: 'fr-toggle-half', 'aria-label': label, title: label, onclick }, glyph);
+    const mapGlyph = icon('route', 18);
+    mapGlyph.firstElementChild.innerHTML = MAP_GLYPH;
+    const stripHalf = toggleHalf(icon('route', 18), 'Full lines view', () => setMode(false));
+    const mapHalf = toggleHalf(mapGlyph, 'Map', () => setMode(true));
+    const toggle = mapLines.length ? h('div', { class: 'fr-toggle', role: 'group', 'aria-label': 'Show the lines as' }, stripHalf, mapHalf) : null;
+
+    const mapCanvas = h('div', { class: 'fr-map-canvas', role: 'region', 'aria-label': 'Route map' });
+    const mapNote = h('p', { class: 'line-card-note fr-map-note', hidden: true });
+    const mapBox = h('div', { class: 'fr-map', hidden: true }, mapCanvas, mapNote);
+    const foot = h('div', { class: 'fr-foot' }, toggle, mini, h('div', { class: 'fr-nav' }, previousButton, myStopButton, nextButton));
+
     const overlay = h('div', { class: 'full-route', role: 'dialog', 'aria-modal': 'true', 'aria-labelledby': titleID },
         h('header', { class: 'fr-head' },
             h('div', { class: 'fr-title' },
                 h('p', { class: 'caption' }, 'FULL LINES VIEW'),
                 h('h2', { id: titleID, dir: 'auto' }, stopName)),
+            badges,
             closeButton),
         scroller,
-        h('div', { class: 'fr-foot' }, mini, h('div', { class: 'fr-nav' }, previousButton, myStopButton, nextButton)),
+        mapBox,
+        foot,
         announcer);
 
     let scene = null;
@@ -94,6 +138,7 @@ export function openFullRoute({ stopName, read, onStopTap }) {
     // MARK: Drawing
 
     function draw() {
+        if (showsMap) return;
         const data = read();
         const width = scroller.clientWidth;
         const height = scroller.clientHeight;
@@ -454,13 +499,168 @@ export function openFullRoute({ stopName, read, onStopTap }) {
         onStopTap(node.getAttribute('data-stop-code'));
     });
 
+    // MARK: The map
+
+    let showsMap = false;
+    /** The map, once it has been opened: a promise of it, then the map itself. */
+    let mapLoad = null;
+    let mapView = null;
+    let closed = false;
+    /** Each line's road as drawn, by line id; a line whose road is not known is not here. */
+    const drawn = new Map();
+    /** The stops each line's road was last asked for, so it is asked once per route. */
+    const asked = new Map();
+    let loading = 0;
+    let failed = false;
+
+    function setMode(map) {
+        if (showsMap === map) return;
+        showsMap = map;
+        stripHalf.setAttribute('aria-pressed', String(!map));
+        mapHalf.setAttribute('aria-pressed', String(map));
+        scroller.hidden = map;
+        foot.hidden = map;
+        mapBox.hidden = !map;
+        // In the band, where it covers none of the strip; on the map it keeps this corner.
+        if (map) mapBox.append(toggle);
+        else foot.prepend(toggle);
+        (map ? mapHalf : stripHalf).focus({ preventScroll: true });
+        if (map) openMap();
+        else draw();
+    }
+    stripHalf.setAttribute('aria-pressed', 'true');
+    mapHalf.setAttribute('aria-pressed', 'false');
+
+    function openMap() {
+        if (!mapLoad) {
+            mapLoad = createRouteMap(mapCanvas, {
+                insets: { bottom: TOGGLE_CLEARANCE },
+                onStopTap: ({ code }) => onStopTap(code),
+                onError: () => { failed = true; paintMap(); },
+            }).then((created) => {
+                if (closed) { created.remove(); return; }
+                mapView = created;
+                paintMap();
+                reframe(false);
+            }).catch((error) => {
+                console.warn('[full route] map', error);
+                failed = true;
+                mapNote.hidden = false;
+                mapNote.textContent = 'COULDN’T LOAD THE MAP.';
+            });
+        } else if (mapView) {
+            mapView.resize();
+            if (!framed) reframe(false);
+        }
+        loadShapes();
+        paintMap();
+    }
+
+    /** Each line's road: a stored one at once, any other asked for once. */
+    function loadShapes() {
+        for (const line of mapLines) {
+            const pattern = routeMap.pattern(line.id);
+            if (!pattern || pattern.stops.length < 2) continue;
+            const key = pattern.stops.map((s) => s.stop.code).join(',');
+            if (asked.get(line.id) === key) continue;
+            asked.set(line.id, key);
+            loading += 1;
+            loadRouteShape(routeMap.provider, line, pattern)
+                .then((shape) => {
+                    if (asked.get(line.id) !== key) return;
+                    if (shape) drawn.set(line.id, drawnLine(pattern, shape));
+                    else drawn.delete(line.id);
+                })
+                .catch((error) => { console.warn('[full route] road', line.id, error); failed = true; })
+                .finally(() => {
+                    loading -= 1;
+                    if (closed) return;
+                    paintMap();
+                    reframe(true);
+                });
+        }
+    }
+
+    /** A line's road, and how far along it each stop is when they meet it in order. */
+    function drawnLine(pattern, shape) {
+        const branch = shape.branches[0];
+        const projection = branch?.length >= 2 ? new Projection(branch) : null;
+        const at = (stop) => shape.stopPositions?.[stop.code] ?? stop.location;
+        const along = projection ? orderedMatches(branch, pattern.stops.map((s) => at(s.stop)))?.map((m) => m.along) ?? null : null;
+        return { pattern, shape, projection, along, at };
+    }
+
+    /**
+     * A bus between the stop it last passed and the next, on the road: by distance along it where
+     * the stops meet it in order, else between the two stops and put back on the road.
+     */
+    function busLocation(line, bus) {
+        const index = bus.lastStopCode ? line.pattern.stops.findIndex((s) => s.stop.code === bus.lastStopCode) : -1;
+        if (index < 0) return null;
+        const progress = Math.min(1, Math.max(0, bus.progressToNext ?? 0));
+        if (line.along && index + 1 < line.along.length) {
+            return line.projection.point(line.along[index] + progress * (line.along[index + 1] - line.along[index]));
+        }
+        const stops = line.pattern.stops;
+        const from = line.at(stops[index].stop);
+        const to = line.at(stops[Math.min(index + 1, stops.length - 1)].stop);
+        const between = { lat: from.lat + progress * (to.lat - from.lat), lon: from.lon + progress * (to.lon - from.lon) };
+        return line.projection ? line.projection.point(line.projection.project(between).along) : between;
+    }
+
+    function paintMap() {
+        if (!showsMap) return;
+        const light = isLightTheme();
+        const color = (lineID) => railColor(routeMap.colorIndex(lineID), light);
+        if (mapView) {
+            const lines = mapLines.filter((line) => drawn.has(line.id));
+            mapView.setRoutes(lines.map((line) => ({ color: color(line.id), branches: drawn.get(line.id).shape.branches })));
+            // Every drawn line's stops once, the rider's own picked out; a stop two lines share is drawn once.
+            const seen = new Set();
+            const stops = [];
+            for (const line of lines) {
+                const road = drawn.get(line.id);
+                road.pattern.stops.forEach(({ stop }, index) => {
+                    if (seen.has(stop.code)) return;
+                    seen.add(stop.code);
+                    stops.push({
+                        code: stop.code, index, location: road.at(stop), color: color(line.id),
+                        mark: stop.code === routeMap.userStopCode ? 'highlighted' : 'stop',
+                    });
+                });
+            }
+            mapView.setStops(stops);
+            mapView.setBuses(routeMap.buses().flatMap((bus) => {
+                const road = drawn.get(bus.lineID);
+                const location = road ? busLocation(road, bus) : null;
+                return location ? [{ id: bus.id, location, color: color(bus.lineID), isSelected: bus.isSelected }] : [];
+            }));
+        }
+        // Quiet while the roads are coming; said plainly once none can be drawn.
+        const waiting = !drawn.size && (loading > 0 || !mapView || mapLines.some((l) => !asked.has(l.id)));
+        mapNote.hidden = drawn.size > 0;
+        if (waiting && !failed) {
+            mapNote.replaceChildren(h('i', { class: 'spinner', 'aria-hidden': 'true' }), 'LOADING THE ROUTE MAP…');
+        } else if (!drawn.size) {
+            mapNote.replaceChildren(failed ? 'COULDN’T LOAD THE ROUTE MAP. TRY AGAIN LATER.' : 'NO ROUTE MAP FOR THESE LINES.');
+        }
+    }
+
+    let framed = false;
+    function reframe(animate) {
+        if (!mapView || !showsMap || !drawn.size) return;
+        mapView.frame([...drawn.values()].flatMap((road) => road.shape.branches.flat()), animate && framed);
+        framed = true;
+    }
+
     // MARK: Lifecycle
 
     const onKey = (event) => {
         if (event.defaultPrevented) return;
         if (event.key === 'Escape') { event.preventDefault(); closeFullRoute(); return; }
         if (event.key !== 'Tab') return;
-        const focusable = [...overlay.querySelectorAll('button:not([disabled]), [tabindex]:not([tabindex="-1"])')];
+        const focusable = [...overlay.querySelectorAll('button:not([disabled]), [tabindex]:not([tabindex="-1"])')]
+            .filter((node) => node.offsetParent !== null);
         const first = focusable[0];
         const last = focusable[focusable.length - 1];
         if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
@@ -477,10 +677,15 @@ export function openFullRoute({ stopName, read, onStopTap }) {
     closeButton.focus({ preventScroll: true });
 
     const controller = {
-        update: () => { if (current === controller) draw(); },
+        update: () => {
+            if (current !== controller) return;
+            if (showsMap) { loadShapes(); paintMap(); } else draw();
+        },
         close() {
             if (current !== controller) return;
             current = null;
+            closed = true;
+            mapView?.remove();
             cancelAnimationFrame(frame);
             clearTimeout(selfScrollTimer);
             resize.disconnect();

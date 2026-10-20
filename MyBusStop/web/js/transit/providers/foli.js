@@ -201,6 +201,8 @@ const provider = {
             const trip = trips.find((t) => t.shape_id === shape) ?? trips[0];
             if (!trip) throw new TransitError('notFound', `trips of Föli route ${route} direction ${direction}`);
             times = await getJSON(`${BASE}/gtfs/v0/${v}/stop_times/trip/${encodeURIComponent(trip.trip_id)}`);
+            // The shape drawn has to be this trip's own.
+            line = { ...line, providerRefs: { ...line.providerRefs, shapeId: trip.shape_id ?? undefined } };
         }
         const patternStops = [...(times ?? [])]
             .sort((a, b) => a.stop_sequence - b.stop_sequence)
@@ -208,6 +210,23 @@ const provider = {
             .map((t) => ({ stop: toStop(t.stop_id, stops[t.stop_id]), sequence: t.stop_sequence, distanceAlongRoute: t.shape_dist_traveled ?? null }));
         if (!patternStops.length) throw new TransitError('notFound', `stops of Föli line ${line.id}`);
         return { line, stops: patternStops };
+    },
+
+    /**
+     * The GTFS shape of the trip the pattern was built from (`shapes/{shape_id}`, one point every
+     * ~20 m: 90–240 KB, 23–60 KB gzipped). Variants are separate shapes, so it is the pattern's own
+     * and needs no trimming.
+     */
+    async routeShape(line, pattern) {
+        const shape = pattern?.line?.providerRefs?.shapeId ?? line.providerRefs?.shapeId;
+        if (!shape) throw new TransitError('notFound', `shape of Föli line ${line.id}`);
+        const v = await version();
+        const points = await getJSON(`${BASE}/gtfs/v0/${v}/shapes/${encodeURIComponent(shape)}`);
+        const branch = (Array.isArray(points) ? points : [])
+            .filter((p) => Number.isFinite(p.lat) && Number.isFinite(p.lon))
+            .map((p) => ({ lat: p.lat, lon: p.lon }));
+        if (branch.length < 2) throw new TransitError('notFound', `shape ${shape} of Föli line ${line.id}`);
+        return { branches: [branch] };
     },
 
     async vehicles(line) {

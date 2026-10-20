@@ -10,6 +10,7 @@
 
 import { Capability, TransitError, fold, makeLine, meters, stopAddress } from '../model.js';
 import { getJSON, staticData } from '../http.js';
+import { decodePolyline } from '../shapes/polyline.js';
 
 const BASE = 'https://api-v3.mbta.com';
 const BUS_ROUTE_TYPE = 3;
@@ -208,6 +209,35 @@ async function scheduled(r, stop) {
     return boarding(visits);
 }
 
+/**
+ * A line is one MBTA route pattern (`1-_-0`); its representative trip carries the stop order, and its
+ * shape comes in the same call (about half a KB more gzipped, no request of its own). One trip, so
+ * its stops and its shape always belong together. The polyline is kept as sent (precision 5, the
+ * most compact form); a trip without a shape keeps an empty one, so nothing asks again.
+ */
+async function routePattern(line) {
+    const response = await get(`/route_patterns/${encodeURIComponent(line.id)}`, {
+        include: 'representative_trip.stops,representative_trip.shape',
+        'fields[route_pattern]': 'direction_id',
+        'fields[trip]': 'headsign,stops,shape',
+        'fields[stop]': STOP_FIELDS,
+        'fields[shape]': 'polyline',
+    });
+    const included = index(response.included);
+    const tripID = ids(response.data, 'representative_trip')[0];
+    const trip = tripID != null ? included.get(`trip:${tripID}`) : null;
+    const stopIDs = ids(trip, 'stops');
+    if (!stopIDs.length) throw new TransitError('notFound', `stops for route pattern ${line.id}`);
+    const stops = stopIDs.map((id) => toStop(included.get(`stop:${id}`))).filter(Boolean);
+    const shapeID = ids(trip, 'shape')[0];
+    const polyline = shapeID != null ? included.get(`shape:${shapeID}`)?.attributes?.polyline : null;
+    return {
+        line,
+        stops: stops.map((stop, i) => ({ stop, sequence: i + 1, distanceAlongRoute: null })),
+        shapeData: { polyline: polyline ?? '', precision: 5 },
+    };
+}
+
 export default {
     id: 'mbta',
     displayName: 'MBTA (Boston)',
@@ -263,20 +293,13 @@ export default {
             .sort((a, b) => a.distanceMeters - b.distanceMeters);
     },
 
-    /** A line is one MBTA route pattern (`1-_-0`); its representative trip carries the stop order. */
-    async routePattern(line) {
-        const response = await get(`/route_patterns/${encodeURIComponent(line.id)}`, {
-            include: 'representative_trip.stops',
-            'fields[route_pattern]': 'direction_id',
-            'fields[trip]': 'headsign,stops',
-            'fields[stop]': STOP_FIELDS,
-        });
-        const included = index(response.included);
-        const tripID = ids(response.data, 'representative_trip')[0];
-        const stopIDs = tripID != null ? ids(included.get(`trip:${tripID}`), 'stops') : [];
-        if (!stopIDs.length) throw new TransitError('notFound', `stops for route pattern ${line.id}`);
-        const stops = stopIDs.map((id) => toStop(included.get(`stop:${id}`))).filter(Boolean);
-        return { line, stops: stops.map((stop, i) => ({ stop, sequence: i + 1, distanceAlongRoute: null })) };
+    routePattern,
+
+    /** From the pattern; the same single call again only for a pattern cached before shapes were. */
+    async routeShape(line, pattern) {
+        const data = pattern?.shapeData ?? (await routePattern(line)).shapeData;
+        const points = data?.polyline ? decodePolyline(data.polyline, data.precision ?? 5) : [];
+        return points.length >= 2 ? { branches: [points] } : null;
     },
 
     async vehicles(line) {

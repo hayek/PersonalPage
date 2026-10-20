@@ -20,8 +20,8 @@
 //   is an object instead of a one-element array.
 // Port of BusBus/Transit/Providers/UmoNextBusProvider.swift.
 
-import { Capability, TransitError, fold, makeLine } from '../model.js';
-import { getJSON, staticData } from '../http.js';
+import { Capability, TransitError, fold, makeLine, meters } from '../model.js';
+import { getJSON, memo, staticData } from '../http.js';
 
 const BASE = 'https://retro.umoiq.com/service/publicJSONFeed';
 const DAY = 86_400_000;
@@ -29,6 +29,8 @@ const DAY = 86_400_000;
 const MAX_ROUTES_PER_SEARCH = 6;
 /** Stops the feed gives no public id (terminal arrival points like "14316_ar") are addressed by tag. */
 const TAG_PREFIX = 'tag:';
+/** A full route config, with the paths, is kept this long: the other way's card, opened next, is free. */
+const FULL_CONFIG_LIFETIME_MS = 600_000;
 
 const TTC = {
     tag: 'ttc',
@@ -180,6 +182,28 @@ export function umoNextBusProvider(agency) {
             return { line, stops: pattern.map((stop, i) => ({ stop, sequence: i + 1, distanceAlongRoute: null })) };
         },
 
+        /**
+         * The variant's path from the full `routeConfig` (without `terse`): one call, 50–150 KB with no
+         * gzip offered and up to 30 s on a big route, so it is asked for only when a rider opens the
+         * line, never for the configs a stop or a search loads. The reply holds every direction's
+         * paths, so it is kept ten minutes in memory.
+         */
+        async routeShape(line) {
+            const ref = refOf(line);
+            const raw = await memo(`umo-${agency.tag}.fullRoute.${ref.route}`, FULL_CONFIG_LIFETIME_MS, async () => {
+                const response = await getJSON(BASE, {
+                    query: { command: 'routeConfig', a: agency.tag, r: ref.route, verbose: 'true' }, timeout: 60_000,
+                });
+                const route = response?.route;
+                if (!route || Array.isArray(route) || route.stop === undefined) {
+                    throw new TransitError('notFound', `route ${ref.route}: ${feedError(response) ?? 'no config'}`);
+                }
+                return route;
+            });
+            const points = path(raw, ref.direction);
+            return points.length >= 2 ? { branches: [points] } : null;
+        },
+
         async vehicles(line) {
             const ref = refOf(line);
             const [route, response] = await Promise.all([
@@ -306,6 +330,38 @@ class Route {
         const w = wayName || (this.directions.find((d) => d.tag === tag) ? way(this.directions.find((d) => d.tag === tag)) : tag);
         return new Set([...this.directions.filter((d) => way(d) === w).map((d) => d.tag), tag]);
     }
+}
+
+/**
+ * A direction's stretches of a full route config, joined in order. Each `path` is the stretch between
+ * two timepoints, tagged `<dirTag>_<seq>_<from>_<to>` once for every variant that drives it; the
+ * variant's own stretches, in `seq` order, meet end to end and pass through its stops. A stretch
+ * belongs to the longest direction tag its id starts with, since tags may contain "_" and one may
+ * extend another; what follows is the sequence number (stop tags after it can contain "_" too, so
+ * they are not read).
+ */
+function path(raw, directionTag) {
+    const tags = many(raw.direction).map((d) => d.tag).sort((a, b) => b.length - a.length);
+    const stretches = [];
+    for (const segment of many(raw.path)) {
+        for (const { id } of many(segment.tag)) {
+            if (tags.find((tag) => String(id).startsWith(`${tag}_`)) !== directionTag) continue;
+            const seq = String(id).slice(directionTag.length + 1).split('_')[0];
+            if (!/^\d+$/.test(seq)) continue;
+            const points = many(segment.point)
+                .map((p) => ({ lat: Number(p.lat), lon: Number(p.lon) }))
+                .filter((p) => Number.isFinite(p.lat) && Number.isFinite(p.lon));
+            stretches.push({ seq: Number(seq), points });
+            break;
+        }
+    }
+    const joined = [];
+    for (const { points } of stretches.sort((a, b) => a.seq - b.seq)) {
+        // Neighbouring stretches share their timepoint.
+        const start = joined.length && points.length && meters(joined[joined.length - 1], points[0]) < 1 ? 1 : 0;
+        joined.push(...points.slice(start));
+    }
+    return joined;
 }
 
 function transitStop(raw) {

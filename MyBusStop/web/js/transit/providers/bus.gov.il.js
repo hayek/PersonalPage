@@ -7,6 +7,7 @@
 
 import { Capability, TransitError, makeLine, meters, stopAddress } from '../model.js';
 import { getJSON, buildURL } from '../http.js';
+import { decodeFlexiblePolyline } from '../shapes/polyline.js';
 
 const RELAY = 'https://me-west1-busbus-ios.cloudfunctions.net/webTransit/bus-gov-il';
 
@@ -113,6 +114,8 @@ export default {
     reportsShadowTrips: true,
     /** Cached lines and routes carry names, so each language is its own dataset. */
     get datasetID() { return `bus.gov.il.${language()}`; },
+    /** A route's path has no names in it, so one copy serves every language (the app's id for it). */
+    shapeDatasetID: 'il-mot',
 
     async searchStops(query) {
         const q = query.trim();
@@ -143,6 +146,19 @@ export default {
             stops: [...stops].sort((a, b) => a.stopSequence - b.stopSequence)
                 .map((s) => ({ stop: schedulerStop(s), sequence: s.stopSequence, distanceAlongRoute: null })),
         };
+    },
+
+    /**
+     * The Ministry of Transport's own shape (GTFS `shapes.txt`, a HERE flexible polyline), which
+     * route.bus.gov.il draws its map from. `GetRouteFullData` carries it whatever day it is asked,
+     * Shabbat included; the lighter `GetRouteStops` stays the pattern call, since this reply is
+     * 50–110 KB. A path has no names in it, so it is always asked in Hebrew and riders reading any
+     * language share the relay's cached copy.
+     */
+    async routeShape(line) {
+        const data = await get(`${RELAY}/mot-scheduler-prod/api/he`, '/Routes/GetRouteFullData', { routeId: line.id });
+        if (!data?.polyline) throw new TransitError('notFound', `shape of route ${line.id}`);
+        return { branches: [decodeFlexiblePolyline(data.polyline)] };
     },
 
     /** Bare lat/lng of every bus on the route: no trip id, plate or timestamp. */

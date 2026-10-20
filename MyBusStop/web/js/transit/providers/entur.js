@@ -15,6 +15,7 @@
 
 import { Capability, TransitError, compareLineNames, makeLine, meters } from '../model.js';
 import { ResponseError, getJSON, memo, postJSON, serviceDate } from '../http.js';
+import { decodePolyline } from '../shapes/polyline.js';
 
 const GEOCODER = 'https://api.entur.io/geocoder/v1/autocomplete';
 const JOURNEY_PLANNER = 'https://api.entur.io/journey-planner/v3/graphql';
@@ -186,14 +187,22 @@ function terminalRefs(pattern) {
     return [last.id, last.stopPlace?.id, last.stopPlace?.parent?.id].filter(Boolean);
 }
 
+/** Lines whose patterns were loaded with their paths this session, so the vehicles poll reuses them. */
+const withPaths = new Set();
+
 /**
  * Every journey pattern of a line with its quays and today's journeys (~40 KB for a trunk line), kept
- * in memory for the session: routePattern and every vehicles poll need it.
+ * in memory for the session: routePattern and every vehicles poll need it. Only a route pattern being
+ * built asks for the paths too (`pointsOnLink`, which doubles a trunk line's reply: 11 → 21 KB
+ * gzipped for Oslo's 31); a board whose patterns are cached polls vehicles without them.
  */
-function linePatterns(lineID) {
+function linePatterns(lineID, { paths = false } = {}) {
     const date = serviceDate(TIME_ZONE);
-    return memo(`entur:patterns:${lineID}@${date}`, 24 * 3600_000, async () => {
+    const withPath = paths || withPaths.has(`${lineID}@${date}`);
+    if (withPath) withPaths.add(`${lineID}@${date}`);
+    return memo(`entur:patterns:${lineID}@${date}${withPath ? '+paths' : ''}`, 24 * 3600_000, async () => {
         const data = await graphQL(JOURNEY_PLANNER, `{ line(id: ${gql(lineID)}) { journeyPatterns { id directionType
+                ${withPath ? 'pointsOnLink { points }' : ''}
                 serviceJourneysForDate(date: "${date}") { id }
                 quays { id name latitude longitude
                   stopPlace { id name latitude longitude parent { id name latitude longitude } } } } } }`);
@@ -201,6 +210,43 @@ function linePatterns(lineID) {
         if (!patterns) throw new TransitError('notFound', `line ${lineID}`);
         return patterns.map((p) => ({ ...p, quays: p.quays ?? [] }));
     });
+}
+
+/**
+ * Several variants share a direction (short turns, depot runs, school trips). The one drawn is the
+ * one that runs most today among those calling at the rider's stop — so the stop is on it.
+ */
+async function chosenPattern(line) {
+    const ref = lineRef(line);
+    const patterns = await linePatterns(ref.line, { paths: true });
+    const group = patterns.filter((p) => directionKey(p) === ref.direction);
+    const calling = group.filter((p) => p.quays.some((q) => isIn(q, ref.stop)));
+    const pool = calling.length ? calling : group;
+    let chosen = null;
+    for (const p of pool) {
+        if (!chosen) { chosen = p; continue; }
+        const a = [p.serviceJourneysForDate?.length ?? 0, p.quays.length];
+        const b = [chosen.serviceJourneysForDate?.length ?? 0, chosen.quays.length];
+        if (a[0] > b[0] || (a[0] === b[0] && a[1] > b[1])) chosen = p;
+    }
+    if (!chosen) throw new TransitError('notFound', `journey pattern for ${line.id}`);
+    return { ref, chosen };
+}
+
+/**
+ * The pattern's path as sent (a Google polyline, precision 5, in travel order: the most compact
+ * form), with each stop placed at its quay: the stop list shows the multimodal parent, whose centre
+ * can stand 75 m off the road at a big interchange (Oslo).
+ */
+function shapeData(pattern, ref) {
+    const stopPositions = {};
+    for (const quay of pattern.quays) {
+        if (quay.latitude == null || quay.longitude == null) continue;
+        const code = quayStop(quay, ref.stop).code;
+        // Six decimals are 0.1 m, and keep the cached pattern small.
+        stopPositions[code] ??= { lat: Math.round(quay.latitude * 1e6) / 1e6, lon: Math.round(quay.longitude * 1e6) / 1e6 };
+    }
+    return { polyline: pattern.pointsOnLink?.points ?? '', stopPositions };
 }
 
 // ---------------------------------------------------------------------------------------------
@@ -249,21 +295,7 @@ export default {
     },
 
     async routePattern(line) {
-        const ref = lineRef(line);
-        const patterns = await linePatterns(ref.line);
-        const group = patterns.filter((p) => directionKey(p) === ref.direction);
-        // Several variants share a direction (short turns, depot runs, school trips). Draw the one
-        // that runs most today among those calling at the rider's stop — so the stop is on it.
-        const calling = group.filter((p) => p.quays.some((q) => isIn(q, ref.stop)));
-        const pool = calling.length ? calling : group;
-        let chosen = null;
-        for (const p of pool) {
-            if (!chosen) { chosen = p; continue; }
-            const a = [p.serviceJourneysForDate?.length ?? 0, p.quays.length];
-            const b = [chosen.serviceJourneysForDate?.length ?? 0, chosen.quays.length];
-            if (a[0] > b[0] || (a[0] === b[0] && a[1] > b[1])) chosen = p;
-        }
-        if (!chosen) throw new TransitError('notFound', `journey pattern for ${line.id}`);
+        const { ref, chosen } = await chosenPattern(line);
         const stops = [];
         for (const quay of chosen.quays) {
             const stop = quayStop(quay, ref.stop);
@@ -271,7 +303,20 @@ export default {
             if (stops.length && stops[stops.length - 1].stop.code === stop.code) continue;
             stops.push({ stop, sequence: stops.length + 1, distanceAlongRoute: null });
         }
-        return { line, stops };
+        // The pattern's own path came in the same query, so the shape costs no request. A pattern
+        // without one keeps an empty one, so nothing asks again.
+        return { line, stops, shapeData: shapeData(chosen, ref) };
+    },
+
+    /** From the pattern; for one cached before shapes were, the session's line query (one at most). */
+    async routeShape(line, pattern) {
+        let data = pattern?.shapeData;
+        if (!data) {
+            const { ref, chosen } = await chosenPattern(line);
+            data = shapeData(chosen, ref);
+        }
+        const points = data.polyline ? decodePolyline(data.polyline, 5) : [];
+        return points.length >= 2 ? { branches: [points], stopPositions: data.stopPositions } : null;
     },
 
     async vehicles(line) {

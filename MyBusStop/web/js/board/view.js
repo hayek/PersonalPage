@@ -9,6 +9,8 @@ import { go, session } from '../main.js';
 import { friendly } from '../setup/stops.js';
 import { openFullRoute, closeFullRoute } from './full-route-view.js';
 import { showStopCard, closeStopCard } from './stop-card.js';
+import { showLineCard, closeLineCard } from './line-card.js';
+import { hasRouteShape } from '../transit/shapes/route-shape.js';
 
 export function showBoard(root, { board, provider, region }) {
     const configuration = { stop: board.stop, lines: board.lines };
@@ -98,14 +100,52 @@ export function showBoard(root, { board, provider, region }) {
                 return { lines, userStopCode: board.stop.code, vehicles: vehiclesOn(lines), note };
             },
             onStopTap: openStop,
+            routeMap: {
+                provider,
+                lines: board.lines,
+                colorIndex: color,
+                userStopCode: board.stop.code,
+                pattern: (lineID) => model.snapshot.fullPatterns[lineID] ?? null,
+                // Each bus by the stop it last passed, named by code: the board counts stops on the
+                // route as far as the rider's stop, the map on the whole of it.
+                buses: () => {
+                    const ringed = model.ringedBusID;
+                    return model.snapshot.buses.map((bus) => ({
+                        id: bus.id, lineID: bus.lineID, progressToNext: bus.progressToNext, isSelected: bus.id === ringed,
+                        lastStopCode: model.snapshot.patterns[bus.lineID]?.stops[bus.lastStopIndex]?.stop.code ?? null,
+                    }));
+                },
+                onAboutLine: openLine,
+            },
         });
+    }
+
+    /** A watched line's card, with the board's stop picked out on it. */
+    function openLine(line) {
+        showLineCard({ line, provider, stopCode: board.stop.code, colorIndex: color(line.id) });
+    }
+
+    /**
+     * The readout's ⓘ, one per line and kept between the second-by-second redraws, so a keyboard
+     * that is on it stays on it.
+     */
+    const aboutButtons = new Map();
+    function aboutButton(line) {
+        if (!line || !hasRouteShape(provider, line)) return null;
+        if (!aboutButtons.has(line.id)) {
+            aboutButtons.set(line.id, h('button', {
+                class: 'line-info readout-info', 'aria-label': `About line ${line.shortName}`, title: 'Route and stops',
+                onclick: (e) => { e.stopPropagation(); openLine(line); },
+            }, icon('info', 20)));
+        }
+        return aboutButtons.get(line.id);
     }
 
     function openStop(code) {
         const stop = model.stopByCode(code);
         if (!stop) return;
         showStopCard({
-            stop, providerID: provider.id, watched: board.lines, isRidersStop: stop.code === board.stop.code,
+            stop, providerID: provider.id, provider, watched: board.lines, isRidersStop: stop.code === board.stop.code,
             linesAtStop: () => provider.linesAtStop(stop),
         });
     }
@@ -170,6 +210,13 @@ export function showBoard(root, { board, provider, region }) {
     }
 
     function renderReadout(now = Date.now()) {
+        const focused = document.activeElement;
+        const hadFocus = readout.contains(focused);
+        drawReadout(now);
+        if (hadFocus && focused.isConnected && !readout.contains(document.activeElement)) focused.focus({ preventScroll: true });
+    }
+
+    function drawReadout(now) {
         const primary = model.primary;
         if (!primary) {
             const message = model.isAwaitingFirstBoard ? 'CONNECTING…'
@@ -200,7 +247,7 @@ export function showBoard(root, { board, provider, region }) {
         const primaryBlock = h('div', { class: 'readout-primary' },
             h('div', { class: 'readout-badge-ring' }, badge(primary.line ?? { shortName: '?' }, pColor, 'big')),
             h('div', { class: 'readout-main' },
-                h('p', { class: 'kicker' }, primary.kicker),
+                h('div', { class: 'kicker-row' }, h('p', { class: 'kicker' }, primary.kicker), aboutButton(primary.line)),
                 h('p', { class: 'minutes' },
                     h('b', { class: pc.now ? 'now' : '' }, pc.figure),
                     // In dark mode the unit takes the line's colour; on cream it goes grey.
@@ -268,6 +315,7 @@ export function showBoard(root, { board, provider, region }) {
     return () => {
         // The card first: each puts back the page's scrolling as it found it, so they unwind in order.
         closeStopCard();
+        closeLineCard();
         closeFullRoute();
         model.stopPolling();
         clearInterval(tick);

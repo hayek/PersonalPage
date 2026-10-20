@@ -12,6 +12,7 @@
 
 import { Capability, TransitError, fold, meters, makeLine } from '../model.js';
 import { getJSON, staticData, memo } from '../http.js';
+import { chained } from '../shapes/shape-check.js';
 
 const BASE = 'https://data.explore.star.fr/api/explore/v2.1/catalog/datasets';
 const DAY = 86_400_000;
@@ -92,6 +93,25 @@ const provider = {
             .filter(Boolean);
         if (!patternStops.length) throw new TransitError('notFound', `stops for parcours ${parcours}`);
         return { line, stops: patternStops };
+    },
+
+    // The variant's own trace from the topology dataset (`parcours`, GeoJSON): one call, for the
+    // variant the line already names. It lives beside the stop list rather than in it, and asking for
+    // it with the lines at a stop would download every variant's trace on each stop opened.
+    async routeShape(line) {
+        const parcours = line.providerRefs?.parcours;
+        if (!parcours) throw new TransitError('unsupported', `line ${line.id} has no parcours (was it loaded from another provider?)`);
+        const response = await getJSON(`${BASE}/tco-bus-topologie-parcours-td/records`, { query: {
+            where: `id=${quoted(parcours)}`,
+            select: 'id,datedebutversion,parcours',
+            limit: '1',
+        } });
+        // A LineString, or a MultiLineString read as its pieces; `[lon, lat]` pairs.
+        const coordinates = response.results?.[0]?.parcours?.geometry?.coordinates ?? [];
+        const pieces = Array.isArray(coordinates[0]?.[0]) ? coordinates : [coordinates];
+        const branches = pieces.map((piece) => piece.filter((c) => c.length >= 2).map(([lon, lat]) => ({ lat, lon })));
+        if (!branches.some((b) => b.length >= 2)) throw new TransitError('notFound', `trace of parcours ${parcours}`);
+        return { branches: chained(branches) };
     },
 
     // Positions only (no fix time, no trip id); `ecartsecondes` is the delay, not the age.

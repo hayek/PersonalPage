@@ -1,5 +1,6 @@
 // A stop's card: its name and code, the lines that call there, where it is, and a small map of it.
 // Opened by tapping a stop on the board's map, in the full lines view, or by a stop row's ⓘ.
+// A line here whose road can be drawn has an ⓘ of its own, which opens the line's card over this one.
 //
 // The map is OpenStreetMap's own embed: keyless, and it asks nothing of any service but the one
 // drawing the tiles. No geocoder is asked for an address either; the card shows the one the
@@ -8,27 +9,33 @@
 import { h, icon, badge, colorIndexFor } from '../ui.js';
 import { staticData } from '../transit/http.js';
 import { compareLineNames } from '../transit/model.js';
+import { loadProvider } from '../transit/providers/index.js';
+import { hasRouteShape } from '../transit/shapes/route-shape.js';
+import { presentSheet } from './sheet.js';
+import { showLineCard } from './line-card.js';
 
 /** The lines at a stop change with the timetable, not by the minute. */
 const LINES_MAX_AGE_MS = 12 * 3_600_000;
 /** About 450 m across at mid latitudes: the stop and the streets either side of it. */
 const MAP_SPAN = { lat: 0.0022, lon: 0.0032 };
 
-let open = null;
+const cards = [];
 
 /**
  * @param {object} options
  * @param {import('../transit/model.js').TransitStop} options.stop
  * @param {string} options.providerID for the lines' colours and the cache key
+ * @param {import('../transit/model.js').TransitProvider} [options.provider] for the lines' cards; loaded by id when not given
  * @param {() => Promise<import('../transit/model.js').TransitLine[]>} [options.linesAtStop]
  *   every line at the stop; not asked when `lines` already has them
  * @param {import('../transit/model.js').TransitLine[]} [options.lines] every line at the stop, when known
  * @param {import('../transit/model.js').TransitLine[]} [options.watched] lines the rider watches here, listed first
  * @param {boolean} [options.isRidersStop] the board's own stop
  */
-export function showStopCard({ stop, providerID, linesAtStop, lines = null, watched = [], isRidersStop = false }) {
-    closeStopCard();
-    const returnFocus = document.activeElement;
+export function showStopCard({ stop, providerID, provider = null, linesAtStop, lines = null, watched = [], isRidersStop = false }) {
+    // A stop opened from the top card's own lines replaces it; one under a line's card stays.
+    if (cards.at(-1)?.isTop()) cards.at(-1).dismiss();
+    const providerReady = provider ? Promise.resolve(provider) : loadProvider(providerID).catch(() => null);
     const titleID = `stop-card-title-${Math.random().toString(36).slice(2, 8)}`;
 
     const linesBody = h('div', { class: 'stop-card-lines', 'aria-live': 'polite' });
@@ -38,7 +45,7 @@ export function showStopCard({ stop, providerID, linesAtStop, lines = null, watc
     // The code printed on the sign, when the feed's id is one; an internal id helps nobody.
     const code = /^[\w-]{1,12}$/.test(stop.code) ? `STOP ${stop.code}` : null;
 
-    const close = h('button', { class: 'round-button stop-card-close', 'aria-label': 'Close', onclick: () => closeStopCard() }, icon('close', 20));
+    const close = h('button', { class: 'round-button stop-card-close', 'aria-label': 'Close', onclick: () => sheet.dismiss() }, icon('close', 20));
     const card = h('div', { class: 'stop-card', role: 'dialog', 'aria-modal': 'true', 'aria-labelledby': titleID },
         h('header', { class: 'stop-card-head' },
             h('div', { class: 'stop-card-title' },
@@ -53,35 +60,20 @@ export function showStopCard({ stop, providerID, linesAtStop, lines = null, watc
             h('p', { class: 'stop-card-address', dir: 'auto' }, where)) : null,
         mapBlock(stop),
     );
-    const backdrop = h('div', { class: 'stop-card-backdrop', onclick: (e) => { if (e.target === backdrop) closeStopCard(); } }, card);
-
-    // Ahead of every other listener, so Escape here closes the card and not the view under it.
-    const onKey = (event) => {
-        if (!backdrop.isConnected) return;
-        if (event.key === 'Escape') {
-            event.stopImmediatePropagation();
-            event.preventDefault();
-            closeStopCard();
-        } else if (event.key === 'Tab') {
-            trapFocus(event, card);
-        }
-    };
-    document.addEventListener('keydown', onKey, true);
-    const scrollLock = document.body.style.overflow;
-    document.body.style.overflow = 'hidden';
-    document.body.append(backdrop);
-    close.focus({ preventScroll: true });
+    const backdrop = h('div', { class: 'stop-card-backdrop' }, card);
 
     let cancelled = false;
-    open = () => {
-        cancelled = true;
-        document.removeEventListener('keydown', onKey, true);
-        document.body.style.overflow = scrollLock;
-        backdrop.remove();
-        if (returnFocus?.isConnected) returnFocus.focus?.({ preventScroll: true });
-    };
+    const sheet = presentSheet(backdrop, card, {
+        initialFocus: close,
+        onClose: () => {
+            cancelled = true;
+            cards.splice(cards.indexOf(sheet), 1);
+        },
+    });
+    cards.push(sheet);
 
-    const show = (found) => {
+    const show = async (found) => {
+        const owner = await providerReady;
         if (cancelled) return;
         if (!found.length) {
             linesBody.replaceChildren(h('p', { class: 'stop-card-quiet' }, 'NO LINES ARE LISTED HERE RIGHT NOW.'));
@@ -97,10 +89,18 @@ export function showStopCard({ stop, providerID, linesAtStop, lines = null, watc
         linesBody.replaceChildren(h('ul', { class: 'stop-card-line-list' }, sorted.map((line) => {
             const isWatched = watchedIDs.includes(line.id);
             const towards = line.destination ?? line.headsign ?? null;
+            // Only where the line's road can be drawn; otherwise there is no card worth opening.
+            const about = owner && hasRouteShape(owner, line)
+                ? h('button', {
+                    class: 'line-info', 'aria-label': `About line ${line.shortName}`, title: 'Route and stops',
+                    onclick: () => showLineCard({ line, provider: owner, stopCode: stop.code }),
+                }, icon('info', 20))
+                : null;
             return h('li', { class: `stop-card-line${isWatched ? ' watched' : ''}` },
                 badge(line, colorIndexFor(providerID, line)),
-                towards ? h('span', { class: 'stop-card-towards', dir: 'auto' }, towards) : null,
-                isWatched ? h('span', { class: 'stop-card-tag' }, 'WATCHING') : null);
+                towards ? h('span', { class: 'stop-card-towards', dir: 'auto' }, towards) : h('span', { class: 'stop-card-towards' }),
+                isWatched ? h('span', { class: 'stop-card-tag' }, 'WATCHING') : null,
+                about);
         })));
     };
 
@@ -119,10 +119,9 @@ export function showStopCard({ stop, providerID, linesAtStop, lines = null, watc
     }
 }
 
+/** Closes every stop card, the board's way out when it goes. */
 export function closeStopCard() {
-    const close = open;
-    open = null;
-    close?.();
+    for (const card of [...cards].reverse()) card.dismiss();
 }
 
 /** The stop on OpenStreetMap's embed, with a way out to the rider's own maps app. */
@@ -146,19 +145,4 @@ function mapsLink(stop) {
     return apple
         ? `https://maps.apple.com/?ll=${lat},${lon}&q=${encodeURIComponent(stop.name)}`
         : `https://www.google.com/maps/search/?api=1&query=${lat},${lon}`;
-}
-
-/** Tab stays inside the card while it is open, as a modal's focus must. */
-function trapFocus(event, container) {
-    const focusable = [...container.querySelectorAll('a[href], button:not([disabled]), iframe, [tabindex]:not([tabindex="-1"])')];
-    if (!focusable.length) return;
-    const first = focusable[0];
-    const last = focusable[focusable.length - 1];
-    if (event.shiftKey && document.activeElement === first) {
-        event.preventDefault();
-        last.focus();
-    } else if (!event.shiftKey && document.activeElement === last) {
-        event.preventDefault();
-        first.focus();
-    }
 }

@@ -141,6 +141,32 @@ export function staticData(key, maxAgeMs, load) {
     });
 }
 
+/**
+ * A value kept across visits by `keepStored`, with when it was saved: `{value, savedAt}`, or null when
+ * there is none or no Cache Storage. For callers that judge freshness themselves (route shapes keep a
+ * rejection a week and a shape a month); `staticData` is the one to use otherwise.
+ */
+export async function readStored(key) {
+    try {
+        const hit = await (await caches.open(STATIC_CACHE)).match(storedRequest(key));
+        if (!hit) return null;
+        return { value: await hit.json(), savedAt: Number(hit.headers.get('x-saved-at') ?? 0) };
+    } catch {
+        return null; // Private browsing or no Cache Storage: memory only.
+    }
+}
+
+/** Keeps a JSON value under `key` for `readStored`; quietly does nothing where it cannot. */
+export async function keepStored(key, value, savedAt = Date.now()) {
+    try {
+        await (await caches.open(STATIC_CACHE)).put(storedRequest(key), new Response(JSON.stringify(value), {
+            headers: { 'content-type': 'application/json', 'x-saved-at': String(savedAt) },
+        }));
+    } catch { /* no Cache Storage, or quota: the session still has it in memory */ }
+}
+
+const storedRequest = (key) => new Request(`https://cache.mybusstop.invalid/${encodeURIComponent(key)}`);
+
 /** The service day in a time zone, as "YYYY-MM-DD" (`offsetDays` from today). */
 export function serviceDate(timeZone, offsetDays = 0, at = new Date()) {
     const shifted = new Date(at.getTime() + offsetDays * 86_400_000);

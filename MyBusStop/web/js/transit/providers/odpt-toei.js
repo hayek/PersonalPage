@@ -18,12 +18,20 @@
 
 import { Capability, TransitError, compareLineNames, makeLine, meters } from '../model.js';
 import { buildURL, getBytes, getJSON, memo, serviceDate, staticData, zonedTime } from '../http.js';
+import { decodePolyline, encodePolyline } from '../shapes/polyline.js';
+import { verdict } from '../shapes/shape-check.js';
 
 const BASE = 'https://api-public.odpt.org/api/v4';
 const TIME_ZONE = 'Asia/Tokyo';
 const POLE_PREFIX = 'odpt.BusstopPole:Toei.';
 const PATTERN_PREFIX = 'odpt.BusroutePattern:Toei.';
 const DAY_MS = 86_400_000;
+/**
+ * Poles are kerbside, but a line's first or last pole often stands inside a terminal or depot while
+ * the drawn line ends on the street: 30 of the 748 patterns checked had one end 50–190 m off
+ * (Higashi43.40408.1: 190 m).
+ */
+const SHAPE_TOLERANCE = { stops: 50, ends: 200 };
 
 /**
  * Names are published in Japanese and (for stops) English. Japanese readers get Japanese, everyone
@@ -123,12 +131,21 @@ const patternStore = new Map();
 const tripStore = new Map();
 const poleTimetableStore = new Map();
 
+/**
+ * The pattern's path (`ug:region`, a GeoJSON LineString of `[lon, lat]`) is kept encoded, a quarter
+ * of its size as coordinates; anything else reads as no path rather than failing the pattern.
+ */
 function toPattern(raw) {
+    const coordinates = raw['ug:region']?.coordinates;
+    const path = (Array.isArray(coordinates) ? coordinates : [])
+        .filter((pair) => Array.isArray(pair) && pair.length >= 2)
+        .map(([lon, lat]) => ({ lat, lon }));
     return {
         sameAs: raw['owl:sameAs'],
         title: raw['dc:title'] ?? null,
         route: raw['odpt:busroute'] ?? null,
         stops: (raw['odpt:busstopPoleOrder'] ?? []).map((s) => ({ index: s['odpt:index'], pole: s['odpt:busstopPole'], note: s['odpt:note'] ?? null })),
+        path: path.length >= 2 ? encodePolyline(path, 6) : '',
     };
 }
 
@@ -413,6 +430,9 @@ export default {
     displayName: 'Toei Bus (Tokyo)',
     /** Cached lines and patterns carry names, so each language is its own dataset. */
     get datasetID() { return `odpt-toei.${language()}`; },
+    /** A shape has no names in it. */
+    shapeDatasetID: 'odpt-toei',
+    shapeTolerance: SHAPE_TOLERANCE,
     get attribution() {
         return language() === 'ja'
             ? '東京都交通局・公共交通オープンデータ協議会 (CC BY 4.0)'
@@ -495,7 +515,25 @@ export default {
             })
             .filter(Boolean);
         if (stops.length < 2) throw new TransitError('notFound', `stops for pattern ${line.id}`);
-        return { line, stops };
+        // The pattern reply already carries the line's path, so the shape costs nothing. A pattern
+        // without one keeps an empty one, so nothing asks again.
+        return { line, stops, shapeData: { polyline: pattern.path } };
+    },
+
+    /**
+     * The path as published, or turned round when only that way do the stops fall along it in
+     * order: 5 of the 748 patterns are stored backwards (Tan96.1712.2, Shuku91.24305.*…). Nine
+     * patterns have no path. A pattern cached before shapes were asks the session's copy of the
+     * pattern reply, or that one request again.
+     */
+    async routeShape(line, pattern) {
+        const polyline = pattern?.shapeData?.polyline ?? (await patterns([line.id]))[0]?.path;
+        const forward = polyline ? decodePolyline(polyline, 6) : [];
+        if (forward.length < 2) return null;
+        const stops = (pattern?.stops ?? []).map((s) => s.stop.location);
+        if (verdict({ branches: [forward] }, stops, SHAPE_TOLERANCE).accepted) return { branches: [forward] };
+        const backward = [...forward].reverse();
+        return { branches: [verdict({ branches: [backward] }, stops, SHAPE_TOLERANCE).accepted ? backward : forward] };
     },
 
     async vehicles(line) {

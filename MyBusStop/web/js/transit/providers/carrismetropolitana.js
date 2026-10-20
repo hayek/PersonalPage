@@ -78,7 +78,22 @@ const provider = {
             })
             .filter(Boolean);
         if (!stops.length) throw new TransitError('notFound', `stops for pattern ${line.id}`);
-        return { line, stops };
+        // The version's shape id rides along, so the line's card asks for the shape alone.
+        return { line: { ...line, providerRefs: { ...line.providerRefs, shape: p.shape_id ?? undefined } }, stops };
+    },
+
+    // The GTFS shape of the pattern version running today: one call, by the `shape_id` the pattern
+    // reply names ("[0277F]2605_0_1": the timetable plan, then the shape, so a new plan is a new id).
+    // The reply has the line twice, as GeoJSON and as GTFS `points`; only the GeoJSON is read.
+    async routeShape(line, routePattern) {
+        const id = routePattern?.line?.providerRefs?.shape ?? (await pattern(line.id)).shape_id;
+        if (!id) throw new TransitError('notFound', `shape of pattern ${line.id}`);
+        const shape = await getJSON(`${BASE}/v2/shapes/${encodeURIComponent(id)}`);
+        const branch = (shape?.geojson?.geometry?.coordinates ?? [])
+            .filter((c) => Array.isArray(c) && c.length >= 2)
+            .map(([lon, lat]) => ({ lat, lon }));
+        if (branch.length < 2) throw new TransitError('notFound', `shape ${id}`);
+        return { branches: [branch] };
     },
 
     // `/v2/vehicles` is the whole fleet (~900 buses, ~100 KB gz); its line filters are ignored, so it

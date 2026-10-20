@@ -541,6 +541,106 @@ body.wall .minutes b { font-size: clamp(96px, 16vw, 220px); }
 .spinner { width: 14px; height: 14px; border-radius: 50%; border: 2.5px solid var(--dot); border-top-color: var(--ink); animation: spin 0.8s linear infinite; flex: none; }
 @keyframes spin { to { transform: rotate(360deg); } }
 
+/* ---------------------------------------------------------------- Line ⓘ */
+
+/* A line's ⓘ, beside a line wherever lines are listed: opens the line's card. */
+.line-info {
+    flex: none; width: 40px; height: 40px; margin: -4px 0; border-radius: 50%;
+    display: inline-flex; align-items: center; justify-content: center; color: var(--secondary);
+}
+.line-info:hover { background: var(--menu); color: var(--ink); }
+.kicker-row { display: flex; align-items: center; gap: 4px; }
+.readout-info { width: 36px; height: 36px; margin: -8px 0; }
+
+/* In the line picker it sits on the chip, beside its button rather than inside it: bottom corner,
+   so the tick keeps the top one. */
+.chip-item { position: relative; display: flex; min-width: 0; }
+.chip-item > .chip { flex: 1; min-width: 0; }
+.chip-item .chip-dest { padding-inline-end: 30px; }
+.chip-info {
+    position: absolute; right: 4px; bottom: 4px; width: 40px; height: 40px; border-radius: 50%;
+    display: inline-flex; align-items: center; justify-content: center; color: var(--secondary);
+}
+.chip-info:hover { background: color-mix(in srgb, currentColor 14%, transparent); }
+@media (min-width: 900px) { .chip-info { right: 8px; bottom: 8px; } }
+
+/* ---------------------------------------------------------------- Line card */
+
+/* The stop card's frame, with the line's colour in --line. */
+.line-card .stop-card-head .badge { min-width: 44px; height: 44px; padding: 0 8px; border-radius: 11px; font-size: 20px; }
+.line-card-subtitle { margin-top: 6px; font-size: 15px; font-weight: 700; color: var(--secondary); overflow-wrap: anywhere; }
+.line-card-map {
+    position: relative; flex: none; height: 260px; overflow: hidden;
+    border-radius: var(--radius-row); border: 2px solid var(--card-outline); background: var(--card);
+}
+/* Two classes, to outrank MapLibre's own `.maplibregl-map { position: relative }`. */
+.line-card-map > .line-card-canvas, .fr-map > .fr-map-canvas { position: absolute; inset: 0; }
+.line-card-loading { position: absolute; inset: 0; justify-content: center; }
+.line-card-note {
+    position: absolute; left: 10px; top: 10px; z-index: 2; max-width: calc(100% - 20px);
+    display: flex; align-items: center; gap: 10px; padding: 8px 14px; border-radius: 999px;
+    background: color-mix(in srgb, var(--bg) 90%, transparent);
+    font-family: var(--mono); font-weight: 700; font-size: 11px; letter-spacing: 0.12em; color: var(--secondary);
+}
+.line-card-credit { color: var(--dim); text-transform: none; letter-spacing: 0.02em; }
+
+/* The map's own credit, in the board's colours rather than MapLibre's white. */
+.line-card-map .maplibregl-ctrl.maplibregl-ctrl-attrib, .fr-map .maplibregl-ctrl.maplibregl-ctrl-attrib {
+    background: color-mix(in srgb, var(--bg) 82%, transparent); color: var(--secondary); font-size: 10px; line-height: 16px;
+}
+.line-card-map .maplibregl-ctrl-attrib a, .fr-map .maplibregl-ctrl-attrib a { color: var(--secondary); }
+
+/* Every stop on a strip of the line's colour, as on a route diagram. */
+.line-card-stops { list-style: none; }
+.line-card-stop {
+    display: flex; align-items: stretch; gap: 14px; min-height: 48px;
+    width: calc(100% + 16px); margin: 0 -8px; padding: 0 8px; border-radius: 10px; text-align: start;
+}
+.line-card-stop:hover { background: color-mix(in srgb, var(--line) 8%, transparent); }
+.line-card-stop.focused { background: color-mix(in srgb, var(--line) 16%, transparent); }
+.line-card-stop:focus-visible { outline-offset: -3px; }
+.line-card-rail { position: relative; flex: none; width: 24px; display: flex; align-items: center; justify-content: center; }
+.line-card-rail::before { content: ''; position: absolute; left: 50%; top: 0; bottom: 0; width: 5px; margin-left: -2.5px; background: var(--line); }
+.line-card-rail.first::before { top: 50%; }
+.line-card-rail.last::before { bottom: 50%; }
+.line-card-rail.first.last::before { display: none; }
+.line-card-dot { position: relative; width: 11px; height: 11px; border-radius: 50%; background: var(--bg); border: 2.5px solid var(--line); }
+.line-card-stop-terminus .line-card-dot { width: 15px; height: 15px; border-width: 3.5px; }
+.line-card-stop-highlighted .line-card-dot { width: 20px; height: 20px; border-width: 3.5px; background: var(--line); border-color: var(--ink); }
+.line-card-stop-text { display: flex; flex-direction: column; justify-content: center; gap: 2px; min-width: 0; padding: 8px 0; }
+.line-card-stop-name { font-weight: 800; font-size: 16px; line-height: 1.25; color: var(--secondary); overflow-wrap: anywhere; }
+.line-card-stop-terminus .line-card-stop-name, .line-card-stop-highlighted .line-card-stop-name { color: var(--ink); }
+.line-card-stop-city { font-family: var(--mono); font-weight: 700; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--dim); }
+
+/* ---------------------------------------------------------------- Full lines view: badges, toggle, map */
+
+.fr-badges { flex: none; display: flex; }
+.fr-badge { width: 44px; height: 44px; border-radius: 12px; display: inline-flex; align-items: center; justify-content: center; }
+button.fr-badge:hover { background: var(--card); }
+.fr-badge .badge { min-width: 30px; height: 30px; padding: 0 5px; border-radius: 8px; font-size: 15px; }
+
+/* The strip or the map: two halves of one control, at the foot's leading end. */
+.fr-toggle {
+    flex: none; display: inline-flex; height: 42px; padding: 3px; border-radius: 999px;
+    background: color-mix(in srgb, var(--bg) 94%, transparent); border: 1px solid var(--card-outline);
+}
+.fr-toggle-half { width: 44px; height: 34px; border-radius: 999px; display: inline-flex; align-items: center; justify-content: center; color: var(--secondary); }
+.fr-toggle-half[aria-pressed="true"] { background: var(--menu); color: var(--ink); }
+.fr-toggle-half:hover:not([aria-pressed="true"]) { color: var(--ink); }
+
+/* The map takes the strip's place too; the toggle keeps its corner over it, and the map's own marks
+   sit above the toggle's band rather than under it. */
+.fr-map { position: relative; flex: 1; min-height: 0; margin: 0 calc(-1 * var(--gutter)); overflow: hidden; }
+.fr-map > .fr-toggle { position: absolute; left: max(var(--gutter), env(safe-area-inset-left)); bottom: 11px; z-index: 3; }
+.fr-map .maplibregl-ctrl-bottom-left, .fr-map .maplibregl-ctrl-bottom-right { bottom: 66px; }
+.fr-map > .fr-map-note { left: var(--gutter); top: 10px; }
+
+@media (max-width: 520px) {
+    .fr-head { gap: 10px; }
+    .fr-foot { gap: 10px; }
+    .fr-toggle-half { width: 40px; }
+}
+
 .fatal, .noscript { padding: 40px 20px; font-size: 18px; }
 
 @media (prefers-reduced-motion: reduce) {

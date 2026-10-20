@@ -57,6 +57,19 @@
  * @property {(line: TransitLine) => Promise<VehiclePosition[]>} vehicles  May be empty; that is not an error.
  * @property {(line: TransitLine, stop: TransitStop) => Promise<Arrival[]>} arrivals  Soonest first.
  * @property {(point: GeoPoint, radiusMeters: number) => Promise<NearbyStop[]>} [stopsNearby]  Nearest first.
+ * @property {(line: TransitLine, pattern: RoutePattern) => Promise<RouteShape|null>} [routeShape]
+ *     The line's real path along the roads, raw (unjudged, unsimplified); null when the feed has none for
+ *     it. Asked for only through js/transit/shapes/route-shape.js `loadRouteShape`, which judges and caches it.
+ * @property {(line: TransitLine) => boolean} [hasRouteShape]  Whether this line can have a route to draw;
+ *     defaults to true when `routeShape` exists.
+ * @property {{stops: number, ends: number}} [shapeTolerance]  How far a stop may stand from this feed's
+ *     shapes; defaults to TOLERANCE.platforms (js/transit/shapes/shape-check.js).
+ * @property {string} [shapeDatasetID]  Which cache a shape is kept under; defaults to `datasetID`, then `id`.
+ *
+ * @typedef {object} RouteShape  A line's path: one polyline per branch, in route order.
+ * @property {GeoPoint[][]} branches
+ * @property {Record<string, GeoPoint>} [stopPositions]  Where each stop really stands, by stop code, when
+ *     the shape's source knows better than the provider's own stop list.
  */
 
 export const Capability = Object.freeze({

@@ -1,4 +1,5 @@
-// PICK UP TO 3 LINES TO WATCH: every line that calls at the stop, as chips.
+// PICK UP TO 3 LINES TO WATCH: every line that calls at the stop, as chips. A line whose road can
+// be drawn has an ⓘ in its chip's corner, which opens its card: the route on a map and its stops.
 
 import { h, icon, lineKey, isLightTheme, colorIndexFor } from '../ui.js';
 import { store } from '../storage.js';
@@ -6,6 +7,8 @@ import { compareLineNames } from '../transit/model.js';
 import { assignLineColors, railColor, numeralColor } from '../map/index.js';
 import { session, go } from '../main.js';
 import { friendly } from './stops.js';
+import { hasRouteShape } from '../transit/shapes/route-shape.js';
+import { showLineCard, closeLineCard } from '../board/line-card.js';
 
 const MAX_LINES = 3;
 
@@ -42,7 +45,7 @@ export function showLines(root) {
             const on = index >= 0;
             const color = on ? assigned[line.id] ?? colorIndexFor(provider.id, line) : null;
             const full = !on && selected.length >= MAX_LINES;
-            return h('button', {
+            const chip = h('button', {
                 class: `chip${on ? ' chip-on' : ''}`, 'aria-pressed': String(on), disabled: full,
                 style: on ? { background: railColor(color, light), color: numeralColor(color, light), borderColor: railColor(color, light) } : null,
                 onclick: () => {
@@ -54,6 +57,14 @@ export function showLines(root) {
             h('span', { class: 'chip-number' }, line.shortName),
             on ? h('span', { class: 'chip-check', style: { '--check': railColor(color, light) } }, icon('check', 16)) : null,
             h('span', { class: 'chip-dest', dir: 'auto' }, line.destination ?? line.headsign ?? line.agency ?? ''));
+            if (!hasRouteShape(provider, line)) return chip;
+            // Beside the chip's button rather than inside it: the chip picks the line, the ⓘ opens its card.
+            const about = h('button', {
+                class: 'chip-info', 'aria-label': `About line ${line.shortName}`, title: 'Route and stops',
+                style: on ? { color: numeralColor(color, light) } : null,
+                onclick: () => showLineCard({ line, provider, stopCode: stop.code, colorIndex: color ?? colorIndexFor(provider.id, line) }),
+            }, icon('info', 20));
+            return h('div', { class: 'chip-item' }, chip, about);
         }));
         countText.textContent = `${selected.length} OF ${MAX_LINES} SELECTED`;
         countHint.textContent = selected.length === 0 ? 'TAP A LINE TO WATCH IT'
@@ -105,5 +116,5 @@ export function showLines(root) {
     show.disabled = true;
     clear.disabled = true;
 
-    return () => { cancelled = true; };
+    return () => { cancelled = true; closeLineCard(); };
 }

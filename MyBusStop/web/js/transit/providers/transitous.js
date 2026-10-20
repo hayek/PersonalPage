@@ -14,7 +14,8 @@
 // sign, only by name. Buses and trams only. Every endpoint answers CORS with `*`.
 
 import { Capability, TransitError, makeLine, meters, stopAddress } from '../model.js';
-import { getJSON, memo } from '../http.js';
+import { ResponseError, getJSON, memo } from '../http.js';
+import { decodePolyline } from '../shapes/polyline.js';
 
 const BASE = 'https://api.transitous.org';
 const MODES = 'BUS,TRAM';
@@ -75,6 +76,42 @@ function departures(stopID) {
     });
 }
 
+/**
+ * The whole trip of the line's next departure from the rider's stop, which is always a trip of that
+ * direction that serves it. The stop the rider boards at is renamed to the stop they chose, since the
+ * trip lists the platform and the board finds the rider's stop by code. The trip reply carries the
+ * leg's line along the roads (`legGeometry`: the feed's GTFS shape, or routed on OSM by MOTIS for
+ * feeds without one), kept as sent, so the shape costs no request; a leg without one keeps an empty
+ * one, so nothing asks again.
+ */
+async function tripPattern(line, noDeparture = (reason) => new TransitError('notFound', reason)) {
+    const stopID = line.providerRefs?.stopId;
+    if (!stopID) throw new TransitError('notFound', `stop of line ${line.id}`);
+    const next = (await departures(stopID)).find((departure) => lineID(departure) === line.id);
+    if (!next) throw noDeparture(`a departure of ${line.shortName} from ${stopID}`);
+    const trip = await get('/api/v6/trip', { tripId: next.tripId, joinInterlinedLegs: 'false', language: language() });
+    const legs = trip?.legs ?? [];
+    const placesOf = (leg) => [leg.from, ...(leg.intermediateStops ?? []), leg.to];
+    // A leg without its trip id: the one that leaves from the rider's stop, not the one that ends
+    // there and hands over to it.
+    const leg = legs.find((l) => l.tripId === next.tripId)
+        ?? legs.find((l) => placesOf(l).slice(0, -1).some((p) => p?.stopId === next.place.stopId))
+        ?? legs[0];
+    if (!leg) throw new TransitError('notFound', `trip ${next.tripId}`);
+    const places = placesOf(leg);
+    let boarding = places.findIndex((p) => p.stopId === next.place.stopId && p.departure === next.place.departure);
+    if (boarding < 0) boarding = places.findIndex((p) => p.stopId === next.place.stopId);
+    const stops = [];
+    places.forEach((place, index) => {
+        const stop = placeStop(place);
+        if (!stop) return;
+        if (index === boarding) stop.code = stopID;
+        stops.push({ stop, sequence: index + 1, distanceAlongRoute: null });
+    });
+    const geometry = leg.legGeometry;
+    return { line, stops, shapeData: { polyline: geometry?.points ?? '', precision: geometry?.precision ?? 6 } };
+}
+
 export default {
     id: 'transitous',
     displayName: 'Transitous (worldwide)',
@@ -90,6 +127,8 @@ export default {
      */
     refreshSeconds: 30,
     get datasetID() { return `transitous.${language()}`; },
+    /** A line's path has no names in it. */
+    shapeDatasetID: 'transitous',
     reportsShadowTrips: false,
 
     async searchStops(query) {
@@ -138,30 +177,16 @@ export default {
         });
     },
 
+    routePattern: (line) => tripPattern(line),
+
     /**
-     * The whole trip of the line's next departure from the rider's stop, which is always a trip of
-     * that direction that serves it. The stop the rider boards at is renamed to the stop they chose,
-     * since the trip lists the platform and the board finds the rider's stop by code.
+     * From the pattern; for one kept from before shapes were, the pattern's calls again. No
+     * departure soon (at night) says nothing about the path, so that is a failure tried again later.
      */
-    async routePattern(line) {
-        const stopID = line.providerRefs?.stopId;
-        if (!stopID) throw new TransitError('notFound', `stop of line ${line.id}`);
-        const next = (await departures(stopID)).find((departure) => lineID(departure) === line.id);
-        if (!next) throw new TransitError('notFound', `a departure of ${line.shortName} from ${stopID}`);
-        const trip = await get('/api/v6/trip', { tripId: next.tripId, language: language() });
-        const leg = trip?.legs?.[0];
-        if (!leg) throw new TransitError('notFound', `trip ${next.tripId}`);
-        const places = [leg.from, ...(leg.intermediateStops ?? []), leg.to];
-        let boarding = places.findIndex((p) => p.stopId === next.place.stopId && p.departure === next.place.departure);
-        if (boarding < 0) boarding = places.findIndex((p) => p.stopId === next.place.stopId);
-        const stops = [];
-        places.forEach((place, index) => {
-            const stop = placeStop(place);
-            if (!stop) return;
-            if (index === boarding) stop.code = stopID;
-            stops.push({ stop, sequence: index + 1, distanceAlongRoute: null });
-        });
-        return { line, stops };
+    async routeShape(line, pattern) {
+        const data = pattern?.shapeData ?? (await tripPattern(line, (reason) => new ResponseError(reason))).shapeData;
+        const points = data?.polyline ? decodePolyline(data.polyline, data.precision ?? 6) : [];
+        return points.length >= 2 ? { branches: [points] } : null;
     },
 
     /** No vehicle positions exist in MOTIS; see the comment at the top. */

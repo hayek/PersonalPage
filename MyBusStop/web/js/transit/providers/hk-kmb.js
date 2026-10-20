@@ -17,7 +17,7 @@
 
 import { Capability, TransitError, makeLine, meters } from '../model.js';
 import { getJSON, memo, staticData } from '../http.js';
-import { DAY_MS, compareHKLines, hkNameLanguage, parseHKTime, pick, sleep, uniqueBy } from './hk-shared.js';
+import { DAY_MS, compareHKLines, hkNameLanguage, hkRouteShape, parseHKTime, pick, sleep, uniqueBy } from './hk-shared.js';
 
 const BASE = 'https://data.etabus.gov.hk/v1/transport/kmb';
 const SEARCH_LIMIT = 60;
@@ -153,6 +153,8 @@ export default {
     displayName: 'KMB (Hong Kong)',
     /** Lines and patterns are cached with their names baked in, so each name language is its own dataset. */
     get datasetID() { return `hk-kmb.${hkNameLanguage()}`; },
+    /** A shape has no names in it. */
+    shapeDatasetID: 'hk-kmb',
     attribution: 'Data: Kowloon Motor Bus / DATA.GOV.HK',
     capabilities: new Set([
         Capability.stopSearchByName, Capability.stopSearchByCode, Capability.linesAtStop, Capability.routePattern,
@@ -214,6 +216,15 @@ export default {
             .sort((a, b) => a.sequence - b.sequence);
         if (stops.length < 2) throw new TransitError('notFound', `stops for KMB line ${line.id}`);
         return { line, stops };
+    },
+
+    /**
+     * TD's drawn line (`HKRouteLines` in hk-shared.js): one query answers every direction and service
+     * type of the route number. KMB's and Long Win's own routes, and those run jointly with Citybus.
+     */
+    async routeShape(line, pattern) {
+        const ref = lineRef(line);
+        return hkRouteShape(ref.route, "COMPANY_CODE <> 'CTB' AND COMPANY_CODE <> 'NLB'", pattern);
     },
 
     /** KMB publishes no vehicle positions. */

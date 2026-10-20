@@ -24,7 +24,7 @@
 
 import { Capability, TransitError, makeLine } from '../model.js';
 import { buildURL, getJSON, staticData } from '../http.js';
-import { DAY_MS, SessionCache, compareHKLines, containsText, hkNameLanguage, mapLimit, parseHKTime, pick, sleep, uniqueBy } from './hk-shared.js';
+import { DAY_MS, HKRouteLines, SessionCache, compareHKLines, containsText, hkLayerShape, hkNameLanguage, mapLimit, parseHKTime, pick, sleep, uniqueBy } from './hk-shared.js';
 
 const BASE = 'https://data.etagmb.gov.hk';
 /** The GMB route layer of the same dataset, served by the CSDI portal's ArcGIS server. */
@@ -179,6 +179,8 @@ export default {
     displayName: 'Green Minibus (Hong Kong)',
     /** Lines and patterns are cached with their names baked in, so each name language is its own dataset. */
     get datasetID() { return `hk-gmb.${hkNameLanguage()}`; },
+    /** A shape has no names in it. */
+    shapeDatasetID: 'hk-gmb',
     attribution: 'Data: Transport Department / DATA.GOV.HK',
     capabilities: new Set([
         Capability.stopSearchByName, Capability.linesAtStop, Capability.routePattern,
@@ -257,6 +259,16 @@ export default {
         const stops = await stopsOf(lineRef);
         if (stops.length < 2) throw new TransitError('notFound', `stops for GMB line ${line.id}`);
         return { line, stops: stops.map((s) => ({ stop: toStop(s), sequence: s.sequence, distanceAlongRoute: null })) };
+    },
+
+    /**
+     * TD's drawn line from the minibus layer, whose ids are this API's own `route_id` and `route_seq`,
+     * so it is asked for the one direction (`HKRouteLines` in hk-shared.js).
+     */
+    async routeShape(line, pattern) {
+        const lineRef = parseRef(line.id);
+        if (!lineRef) throw new TransitError('unsupported', `line ${line.id} has no GMB route id/sequence (was it loaded from another provider?)`);
+        return hkLayerShape(HKRouteLines.minibusLayer, `ROUTE_ID = ${lineRef.routeID} AND ROUTE_SEQ = ${lineRef.seq}`, pattern);
     },
 
     /** GMB publishes no vehicle positions. */

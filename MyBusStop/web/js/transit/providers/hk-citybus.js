@@ -19,7 +19,7 @@
 
 import { Capability, TransitError, makeLine } from '../model.js';
 import { getJSON, staticData } from '../http.js';
-import { DAY_MS, SessionCache, compareHKLines, containsText, hkNameLanguage, mapLimit, parseHKTime, pick, uniqueBy } from './hk-shared.js';
+import { DAY_MS, HKRouteLines, SessionCache, compareHKLines, containsText, hkNameLanguage, hkRouteShape, mapLimit, parseHKTime, pick, uniqueBy } from './hk-shared.js';
 
 const BASE = 'https://rt.data.gov.hk/v2/transport/citybus';
 /** A terminus-name query ("Central") can match dozens of routes; each costs ~40 stop lookups. */
@@ -103,6 +103,14 @@ export default {
     displayName: 'Citybus (Hong Kong)',
     /** Lines and patterns are cached with their names baked in, so each name language is its own dataset. */
     get datasetID() { return `hk-citybus.${hkNameLanguage()}`; },
+    /** A shape has no names in it. */
+    shapeDatasetID: 'hk-citybus',
+    /**
+     * A direction's stop list merges TD's variants, and once in a while lists a stop TD drew no
+     * variant past (route 11 inbound's Ice House Street stop, 131 m off): that stop is let stand
+     * beside the line rather than losing the whole map.
+     */
+    shapeTolerance: { stops: HKRouteLines.missReach, ends: 150 },
     attribution: 'Data: Citybus Limited / DATA.GOV.HK',
     capabilities: new Set([
         Capability.stopSearchByName, Capability.linesAtStop, Capability.routePattern,
@@ -162,6 +170,19 @@ export default {
         const stops = await stopsOf(ref.route, ref.direction);
         if (stops.length < 2) throw new TransitError('notFound', `stops for Citybus line ${line.id}`);
         return { line, stops: stops.map((s, i) => ({ stop: toStop(s), sequence: i + 1, distanceAlongRoute: null })) };
+    },
+
+    /**
+     * TD's drawn line (`HKRouteLines` in hk-shared.js): one query answers both directions of the route
+     * number. A circular route is one loop there and two halves here, so the loop is cut to the half;
+     * a direction merging two variants gets both as branches; up to two stops on no drawn variant stay
+     * markers beside the line.
+     */
+    async routeShape(line, pattern) {
+        const ref = lineRef(line.id);
+        if (!ref) throw new TransitError('unsupported', `line ${line.id} has no Citybus route/direction (was it loaded from another provider?)`);
+        // Citybus alone, and the routes it runs jointly with KMB or Long Win.
+        return hkRouteShape(ref.route, "COMPANY_CODE LIKE '%CTB%'", pattern, 2);
     },
 
     /** Citybus publishes no vehicle positions. */

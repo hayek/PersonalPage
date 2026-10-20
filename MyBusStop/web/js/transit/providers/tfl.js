@@ -13,6 +13,8 @@
 
 import { Capability, TransitError, makeLine, meters } from '../model.js';
 import { getJSON } from '../http.js';
+import { decodePolyline, encodePolyline } from '../shapes/polyline.js';
+import { bestPiece, length } from '../shapes/shape-check.js';
 
 const BASE = 'https://api.tfl.gov.uk';
 
@@ -77,6 +79,67 @@ async function reference(line) {
     const section = (await routeSections(naptanId) ?? []).find((s) => s.lineId === lineId);
     if (!section) throw new TransitError('notFound', `line ${lineId} at stop ${naptanId}`);
     return { lineId, direction: section.direction, naptanId };
+}
+
+/**
+ * `lineStrings` are not one per route variant: identical copies, and pieces for short workings
+ * beside the full route (63 inbound). Of every distinct piece, the shortest one the stops lie along
+ * is the pattern's. Pieces are never joined: the 63's two joined run twice its length. When none
+ * fits (19 inbound's Highbury Grove routing has no geometry of its own), the longest is kept anyway,
+ * so the shape cache records the rejection instead of asking again. Null when there is no geometry.
+ */
+function chosenPiece(lineStrings, stops) {
+    const pieces = (lineStrings ?? []).flatMap((string) => {
+        // A JSON string inside the JSON: `[[[lon, lat], …], …]`, one array per piece.
+        let decoded;
+        try {
+            decoded = JSON.parse(string);
+        } catch {
+            return [];
+        }
+        if (!Array.isArray(decoded)) return [];
+        return decoded.map((piece) => (Array.isArray(piece) ? piece : [])
+            .filter((pair) => Array.isArray(pair) && pair.length >= 2)
+            .map(([lon, lat]) => ({ lat, lon })));
+    });
+    const best = bestPiece(pieces, stops.map((s) => s.stop.location));
+    if (best) return best;
+    const drawn = pieces.filter((piece) => piece.length >= 2);
+    return drawn.length ? drawn.reduce((a, b) => (length(b) > length(a) ? b : a)) : null;
+}
+
+/**
+ * The longest end-to-end variant through the rider's stop, with the drawn line of that variant from
+ * the same reply (see `chosenPiece`).
+ */
+async function sequencePattern(line) {
+    const ref = await reference(line);
+    const sequence = await get(
+        `/Line/${encodeURIComponent(ref.lineId)}/Route/Sequence/${encodeURIComponent(ref.direction)}`,
+        { serviceTypes: 'Regular,Night', excludeCrowding: 'true' },
+    );
+    const points = new Map();
+    for (const branch of sequence?.stopPointSequences ?? []) {
+        for (const point of branch.stopPoint ?? []) points.set(point.id, point);
+    }
+    // `orderedLineRoutes` are the whole end-to-end variants; the longest one through the rider's
+    // stop is the one the board draws.
+    const routes = (sequence?.orderedLineRoutes ?? []).map((r) => r.naptanIds ?? []);
+    const through = routes.filter((ids) => (ref.naptanId ? ids.includes(ref.naptanId) : true));
+    const ids = (through.length ? through : routes).reduce((best, r) => (best && best.length >= r.length ? best : r), null);
+    if (!ids?.length) throw new TransitError('notFound', `stops for line ${ref.lineId} ${ref.direction}`);
+    const stops = ids
+        .map((id) => points.get(id))
+        .filter(Boolean)
+        .map((p) => ({ code: p.id, name: stopName(p.name, p.stopLetter), city: null, location: { lat: p.lat, lon: p.lon } }));
+    if (stops.length < 2) throw new TransitError('notFound', `stops for line ${ref.lineId} ${ref.direction}`);
+    const pattern = { line, stops: stops.map((stop, i) => ({ stop, sequence: i, distanceAlongRoute: null })) };
+    // The same reply carries the drawn line (`lineStrings`), so the shape costs no request. Only
+    // the piece that is this pattern's is kept, encoded: a few KB in the cached pattern, not the
+    // ~150 KB of every piece. A reply without geometry keeps an empty one, so nothing asks again.
+    const piece = chosenPiece(sequence?.lineStrings, pattern.stops);
+    pattern.shapeData = { polyline: piece ? encodePolyline(piece, 6) : '' };
+    return pattern;
 }
 
 export default {
@@ -145,28 +208,13 @@ export default {
         return [...byLine.values()].map((section) => sectionLine(section, stop.code));
     },
 
-    async routePattern(line) {
-        const ref = await reference(line);
-        const sequence = await get(
-            `/Line/${encodeURIComponent(ref.lineId)}/Route/Sequence/${encodeURIComponent(ref.direction)}`,
-            { serviceTypes: 'Regular,Night', excludeCrowding: 'true' },
-        );
-        const points = new Map();
-        for (const branch of sequence?.stopPointSequences ?? []) {
-            for (const point of branch.stopPoint ?? []) points.set(point.id, point);
-        }
-        // `orderedLineRoutes` are the whole end-to-end variants; the longest one through the rider's
-        // stop is the one the board draws.
-        const routes = (sequence?.orderedLineRoutes ?? []).map((r) => r.naptanIds ?? []);
-        const through = routes.filter((ids) => (ref.naptanId ? ids.includes(ref.naptanId) : true));
-        const ids = (through.length ? through : routes).reduce((best, r) => (best && best.length >= r.length ? best : r), null);
-        if (!ids?.length) throw new TransitError('notFound', `stops for line ${ref.lineId} ${ref.direction}`);
-        const stops = ids
-            .map((id) => points.get(id))
-            .filter(Boolean)
-            .map((p) => ({ code: p.id, name: stopName(p.name, p.stopLetter), city: null, location: { lat: p.lat, lon: p.lon } }));
-        if (stops.length < 2) throw new TransitError('notFound', `stops for line ${ref.lineId} ${ref.direction}`);
-        return { line, stops: stops.map((stop, i) => ({ stop, sequence: i, distanceAlongRoute: null })) };
+    routePattern: sequencePattern,
+
+    /** From the pattern; one call again only for a pattern cached before shapes were kept on it. */
+    async routeShape(line, pattern) {
+        const data = pattern?.shapeData ?? (await sequencePattern(line)).shapeData;
+        const points = data?.polyline ? decodePolyline(data.polyline, 6) : [];
+        return points.length >= 2 ? { branches: [points] } : null;
     },
 
     async vehicles() {
