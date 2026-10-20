@@ -241,7 +241,10 @@ export default {
 
     /**
      * `/map/stops` with `grouped` answers one entry per stop area in a box but says nothing about
-     * routes, so the nearest few are each asked `/stop` for theirs, in parallel.
+     * routes, so the nearest few are each asked `/stop` for theirs, in parallel. That endpoint is not
+     * yet officially deployed on Transitous (its maintainers, 2026-10-20) and may error out: a stop
+     * it fails for is listed from its departures instead — the request its board would make anyway —
+     * and only a stop both fail for is left out, never the whole list.
      */
     async stopsNearby(point, radiusMeters) {
         const lang = language();
@@ -261,7 +264,11 @@ export default {
             .sort((a, b) => a.distance - b.distance)
             .slice(0, 8);
         const found = await Promise.all(candidates.map(async ({ stop, distance }) => {
-            const info = await get('/api/v6/stop', { stopId: stop.code, language: lang });
+            const info = await get('/api/v6/stop', { stopId: stop.code, language: lang }).catch(() => null);
+            if (!info) {
+                const lines = await this.linesAtStop(stop).catch(() => []);
+                return lines.length ? { stop, distanceMeters: distance, lines } : null;
+            }
             // One badge per number; routes without one are each their own here, and the ones a rider
             // cannot tell apart become one service (js/transit/services.js), not one blank badge for all.
             const seen = new Set();
