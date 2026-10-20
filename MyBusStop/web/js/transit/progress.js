@@ -1,7 +1,7 @@
 // Combines a route pattern, vehicle positions and arrivals into where each bus is relative to the
 // rider's stop. Port of BusBus/Transit/Progress/BusProgressService.swift.
 
-import { Capability, TransitError } from './model.js';
+import { Capability, TransitError, lineLabel } from './model.js';
 
 export const AT_STOP_TOLERANCE = 40;
 export const LIMITS = {
@@ -23,7 +23,7 @@ const SHADOW_TRIP_MS = 3 * 60_000;
  */
 export async function busProgress(provider, geometry, line, stop) {
     const targetIndex = geometry.pattern.stops.findIndex((s) => s.stop.code === stop.code);
-    if (targetIndex < 0) throw new TransitError('notFound', `stop ${stop.code} on line ${line.shortName}`);
+    if (targetIndex < 0) throw new TransitError('notFound', `stop ${stop.code} on ${lineLabel(line)}`);
     const targetDistance = geometry.stopDistances[targetIndex];
 
     const [vehiclesResult, arrivalsResult] = await Promise.allSettled([

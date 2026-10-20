@@ -154,7 +154,9 @@ function toPattern(raw) {
  * otherwise the Japanese name, which is what the bus shows.
  */
 function patternShortName(pattern, lang) {
-    const raw = (pattern.title ?? pattern.sameAs).split(' ').find(Boolean) ?? pattern.sameAs;
+    // The title leads with the number ("都01 (To01)"); a pattern without one has no number to show,
+    // and its `owl:sameAs` is an id, not a name.
+    const raw = String(pattern.title ?? '').split(' ').find(Boolean) ?? '';
     const name = raw.normalize('NFKC'); // full-width digits → ASCII
     const open = name.indexOf('(');
     const close = name.lastIndexOf(')');

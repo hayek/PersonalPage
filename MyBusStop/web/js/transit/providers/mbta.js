@@ -8,7 +8,7 @@
 // Licence: MassDOT Developers License Agreement — the app must credit MassDOT as the data provider.
 // Bus only: stops and lines are filtered to `route_type` 3.
 
-import { Capability, TransitError, fold, makeLine, meters, stopAddress } from '../model.js';
+import { Capability, TransitError, fold, makeLine, meters, modeFromRouteType, stopAddress } from '../model.js';
 import { getJSON, staticData } from '../http.js';
 import { decodePolyline } from '../shapes/polyline.js';
 
@@ -163,7 +163,9 @@ async function servingLines(stopIDs) {
         const names = tripStops.map((id) => included.get(`stop:${id}`)?.attributes?.name ?? null);
         const line = makeLine({
             id: pattern.id,
-            shortName: [route.short_name, route.long_name].find((name) => name) ?? routeID,
+            shortName: route.short_name ?? '',
+            longName: route.long_name ?? null,
+            mode: modeFromRouteType(route.type),
             headsign: trip.attributes?.headsign ?? null,
             agency: 'MBTA',
             origin: names[0] ?? null,

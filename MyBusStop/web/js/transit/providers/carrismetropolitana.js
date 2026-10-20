@@ -233,6 +233,7 @@ class CarrisNetwork {
         const lineID = patternID.split('_')[0] || patternID;
         return makeLine({
             id: patternID,
+            // Carris's line ids are the public numbers (every one of its 717 lines: id "1001", short name "1001").
             shortName: this.lines[lineID] ?? lineID,
             agency: 'Carris Metropolitana',
             providerRefs: { lineId: lineID },

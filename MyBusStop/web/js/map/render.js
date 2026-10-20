@@ -13,6 +13,7 @@ import { layoutMap, wrapLabelLines } from './engine.js';
 import { chooseMapLayout } from './layout-mode.js';
 import { PRESET, READABLE_MINIMUM, MONO_ADVANCE_EM, LINE_HEIGHT_EM, charCount } from './metrics.js';
 import { THEMES, railColor, numeralColor, labelColor } from './palette.js';
+import { glyphPaths } from './glyphs.js';
 
 const NS = 'http://www.w3.org/2000/svg';
 const DIMMED = 0.45;
@@ -390,10 +391,20 @@ function drawDashCaptions(group, scene, theme, width) {
 
 /**
  * The square that carries a line number, centred on (cx, cy). A long number shrinks into the
- * padding (to half size at most) rather than running into the corners.
+ * padding (to half size at most) rather than running into the corners. A line without a number ("")
+ * carries its mode's glyph, or the neutral dot (js/map/glyphs.js), the size a figure would be.
  */
-function drawNumeral(parent, number, cx, cy, size, boxWidth, padding, color) {
-    const text = String(number);
+function drawNumeral(parent, number, cx, cy, size, boxWidth, padding, color, mode = null) {
+    const text = String(number ?? '');
+    if (!text) {
+        const side = Math.min(size * 1.25, boxWidth - 2 * padding);
+        const g = el('g', {
+            transform: `translate(${r2(cx - side / 2)} ${r2(cy - side / 2)}) scale(${r2(side / 24)})`,
+            fill: 'none', stroke: color, color, 'stroke-width': 2.2, 'stroke-linecap': 'round', 'stroke-linejoin': 'round',
+        }, parent);
+        g.innerHTML = glyphPaths(mode);
+        return g;
+    }
     const available = Math.max(1, boxWidth - 2 * padding);
     const natural = Math.max(1, charCount(text)) * NUMERAL_ADVANCE_EM * size;
     const fitted = size * Math.max(0.5, Math.min(1, available / natural));
@@ -418,7 +429,7 @@ function drawBadges(group, scene, theme) {
             rx: r2(t.cornerRadius), fill: railColor(t.colorIndex, theme.isLight),
         }, g);
         drawNumeral(g, t.number, cx, cy, Math.max(READABLE_MINIMUM, t.fontSize), side, side * 0.14,
-            numeralColor(t.colorIndex, theme.isLight));
+            numeralColor(t.colorIndex, theme.isLight), t.mode);
     }
 }
 
@@ -451,7 +462,7 @@ export function drawPuckContent(inner, puck, theme, { hitTarget = true } = {}) {
         rx: r2(puck.cornerRadius), fill: railColor(puck.colorIndex, theme.isLight),
     }, inner);
     drawNumeral(inner, puck.lineNumber, 0, 0, Math.max(READABLE_MINIMUM, puck.fontSize), w, w * 0.12,
-        numeralColor(puck.colorIndex, theme.isLight));
+        numeralColor(puck.colorIndex, theme.isLight), puck.lineMode);
     if (puck.isSelected) {
         const inset = halo + ring / 2;
         el('rect', {
@@ -526,7 +537,7 @@ function updatePucks(state, scene, theme, staleIDs, selectedScale, relayout) {
         entry.inner.style.transform = puck.isSelected ? `scale(${selectedScale})` : 'scale(1)';
         const faded = puck.dimmed || staleIDs.has(puck.id);
         entry.outer.style.opacity = faded ? String(PUCK_FADED) : '1';
-        entry.outer.setAttribute('aria-label', `Bus ${puck.lineNumber}${puck.isSelected ? ', selected' : ''}`);
+        entry.outer.setAttribute('aria-label', `${puck.lineNumber ? `Bus ${puck.lineNumber}` : puck.lineLabel ?? 'Vehicle'}${puck.isSelected ? ', selected' : ''}`);
         if (puck.isSelected) entry.outer.setAttribute('aria-pressed', 'true');
         else entry.outer.removeAttribute('aria-pressed');
     }

@@ -224,7 +224,7 @@ function parseLineKey(line) {
 function parcoursLine(v) {
     return makeLine({
         id: lineKey(v.idligne, v.sens),
-        shortName: v.nomcourtligne ?? v.idligne,
+        shortName: v.nomcourtligne ?? '', // `idligne` ("0004") is not what the bus shows
         headsign: v.nomarretarrivee ?? null,
         agency: 'STAR',
         origin: v.nomarretdepart ?? null,
@@ -242,7 +242,7 @@ function desserteLine(call) {
     if (sens === null) return null;
     return makeLine({
         id: lineKey(idligne, sens),
-        shortName: call.nomcourtligne ?? idligne,
+        shortName: call.nomcourtligne ?? '',
         agency: 'STAR',
         providerRefs: { parcours: call.idparcours },
     });

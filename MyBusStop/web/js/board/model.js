@@ -176,6 +176,11 @@ export class BoardModel {
 
     async load() {
         const { provider, stop } = this;
+        // A service's members move with the timetable; its id, colour and place on the board do not.
+        if (provider.refreshServices) {
+            const current = await provider.refreshServices(this.lines, stop);
+            current.forEach((line, i) => { if (line !== this.lines[i]) Object.assign(this.lines[i], line); });
+        }
         const outcomes = await Promise.allSettled(this.lines.map(async (line) => {
             const pattern = await staticData(this.patternKey(line), PATTERN_MAX_AGE_MS, () => provider.routePattern(line));
             const progress = await busProgress(provider, new RouteGeometry(pattern), line, stop);

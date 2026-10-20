@@ -6,10 +6,20 @@
 // these paths for this site only, and caches answers so riders polling one line share a fetch.
 
 import { Capability, TransitError, makeLine, meters, stopAddress } from '../model.js';
-import { getJSON, buildURL } from '../http.js';
+import { getJSON, buildURL, memo, staticData } from '../http.js';
 import { decodeFlexiblePolyline } from '../shapes/polyline.js';
 
 const RELAY = 'https://me-west1-busbus-ios.cloudfunctions.net/webTransit/bus-gov-il';
+/**
+ * The `routeDesc` the relay forwards (functions/src/web-agencies.ts, ROUTE_DESC): "10052-1-#". Others
+ * (Israel Railways' bare run numbers, "153") it refuses, so those routes are timed from Transitous.
+ */
+const RELAY_ROUTE_DESC = /^\d{1,6}-\d{1,2}-[0-9A-Za-z#]{1,3}$/;
+const TRANSITOUS = 'https://api.transitous.org';
+/** Departures of a stop from Transitous are shared by the board's lines for one poll, as there. */
+const TRANSITOUS_LIFETIME_MS = 15_000;
+/** Which Transitous stop is the bus.gov.il one barely ever changes. */
+const TRANSITOUS_STOP_LIFETIME_MS = 7 * 86_400_000;
 
 /** Stop names come in Hebrew, English and Arabic. Hebrew and Arabic readers get their own;
  * everyone else gets English, the one a visitor can read. */
@@ -67,19 +77,90 @@ function longName(text) {
     return { origin: place(parts[0]), destination: place(parts[1].replace(/-[0-9]+[^-]*$/, '')) };
 }
 
-function routeLine(r) {
+/** `stopid` is the stop's GTFS id, which Transitous names it by (see `transitousStop`). */
+function routeLine(r, stopid = null) {
     const ordered = r.stops ? [...r.stops].sort((a, b) => a.stopSequence - b.stopSequence) : null;
     const placeOf = (s) => [preferred(s.name), city(s.cityName)].filter(Boolean).join(', ');
     const named = longName(r.routeLongName);
+    const refs = r.routeDesc ? { routeDesc: r.routeDesc } : {};
+    if (stopid != null) refs.stopid = String(stopid);
     return makeLine({
         id: String(r.routeId),
+        // Israel Railways' routes have none; a bus's is what it shows. bus.gov.il states no mode.
         shortName: r.routeName,
+        longName: named.origin && named.destination ? `${named.origin} – ${named.destination}` : r.routeLongName,
         headsign: preferred(r.headsign),
         agency: r.agencyName ?? null,
         origin: ordered?.length ? placeOf(ordered[0]) : named.origin ?? null,
         destination: ordered?.length ? placeOf(ordered[ordered.length - 1]) : named.destination ?? null,
-        providerRefs: r.routeDesc ? { routeDesc: r.routeDesc } : {},
+        providerRefs: refs,
     });
+}
+
+/**
+ * Whether a rider can board the route at this stop. Each of the route's stops carries `isPickup` and
+ * `isDropoff` in GTFS's "not available" sense: every route checked (29 from Nahariya's bus station
+ * platforms, 26 at its set-down stop, 7 at a junction, 99 Israel Railways runs) has `isDropoff` at its
+ * first stop and `isPickup` at its last, and the set-down stop has `isPickup` on all of its routes.
+ * A route that calls here more than once (a loop) is boardable if any call is.
+ */
+function boardsAt(r, stopCode) {
+    const calls = (r.stops ?? []).filter((s) => String(s.stopcode) === stopCode);
+    return !calls.length || calls.some((s) => s.isPickup !== true);
+}
+
+/**
+ * The Transitous stop that is this bus.gov.il stop, from the Ministry's own ids in both: Transitous
+ * publishes the stop's code (bus.gov.il's `stopcode`) and names it `<feed>_<stopid>`, so the feed's
+ * prefix there is what comes before the stopid, and a route is `<prefix><routeId>`. One look in a
+ * small box around the stop, kept a week; null when none matches, so nothing is guessed.
+ */
+function transitousStop(stop, stopid) {
+    return staticData(`bus.gov.il:transitous-stop:${stop.code}:${stopid}`, TRANSITOUS_STOP_LIFETIME_MS, async () => {
+        const d = 0.002; // about 200 m
+        const places = await getJSON(buildURL(TRANSITOUS, '/api/v6/map/stops', {
+            min: `${(stop.location.lat - d).toFixed(5)},${(stop.location.lon - d).toFixed(5)}`,
+            max: `${(stop.location.lat + d).toFixed(5)},${(stop.location.lon + d).toFixed(5)}`,
+            grouped: 'false',
+        }));
+        const suffix = `_${stopid}`;
+        const place = (places ?? []).find((p) => String(p.stopCode ?? '') === stop.code && String(p.stopId ?? '').endsWith(suffix));
+        return place ? { stopId: place.stopId, prefix: place.stopId.slice(0, -String(stopid).length) } : null;
+    });
+}
+
+/**
+ * Times for routes bus.gov.il cannot time in one request (a service of many runs) or through the
+ * relay (a bare run number): one Transitous stoptimes call for the stop, shared by the board's lines
+ * for the poll and kept to the routes asked for. No mode filter: these are not always buses.
+ */
+async function transitousArrivals(routeIDs, stopid, stop) {
+    if (!stopid) throw new TransitError('unsupported', `no Transitous stop for ${stop.code}`);
+    const mapped = await transitousStop(stop, stopid);
+    if (!mapped) throw new TransitError('notFound', `Transitous stop for ${stop.code}`);
+    const wanted = new Set(routeIDs.map((id) => `${mapped.prefix}${id}`));
+    const reply = await memo(`bus.gov.il:transitous:${mapped.stopId}`, TRANSITOUS_LIFETIME_MS, () => getJSON(buildURL(TRANSITOUS, '/api/v6/stoptimes', {
+        stopId: mapped.stopId, window: '5400', n: '20', withAlerts: 'false', language: language(),
+    })));
+    const calls = new Map();
+    for (const d of reply?.stopTimes ?? []) {
+        if (!wanted.has(d.routeId) || d.cancelled === true || d.tripCancelled === true) continue;
+        if (d.place?.cancelled === true || d.place?.pickupType === 'NOT_ALLOWED') continue;
+        // A trip calling at two platforms of the stop is kept once, at the stop itself when it calls there.
+        const kept = calls.get(d.tripId);
+        if (!kept || (d.place?.stopId === mapped.stopId && kept.place?.stopId !== mapped.stopId)) calls.set(d.tripId, d);
+    }
+    const date = (text) => (text ? new Date(text) : null);
+    return [...calls.values()].flatMap((d) => {
+        const expectedAt = date(d.place.departure ?? d.place.arrival);
+        if (!expectedAt || Number.isNaN(expectedAt.getTime())) return [];
+        return [{
+            expectedAt,
+            scheduledAt: date(d.place.scheduledDeparture ?? d.place.scheduledArrival),
+            isRealtime: d.realTime === true,
+            tripId: d.tripId ?? null,
+        }];
+    }).sort((a, b) => a.expectedAt - b.expectedAt);
 }
 
 /** Times come as Israel local time without an offset: "2026-09-17T05:59:26". */
@@ -132,9 +213,16 @@ export default {
         return ((await get(planner(), '/AutoComplete/SearchStations', { searchTerm: q })) ?? []).map(searchStation);
     },
 
+    /**
+     * The routes a rider can board here. The ones calling at the most stops come first, so a service
+     * of many runs is drawn from its fullest one (js/transit/services.js).
+     */
     async linesAtStop(stop) {
         const data = await get(scheduler(), '/Stops/GetStopFullData', { stopCode: stop.code });
-        return (data?.routesInStop ?? []).map(routeLine);
+        return (data?.routesInStop ?? [])
+            .filter((r) => boardsAt(r, String(stop.code)))
+            .sort((a, b) => (b.stops?.length ?? 0) - (a.stops?.length ?? 0))
+            .map((r) => routeLine(r, data.stopid ?? null));
     },
 
     async routePattern(line) {
@@ -167,8 +255,18 @@ export default {
         return (data ?? []).map((p) => ({ location: { lat: p.lat, lon: p.lng } }));
     },
 
+    /** A service of several runs: one Transitous call for the stop times them all. */
+    serviceArrivals(service, stop, members) {
+        const only = members.length === 1 ? members[0] : null;
+        if (only && RELAY_ROUTE_DESC.test(only.providerRefs?.routeDesc ?? '')) return this.arrivals(only, stop);
+        return transitousArrivals(members.map((m) => m.id), service.providerRefs?.stopid, stop);
+    },
+
     async arrivals(line, stop) {
         const routeDesc = line.providerRefs?.routeDesc;
+        if (routeDesc && !RELAY_ROUTE_DESC.test(routeDesc) && line.providerRefs?.stopid) {
+            return transitousArrivals([line.id], line.providerRefs.stopid, stop);
+        }
         if (!routeDesc) throw new TransitError('unsupported', `line ${line.id} has no routeDesc`);
         // A stop with no departures left today (late at night, on Shabbat) comes back as
         // {"41122": null}: an empty board, not a broken feed.

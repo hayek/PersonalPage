@@ -8,7 +8,7 @@
 
 import { h, icon, badge, colorIndexFor } from '../ui.js';
 import { staticData } from '../transit/http.js';
-import { compareLineNames } from '../transit/model.js';
+import { compareLines, isNumbered, lineLabel, lineTitle } from '../transit/model.js';
 import { loadProvider } from '../transit/providers/index.js';
 import { hasRouteShape } from '../transit/shapes/route-shape.js';
 import { presentSheet } from './sheet.js';
@@ -84,15 +84,17 @@ export function showStopCard({ stop, providerID, provider = null, linesAtStop, l
             const wa = watchedIDs.indexOf(a.id);
             const wb = watchedIDs.indexOf(b.id);
             if (wa >= 0 || wb >= 0) return (wa < 0 ? Infinity : wa) - (wb < 0 ? Infinity : wb);
-            return compareLineNames(a.shortName, b.shortName);
+            return compareLines(a, b);
         });
         linesBody.replaceChildren(h('ul', { class: 'stop-card-line-list' }, sorted.map((line) => {
             const isWatched = watchedIDs.includes(line.id);
-            const towards = line.destination ?? line.headsign ?? null;
+            // A line without a number is named by where it goes, and who runs it.
+            const towards = isNumbered(line) ? line.destination ?? line.headsign ?? null
+                : [lineTitle(line), line.agency].filter(Boolean).join(' · ') || null;
             // Only where the line's road can be drawn; otherwise there is no card worth opening.
             const about = owner && hasRouteShape(owner, line)
                 ? h('button', {
-                    class: 'line-info', 'aria-label': `About line ${line.shortName}`, title: 'Route and stops',
+                    class: 'line-info', 'aria-label': `About ${lineLabel(line)}`, title: 'Route and stops',
                     onclick: () => showLineCard({ line, provider: owner, stopCode: stop.code }),
                 }, icon('info', 20))
                 : null;
@@ -108,7 +110,8 @@ export function showStopCard({ stop, providerID, provider = null, linesAtStop, l
         show(lines);
     } else if (linesAtStop) {
         linesBody.replaceChildren(h('p', { class: 'stop-card-quiet' }, h('i', { class: 'spinner', 'aria-hidden': 'true' }), 'LOADING LINES…'));
-        staticData(`lines:${providerID}:${stop.code}`, LINES_MAX_AGE_MS, linesAtStop)
+        // v2: lines without a number come merged into services, and lines that cannot be boarded here are left out.
+        staticData(`lines.v2:${providerID}:${stop.code}`, LINES_MAX_AGE_MS, linesAtStop)
             .then(show)
             .catch((error) => {
                 console.warn('[stop card] lines', error);

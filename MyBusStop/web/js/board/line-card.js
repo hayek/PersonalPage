@@ -9,6 +9,7 @@
 // instead: a straight line through the houses is worse than no line.
 
 import { h, icon, badge, colorIndexFor, isLightTheme } from '../ui.js';
+import { isNumbered, lineTitle } from '../transit/model.js';
 import { railColor } from '../map/index.js';
 import { staticData } from '../transit/http.js';
 import { loadRouteShape } from '../transit/shapes/route-shape.js';
@@ -47,7 +48,7 @@ export function showLineCard({ line, provider, stopCode = null, colorIndex = nul
         h('header', { class: 'stop-card-head' },
             badge(line, colorIndex ?? colorIndexFor(provider.id, line), 'small'),
             h('div', { class: 'stop-card-title' },
-                h('p', { class: 'caption' }, [`LINE ${line.shortName}`, line.agency].filter(Boolean).join(' · ')),
+                h('p', { class: 'caption' }, [isNumbered(line) ? `LINE ${line.shortName}` : null, line.agency].filter(Boolean).join(' · ')),
                 title,
                 subtitle),
             close),
@@ -194,6 +195,7 @@ export function closeLineCard() {
 
 /** Where the line goes, named as in the row it was opened from, or its number when the feed says nothing. */
 function titleFor(line, stops) {
+    if (!isNumbered(line)) return lineTitle(line) ?? stops.at(-1)?.name ?? line.agency ?? 'Unnamed service';
     return line.destination ?? line.headsign ?? stops.at(-1)?.name ?? `Line ${line.shortName}`;
 }
 

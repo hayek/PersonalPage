@@ -11,7 +11,7 @@
 // stop flag is accepted by search and resolved to its NaPTAN id. Bus stops are one-directional, so a
 // line at a stop is one TransitLine per direction ("88:inbound").
 
-import { Capability, TransitError, makeLine, meters } from '../model.js';
+import { Capability, TransitError, makeLine, meters, modeNamed } from '../model.js';
 import { getJSON } from '../http.js';
 import { decodePolyline, encodePolyline } from '../shapes/polyline.js';
 import { bestPiece, length } from '../shapes/shape-check.js';
@@ -21,6 +21,7 @@ const BASE = 'https://api.tfl.gov.uk';
 const get = (path, query) => getJSON(BASE + path, query ? { query } : {});
 
 /** Night routes have lower-case ids ("n15"); the blinds say "N15". */
+/** A bus line's id is its route number in lower case ("n18"), so upper-cased it is what the bus shows. */
 const displayName = (lineId) => String(lineId).toUpperCase();
 
 /** "Oxford Circus Station (Stop RC)". Stops without a letter publish an arrow ("->W") instead. */
@@ -56,6 +57,7 @@ function sectionLine(section, naptanId) {
     return makeLine({
         id: `${section.lineId}:${section.direction}`,
         shortName: displayName(section.lineId),
+        mode: modeNamed(section.mode),
         headsign: section.vehicleDestinationText ?? destination ?? null,
         agency: 'TfL',
         origin,

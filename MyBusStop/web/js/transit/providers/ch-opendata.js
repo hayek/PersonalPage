@@ -98,6 +98,7 @@ const provider = {
         const seen = new Set();
         const lines = [];
         for (const entry of b.stationboard) {
+            // The board finds a line's trips by number and destination, so an entry without either cannot be followed.
             if (!entry.number || !entry.to) continue;
             const key = `${entry.number}>${entry.to}`;
             if (seen.has(key)) continue;
@@ -105,6 +106,7 @@ const provider = {
             lines.push(makeLine({
                 id: key,
                 shortName: entry.number,
+                mode: typeOf(entry.category), // the board asks for buses and trams only; the category says which
                 headsign: entry.to,
                 agency: entry.operator ? entry.operator.split(' ')[0] : null,
                 destination: entry.to,

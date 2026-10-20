@@ -12,6 +12,7 @@
 // road between the stops they are between. A line whose road is not known is simply not on it.
 
 import { h, icon, badge, isLightTheme } from '../ui.js';
+import { lineLabel } from '../transit/model.js';
 import {
     layoutFullRoute, centreOnUserStop, clampOffset, minimapPoint, minimapWindow, minimapOffset, FOCUS, stepBus,
     chooseMapLayout, AXIS, READABLE_MINIMUM, THEMES, railColor, numeralColor, labelColor,
@@ -81,8 +82,8 @@ export function openFullRoute({ stopName, read, onStopTap, routeMap = null }) {
     const badges = routeMap ? h('div', { class: 'fr-badges' }, routeMap.lines.map((line) => {
         const mark = badge(line, routeMap.colorIndex(line.id), 'small');
         return mapLines.includes(line)
-            ? h('button', { class: 'fr-badge', 'aria-label': `About line ${line.shortName}`, title: 'Route and stops', onclick: () => routeMap.onAboutLine(line) }, mark)
-            : h('span', { class: 'fr-badge', role: 'img', 'aria-label': `Line ${line.shortName}` }, mark);
+            ? h('button', { class: 'fr-badge', 'aria-label': `About ${lineLabel(line)}`, title: 'Route and stops', onclick: () => routeMap.onAboutLine(line) }, mark)
+            : h('span', { class: 'fr-badge', role: 'img', 'aria-label': capitalized(lineLabel(line)) }, mark);
     })) : null;
 
     // The strip or the map: two halves of one control, offered only when some line has a road.
@@ -204,7 +205,7 @@ export function openFullRoute({ stopName, read, onStopTap, routeMap = null }) {
         svg.setAttribute('width', width);
         svg.setAttribute('height', height);
         svg.setAttribute('role', 'group');
-        svg.setAttribute('aria-label', `${scene.lines.length === 1 ? 'Line' : 'Lines'} ${scene.lines.map((l) => l.number).join(', ')}, every stop`);
+        svg.setAttribute('aria-label', `${scene.lines.length === 1 ? 'Line' : 'Lines'} ${scene.lines.map((l) => l.label ?? l.number).join(', ')}, every stop`);
         svg.replaceChildren();
 
         const rails = el('g', { 'pointer-events': 'none' }, svg);
@@ -236,11 +237,11 @@ export function openFullRoute({ stopName, read, onStopTap, routeMap = null }) {
         const side = scene.badgeSide;
         const { x, y } = line.badgeCenter;
         el('rect', { x: x - side / 2, y: y - side / 2, width: side, height: side, rx: side * 0.23, fill: color }, group);
-        drawNumeral(group, line.number, x, y, 17, side, side * 0.14, numeralColor(line.colorIndex, theme.isLight));
+        drawNumeral(group, line.number, x, y, 17, side, side * 0.14, numeralColor(line.colorIndex, theme.isLight), line.mode);
     }
 
     function drawStop(group, stop, theme) {
-        const numbers = stop.lineIDs.map((id) => scene.lines.find((l) => l.lineID === id)?.number ?? id);
+        const numbers = stop.lineIDs.map((id) => scene.lines.find((l) => l.lineID === id)?.label ?? id);
         const g = el('g', {
             class: 'fr-stop map-stop', 'data-stop-code': stop.code, role: 'button', tabindex: 0,
             'aria-label': `${stop.name}, ${numbers.length === 1 ? 'line' : 'lines'} ${numbers.join(' and ')}${stop.role === 'userStop' ? ', your stop' : ''}`,
@@ -448,7 +449,7 @@ export function openFullRoute({ stopName, read, onStopTap, routeMap = null }) {
         if (bus) {
             // Emptied first, so the same words said twice are still said.
             announcer.textContent = '';
-            requestAnimationFrame(() => { announcer.textContent = `Bus ${bus.lineNumber}`; });
+            requestAnimationFrame(() => { announcer.textContent = bus.lineNumber ? `Bus ${bus.lineNumber}` : bus.lineLabel ?? 'Vehicle'; });
         }
     }
 
@@ -702,3 +703,5 @@ export function openFullRoute({ stopName, read, onStopTap, routeMap = null }) {
 export function closeFullRoute() {
     current?.close();
 }
+
+const capitalized = (text) => text.charAt(0).toUpperCase() + text.slice(1);

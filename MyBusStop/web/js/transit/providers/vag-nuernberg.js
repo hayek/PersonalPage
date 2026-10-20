@@ -13,7 +13,7 @@
 // catalogue: a line is a board entry's product, number and direction ("Tram 4, Richtung2"), and its
 // ordered stops are one live trip of it, read whole from the Fahrten API.
 
-import { Capability, TransitError, makeLine, meters } from '../model.js';
+import { Capability, TransitError, makeLine, meters, modeNamed } from '../model.js';
 import { getJSON } from '../http.js';
 
 const BASE = 'https://start.vag.de/dm/api/v1';
@@ -128,7 +128,7 @@ const provider = {
             if (headsign != null) refs.headsign = headsign;
             if (first.Fahrtnummer != null) refs.trip = String(first.Fahrtnummer);
             if (first.Betriebstag != null) refs.day = first.Betriebstag;
-            lines.push(makeLine({ id: key, shortName: first.Linienname, headsign, agency: 'VAG', destination: headsign, providerRefs: refs }));
+            lines.push(makeLine({ id: key, shortName: first.Linienname, mode: modeNamed(first.Produkt), headsign, agency: 'VAG', destination: headsign, providerRefs: refs }));
         }
         return lines;
     },

@@ -226,7 +226,7 @@ export function layoutFullRoute({ lines: input, userStopCode = null, vehicles = 
         });
         const badgeAlong = along[columnOf[line][0]] - F.badgeSide / 2 - 14 - badgeStack[line] * (F.badgeSide + 6);
         return {
-            lineID: l.id, number: l.number, colorIndex: l.colorIndex,
+            lineID: l.id, number: l.number, mode: l.mode ?? null, label: l.label ?? l.number, colorIndex: l.colorIndex,
             badgeCenter: point(badgeAlong, across[line][0]),
             stopCenters: centers, segments, userStopIndex: userIndex[line],
         };
@@ -320,7 +320,7 @@ export function layoutFullRoute({ lines: input, userStopCode = null, vehicles = 
             ? segmentPoint(route.segments[index], vehicle.progressToNext ?? 0)
             : route.stopCenters[index];
         pucks.push({
-            id: vehicle.id, vehicleID: vehicle.id, lineID: route.lineID, lineNumber: route.number,
+            id: vehicle.id, vehicleID: vehicle.id, lineID: route.lineID, lineNumber: route.number, lineMode: route.mode, lineLabel: route.label,
             colorIndex: route.colorIndex, center, size: { width: 44, height: 34 }, cornerRadius: 10,
             fontSize: 18, haloWidth: 4, ringWidth: 4, isSelected: !!vehicle.isSelected, dimmed: false,
         });

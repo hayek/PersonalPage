@@ -37,7 +37,8 @@ function departureLine(departure) {
     if (departure.direction_text != null) refs.directionText = departure.direction_text;
     return makeLine({
         id: `${route}-${direction}`,
-        shortName: departure.route_short_name ?? route,
+        // `route_id` is no number to show: the Blue Line's is 901.
+        shortName: departure.route_short_name ?? '',
         headsign: departure.description ?? null,
         agency: departure.agency_id != null ? (AGENCIES[departure.agency_id] ?? null) : null,
         providerRefs: refs,

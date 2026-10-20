@@ -1,9 +1,9 @@
 // PICK UP TO 3 LINES TO WATCH: every line that calls at the stop, as chips. A line whose road can
 // be drawn has an ⓘ in its chip's corner, which opens its card: the route on a map and its stops.
 
-import { h, icon, lineKey, isLightTheme, colorIndexFor } from '../ui.js';
+import { h, icon, lineKey, isLightTheme, colorIndexFor, modeGlyph } from '../ui.js';
 import { store } from '../storage.js';
-import { compareLineNames } from '../transit/model.js';
+import { compareLines, isNumbered, lineLabel, lineTitle } from '../transit/model.js';
 import { assignLineColors, railColor, numeralColor } from '../map/index.js';
 import { session, go } from '../main.js';
 import { friendly } from './stops.js';
@@ -11,6 +11,21 @@ import { hasRouteShape } from '../transit/shapes/route-shape.js';
 import { showLineCard, closeLineCard } from '../board/line-card.js';
 
 const MAX_LINES = 3;
+
+/**
+ * A numbered line is its number over where it goes. One without a number is its mode's glyph (or a
+ * neutral dot) over where it goes, set larger since that is now its name, and who runs it.
+ */
+function chipName(line) {
+    if (isNumbered(line)) {
+        return [h('span', { class: 'chip-number' }, line.shortName),
+            h('span', { class: 'chip-dest', dir: 'auto' }, line.destination ?? line.headsign ?? line.agency ?? '')];
+    }
+    const title = lineTitle(line);
+    return [h('span', { class: 'chip-number chip-glyph' }, modeGlyph(line.mode)),
+        h('span', { class: 'chip-title', dir: 'auto' }, title ?? line.agency ?? 'Unnamed service'),
+        title && line.agency ? h('span', { class: 'chip-dest', dir: 'auto' }, line.agency) : null];
+}
 
 export function showLines(root) {
     const { provider, stop, region } = session;
@@ -54,13 +69,12 @@ export function showLines(root) {
                     render();
                 },
             },
-            h('span', { class: 'chip-number' }, line.shortName),
-            on ? h('span', { class: 'chip-check', style: { '--check': railColor(color, light) } }, icon('check', 16)) : null,
-            h('span', { class: 'chip-dest', dir: 'auto' }, line.destination ?? line.headsign ?? line.agency ?? ''));
+            ...chipName(line),
+            on ? h('span', { class: 'chip-check', style: { '--check': railColor(color, light) } }, icon('check', 16)) : null);
             if (!hasRouteShape(provider, line)) return chip;
             // Beside the chip's button rather than inside it: the chip picks the line, the ⓘ opens its card.
             const about = h('button', {
-                class: 'chip-info', 'aria-label': `About line ${line.shortName}`, title: 'Route and stops',
+                class: 'chip-info', 'aria-label': `About ${lineLabel(line)}`, title: 'Route and stops',
                 style: on ? { color: numeralColor(color, light) } : null,
                 onclick: () => showLineCard({ line, provider, stopCode: stop.code, colorIndex: color ?? colorIndexFor(provider.id, line) }),
             }, icon('info', 20));
@@ -96,7 +110,7 @@ export function showLines(root) {
 
     provider.linesAtStop(stop).then((found) => {
         if (cancelled) return;
-        lines = [...found].sort((a, b) => compareLineNames(a.shortName, b.shortName));
+        lines = [...found].sort(compareLines);
         for (const line of session.preselected) {
             const match = lines.find((l) => l.id === line.id);
             if (match && selected.length < MAX_LINES) selected.push(match);

@@ -79,7 +79,8 @@ export const AxisTransform = {
 
 /**
  * @param {object} request
- * @param {Array<{id:string, number:string, colorIndex:number, stops:Array<{code:string,name:string}>}>} request.lines
+ * @param {Array<{id:string, number:string, mode?:string|null, label?:string, colorIndex:number, stops:Array<{code:string,name:string}>}>} request.lines
+ *   `number` is "" for a line without one, which carries its `mode`'s glyph instead; `label` names it in words
  *   selection order, 1…3; each line's stops run terminus first … user's stop LAST.
  * @param {string} request.trunkLineID
  * @param {string} request.userStopCode
@@ -760,6 +761,7 @@ function terminusMarks(layouts, metrics) {
             cornerRadius: metrics.terminusCornerRadius,
             style: metrics.terminusIsBadge ? 'badge' : 'bar',
             number: layout.line.number,
+            mode: layout.line.mode ?? null,
             fontSize: metrics.terminusFontSize,
             dimmed: layout.dimmed,
         };
@@ -787,7 +789,8 @@ function puckMarks(layouts, req, nodeAlong, metrics) {
         const across = railAcrossAt(layout.segments, along);
         pucks.push({
             id: vehicle.id, vehicleID: vehicle.id, lineID: layout.line.id,
-            lineNumber: layout.line.number, colorIndex: layout.line.colorIndex,
+            lineNumber: layout.line.number, lineMode: layout.line.mode ?? null,
+            lineLabel: layout.line.label ?? layout.line.number, colorIndex: layout.line.colorIndex,
             center: pt(along, across), size,
             cornerRadius: metrics.puckCornerRadius, fontSize: metrics.puckFontSize,
             haloWidth: metrics.puckHalo, ringWidth: metrics.puckRing,

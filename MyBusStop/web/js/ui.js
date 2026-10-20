@@ -1,7 +1,9 @@
 // Small DOM and formatting helpers shared by the screens.
 
 import { railColor, numeralColor } from './map/index.js';
+import { glyphPaths } from './map/glyphs.js';
 import { store } from './storage.js';
+import { isNumbered, lineLabel, lineTitle } from './transit/model.js';
 
 /** h('div', {class: 'x', onclick}, child, 'text', [more]) — a tiny element builder. */
 export function h(tag, attrs = {}, ...children) {
@@ -81,15 +83,34 @@ export function hashedColorIndex(lineID) {
     return Number(hash % 12n);
 }
 
-/** A line number on its colour, the way every list and the readout show it. */
+/**
+ * A line number on its colour, the way every list and the readout show it. A line without a number
+ * carries its mode's glyph instead, or a neutral dot when the feed states no mode — never a blank.
+ */
 export function badge(line, colorIndex, size = 'small') {
     const light = isLightTheme();
-    const name = String(line.shortName ?? '?');
-    return h('span', {
-        class: `badge badge-${size}${name.length > 3 ? ' badge-long' : ''}`,
-        style: { background: railColor(colorIndex, light), color: numeralColor(colorIndex, light) },
-    }, name);
+    const style = { background: railColor(colorIndex, light), color: numeralColor(colorIndex, light) };
+    if (!isNumbered(line)) {
+        return h('span', { class: `badge badge-${size} badge-glyph`, style, role: 'img', 'aria-label': lineLabel(line) }, modeGlyph(line.mode));
+    }
+    const name = String(line.shortName).trim();
+    return h('span', { class: `badge badge-${size}${name.length > 3 ? ' badge-long' : ''}`, style }, name);
 }
+
+/** A mode's glyph (js/map/glyphs.js) as an inline icon, sized by the text around it (1em). */
+export function modeGlyph(mode) {
+    const span = document.createElement('span');
+    span.className = 'icon mode-glyph';
+    span.setAttribute('aria-hidden', 'true');
+    span.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">${glyphPaths(mode)}</svg>`;
+    return span;
+}
+
+/** How a list names a line in a few characters: its number, else where it goes. */
+export const lineShortLabel = (line) => (isNumbered(line) ? String(line.shortName).trim() : lineTitle(line) ?? line?.agency ?? 'a service');
+
+/** The caption under an unnumbered line's name: who runs it. Null for a numbered line, as before. */
+export const serviceCaption = (line) => (isNumbered(line) ? null : line?.agency ?? null);
 
 /** "09:41" or "9:41 AM", as the rider's browser writes times. */
 export function clockTime(date) {

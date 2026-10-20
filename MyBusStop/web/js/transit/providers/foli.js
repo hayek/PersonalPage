@@ -9,7 +9,7 @@
 // of its trip, so a line here is one GTFS route in one direction and live data is matched on those two
 // rather than on the public line number (which the `…A`/`…T` variants share with their base line).
 
-import { Capability, TransitError, compareLineNames, fold, makeLine, meters } from '../model.js';
+import { Capability, TransitError, compareLineNames, fold, makeLine, meters, modeFromRouteType } from '../model.js';
 import { ResponseError, getJSON, staticData } from '../http.js';
 
 const BASE = 'https://data.foli.fi';
@@ -52,13 +52,13 @@ async function tripsTable() {
     });
 }
 
-/** route_id → route_short_name. */
+/** route_id → [route_short_name, route_long_name, route_type]. */
 async function routesTable() {
     const v = await version();
-    return staticData(`foli:routes:${v}`, DAY, async () => {
+    return staticData(`foli:routes.v2:${v}`, DAY, async () => {
         const raw = await getJSON(`${BASE}/gtfs/v0/${v}/routes`);
         const out = {};
-        for (const r of raw ?? []) if (!(r.route_id in out)) out[r.route_id] = r.route_short_name;
+        for (const r of raw ?? []) if (!(r.route_id in out)) out[r.route_id] = [r.route_short_name ?? '', r.route_long_name ?? null, r.route_type ?? null];
         return out;
     });
 }
@@ -78,7 +78,7 @@ function mostCommon(values) {
     return best;
 }
 
-function makeFoliLine(routeID, shortName, trips) {
+function makeFoliLine(routeID, [shortName, longName, routeType], trips) {
     // The most travelled shape through this stop stands for the direction; its commonest headsign
     // names it ("Satama", "Lentoasema").
     const shape = mostCommon(trips.map((t) => t.shape ?? ''));
@@ -90,6 +90,8 @@ function makeFoliLine(routeID, shortName, trips) {
     const line = makeLine({
         id: `${routeID}/${direction}`,
         shortName,
+        longName,
+        mode: modeFromRouteType(routeType),
         headsign,
         agency: 'Föli',
         origin: null,
@@ -172,9 +174,9 @@ const provider = {
         }
         const lines = [];
         for (const { routeID, trips: list } of groups.values()) {
-            const shortName = routes[routeID];
-            if (shortName == null) continue;
-            lines.push(makeFoliLine(routeID, shortName, list));
+            const route = routes[routeID];
+            if (route == null) continue;
+            lines.push(makeFoliLine(routeID, route, list));
         }
         return lines.sort((a, b) => (a.shortName === b.shortName ? (a.id < b.id ? -1 : a.id > b.id ? 1 : 0) : compareLineNames(a.shortName, b.shortName)));
     },

@@ -95,7 +95,7 @@ export function umoNextBusProvider(agency) {
         const tags = many(direction.stop);
         return makeLine({
             id: `${route.tag}|${direction.tag}`,
-            shortName: route.tag,
+            shortName: route.tag, // a route's tag is its public number (TTC "504")
             headsign: headsign(direction),
             agency: agency.shortName,
             origin: tags.length ? stops.get(tags[0].tag)?.title ?? null : null,

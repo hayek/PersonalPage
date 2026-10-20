@@ -51,7 +51,7 @@ function patternLine(pattern) {
     if (id) refs.patternId = id;
     return makeLine({
         id: `${lineName}/${direction}`,
-        shortName: lineName,
+        shortName: lineName, // the journeys API names a line by its public number ("lines/3A")
         headsign: last,
         agency: 'Nysse',
         origin: first,

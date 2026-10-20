@@ -13,7 +13,7 @@
 // is accepted. Stop ids are `<feed>_<gtfs stop_id>`; there is no search by the code printed on the
 // sign, only by name. Buses and trams only. Every endpoint answers CORS with `*`.
 
-import { Capability, TransitError, makeLine, meters, stopAddress } from '../model.js';
+import { Capability, TransitError, makeLine, meters, modeFromMotis, stopAddress } from '../model.js';
 import { ResponseError, getJSON, memo } from '../http.js';
 import { decodePolyline } from '../shapes/polyline.js';
 
@@ -54,7 +54,15 @@ function placeStop(place) {
 
 const servesBusOrTram = (place) => (place.modes ?? []).some((mode) => BUS_MODES.has(mode));
 
-const lineName = (departure) => [departure.routeShortName, departure.displayName].find((name) => name) ?? '?';
+/**
+ * The route's own short name, or "" when the feed has none. Not `displayName`: for a route without a
+ * short name MOTIS falls back to the long name, or to one trip's number (SNCF's "TER 852058"), and
+ * neither is the line's number.
+ */
+const lineName = (route) => route.routeShortName ?? '';
+
+/** A call the feed marks as set-down only (MOTIS `pickupType`): nothing a rider can board. */
+const noPickup = (departure) => departure.place?.pickupType === 'NOT_ALLOWED';
 
 const isCancelled = (departure) => departure.cancelled === true || departure.tripCancelled === true;
 
@@ -130,6 +138,11 @@ export default {
     /** A line's path has no names in it. */
     shapeDatasetID: 'transitous',
     reportsShadowTrips: false,
+    /**
+     * A service's members are the routes departing in the next 90 minutes, read off the departures
+     * the board's poll fetches anyway, so they are brought up to date as often at no cost.
+     */
+    servicesLifetimeMs: DEPARTURES_LIFETIME_MS,
 
     async searchStops(query) {
         const text = String(query ?? '').trim();
@@ -153,6 +166,7 @@ export default {
     async linesAtStop(stop) {
         const groups = new Map();
         for (const departure of await departures(stop.code)) {
+            if (noPickup(departure)) continue;
             const key = lineID(departure);
             if (!groups.has(key)) groups.set(key, []);
             groups.get(key).push(departure);
@@ -170,7 +184,8 @@ export default {
             if (first.directionId != null) refs.directionId = String(first.directionId);
             if (headsign != null) refs.headsign = headsign;
             return makeLine({
-                id: key, shortName: lineName(first), headsign, agency: first.agencyName ?? null,
+                id: key, shortName: lineName(first), longName: first.routeLongName, mode: modeFromMotis(first.mode),
+                headsign, agency: first.agencyName ?? null,
                 origin: typical.tripFrom?.name ?? null, destination: typical.tripTo?.name ?? headsign,
                 providerRefs: refs,
             });
@@ -201,7 +216,7 @@ export default {
     async arrivals(line, stop) {
         const calls = new Map();
         for (const departure of await departures(stop.code)) {
-            if (lineID(departure) !== line.id || isCancelled(departure) || departure.place?.cancelled === true) continue;
+            if (lineID(departure) !== line.id || isCancelled(departure) || departure.place?.cancelled === true || noPickup(departure)) continue;
             const kept = calls.get(departure.tripId);
             if (!kept) {
                 calls.set(departure.tripId, departure);
@@ -247,17 +262,20 @@ export default {
             .slice(0, 8);
         const found = await Promise.all(candidates.map(async ({ stop, distance }) => {
             const info = await get('/api/v6/stop', { stopId: stop.code, language: lang });
+            // One badge per number; routes without one are each their own here, and the ones a rider
+            // cannot tell apart become one service (js/transit/services.js), not one blank badge for all.
             const seen = new Set();
             const lines = (info?.routes ?? [])
                 .filter((route) => BUS_MODES.has(route.mode ?? ''))
                 .filter((route) => {
-                    const key = route.routeShortName ?? route.routeId;
+                    const key = lineName(route).trim() || `route:${route.routeId}`;
                     if (seen.has(key)) return false;
                     seen.add(key);
                     return true;
                 })
                 .map((route) => makeLine({
-                    id: route.routeId, shortName: route.routeShortName ?? '?', agency: route.agencyName ?? null,
+                    id: route.routeId, shortName: lineName(route), longName: route.routeLongName,
+                    mode: modeFromMotis(route.mode), agency: route.agencyName ?? null,
                 }));
             return lines.length ? { stop, distanceMeters: distance, lines } : null;
         }));

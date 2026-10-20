@@ -13,7 +13,7 @@
 //
 // Ruter (Oslo/Akershus) does not feed vehicle positions to Entur, so Oslo lines have arrivals only.
 
-import { Capability, TransitError, compareLineNames, makeLine, meters } from '../model.js';
+import { Capability, TransitError, compareLineNames, makeLine, meters, modeNamed } from '../model.js';
 import { ResponseError, getJSON, memo, postJSON, serviceDate } from '../http.js';
 import { decodePolyline } from '../shapes/polyline.js';
 
@@ -73,7 +73,7 @@ const CALL_FIELDS = 'destinationDisplay { frontText } serviceJourney { journeyPa
 
 function linesFields(soon) {
     return `quays(filterByInUse: true) { journeyPatterns { id directionType
-          line { id publicCode transportMode authority { name } } } }
+          line { id publicCode name transportMode authority { name } } } }
         soon: estimatedCalls(numberOfDepartures: ${soon}, timeRange: 86400) { ${CALL_FIELDS} }`;
 }
 
@@ -132,7 +132,10 @@ function linesOf(groups, stopCode) {
             trips,
             line: makeLine({
                 id: `${key}#${stopCode}`,
-                shortName: group.line.publicCode ?? group.line.id,
+                // A few lines have no public code; their id ("RUT:Line:1234") is no number to show.
+                shortName: group.line.publicCode ?? '',
+                longName: group.line.name ?? null,
+                mode: modeNamed(group.line.transportMode),
                 headsign,
                 agency: group.line.authority?.name ?? null,
                 destination: headsign,

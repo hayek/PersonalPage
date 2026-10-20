@@ -1,7 +1,8 @@
 // The board: the stop's name and the clock, the route map with the buses on it, and the readout —
 // the next arrival in big numbers, then the one after it.
 
-import { h, icon, badge, colorIndexFor, isLightTheme, clockTime, countdown, delayPhrase, lastStopPhrase, plural } from '../ui.js';
+import { h, icon, badge, colorIndexFor, isLightTheme, clockTime, countdown, delayPhrase, lastStopPhrase, plural, lineShortLabel, serviceCaption } from '../ui.js';
+import { isNumbered, lineLabel, lineTitle } from '../transit/model.js';
 import { store } from '../storage.js';
 import { BoardModel } from './model.js';
 import { renderMap, railColor } from '../map/index.js';
@@ -92,7 +93,7 @@ export function showBoard(root, { board, provider, region }) {
                 const lines = board.lines
                     .filter((line) => full[line.id]?.stops.length >= 2)
                     .map((line) => ({
-                        id: line.id, number: line.shortName, colorIndex: color(line.id),
+                        ...mapLine(line), colorIndex: color(line.id),
                         stops: full[line.id].stops.map((s) => ({ code: s.stop.code, name: mapName(s.stop.name) })),
                     }));
                 const note = model.lastError && !model.lastSuccessAt ? friendly(model.lastError)
@@ -134,7 +135,7 @@ export function showBoard(root, { board, provider, region }) {
         if (!line || !hasRouteShape(provider, line)) return null;
         if (!aboutButtons.has(line.id)) {
             aboutButtons.set(line.id, h('button', {
-                class: 'line-info readout-info', 'aria-label': `About line ${line.shortName}`, title: 'Route and stops',
+                class: 'line-info readout-info', 'aria-label': `About ${lineLabel(line)}`, title: 'Route and stops',
                 onclick: (e) => { e.stopPropagation(); openLine(line); },
             }, icon('info', 20)));
         }
@@ -178,7 +179,7 @@ export function showBoard(root, { board, provider, region }) {
         const lines = board.lines
             .filter((line) => patterns[line.id]?.stops.length >= 2)
             .map((line) => ({
-                id: line.id, number: line.shortName, colorIndex: color(line.id),
+                ...mapLine(line), colorIndex: color(line.id),
                 // London's "(Stop RC)" pole letters are on the sign, not worth a map's scarce width.
                 stops: patterns[line.id].stops.map((s) => ({ code: s.stop.code, name: mapName(s.stop.name) })),
             }));
@@ -224,7 +225,7 @@ export function showBoard(root, { board, provider, region }) {
                     : 'NO BUSES DUE';
             const detail = model.isAwaitingFirstBoard ? null
                 : model.lastError && !model.lastSuccessAt ? 'Trying again shortly.'
-                    : `None of ${board.lines.map((l) => l.shortName).join(', ')} is due here soon. The board keeps checking.`;
+                    : `None of ${board.lines.map(lineShortLabel).join(', ')} is due here soon. The board keeps checking.`;
             readout.replaceChildren(h('div', { class: 'readout-empty' }, h('p', { class: 'readout-empty-title' }, message), detail ? h('p', { class: 'readout-empty-detail' }, detail) : null));
             return;
         }
@@ -248,6 +249,7 @@ export function showBoard(root, { board, provider, region }) {
             h('div', { class: 'readout-badge-ring' }, badge(primary.line ?? { shortName: '?' }, pColor, 'big')),
             h('div', { class: 'readout-main' },
                 h('div', { class: 'kicker-row' }, h('p', { class: 'kicker' }, primary.kicker), aboutButton(primary.line)),
+                serviceName(primary.line),
                 h('p', { class: 'minutes' },
                     h('b', { class: pc.now ? 'now' : '' }, pc.figure),
                     // In dark mode the unit takes the line's colour; on cream it goes grey.
@@ -260,6 +262,8 @@ export function showBoard(root, { board, provider, region }) {
             const s = secondary.arrival;
             const sc = countdown(s.expectedAt, now);
             const subS = [];
+            // A line without a number says where it goes: its badge alone cannot.
+            if (secondary.line && !isNumbered(secondary.line)) subS.push(h('span', { class: 'then-service', dir: 'auto' }, lineShortLabel(secondary.line)));
             if (s.bus) subS.push(h('span', {}, plural(s.bus.stopsAway, 'STOP', 'STOPS')));
             subS.push(h('span', {}, clockTime(s.expectedAt)));
             if (!s.isRealtime) subS.push(h('span', { class: 'sub-tag' }, 'SCHEDULED'));
@@ -327,6 +331,21 @@ export function showBoard(root, { board, provider, region }) {
         document.body.classList.remove('wall');
         wakeLock?.release().catch(() => {});
     };
+}
+
+/** What the map draws in a line's badge: its number, or for one without, its mode's glyph. */
+function mapLine(line) {
+    return { id: line.id, number: isNumbered(line) ? String(line.shortName).trim() : '', mode: line.mode ?? null, label: lineShortLabel(line) };
+}
+
+/** Under the kicker, for a line without a number: where it goes, and who runs it. */
+function serviceName(line) {
+    if (!line || isNumbered(line)) return null;
+    const caption = lineTitle(line) ? serviceCaption(line) : null;
+    // Each name isolated in a span of its own, so a Hebrew one keeps its script's order without
+    // pulling the readout's alignment over to the right.
+    return h('p', { class: 'readout-service' }, h('span', { dir: 'auto' }, lineShortLabel(line)),
+        caption ? h('small', {}, h('span', { dir: 'auto' }, caption)) : null);
 }
 
 function joinDots(parts) {
