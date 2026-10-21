@@ -3,6 +3,22 @@
   "alerts": [
     {
       "enabled": true,
+      "startDate": null,
+      "endDate": "2026-10-22",
+      "startHour": null,
+      "endHour": null,
+      "days": null,
+      "timezone": null,
+      "icon": "gift.fill",
+      "badgeIcon": "gift.fill",
+      "type": "news",
+      "severity": "medium",
+      "text": "Your free Claude reset expires Oct 22",
+      "dashboardText": "Pro, Max and Team subscribers got one free limit reset with Opus 5.5. Use it in Settings → Usage on claude.ai or the desktop app before Oct 22. It's one use and can't be undone. Tap to read more.",
+      "url": "https://amirhayek.dev/ClaudeUsage/blog/free-limit-reset-expires-oct-22.html"
+    },
+    {
+      "enabled": true,
       "startDate": "2026-10-02",
       "endDate": "2026-10-04",
       "startHour": null,
