@@ -10,6 +10,13 @@
    which moves the next one here. */
 const BLOG_POSTS = [
     {
+        slug: 'free-limit-reset-expires-oct-22',
+        title: 'Your free Claude limit reset expires October 22',
+        date: '2026-10-21',
+        tags: ['news', 'limits', 'offers'],
+        excerpt: 'Pro, Max and Team subscribers got one free limit reset with Opus 5.5. Where to find it, how to use it, and when it is worth spending before it expires.',
+    },
+    {
         slug: 'how-to-check-claude-usage',
         title: 'How to check your Claude usage',
         date: '2026-10-19',
