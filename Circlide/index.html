@@ -327,6 +327,14 @@
             border-radius: 54px;
             background: linear-gradient(160deg, rgba(255, 255, 255, 0.28), rgba(255, 255, 255, 0.06) 40%, rgba(255, 255, 255, 0.14));
             box-shadow: 0 40px 90px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(255, 255, 255, 0.18) inset;
+            transform: rotate(4deg);
+        }
+
+        .open .phone.rise { animation-name: pop-phone; }
+
+        @keyframes pop-phone {
+            from { opacity: 0; transform: translateY(40px) rotate(9deg) scale(0.92); }
+            to { transform: rotate(4deg); }
         }
 
         .phone img, .phone video {
@@ -428,7 +436,7 @@
         @media (prefers-reduced-motion: reduce) {
             .aurora, .ring, .ghost { animation: none; }
             .ghost { display: none; }
-            .open .rise { animation: none; }
+            .open .rise, .open .phone.rise { animation: none; }
         }
     </style>
 </head>
