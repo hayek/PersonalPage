@@ -14,8 +14,9 @@
   _Y1NFMjN3-0. It loads only when played (youtube-nocookie), so the page itself sets no YouTube cookies;
   until then it's assets/video-poster.jpg, a frame of the same film.
 
-  The phone shows a real screenshot of the 2.0 build (level 22, Ember: an orb landing in its ring for a ×2 combo). When the App Store preview video
-  is ready, it replaces the <img> as <video autoplay muted loop playsinline poster="assets/screenshot.jpg">.
+  The phone loops real gameplay: an 18-second recording of the 2.0 build on autopilot in the Ember world
+  (levels 23–25, the score climbing past 28,000), crossfaded at the seam so it never restarts visibly.
+  assets/gameplay-poster.jpg is its first frame; with reduced motion the video stays on it.
 -->
 <html lang="en" dir="ltr" class="no-js">
 <head>
@@ -464,8 +465,10 @@
                     </div>
                 </div>
                 <div class="phone rise" style="--i: 2">
-                    <img src="assets/screenshot.jpg" width="1206" height="2622"
-                         alt="Circlide on iPhone: level 22, a yellow orb dropping into its ring for a ×2 combo, score 24,937">
+                    <video id="gameplay" autoplay muted loop playsinline preload="auto" poster="assets/gameplay-poster.jpg"
+                           aria-label="Circlide being played on iPhone: orbs dragged into their rings, combos, the score climbing past 28,000">
+                        <source src="assets/gameplay.mp4" type="video/mp4">
+                    </video>
                 </div>
             </section>
 
@@ -488,6 +491,12 @@
     </div>
 
     <script>
+    // Reduced motion: the gameplay holds on its first frame.
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        const g = document.getElementById('gameplay');
+        g.removeAttribute('autoplay');
+        g.pause();
+    }
     // The trailer loads from YouTube only when someone plays it.
     document.getElementById('film').addEventListener('click', e => {
         e.preventDefault();
