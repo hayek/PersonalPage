@@ -10,7 +10,11 @@
   The look is the game's first world, Aurora (Game/Scene/WorldPalette.swift): night violet with mint and
   blue curtains; coral is the logo's front disc, gold is Theme.gold. Type is the app's SF Pro Rounded.
 
-  The phone shows a real screenshot of the 2.0 build (level 14, Lagoon). When the App Store preview video
+  Under the hero, the trailer: the App Store preview framed 16:9 (Circlide/build/sitevideo), on YouTube as
+  _Y1NFMjN3-0. It loads only when played (youtube-nocookie), so the page itself sets no YouTube cookies;
+  until then it's assets/video-poster.jpg, a frame of the same film.
+
+  The phone shows a real screenshot of the 2.0 build (level 22, Ember: an orb landing in its ring for a ×2 combo). When the App Store preview video
   is ready, it replaces the <img> as <video autoplay muted loop playsinline poster="assets/screenshot.jpg">.
 -->
 <html lang="en" dir="ltr" class="no-js">
@@ -69,6 +73,8 @@
         }
 
         a { color: inherit; }
+
+        .visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 
         :focus-visible { outline: 3px solid var(--gold); outline-offset: 4px; border-radius: 12px; }
 
@@ -358,6 +364,54 @@
         }
 
 
+        .film {
+            padding: 0 0 clamp(48px, 9vh, 88px);
+        }
+
+        .film a, .film iframe {
+            position: relative;
+            display: block;
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            border: 0;
+            border-radius: 28px;
+            overflow: hidden;
+            background: #0d0a24;
+            box-shadow: 0 40px 90px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.14);
+        }
+
+        .film img { display: block; width: 100%; height: 100%; object-fit: cover; }
+
+        /* The play button is an orb, of course. */
+        .film .play {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: clamp(72px, 9vw, 112px);
+            height: clamp(72px, 9vw, 112px);
+            margin: calc(clamp(72px, 9vw, 112px) / -2) 0 0 calc(clamp(72px, 9vw, 112px) / -2);
+            border-radius: 50%;
+            background:
+                radial-gradient(circle at 34% 28%, rgba(255, 255, 255, 0.7) 0 6%, transparent 18%),
+                radial-gradient(circle at 40% 35%, #ff7c86, #c41d35 48%, #4a0614 100%);
+            box-shadow: 0 0 0 8px rgba(255, 184, 191, 0.85), 0 0 40px rgba(255, 120, 135, 0.8), 0 18px 40px rgba(0, 0, 0, 0.45);
+            transition: transform 160ms ease-out;
+        }
+
+        .film .play::after {
+            content: "";
+            position: absolute;
+            left: 54%;
+            top: 50%;
+            border-style: solid;
+            border-width: 0.16em 0 0.16em 0.28em;
+            border-color: transparent transparent transparent #fff;
+            font-size: clamp(72px, 9vw, 112px);
+            transform: translate(-50%, -50%);
+        }
+
+        .film a:hover .play { transform: scale(1.08); }
+
         @media (max-width: 860px) {
             .hero { grid-template-columns: 1fr; text-align: center; }
             .lede { margin-inline: auto; }
@@ -411,10 +465,18 @@
                 </div>
                 <div class="phone rise" style="--i: 2">
                     <img src="assets/screenshot.jpg" width="1206" height="2622"
-                         alt="Circlide on iPhone: level 14, with colored orbs, their glowing rings and a spike">
+                         alt="Circlide on iPhone: level 22, a yellow orb dropping into its ring for a ×2 combo, score 24,937">
                 </div>
             </section>
 
+            <section class="film rise" style="--i: 4" aria-label="Trailer">
+                <a href="https://youtu.be/_Y1NFMjN3-0" id="film">
+                    <img src="assets/video-poster.jpg" width="1600" height="900" loading="lazy"
+                         alt="The Circlide trailer: the game on iPhone next to the Circlide name and a Coming soon App Store badge">
+                    <span class="play" aria-hidden="true"></span>
+                    <span class="visually-hidden">Play the Circlide trailer</span>
+                </a>
+            </section>
         </main>
 
         <footer>
@@ -425,6 +487,18 @@
         </footer>
     </div>
 
+    <script>
+    // The trailer loads from YouTube only when someone plays it.
+    document.getElementById('film').addEventListener('click', e => {
+        e.preventDefault();
+        const f = document.createElement('iframe');
+        f.src = 'https://www.youtube-nocookie.com/embed/_Y1NFMjN3-0?autoplay=1&rel=0&playsinline=1';
+        f.title = 'Circlide — Drag. Match. Again!';
+        f.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen';
+        f.allowFullscreen = true;
+        e.currentTarget.replaceWith(f);
+    });
+    </script>
     <script>
     (() => {
         const intro = document.getElementById('intro');
