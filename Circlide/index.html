@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<!--
+  Circlide — landing page.
+
+  The page opens the way the game does: one dark orb, its glowing ring and the game's own tutorial line.
+  Drop the orb on the ring and the ring opens into the site (a hole masked into the intro grows from the drop point).
+  Keyboard: the orb is a button, Enter sends it home. "Skip" and reduced motion go straight to the site,
+  and without JavaScript the intro never shows.
+
+  The look is the game's first world, Aurora (Game/Scene/WorldPalette.swift): night violet with mint and
+  blue curtains; coral is the logo's front disc, gold is Theme.gold. Type is the app's SF Pro Rounded.
+
+  The video is the App Store preview: drop it in as assets/preview.mp4 (portrait, 886×1920 or similar).
+  Until it's there the phone shows assets/poster.jpg, a frame of the 2.0 build.
+-->
+<html lang="en" dir="ltr" class="no-js">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Circlide — drag, match, again</title>
+    <meta name="description" content="Circlide, the 2014 color-matching game, is back for its 12th birthday. Drag each dark orb onto the glowing ring of its color before the clock runs out. Free, with no ads, on iPhone, iPad and Mac.">
+    <link rel="canonical" href="https://amirhayek.dev/Circlide/">
+
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/icon-32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="assets/icon-96.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/icon-180.png">
+    <meta name="apple-mobile-web-app-title" content="Circlide">
+    <meta name="apple-itunes-app" content="app-id=942306095">
+    <meta name="theme-color" content="#1a0f3d">
+
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Circlide — drag, match, again">
+    <meta property="og:description" content="The 2014 color-matching game is back for its 12th birthday. Free, with no ads, on iPhone, iPad and Mac.">
+    <meta property="og:url" content="https://amirhayek.dev/Circlide/">
+    <meta property="og:image" content="https://amirhayek.dev/Circlide/assets/og.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+
+    <script>document.documentElement.classList.replace('no-js', 'js');</script>
+    <script src="/assets/analytics.js" defer></script>
+
+    <style>
+        :root {
+            --sky-top: #1a0f3d;
+            --sky-bottom: #04040f;
+            --mint: #26d98c;
+            --blue: #5a5aff;
+            --coral: #ff5c66;
+            --gold: #ffd666;
+            --ink: #f4f2ff;
+            --muted: #aaa4cc;
+            --glass: rgba(255, 255, 255, 0.07);
+            --glass-edge: rgba(255, 255, 255, 0.16);
+            --round: ui-rounded, "SF Pro Rounded", "Nunito", system-ui, -apple-system, "Segoe UI", sans-serif;
+            color-scheme: dark;
+        }
+
+        *, *::before, *::after { box-sizing: border-box; }
+
+        html, body { margin: 0; }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(180deg, var(--sky-top), var(--sky-bottom) 85%) fixed;
+            color: var(--ink);
+            font-family: var(--round);
+            font-size: 18px;
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        a { color: inherit; }
+
+        :focus-visible { outline: 3px solid var(--gold); outline-offset: 4px; border-radius: 12px; }
+
+        /* The sky: two soft aurora curtains drifting, as on the game's home screen. */
+        .aurora {
+            position: fixed;
+            inset: -20vmax;
+            pointer-events: none;
+            z-index: 0;
+            background:
+                radial-gradient(40vmax 22vmax at 30% 30%, rgba(38, 217, 140, 0.22), transparent 70%),
+                radial-gradient(38vmax 26vmax at 72% 46%, rgba(90, 90, 255, 0.24), transparent 70%);
+            filter: blur(10px);
+            animation: drift 26s ease-in-out infinite alternate;
+        }
+
+        @keyframes drift {
+            to { transform: translate3d(4vmax, -3vmax, 0) rotate(6deg); }
+        }
+
+        /* ---------- The intro: one orb, one ring ---------- */
+
+        .intro { display: none; }
+
+        .js body:not(.open) { overflow: hidden; }
+
+        .js .intro {
+            position: fixed;
+            inset: 0;
+            z-index: 10;
+            background: linear-gradient(180deg, var(--sky-top), var(--sky-bottom) 85%);
+            display: grid;
+            place-items: center;
+            overflow: hidden;
+            touch-action: none;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        .intro .aurora { position: absolute; }
+
+        /* Opening: a hole the size of --hole grows from the ring, and the site shows through it. */
+        @property --hole { syntax: "<length>"; inherits: false; initial-value: 0px; }
+
+        .intro.opening {
+            -webkit-mask-image: radial-gradient(circle at var(--hx) var(--hy), transparent var(--hole), #000 calc(var(--hole) + 1px));
+            mask-image: radial-gradient(circle at var(--hx) var(--hy), transparent var(--hole), #000 calc(var(--hole) + 1px));
+        }
+
+        .stage {
+            --size: clamp(84px, 22vmin, 132px);
+            --gap: clamp(70px, 18vmin, 120px);
+            position: relative;
+            width: 1px;
+            height: 1px;
+        }
+
+        .ring, .orb {
+            position: absolute;
+            width: var(--size);
+            height: var(--size);
+            margin: calc(var(--size) / -2) 0 0 calc(var(--size) / -2);
+            border-radius: 50%;
+        }
+
+        .ring {
+            --near: 0;
+            left: var(--gap);
+            top: calc(var(--gap) * -0.7);
+            border: calc(var(--size) * 0.075) solid #ffb8bf;
+            box-shadow:
+                0 0 calc(18px + 30px * var(--near)) rgba(255, 120, 135, calc(0.55 + 0.4 * var(--near))),
+                inset 0 0 calc(14px + 16px * var(--near)) rgba(255, 120, 135, 0.45);
+            transform: scale(calc(1 + 0.12 * var(--near)));
+            transition: transform 120ms ease-out;
+            animation: breathe 2.4s ease-in-out infinite;
+        }
+
+        @keyframes breathe {
+            50% { filter: brightness(1.25); }
+        }
+
+        .orb {
+            left: calc(var(--gap) * -1);
+            top: calc(var(--gap) * 0.7);
+            padding: 0;
+            border: 0;
+            cursor: grab;
+            background:
+                radial-gradient(circle at 34% 28%, rgba(255, 255, 255, 0.75) 0 6%, transparent 18%),
+                radial-gradient(circle at 40% 35%, #ff7c86, #c41d35 48%, #4a0614 100%);
+            box-shadow: 0 18px 40px rgba(0, 0, 0, 0.45), inset 0 -10px 24px rgba(0, 0, 0, 0.35);
+            touch-action: none;
+            will-change: transform;
+        }
+
+        .orb:active { cursor: grabbing; }
+
+        .orb.home { transition: transform 450ms cubic-bezier(0.34, 1.56, 0.64, 1); }
+
+        /* The ghost finger from the game's tutorial: a soft touch that slides from orb to ring. */
+        .ghost {
+            position: absolute;
+            left: calc(var(--gap) * -1);
+            top: calc(var(--gap) * 0.7);
+            width: 34px;
+            height: 34px;
+            margin: -17px 0 0 -17px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.55);
+            box-shadow: 0 0 0 8px rgba(255, 255, 255, 0.12);
+            opacity: 0;
+            pointer-events: none;
+            animation: ghost 2.6s 1.4s ease-in-out infinite;
+        }
+
+        .intro.touched .ghost { display: none; }
+
+        @keyframes ghost {
+            0% { opacity: 0; transform: translate(0, 0) scale(1.3); }
+            15% { opacity: 1; transform: translate(0, 0) scale(1); }
+            70% { opacity: 1; transform: translate(calc(var(--gap) * 2), calc(var(--gap) * -1.4)) scale(1); }
+            85%, 100% { opacity: 0; transform: translate(calc(var(--gap) * 2), calc(var(--gap) * -1.4)) scale(1.3); }
+        }
+
+        .caption {
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: max(18vh, 110px);
+            margin: 0;
+            padding: 0 24px;
+            text-align: center;
+            font-size: clamp(18px, 2.6vw, 24px);
+            font-weight: 600;
+            color: rgba(244, 242, 255, 0.92);
+        }
+
+        .skip {
+            position: absolute;
+            right: 20px;
+            bottom: max(20px, env(safe-area-inset-bottom));
+            padding: 10px 18px;
+            border: 1px solid var(--glass-edge);
+            border-radius: 999px;
+            background: var(--glass);
+            color: var(--muted);
+            font: 600 15px var(--round);
+            cursor: pointer;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+
+        .skip:hover { color: var(--ink); }
+
+        .spark {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            margin: -5px 0 0 -5px;
+            border-radius: 50%;
+            background: #ffc2c8;
+            box-shadow: 0 0 10px #ff8a94;
+            pointer-events: none;
+        }
+
+        .points {
+            position: absolute;
+            margin: 0;
+            transform: translate(-50%, -50%);
+            font-size: 30px;
+            font-weight: 900;
+            color: #fff;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+            pointer-events: none;
+        }
+
+        /* ---------- The site ---------- */
+
+        .site {
+            position: relative;
+            z-index: 1;
+            max-width: 1120px;
+            margin: 0 auto;
+            padding: max(20px, env(safe-area-inset-top)) 24px 40px;
+        }
+
+        .masthead {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 8px 0 0;
+        }
+
+        .masthead img { width: 44px; height: 44px; border-radius: 11px; }
+
+        .wordmark {
+            font-size: 30px;
+            font-weight: 200;
+            letter-spacing: 0.01em;
+            text-decoration: none;
+        }
+
+        .hero {
+            display: grid;
+            grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+            align-items: center;
+            gap: clamp(32px, 6vw, 80px);
+            padding: clamp(28px, 6vh, 64px) 0 clamp(48px, 10vh, 96px);
+        }
+
+        h1 {
+            margin: 0 0 22px;
+            font-size: clamp(56px, 8.4vw, 104px);
+            line-height: 0.95;
+            font-weight: 900;
+            letter-spacing: -0.02em;
+        }
+
+        h1 span { display: block; }
+
+        h1 .again { color: var(--gold); }
+
+        .lede {
+            max-width: 30em;
+            margin: 0 0 32px;
+            font-size: clamp(18px, 1.6vw, 21px);
+            color: rgba(244, 242, 255, 0.86);
+        }
+
+        .store {
+            display: inline-flex;
+            align-items: center;
+            gap: 14px;
+            padding: 12px 24px 12px 18px;
+            border-radius: 18px;
+            background: #000;
+            border: 1px solid rgba(255, 255, 255, 0.28);
+            color: #fff;
+            text-decoration: none;
+            cursor: default;
+        }
+
+        .store svg { width: 30px; height: 30px; flex: none; fill: currentColor; }
+
+        .store small { display: block; font-size: 13px; font-weight: 600; color: var(--gold); line-height: 1.2; }
+
+        .store strong { display: block; font-size: 22px; font-weight: 700; line-height: 1.15; }
+
+        .free {
+            margin: 18px 0 0;
+            font-size: 16px;
+            color: var(--muted);
+        }
+
+        .phone {
+            justify-self: center;
+            position: relative;
+            width: min(100%, 340px);
+            aspect-ratio: 886 / 1920;
+            padding: 12px;
+            border-radius: 54px;
+            background: linear-gradient(160deg, rgba(255, 255, 255, 0.28), rgba(255, 255, 255, 0.06) 40%, rgba(255, 255, 255, 0.14));
+            box-shadow: 0 40px 90px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(255, 255, 255, 0.18) inset;
+            transform: rotate(4deg);
+        }
+
+        .phone video {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 43px;
+            background: #0d0a24;
+        }
+
+        .modes {
+            padding: 0 0 clamp(56px, 10vh, 96px);
+        }
+
+        h2 {
+            margin: 0 0 32px;
+            font-size: clamp(30px, 3.6vw, 40px);
+            font-weight: 800;
+            letter-spacing: -0.01em;
+        }
+
+        .modes ul {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 28px;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        /* Each mode is an orb sitting in its ring, in the mode's colour. */
+        .pair {
+            position: relative;
+            width: 64px;
+            height: 64px;
+            margin-bottom: 16px;
+            border-radius: 50%;
+            border: 5px solid var(--light);
+            box-shadow: 0 0 22px var(--glow), inset 0 0 12px var(--glow);
+        }
+
+        .pair::after {
+            content: "";
+            position: absolute;
+            inset: 9px;
+            border-radius: 50%;
+            background:
+                radial-gradient(circle at 34% 28%, rgba(255, 255, 255, 0.7) 0 7%, transparent 20%),
+                radial-gradient(circle at 40% 35%, var(--light), var(--dark) 85%);
+        }
+
+        .classic { --light: #ff9aa1; --dark: #8e1424; --glow: rgba(255, 92, 102, 0.5); }
+        .rush { --light: #ffc27a; --dark: #8a4304; --glow: rgba(255, 158, 51, 0.5); }
+        .zen { --light: #9cebf2; --dark: #11616b; --glow: rgba(102, 217, 230, 0.5); }
+        .daily { --light: #c7bcff; --dark: #3d2b9e; --glow: rgba(166, 140, 255, 0.5); }
+
+        .modes h3 { margin: 0 0 6px; font-size: 24px; font-weight: 800; }
+
+        .modes p { margin: 0; color: var(--muted); font-size: 17px; }
+
+        footer {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px 28px;
+            padding: 28px 0 8px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--muted);
+            font-size: 15px;
+        }
+
+        footer a { text-decoration: none; }
+
+        footer a:hover { color: var(--ink); text-decoration: underline; }
+
+        footer .made { margin-inline-start: auto; }
+
+        /* The one orchestrated moment: once the ring opens, the page pops in, as the game's cards do. */
+        .open .rise {
+            animation: pop 700ms cubic-bezier(0.34, 1.4, 0.64, 1) both;
+            animation-delay: calc(var(--i, 0) * 70ms + 250ms);
+        }
+
+        @keyframes pop {
+            from { opacity: 0; transform: translateY(18px) scale(0.96); }
+        }
+
+        .open .phone.rise { animation-name: pop-phone; }
+
+        @keyframes pop-phone {
+            from { opacity: 0; transform: translateY(40px) rotate(10deg) scale(0.9); }
+            to { transform: rotate(4deg); }
+        }
+
+        @media (max-width: 860px) {
+            .hero { grid-template-columns: 1fr; text-align: center; }
+            .lede { margin-inline: auto; }
+            .phone { width: min(78%, 320px); }
+            .modes ul { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        }
+
+        @media (max-width: 480px) {
+            body { font-size: 17px; }
+            .site { padding-inline: 18px; }
+            .modes ul { grid-template-columns: 1fr; gap: 22px; }
+            .modes li { display: grid; grid-template-columns: 64px 1fr; column-gap: 18px; align-items: center; }
+            .pair { grid-row: span 2; margin: 0; }
+            footer .made { margin-inline-start: 0; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .aurora, .ring, .ghost { animation: none; }
+            .ghost { display: none; }
+            .open .rise { animation: none; }
+        }
+    </style>
+</head>
+<body>
+    <div class="aurora" aria-hidden="true"></div>
+
+    <section class="intro" id="intro" aria-label="Play the first move">
+        <div class="aurora" aria-hidden="true"></div>
+        <div class="stage" id="stage">
+            <div class="ring" id="ring" aria-hidden="true"></div>
+            <div class="ghost" aria-hidden="true"></div>
+            <button class="orb" id="orb" type="button" aria-label="Drop the dark circle on the light circle to open the page"></button>
+        </div>
+        <p class="caption">Drag the dark circle to the light circle</p>
+        <button class="skip" id="skip" type="button">Skip</button>
+    </section>
+
+    <div class="site">
+        <header class="masthead rise" style="--i: 0">
+            <img src="assets/icon-96.png" alt="" width="44" height="44">
+            <span class="wordmark">Circlide</span>
+        </header>
+
+        <main>
+            <section class="hero">
+                <div>
+                    <h1 class="rise" style="--i: 1"><span>Drag.</span><span>Match.</span><span class="again">Again!</span></h1>
+                    <p class="lede rise" style="--i: 2">Circlide is back for its 12th birthday. Drag each dark orb onto the glowing ring of its color before the clock runs out. Chain combos, catch Fever, and see how far you get.</p>
+                    <div class="rise" style="--i: 3">
+                        <span class="store" role="img" aria-label="Coming soon on the App Store">
+                            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.37 12.6c-.02-2.3 1.88-3.4 1.96-3.46-1.07-1.56-2.73-1.78-3.32-1.8-1.41-.14-2.76.83-3.47.83-.72 0-1.82-.81-3-.79-1.54.02-2.96.9-3.76 2.27-1.6 2.78-.41 6.9 1.15 9.16.76 1.1 1.67 2.34 2.86 2.3 1.15-.05 1.58-.74 2.97-.74 1.38 0 1.77.74 2.98.72 1.23-.02 2.01-1.12 2.76-2.23.87-1.28 1.23-2.52 1.25-2.58-.03-.01-2.4-.92-2.38-3.68zM14.1 5.86c.63-.77 1.06-1.83.94-2.9-.91.04-2.02.61-2.67 1.37-.58.67-1.1 1.76-.96 2.8 1.02.08 2.06-.52 2.69-1.27z"/></svg>
+                            <span><small>Coming soon</small><strong>App Store</strong></span>
+                        </span>
+                        <p class="free">Free, with no ads and nothing to buy. On iPhone, iPad and Mac.</p>
+                    </div>
+                </div>
+                <div class="phone rise" style="--i: 2">
+                    <video autoplay muted loop playsinline preload="metadata" poster="assets/poster.jpg"
+                           aria-label="Circlide being played: orbs dragged onto their rings, combos and Fever">
+                        <source src="assets/preview.mp4" type="video/mp4">
+                    </video>
+                </div>
+            </section>
+
+            <section class="modes" aria-labelledby="modes-title">
+                <h2 id="modes-title" class="rise" style="--i: 4">Four ways to play</h2>
+                <ul>
+                    <li class="classic rise" style="--i: 5"><div class="pair" aria-hidden="true"></div><h3>Classic</h3><p>Beat the clock, level by level, through five glowing worlds.</p></li>
+                    <li class="rush rise" style="--i: 6"><div class="pair" aria-hidden="true"></div><h3>Rush</h3><p>Sixty seconds and pairs that never stop. Golden ones buy time.</p></li>
+                    <li class="zen rise" style="--i: 7"><div class="pair" aria-hidden="true"></div><h3>Zen</h3><p>No clock, no spikes. Match at your own pace for as long as you like.</p></li>
+                    <li class="daily rise" style="--i: 8"><div class="pair" aria-hidden="true"></div><h3>Daily</h3><p>Today's levels, the same for every player in the world.</p></li>
+                </ul>
+            </section>
+        </main>
+
+        <footer>
+            <a href="support/">Support</a>
+            <a href="privacy/">Privacy</a>
+            <span>First released in 2014</span>
+            <span class="made">Made by <a href="/">Amir Hayek</a></span>
+        </footer>
+    </div>
+
+    <script>
+    (() => {
+        const intro = document.getElementById('intro');
+        const stage = document.getElementById('stage');
+        const orb = document.getElementById('orb');
+        const ring = document.getElementById('ring');
+        const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
+        let seen = false;
+        try { seen = sessionStorage.getItem('circlide-open') === '1'; } catch (e) {}
+
+        function open(from) {
+            try { sessionStorage.setItem('circlide-open', '1'); } catch (e) {}
+            document.body.classList.add('open');
+            if (calm || !from || !intro.animate) { intro.remove(); return; }
+            // The ring becomes a window onto the site and grows until the intro is gone.
+            intro.style.setProperty('--hx', from.x + 'px');
+            intro.style.setProperty('--hy', from.y + 'px');
+            intro.classList.add('opening');
+            const r = Math.hypot(innerWidth, innerHeight);
+            intro.animate([{ '--hole': '0px' }, { '--hole': r + 'px' }],
+                          { duration: 900, easing: 'cubic-bezier(0.65, 0, 0.35, 1)', fill: 'forwards' })
+                .finished.then(() => intro.remove());
+        }
+
+        if (seen) { open(null); return; }
+
+        const centre = el => { const b = el.getBoundingClientRect(); return { x: b.left + b.width / 2, y: b.top + b.height / 2 }; };
+        let start = null, offset = { x: 0, y: 0 }, done = false;
+
+        function moveTo(x, y) { orb.style.transform = `translate(${x}px, ${y}px)`; }
+
+        function nearness() {
+            const o = centre(orb), t = centre(ring);
+            const d = Math.hypot(o.x - t.x, o.y - t.y);
+            const reach = ring.offsetWidth * 2.2;
+            ring.style.setProperty('--near', Math.max(0, 1 - d / reach).toFixed(3));
+            return d;
+        }
+
+        function burst(at) {
+            if (calm || !document.body.animate) return;
+            for (let i = 0; i < 14; i++) {
+                const s = document.createElement('div');
+                s.className = 'spark';
+                s.style.left = at.x + 'px';
+                s.style.top = at.y + 'px';
+                intro.appendChild(s);
+                const a = (i / 14) * Math.PI * 2, dist = 70 + Math.random() * 60;
+                s.animate([{ transform: 'translate(0,0) scale(1)', opacity: 1 },
+                           { transform: `translate(${Math.cos(a) * dist}px, ${Math.sin(a) * dist}px) scale(0.2)`, opacity: 0 }],
+                          { duration: 650, easing: 'cubic-bezier(0.2, 0.8, 0.2, 1)' }).finished.then(() => s.remove());
+            }
+            const p = document.createElement('p');
+            p.className = 'points';
+            p.textContent = '+100';
+            p.style.left = at.x + 'px';
+            p.style.top = (at.y - ring.offsetWidth * 0.9) + 'px';
+            intro.appendChild(p);
+            p.animate([{ opacity: 0, transform: 'translate(-50%, -20%) scale(0.4)' },
+                       { opacity: 1, transform: 'translate(-50%, -50%) scale(1.15)', offset: 0.25 },
+                       { opacity: 0, transform: 'translate(-50%, -160%) scale(1)' }], { duration: 900, easing: 'ease-out' });
+        }
+
+        function land() {
+            if (done) return;
+            done = true;
+            const t = centre(ring);
+            const home = { x: ring.offsetLeft - orb.offsetLeft, y: ring.offsetTop - orb.offsetTop };
+            orb.classList.remove('home');
+            orb.style.transition = 'transform 120ms ease-in';
+            moveTo(home.x, home.y);
+            ring.style.setProperty('--near', 1);
+            setTimeout(() => {
+                orb.animate && orb.animate([{ transform: orb.style.transform + ' scale(1)', opacity: 1 },
+                                            { transform: orb.style.transform + ' scale(0.3)', opacity: 0 }],
+                                           { duration: 200, fill: 'forwards' });
+                ring.animate && ring.animate([{ transform: 'scale(1.12)' }, { transform: 'scale(1.35)' }, { transform: 'scale(1.12)' }],
+                                             { duration: 300 });
+                burst(t);
+                setTimeout(() => open(t), calm ? 0 : 380);
+            }, 130);
+        }
+
+        orb.addEventListener('pointerdown', e => {
+            if (done) return;
+            intro.classList.add('touched');
+            orb.classList.remove('home');
+            orb.style.transition = 'none';
+            orb.setPointerCapture(e.pointerId);
+            const m = new DOMMatrixReadOnly(getComputedStyle(orb).transform);
+            start = { x: e.clientX - m.m41, y: e.clientY - m.m42 };
+        });
+
+        orb.addEventListener('pointermove', e => {
+            if (!start || done) return;
+            moveTo(e.clientX - start.x, e.clientY - start.y);
+            nearness();
+        });
+
+        function release() {
+            if (!start || done) return;
+            start = null;
+            if (nearness() < ring.offsetWidth * 0.6) { land(); return; }
+            // Dropped somewhere else: it springs back, like a miss in the game.
+            orb.classList.add('home');
+            orb.style.transition = '';
+            moveTo(0, 0);
+            ring.style.setProperty('--near', 0);
+        }
+
+        orb.addEventListener('pointerup', release);
+        orb.addEventListener('pointercancel', release);
+        orb.addEventListener('click', e => { if (e.detail === 0) land(); });   // Enter or Space
+        document.getElementById('skip').addEventListener('click', () => { done = true; open(centre(ring)); });
+    })();
+    </script>
+</body>
+</html>

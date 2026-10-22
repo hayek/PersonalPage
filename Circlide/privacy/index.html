@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<!--
+  Circlide — privacy policy. The URL in App Store Connect's Privacy Policy field (every language).
+  Self-contained like the other apps' privacy pages: no shared stylesheet, no fonts, no scripts and no
+  analytics on the page. It describes what Circlide 2.0 actually does: Game/Services/Telemetry.swift
+  (Firebase Analytics without the advertising identifier, Crashlytics, the Settings switch that turns both
+  off), Game/Model/ProfileStore.swift (the profile in UserDefaults) and Game/Services/GameCenter.swift.
+  It matches App/PrivacyInfo.xcprivacy and the App Store privacy label. When those change, this page changes.
+-->
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy — Circlide</title>
+    <meta name="description" content="Circlide has no ads, no accounts and no tracking. It sends only anonymous play statistics and crash reports, and you can turn those off.">
+    <link rel="canonical" href="https://amirhayek.dev/Circlide/privacy/">
+    <link rel="icon" type="image/png" sizes="32x32" href="../assets/icon-32.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="../assets/icon-180.png">
+    <meta name="theme-color" content="#1a0f3d">
+    <style>
+        :root {
+            --sky-top: #1a0f3d;
+            --sky-bottom: #04040f;
+            --ink: #f4f2ff;
+            --muted: #aaa4cc;
+            --gold: #ffd666;
+            --round: ui-rounded, "SF Pro Rounded", "Nunito", system-ui, -apple-system, "Segoe UI", sans-serif;
+            color-scheme: dark;
+        }
+        *, *::before, *::after { box-sizing: border-box; }
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background: linear-gradient(180deg, var(--sky-top), var(--sky-bottom) 70%) fixed;
+            color: var(--ink);
+            font: 17px/1.6 var(--round);
+            -webkit-font-smoothing: antialiased;
+        }
+        .page { max-width: 680px; margin: 0 auto; padding: 40px 22px 56px; }
+        .app { display: inline-flex; align-items: center; gap: 10px; color: inherit; text-decoration: none; font-size: 22px; font-weight: 300; }
+        .app img { width: 36px; height: 36px; border-radius: 9px; }
+        h1 { margin: 28px 0 4px; font-size: clamp(34px, 6vw, 44px); line-height: 1.1; font-weight: 900; }
+        .updated { margin: 0 0 28px; color: var(--muted); font-size: 15px; }
+        .lede { padding: 18px 20px; border-radius: 22px; background: rgba(255, 255, 255, 0.07); border: 1px solid rgba(255, 255, 255, 0.14); }
+        .lede p { margin: 0; }
+        .lede p + p { margin-top: 10px; }
+        h2 { margin: 36px 0 10px; font-size: 23px; font-weight: 800; }
+        ul { padding-inline-start: 22px; }
+        li + li { margin-top: 8px; }
+        a { color: var(--gold); }
+        a:focus-visible { outline: 3px solid var(--gold); outline-offset: 3px; border-radius: 6px; }
+        footer { margin-top: 44px; padding-top: 18px; border-top: 1px solid rgba(255, 255, 255, 0.12); color: var(--muted); font-size: 15px; display: flex; gap: 20px; flex-wrap: wrap; }
+        footer a { color: inherit; }
+    </style>
+</head>
+<body>
+<main class="page">
+
+<a class="app" href="../"><img src="../assets/icon-96.png" alt="" width="36" height="36">Circlide</a>
+
+<h1>Privacy Policy</h1>
+<p class="updated">Effective October 22, 2026</p>
+
+<div class="lede">
+<p><strong>Circlide is free, with no ads, no accounts, no in-app purchases and no tracking.</strong></p>
+<p><strong>It sends only anonymous play statistics and crash reports</strong>, through Google’s Firebase, so we can fix problems and make the game better. You can turn them off in Settings.</p>
+</div>
+
+<p>Circlide (“the app”) is a game made by Amir Hayek (“we”). This page explains what the app does with data. It covers the iPhone, iPad and Mac versions.</p>
+
+<h2>What the app does not collect</h2>
+<ul>
+<li><strong>No personal information.</strong> No name, email address, photos, contacts or precise location.</li>
+<li><strong>No advertising identifier and no tracking.</strong> The app does not use the advertising identifier (IDFA), does not track you across other apps or websites, and shares no data for advertising.</li>
+<li><strong>No ads, no accounts and no in-app purchases.</strong></li>
+<li><strong>No permissions.</strong> The app does not ask for the camera, microphone, photos, location or contacts.</li>
+</ul>
+
+<h2>What the app sends</h2>
+<p>The app uses two services from <a href="https://firebase.google.com/support/privacy">Google Firebase</a>. What they send is not linked to your name or to any account:</p>
+<ul>
+<li><strong>Anonymous play statistics (Firebase Analytics):</strong> which mode a game is played in, how it ended (score, level reached, matches, combos, Perfects, Fever, golden pairs, spikes touched and how long it lasted), new ranks and awards, and which screen is open. With these come general details such as session length, device model, system and app version, and the approximate country or region, which Google derives from the IP address.</li>
+<li><strong>Crash reports (Firebase Crashlytics):</strong> if the app stops unexpectedly, technical details about the crash are sent, with the device model, the system and app version, and the mode being played.</li>
+</ul>
+<p>This data is identified by a random number for this installation, which changes if the app is deleted and installed again; it is not the advertising identifier. We use it only to understand how the game is played and to fix crashes. We do not sell it or share it with anyone else. Google processes it on our behalf under the <a href="https://policies.google.com/privacy">Google Privacy Policy</a>.</p>
+<p><strong>To turn it off,</strong> open Settings in the game (the gear on the home screen) and switch off “Share usage and crash reports.” Nothing more is sent, and crash reports not yet sent are deleted.</p>
+
+<h2>Game Center</h2>
+<p>If you’re signed in to Game Center, your scores and awards go to Apple’s Game Center so they can appear on leaderboards and in your profile. That happens under your Game Center settings and <a href="https://www.apple.com/legal/privacy/">Apple’s Privacy Policy</a>; we don’t receive your Game Center details.</p>
+
+<h2>What stays on the device</h2>
+<p>Your progress (best scores, XP and rank, awards, unlocked orb styles, your Daily streak) and your settings are stored on the device itself and are never sent to us. Like any app’s settings they may be included in your device’s backup, and deleting the app deletes them.</p>
+
+<h2>Children</h2>
+<p>Circlide is suitable for everyone. It collects nothing that identifies a person, shows no ads and sells nothing. Because the data it sends is anonymous, we cannot find a particular player’s data; deleting the app starts a new random number.</p>
+
+<h2>Changes to this policy</h2>
+<p>If what the app does with data ever changes, this page changes with it and the effective date at the top moves.</p>
+
+<h2>Contact</h2>
+<p>Amir Hayek, <a href="mailto:hayek_dev@icloud.com">hayek_dev@icloud.com</a>. A person reads every message.</p>
+
+<footer>
+<a href="../">Circlide</a>
+<a href="../support/">Support</a>
+<a href="/">amirhayek.dev</a>
+</footer>
+
+</main>
+</body>
+</html>

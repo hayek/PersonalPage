@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<!--
+  Circlide — support. The URL in App Store Connect's Support URL field (every language).
+  Self-contained like the privacy page next to it; no scripts and no analytics.
+-->
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Support — Circlide</title>
+    <meta name="description" content="Help with Circlide: how to play, the four modes, Game Center, color-blind symbols and how to reach the developer.">
+    <link rel="canonical" href="https://amirhayek.dev/Circlide/support/">
+    <link rel="icon" type="image/png" sizes="32x32" href="../assets/icon-32.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="../assets/icon-180.png">
+    <meta name="theme-color" content="#1a0f3d">
+    <style>
+        :root {
+            --sky-top: #1a0f3d;
+            --sky-bottom: #04040f;
+            --ink: #f4f2ff;
+            --muted: #aaa4cc;
+            --gold: #ffd666;
+            --round: ui-rounded, "SF Pro Rounded", "Nunito", system-ui, -apple-system, "Segoe UI", sans-serif;
+            color-scheme: dark;
+        }
+        *, *::before, *::after { box-sizing: border-box; }
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background: linear-gradient(180deg, var(--sky-top), var(--sky-bottom) 70%) fixed;
+            color: var(--ink);
+            font: 17px/1.6 var(--round);
+            -webkit-font-smoothing: antialiased;
+        }
+        .page { max-width: 680px; margin: 0 auto; padding: 40px 22px 56px; }
+        .app { display: inline-flex; align-items: center; gap: 10px; color: inherit; text-decoration: none; font-size: 22px; font-weight: 300; }
+        .app img { width: 36px; height: 36px; border-radius: 9px; }
+        h1 { margin: 28px 0 4px; font-size: clamp(34px, 6vw, 44px); line-height: 1.1; font-weight: 900; }
+        .updated { margin: 0 0 28px; color: var(--muted); font-size: 15px; }
+        .lede { padding: 18px 20px; border-radius: 22px; background: rgba(255, 255, 255, 0.07); border: 1px solid rgba(255, 255, 255, 0.14); }
+        .lede p { margin: 0; }
+        .lede p + p { margin-top: 10px; }
+        h2 { margin: 36px 0 10px; font-size: 23px; font-weight: 800; }
+        ul { padding-inline-start: 22px; }
+        li + li { margin-top: 8px; }
+        a { color: var(--gold); }
+        a:focus-visible { outline: 3px solid var(--gold); outline-offset: 3px; border-radius: 6px; }
+        dt { margin-top: 18px; font-weight: 800; }
+        dd { margin: 4px 0 0; }
+        footer { margin-top: 44px; padding-top: 18px; border-top: 1px solid rgba(255, 255, 255, 0.12); color: var(--muted); font-size: 15px; display: flex; gap: 20px; flex-wrap: wrap; }
+        footer a { color: inherit; }
+    </style>
+</head>
+<body>
+<main class="page">
+
+<a class="app" href="../"><img src="../assets/icon-96.png" alt="" width="36" height="36">Circlide</a>
+
+<h1>Support</h1>
+<p class="updated">Questions, problems, ideas: all welcome.</p>
+
+<div class="lede">
+<p><strong>Email <a href="mailto:hayek_dev@icloud.com?subject=Circlide">hayek_dev@icloud.com</a></strong> in any language. Tell me your device and what happened, and a person will answer.</p>
+</div>
+
+<h2>How to play</h2>
+<p>Drag each dark orb onto the glowing ring of its color before the clock runs out. Clear a level with time to spare for a Perfect, match quickly in a row for a combo, and land three Perfects in a row to catch Fever and double your points. Every few levels a new twist joins in: golden pairs, drifting targets, spikes, ice and more.</p>
+
+<h2>Questions</h2>
+<dl>
+<dt>How do I unlock Rush and Zen?</dt>
+<dd>Rush opens when you reach level 5 in Classic or the Ripple rank. Zen opens after your first finished game.</dd>
+<dt>How does the Daily work?</dt>
+<dd>Every day brings new levels, the same for every player in the world. Play it on consecutive days to grow your streak.</dd>
+<dt>I can’t tell some colors apart.</dt>
+<dd>Open Settings (the gear on the home screen) and set “Symbols on orbs” to On. Each pair then carries its own shape. On Automatic, the symbols appear whenever Differentiate Without Color is on in your device’s Accessibility settings.</dd>
+<dt>My scores don’t show on the leaderboards.</dt>
+<dd>Make sure you’re signed in to Game Center in your device’s Settings, then open the game again. Games played while signed out still count toward your bests in the game.</dd>
+<dt>How do I turn off sound, music or vibration?</dt>
+<dd>Pause the game for quick switches, or open Settings from the home screen.</dd>
+<dt>Does Circlide cost anything?</dt>
+<dd>No. It’s free, with no ads and nothing to buy.</dd>
+<dt>What data does it send?</dt>
+<dd>Only anonymous play statistics and crash reports, and you can turn them off. The <a href="../privacy/">privacy policy</a> has the details.</dd>
+</dl>
+
+<footer>
+<a href="../">Circlide</a>
+<a href="../privacy/">Privacy</a>
+<a href="/">amirhayek.dev</a>
+</footer>
+
+</main>
+</body>
+</html>
