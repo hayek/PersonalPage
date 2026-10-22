@@ -2,7 +2,7 @@
 <!--
   Circlide — landing page.
 
-  The page opens the way the game does: one dark orb, its glowing ring and the game's own tutorial line.
+  The page opens the way the game does: one dark orb and its glowing ring, side by side.
   Drop the orb on the ring and the ring opens into the site (a hole masked into the intro grows from the drop point).
   Keyboard: the orb is a button, Enter sends it home. "Skip" and reduced motion go straight to the site,
   and without JavaScript the intro never shows.
@@ -10,8 +10,8 @@
   The look is the game's first world, Aurora (Game/Scene/WorldPalette.swift): night violet with mint and
   blue curtains; coral is the logo's front disc, gold is Theme.gold. Type is the app's SF Pro Rounded.
 
-  The video is the App Store preview: drop it in as assets/preview.mp4 (portrait, 886×1920 or similar).
-  Until it's there the phone shows assets/poster.jpg, a frame of the 2.0 build.
+  The phone shows a real screenshot of the 2.0 build (level 14, Lagoon). When the App Store preview video
+  is ready, it replaces the <img> as <video autoplay muted loop playsinline poster="assets/screenshot.jpg">.
 -->
 <html lang="en" dir="ltr" class="no-js">
 <head>
@@ -137,7 +137,7 @@
         .ring {
             --near: 0;
             left: var(--gap);
-            top: calc(var(--gap) * -0.7);
+            top: 0;
             border: calc(var(--size) * 0.075) solid #ffb8bf;
             box-shadow:
                 0 0 calc(18px + 30px * var(--near)) rgba(255, 120, 135, calc(0.55 + 0.4 * var(--near))),
@@ -153,7 +153,7 @@
 
         .orb {
             left: calc(var(--gap) * -1);
-            top: calc(var(--gap) * 0.7);
+            top: 0;
             padding: 0;
             border: 0;
             cursor: grab;
@@ -173,7 +173,7 @@
         .ghost {
             position: absolute;
             left: calc(var(--gap) * -1);
-            top: calc(var(--gap) * 0.7);
+            top: 0;
             width: 34px;
             height: 34px;
             margin: -17px 0 0 -17px;
@@ -190,21 +190,8 @@
         @keyframes ghost {
             0% { opacity: 0; transform: translate(0, 0) scale(1.3); }
             15% { opacity: 1; transform: translate(0, 0) scale(1); }
-            70% { opacity: 1; transform: translate(calc(var(--gap) * 2), calc(var(--gap) * -1.4)) scale(1); }
-            85%, 100% { opacity: 0; transform: translate(calc(var(--gap) * 2), calc(var(--gap) * -1.4)) scale(1.3); }
-        }
-
-        .caption {
-            position: absolute;
-            left: 0;
-            right: 0;
-            bottom: max(18vh, 110px);
-            margin: 0;
-            padding: 0 24px;
-            text-align: center;
-            font-size: clamp(18px, 2.6vw, 24px);
-            font-weight: 600;
-            color: rgba(244, 242, 255, 0.92);
+            70% { opacity: 1; transform: translate(calc(var(--gap) * 2), 0) scale(1); }
+            85%, 100% { opacity: 0; transform: translate(calc(var(--gap) * 2), 0) scale(1.3); }
         }
 
         .skip {
@@ -328,15 +315,14 @@
             justify-self: center;
             position: relative;
             width: min(100%, 340px);
-            aspect-ratio: 886 / 1920;
+            aspect-ratio: 1206 / 2622;
             padding: 12px;
             border-radius: 54px;
             background: linear-gradient(160deg, rgba(255, 255, 255, 0.28), rgba(255, 255, 255, 0.06) 40%, rgba(255, 255, 255, 0.14));
             box-shadow: 0 40px 90px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(255, 255, 255, 0.18) inset;
-            transform: rotate(4deg);
         }
 
-        .phone video {
+        .phone img, .phone video {
             display: block;
             width: 100%;
             height: 100%;
@@ -344,56 +330,6 @@
             border-radius: 43px;
             background: #0d0a24;
         }
-
-        .modes {
-            padding: 0 0 clamp(56px, 10vh, 96px);
-        }
-
-        h2 {
-            margin: 0 0 32px;
-            font-size: clamp(30px, 3.6vw, 40px);
-            font-weight: 800;
-            letter-spacing: -0.01em;
-        }
-
-        .modes ul {
-            display: grid;
-            grid-template-columns: repeat(4, minmax(0, 1fr));
-            gap: 28px;
-            margin: 0;
-            padding: 0;
-            list-style: none;
-        }
-
-        /* Each mode is an orb sitting in its ring, in the mode's colour. */
-        .pair {
-            position: relative;
-            width: 64px;
-            height: 64px;
-            margin-bottom: 16px;
-            border-radius: 50%;
-            border: 5px solid var(--light);
-            box-shadow: 0 0 22px var(--glow), inset 0 0 12px var(--glow);
-        }
-
-        .pair::after {
-            content: "";
-            position: absolute;
-            inset: 9px;
-            border-radius: 50%;
-            background:
-                radial-gradient(circle at 34% 28%, rgba(255, 255, 255, 0.7) 0 7%, transparent 20%),
-                radial-gradient(circle at 40% 35%, var(--light), var(--dark) 85%);
-        }
-
-        .classic { --light: #ff9aa1; --dark: #8e1424; --glow: rgba(255, 92, 102, 0.5); }
-        .rush { --light: #ffc27a; --dark: #8a4304; --glow: rgba(255, 158, 51, 0.5); }
-        .zen { --light: #9cebf2; --dark: #11616b; --glow: rgba(102, 217, 230, 0.5); }
-        .daily { --light: #c7bcff; --dark: #3d2b9e; --glow: rgba(166, 140, 255, 0.5); }
-
-        .modes h3 { margin: 0 0 6px; font-size: 24px; font-weight: 800; }
-
-        .modes p { margin: 0; color: var(--muted); font-size: 17px; }
 
         footer {
             display: flex;
@@ -421,26 +357,16 @@
             from { opacity: 0; transform: translateY(18px) scale(0.96); }
         }
 
-        .open .phone.rise { animation-name: pop-phone; }
-
-        @keyframes pop-phone {
-            from { opacity: 0; transform: translateY(40px) rotate(10deg) scale(0.9); }
-            to { transform: rotate(4deg); }
-        }
 
         @media (max-width: 860px) {
             .hero { grid-template-columns: 1fr; text-align: center; }
             .lede { margin-inline: auto; }
             .phone { width: min(78%, 320px); }
-            .modes ul { grid-template-columns: repeat(2, minmax(0, 1fr)); }
         }
 
         @media (max-width: 480px) {
             body { font-size: 17px; }
             .site { padding-inline: 18px; }
-            .modes ul { grid-template-columns: 1fr; gap: 22px; }
-            .modes li { display: grid; grid-template-columns: 64px 1fr; column-gap: 18px; align-items: center; }
-            .pair { grid-row: span 2; margin: 0; }
             footer .made { margin-inline-start: 0; }
         }
 
@@ -461,7 +387,6 @@
             <div class="ghost" aria-hidden="true"></div>
             <button class="orb" id="orb" type="button" aria-label="Drop the dark circle on the light circle to open the page"></button>
         </div>
-        <p class="caption">Drag the dark circle to the light circle</p>
         <button class="skip" id="skip" type="button">Skip</button>
     </section>
 
@@ -485,22 +410,11 @@
                     </div>
                 </div>
                 <div class="phone rise" style="--i: 2">
-                    <video autoplay muted loop playsinline preload="metadata" poster="assets/poster.jpg"
-                           aria-label="Circlide being played: orbs dragged onto their rings, combos and Fever">
-                        <source src="assets/preview.mp4" type="video/mp4">
-                    </video>
+                    <img src="assets/screenshot.jpg" width="1206" height="2622"
+                         alt="Circlide on iPhone: level 14, with colored orbs, their glowing rings and a spike">
                 </div>
             </section>
 
-            <section class="modes" aria-labelledby="modes-title">
-                <h2 id="modes-title" class="rise" style="--i: 4">Four ways to play</h2>
-                <ul>
-                    <li class="classic rise" style="--i: 5"><div class="pair" aria-hidden="true"></div><h3>Classic</h3><p>Beat the clock, level by level, through five glowing worlds.</p></li>
-                    <li class="rush rise" style="--i: 6"><div class="pair" aria-hidden="true"></div><h3>Rush</h3><p>Sixty seconds and pairs that never stop. Golden ones buy time.</p></li>
-                    <li class="zen rise" style="--i: 7"><div class="pair" aria-hidden="true"></div><h3>Zen</h3><p>No clock, no spikes. Match at your own pace for as long as you like.</p></li>
-                    <li class="daily rise" style="--i: 8"><div class="pair" aria-hidden="true"></div><h3>Daily</h3><p>Today's levels, the same for every player in the world.</p></li>
-                </ul>
-            </section>
         </main>
 
         <footer>
