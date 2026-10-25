@@ -409,6 +409,17 @@ a {
   font-weight: 500;
   color: var(--muted);
 }
+.price-extra {
+  display: block;
+  margin-block-start: 0.25rem;
+  font-size: 0.875rem;
+  color: var(--muted);
+}
+.price-deal {
+  margin-block-start: 0.75rem;
+  font-weight: 500;
+  color: var(--pine);
+}
 .price-note {
   margin-block-start: 0.75rem;
   font-size: 0.875rem;

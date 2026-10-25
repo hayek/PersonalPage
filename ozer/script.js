@@ -51,30 +51,41 @@
         return node;
     }
 
-    function priceRow(label, value) {
+    function formatIls(value) {
+        return numberFormat.format(value) + ' ₪';
+    }
+
+    // One billing period: the price for the first 5 seats, and under it the price of each 5 added.
+    function priceRow(label, base, block) {
         var row = el('div', 'price-row');
-        row.appendChild(el('dt', null, label));
-        var dd = isPrice(value)
-            ? el('dd', 'price-amount', numberFormat.format(value) + ' ₪')
-            : el('dd', 'price-amount is-on-request', ON_REQUEST);
-        row.appendChild(dd);
+        var dt = el('dt', null, label);
+        if (isPrice(base) && isPrice(block)) {
+            dt.appendChild(el('span', 'price-extra', 'כל 5 מושבים נוספים: ' + formatIls(block)));
+        }
+        row.appendChild(dt);
+        row.appendChild(isPrice(base)
+            ? el('dd', 'price-amount', formatIls(base))
+            : el('dd', 'price-amount is-on-request', ON_REQUEST));
         return row;
     }
 
     function showPrices(pricing) {
         var box = document.getElementById('prices');
-        if (!box) return;
-        var monthly = pricing && pricing.monthlyPerSeatIls;
-        var year = pricing && pricing.yearPerSeatIls;
+        if (!box || !pricing) return;
+        var monthly = pricing.monthlyBaseIls;
+        var year = pricing.yearBaseIls;
         if (!isPrice(monthly) && !isPrice(year)) return; // the fallback in the markup stays
 
         var list = el('dl', 'price-list');
-        list.appendChild(priceRow('למושב לחודש', monthly));
-        list.appendChild(priceRow('למושב לשנת הלימודים', year));
+        list.appendChild(priceRow('שנת לימודים, עד 5 מושבים', year, pricing.yearBlockIls));
+        list.appendChild(priceRow('חודשי, עד 5 מושבים', monthly, pricing.monthlyBlockIls));
 
         box.textContent = '';
         box.appendChild(list);
-        box.appendChild(el('p', 'price-note', 'המחירים לפני מע״מ'));
+        if (isPrice(monthly) && isPrice(year) && Math.round(year / monthly) < 12) {
+            box.appendChild(el('p', 'price-deal', 'שנת לימודים שלמה במחיר של כ-' + Math.round(year / monthly) + ' חודשים.'));
+        }
+        box.appendChild(el('p', 'price-note', 'שנת הלימודים מסתיימת ב-31 באוגוסט. בית ספר שמצטרף באמצע השנה משלם רק על החודשים שנותרו.'));
     }
 
     function loadPrices() {
