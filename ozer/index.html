@@ -30,9 +30,10 @@
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Hebrew:wght@400;500;600&family=Frank+Ruhl+Libre:wght@400;500&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="styles.css">
-    <!-- Lets the stylesheet hold the marker back until script.js draws it; without script it is simply shown. -->
-    <script>document.documentElement.classList.add('js');</script>
-    <script src="script.js" defer></script>
+    <!-- Loaded in the head, without defer, so the class it sets on <html> (which holds the marker back
+         until it is drawn) is in place before first paint. If this file fails or is blocked, the
+         class is never set and the quote is simply shown highlighted. -->
+    <script src="script.js"></script>
     <script src="/assets/analytics.js" defer></script>
 </head>
 <body>
@@ -79,7 +80,7 @@
                 <figure class="screen section-body" id="example-screen">
                     <p class="question">מותר לתלמיד לצלם בשיעור עם הטלפון?</p>
                     <div class="answer">
-                        <p>לא. לפי החוזר, צילום או הקלטה בזמן שיעור באמצעות הטלפון הנייד אסורים, ואין לצלם אדם בלי ידיעתו.<span class="cite" aria-label="מקור 1">1</span></p>
+                        <p>ככלל לא. צילום או הקלטה בשיעור בטלפון הנייד אסורים בהחלט. לצלם אדם בלי ידיעתו מותר רק כשהצוות החינוכי הנחה על פעילות חינוכית-לימודית מוגדרת.<span class="cite" aria-hidden="true">1</span><span class="visually-hidden">(מקור 1)</span></p>
                     </div>
                     <h3 class="sources-title">מקורות</h3>
                     <ul class="sources">

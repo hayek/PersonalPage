@@ -3,14 +3,25 @@
 (function () {
     'use strict';
 
+    // Runs in <head> before first paint. The stylesheet hides the marker only under html.js,
+    // so if this file never loads the quote is shown highlighted.
+    var root = document.documentElement;
+    root.classList.add('js');
+
     var PRICING_URL = 'https://me-west1-pet-gallery.cloudfunctions.net/api/pricing';
     var TIMEOUT_MS = 5000;
     var ON_REQUEST = 'המחיר יימסר בהצעה';
 
-    // --- The marker: one moment, the first time the example is on screen ---
+    // --- The marker: one moment, the first time the quote itself is on screen ---
+    // Watches the quote (a few lines), not the whole example, so it fires on short viewports too:
+    // any part of the quote inside the viewport, a little above the bottom edge.
     function drawMarkerWhenSeen() {
         var screen = document.getElementById('example-screen');
-        if (!screen) return;
+        var quote = screen && screen.querySelector('.source-quote');
+        if (!screen || !quote) {
+            root.classList.remove('js');
+            return;
+        }
         if (!('IntersectionObserver' in window)) {
             screen.classList.add('is-drawn');
             return;
@@ -22,8 +33,8 @@
                     observer.disconnect();
                 }
             });
-        }, { threshold: 0.5 });
-        observer.observe(screen);
+        }, { threshold: 0, rootMargin: '0px 0px -15% 0px' });
+        observer.observe(quote);
     }
 
     // --- Prices ---
@@ -88,6 +99,18 @@
             });
     }
 
-    drawMarkerWhenSeen();
-    loadPrices();
+    function start() {
+        try {
+            drawMarkerWhenSeen();
+        } catch (error) {
+            root.classList.remove('js'); // never leave the quote unhighlighted
+        }
+        loadPrices();
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', start);
+    } else {
+        start();
+    }
 })();
