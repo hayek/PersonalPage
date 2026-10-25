@@ -240,12 +240,12 @@ a {
 }
 /* The question bubble, as in the app */
 .question {
-  align-self: flex-end;
+  align-self: flex-start;
   max-inline-size: 85%;
   padding: 0.6rem 1rem;
   background: var(--canvas);
   border-radius: 1.125rem;
-  border-start-end-radius: 0.375rem;
+  border-start-start-radius: 0.375rem;
   line-height: 1.6;
 }
 .answer {
