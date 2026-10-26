@@ -10,6 +10,13 @@
    which moves the next one here. */
 const BLOG_POSTS = [
     {
+        slug: 'claude-usage-limits-reset',
+        title: 'When do Claude\'s usage limits reset?',
+        date: '2026-10-26',
+        tags: ['pro-tip', 'limits'],
+        excerpt: 'Claude\'s 5-hour session window and its weekly limit reset on very different clocks. How each one works, where to see your reset times, and what a limit reset is.',
+    },
+    {
         slug: 'free-limit-reset-expires-oct-22',
         title: 'Your free Claude limit reset expires October 22',
         date: '2026-10-21',
