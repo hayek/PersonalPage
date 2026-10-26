@@ -43,7 +43,7 @@
         <div class="shell bar-inner">
             <a class="wordmark" href="./" aria-label="עוזר, לראש העמוד">עוזר</a>
             <nav class="bar-actions" aria-label="קישורים">
-                <a class="btn btn-ghost" href="mailto:hayek_dev@icloud.com?subject=%D7%A2%D7%95%D7%96%D7%A8">צרו קשר</a>
+                <a class="btn btn-ghost" href="#contact" data-contact>צרו קשר</a>
                 <a class="btn btn-primary" href="https://pet-gallery.web.app/login">כניסה</a>
             </nav>
         </div>
@@ -116,7 +116,7 @@
                 </div>
                 <div class="faq-row">
                     <dt>איך בית ספר מצטרף?</dt>
-                    <dd>בהזמנה. <a href="mailto:hayek_dev@icloud.com?subject=%D7%A2%D7%95%D7%96%D7%A8">כתבו לנו</a>, ונשלח הזמנה למנהל/ת בית הספר, שמזמין/ה את הצוות.</dd>
+                    <dd>בהזמנה. <a href="#contact" data-contact>כתבו לנו</a>, ונשלח הזמנה למנהל/ת בית הספר, שמזמין/ה את הצוות.</dd>
                 </div>
             </dl>
         </section>
@@ -131,17 +131,66 @@
             </div>
         </section>
 
-        <section class="block shell split contact" aria-labelledby="contact-title">
+        <section class="block shell split contact" id="contact" aria-labelledby="contact-title">
             <div class="section-head">
                 <h2 id="contact-title">צרו קשר</h2>
                 <p class="section-line">לשאלות, להצעת מחיר או להצטרפות של בית ספר.</p>
             </div>
             <p class="contact-actions section-body">
-                <a class="btn btn-primary btn-large" href="mailto:hayek_dev@icloud.com?subject=%D7%A2%D7%95%D7%96%D7%A8">כתבו לנו</a>
-                <span class="contact-address" dir="ltr">hayek_dev@icloud.com</span>
+                <button class="btn btn-primary btn-large" type="button" data-contact>כתבו לנו</button>
             </p>
         </section>
     </main>
+
+    <!-- The contact form: sent to the app's server, which emails it on. Opened by every [data-contact]. -->
+    <dialog class="contact-dialog" id="contact-dialog" aria-labelledby="contact-dialog-title">
+        <div class="contact-dialog-head">
+            <h2 id="contact-dialog-title">כתבו לנו</h2>
+            <button class="contact-close" type="button" data-close aria-label="סגירה">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+            </button>
+        </div>
+        <form class="contact-form" id="contact-form" novalidate>
+            <p class="contact-intro">לשאלות, להצעת מחיר או להצטרפות של בית ספר. נחזור אליכם באימייל.</p>
+            <div class="field">
+                <label for="cf-name">שם</label>
+                <input id="cf-name" name="name" type="text" autocomplete="name" maxlength="100" required>
+            </div>
+            <div class="field">
+                <label for="cf-email">אימייל</label>
+                <input id="cf-email" name="email" type="email" autocomplete="email" maxlength="200" dir="ltr" required>
+            </div>
+            <div class="field-pair">
+                <div class="field">
+                    <label for="cf-school">בית ספר <span class="optional">(לא חובה)</span></label>
+                    <input id="cf-school" name="school" type="text" autocomplete="organization" maxlength="150">
+                </div>
+                <div class="field">
+                    <label for="cf-phone">טלפון <span class="optional">(לא חובה)</span></label>
+                    <input id="cf-phone" name="phone" type="tel" autocomplete="tel" maxlength="40" dir="ltr">
+                </div>
+            </div>
+            <div class="field">
+                <label for="cf-message">הודעה</label>
+                <textarea id="cf-message" name="message" rows="5" maxlength="3000" required></textarea>
+            </div>
+            <!-- Left empty by people, filled by scripts. -->
+            <div class="contact-trap" aria-hidden="true">
+                <label for="cf-website">אתר</label>
+                <input id="cf-website" name="website" type="text" tabindex="-1" autocomplete="off">
+            </div>
+            <p class="contact-error" id="contact-error" role="alert"></p>
+            <div class="contact-buttons">
+                <button class="btn btn-primary btn-large" type="submit">שליחה</button>
+                <button class="btn btn-ghost btn-large" type="button" data-close>ביטול</button>
+            </div>
+        </form>
+        <div class="contact-sent" id="contact-sent" role="status" hidden>
+            <p class="contact-sent-title">ההודעה נשלחה</p>
+            <p>תודה. נחזור אליכם באימייל שכתבתם.</p>
+            <button class="btn btn-ghost" type="button" data-close>סגירה</button>
+        </div>
+    </dialog>
 
     <footer class="footer">
         <div class="shell">

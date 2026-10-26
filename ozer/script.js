@@ -1,5 +1,5 @@
 // Ozer welcome page: draws the marker once when the example comes into view,
-// and fills the prices from the app's public pricing endpoint.
+// fills the prices from the app's public pricing endpoint, and sends the contact form to the app's server.
 (function () {
     'use strict';
 
@@ -11,6 +11,8 @@
     var PRICING_URL = 'https://me-west1-pet-gallery.cloudfunctions.net/api/pricing';
     var TIMEOUT_MS = 5000;
     var ON_REQUEST = 'המחיר יימסר בהצעה';
+    var CONTACT_URL = 'https://me-west1-pet-gallery.cloudfunctions.net/api/contact';
+    var EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     // --- The marker: one moment, the first time the quote itself is on screen ---
     // Watches the quote (a few lines), not the whole example, so it fires on short viewports too:
@@ -110,6 +112,111 @@
             });
     }
 
+    // --- Contact form: a dialog; without dialog support the links just scroll to the contact section ---
+    function setUpContact() {
+        var dialog = document.getElementById('contact-dialog');
+        var form = document.getElementById('contact-form');
+        var sent = document.getElementById('contact-sent');
+        var error = document.getElementById('contact-error');
+        if (!dialog || !form || !sent || !error || typeof dialog.showModal !== 'function' || !window.fetch) return;
+        var submit = form.querySelector('[type="submit"]');
+        var submitLabel = submit.textContent;
+        var openedAt = 0;
+        var required = ['name', 'email', 'message'];
+
+        function open(event) {
+            event.preventDefault();
+            if (dialog.open) return;
+            form.hidden = false;
+            sent.hidden = true;
+            error.textContent = '';
+            openedAt = Date.now();
+            dialog.showModal();
+            form.elements.name.focus();
+        }
+
+        function value(name) {
+            return form.elements[name].value.trim();
+        }
+
+        function markInvalid() {
+            var firstBad = null;
+            required.forEach(function (name) {
+                var field = form.elements[name];
+                var bad = !value(name) || (name === 'email' && !EMAIL_RE.test(value(name)));
+                field.setAttribute('aria-invalid', bad ? 'true' : 'false');
+                if (bad && !firstBad) firstBad = field;
+            });
+            return firstBad;
+        }
+
+        function busy(on) {
+            submit.disabled = on;
+            submit.textContent = on ? 'שולחים…' : submitLabel;
+        }
+
+        form.addEventListener('submit', function (event) {
+            event.preventDefault();
+            error.textContent = '';
+            var firstBad = markInvalid();
+            if (firstBad) {
+                error.textContent = 'נא למלא שם, אימייל תקין והודעה.';
+                firstBad.focus();
+                return;
+            }
+            busy(true);
+            fetch(CONTACT_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    name: value('name'),
+                    email: value('email'),
+                    school: value('school'),
+                    phone: value('phone'),
+                    message: value('message'),
+                    website: form.elements.website.value,
+                    elapsedMs: Date.now() - openedAt
+                })
+            })
+                .then(function (response) {
+                    if (response.ok) {
+                        form.reset();
+                        form.hidden = true;
+                        sent.hidden = false;
+                        sent.querySelector('[data-close]').focus();
+                    } else if (response.status === 429) {
+                        error.textContent = 'נשלחו היום יותר מדי הודעות מהחיבור הזה. אפשר לנסות שוב מחר.';
+                    } else if (response.status === 400) {
+                        error.textContent = 'משהו בפרטים לא תקין. בדקו את השדות ונסו שוב.';
+                    } else {
+                        throw new Error('contact ' + response.status);
+                    }
+                })
+                .catch(function () {
+                    error.textContent = 'ההודעה לא נשלחה. בדקו את החיבור לאינטרנט ונסו שוב.';
+                })
+                .then(function () {
+                    busy(false);
+                });
+        });
+
+        required.forEach(function (name) {
+            form.elements[name].addEventListener('input', function () {
+                this.removeAttribute('aria-invalid');
+            });
+        });
+        Array.prototype.forEach.call(document.querySelectorAll('[data-contact]'), function (el) {
+            el.addEventListener('click', open);
+        });
+        Array.prototype.forEach.call(dialog.querySelectorAll('[data-close]'), function (el) {
+            el.addEventListener('click', function () { dialog.close(); });
+        });
+        // A click on the backdrop lands on the dialog element itself.
+        dialog.addEventListener('click', function (event) {
+            if (event.target === dialog) dialog.close();
+        });
+    }
+
     function start() {
         try {
             drawMarkerWhenSeen();
@@ -117,6 +224,7 @@
             root.classList.remove('js'); // never leave the quote unhighlighted
         }
         loadPrices();
+        setUpContact();
     }
 
     if (document.readyState === 'loading') {
