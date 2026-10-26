@@ -13,6 +13,8 @@
     var ON_REQUEST = 'המחיר יימסר בהצעה';
     var CONTACT_URL = 'https://me-west1-pet-gallery.cloudfunctions.net/api/contact';
     var EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    // As the server checks it: digits with the usual separators, at least 9 digits.
+    var PHONE_RE = /^\+?[\d\s()-]+$/;
 
     // --- The marker: one moment, the first time the quote itself is on screen ---
     // Watches the quote (a few lines), not the whole example, so it fires on short viewports too:
@@ -122,7 +124,7 @@
         var submit = form.querySelector('[type="submit"]');
         var submitLabel = submit.textContent;
         var openedAt = 0;
-        var required = ['name', 'email', 'message'];
+        var required = ['name', 'email', 'phone', 'message'];
 
         function open(event) {
             event.preventDefault();
@@ -143,7 +145,10 @@
             var firstBad = null;
             required.forEach(function (name) {
                 var field = form.elements[name];
-                var bad = !value(name) || (name === 'email' && !EMAIL_RE.test(value(name)));
+                var v = value(name);
+                var bad = !v
+                    || (name === 'email' && !EMAIL_RE.test(v))
+                    || (name === 'phone' && (!PHONE_RE.test(v) || v.replace(/\D/g, '').length < 9));
                 field.setAttribute('aria-invalid', bad ? 'true' : 'false');
                 if (bad && !firstBad) firstBad = field;
             });
@@ -160,7 +165,7 @@
             error.textContent = '';
             var firstBad = markInvalid();
             if (firstBad) {
-                error.textContent = 'נא למלא שם, אימייל תקין והודעה.';
+                error.textContent = 'נא למלא שם, אימייל תקין, מספר טלפון והודעה.';
                 firstBad.focus();
                 return;
             }
