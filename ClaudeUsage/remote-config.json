@@ -4,6 +4,22 @@
     {
       "enabled": true,
       "startDate": null,
+      "endDate": "2026-10-29",
+      "startHour": null,
+      "endHour": null,
+      "days": null,
+      "timezone": null,
+      "icon": "gift.fill",
+      "badgeIcon": "gift.fill",
+      "severity": "medium",
+      "text": "Claude Duet preview includes a free limit reset",
+      "dashboardText": "If you're admitted to the Claude Duet research preview (US Pro and Max, by waitlist), you get one full reset of your 5-hour and weekly limits. Use it before Nov 30, 2026. Tap to read more.",
+      "url": "https://support.claude.com/en/articles/17631495-get-started-with-claude-duet",
+      "type": "news"
+    },
+    {
+      "enabled": true,
+      "startDate": null,
       "endDate": "2026-10-23",
       "startHour": null,
       "endHour": null,
