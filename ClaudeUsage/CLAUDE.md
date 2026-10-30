@@ -84,4 +84,6 @@ This directory also hosts JSON consumed by the ClaudeUsage app:
 
 Full news-publishing runbook (alert schema, conventions, timezone gotchas, verify steps) lives in the **app repo** at `/Users/amir/Developer/ClaudeUsage/docs/NEWS-RELEASES.md`.
 
+Before committing `remote-config.json`, lint it: `python3 -I /Users/amir/Developer/ClaudeUsage/scripts/lint-remote-config.py /Users/amir/Developer/PersonalPage/ClaudeUsage/remote-config.json` (exit 1 = don't publish). It checks the `audience` / `minAppVersion` / `maxAppVersion` targeting rules and the JSON type of every field shipped builds decode; the schema is in the runbook above.
+
 Changes go live on push to `main` (GitHub Pages, ~½–2 min).
