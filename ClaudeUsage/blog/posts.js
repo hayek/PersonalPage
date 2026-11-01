@@ -11,6 +11,13 @@
    which moves the next one here. */
 const BLOG_POSTS = [
     {
+        slug: 'claude-ultra-no-5-hour-limit',
+        title: 'Max 20x is now Ultra, with no 5-hour limit',
+        date: '2026-11-01',
+        tags: ['news', 'limits', 'plans'],
+        excerpt: 'Anthropic renamed Max 20x to Ultra and Max 5x to Max. Verified Ultra accounts lose the 5-hour session limit, but the weekly limit stays. Who gets it, how to check, and the catch.',
+    },
+    {
         // not a blog page: the entry links to the What's New page (url is relative to /ClaudeUsage/)
         slug: 'whats-new',
         url: 'whats-new.html',
