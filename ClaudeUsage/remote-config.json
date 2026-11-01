@@ -4,6 +4,22 @@
     {
       "enabled": true,
       "startDate": null,
+      "endDate": "2026-11-05",
+      "startHour": null,
+      "endHour": null,
+      "days": null,
+      "timezone": null,
+      "icon": "gauge.with.dots.needle.67percent",
+      "badgeIcon": "gauge.with.dots.needle.67percent",
+      "severity": "medium",
+      "text": "Max 20x is now Ultra, with no 5-hour limit",
+      "dashboardText": "Anthropic renamed Max 20x to Ultra ($200/mo, same price) and Max 5x to Max. Verified Ultra accounts no longer have a 5-hour session limit, but weekly limits are unchanged. Tap to read more.",
+      "url": "https://amirhayek.dev/ClaudeUsage/blog/claude-ultra-no-5-hour-limit.html",
+      "type": "news"
+    },
+    {
+      "enabled": true,
+      "startDate": null,
       "endDate": "2026-10-29",
       "startHour": null,
       "endHour": null,
