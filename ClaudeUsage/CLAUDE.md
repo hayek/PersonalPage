@@ -22,7 +22,8 @@ This is a static landing page for "Usage for Claude", a macOS menu bar applicati
 - Live menu bar clock (user, 2026-10-17): the Mac bars on the main page are `mac-menubar-*-live.png` (the screenshot's "Fri Oct 9 9:41" painted out); `.bar-clock` is laid out at the screenshot's 2880 px and scaled by `--bar-k` (site.js) to show the visitor's day and time. The originals without `-live` keep the clock and are used on whats-new.html.
 - Copy rule (user, 2026-10-17): Apple-landing-page density — each feature is a short declarative headline (4–6 words, ends with a period) plus ONE paragraph of 2–3 sentences, about 30–45 words. No section intros (no "What it does"), no bullet lists, no eyebrows. ("Way too much text" was the old long version; a single line each was then "too little".)
 - Bump the `?v=` on landing.css / build.js / site.js in BOTH pages after the last edit of a round (browsers cache them; Safari cached a half-edited landing.css once).
-- `styles.css` - Styling for the blog, version history and privacy pages (unchanged by the redesign)
+- Blog (redesigned 2026-11-01 to match): `blog/index.html` and every post (live and in `blog/_queue/`) load `../landing.css` + `blog/blog.css` (Archivo, night background, always-visible sticky header with a Blog nav item, the landing footer). The index leads with the newest post as a clay card; each post ends with one clay download card (so the post header has no button, like whats-new.html). New posts: copy an existing post's page so they keep this chrome. When you bump `landing.css?v=`, bump it in the blog pages too.
+- `styles.css` - Styling for the version history and privacy pages (not yet redesigned)
 - `Assets/` - Image assets; `Assets/v4/` holds the real app captures copied from the app repo's `marketing/*/assets/captures/en/` (re-copy from there after re-capturing)
 
 **Key Design Patterns:**

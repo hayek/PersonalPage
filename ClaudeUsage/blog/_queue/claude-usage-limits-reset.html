@@ -46,20 +46,30 @@
     <link rel="apple-touch-icon" sizes="180x180" href="../Assets/Favicon/apple-touch-icon.png" />
     <meta name="apple-mobile-web-app-title" content="Usage for Claude" />
     <link rel="manifest" href="../Assets/Favicon/site.webmanifest" />
-    <link rel="stylesheet" href="../styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../landing.css?v=4.8.3">
+    <link rel="stylesheet" href="blog.css?v=1">
     <script src="/assets/analytics.js" defer></script>
 </head>
-<body data-stars="subtle">
-    <!-- Decorative Stars -->
-    <div class="stars-decoration" aria-hidden="true">
-        <img src="../Assets/Star1.svg" alt="" class="star star-1">
-        <img src="../Assets/Star2.svg" alt="" class="star star-2">
-        <img src="../Assets/Star3.svg" alt="" class="star star-3">
-        <img src="../Assets/Star4.svg" alt="" class="star star-4">
-        <img src="../Assets/Star5.svg" alt="" class="star star-5">
-    </div>
+<body class="page-blog">
 
-    <main class="page-content post-page">
+    <header class="site-header is-visible" id="siteHeader">
+        <a class="brand" href="../">
+            <img src="../Assets/v4/icon-512.jpg" alt="">
+            <span>Usage for Claude + ChatGPT</span>
+        </a>
+        <nav class="site-nav" aria-label="Site">
+            <a href="../#features">Features</a>
+            <a href="../whats-new.html">What's new</a>
+            <a href="./">Blog</a>
+            <a href="../#faq">Questions</a>
+        </nav>
+    </header>
+
+    <main id="top" class="post-page">
+        <div class="wrap read">
         <header class="post-header">
             <a href="./" class="back-link">&lsaquo; Blog</a>
             <div class="tag-list">
@@ -101,17 +111,33 @@
             </div>
         </article>
 
+        <aside class="field field-clay post-cta" aria-label="Usage for Claude + ChatGPT">
+            <div class="copy">
+                <div class="brand-row"><img src="../Assets/v4/icon-512.jpg" alt=""><span>Usage for Claude + ChatGPT</span></div>
+                <p>Your Claude and ChatGPT limits in the Mac menu bar, on your iPhone, iPad and Apple Watch, with an alert before you run out.</p>
+            </div>
+            <a href="https://apps.apple.com/app/id6755173244?ct=site-blog" class="btn btn-ink" target="_blank" rel="noopener noreferrer">
+                <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M11.05 8.49c-.02-1.7 1.39-2.52 1.45-2.56-.79-1.16-2.02-1.32-2.46-1.34-1.05-.11-2.04.61-2.57.61-.53 0-1.35-.6-2.22-.58-1.14.02-2.19.66-2.78 1.68-1.18 2.05-.3 5.09.85 6.75.56.81 1.23 1.72 2.11 1.69.85-.03 1.17-.55 2.2-.55 1.02 0 1.31.55 2.21.53.91-.02 1.49-.83 2.05-1.65.65-.95.91-1.86.93-1.91-.02-.01-1.78-.69-1.8-2.72zM9.4 3.6c.47-.57.78-1.36.69-2.15-.67.03-1.49.45-1.97 1.01-.43.5-.81 1.31-.71 2.08.75.06 1.51-.38 1.99-.94z"/></svg>
+                <span>Download on the App Store</span>
+            </a>
+        </aside>
+
         <nav class="post-footer">
             <a href="./" class="link-arrow">&larr; All posts</a>
-            <a href="../" class="link-arrow">Get Usage for Claude →</a>
+            <a href="../" class="link-arrow">Everything the app does &rarr;</a>
         </nav>
+        </div>
 
         <footer class="footer">
-            <p class="footer-text">
-                Created with <img src="../Assets/heart.svg" alt="love" class="heart-icon"> for the Claude community by
-                <a href="https://amirhayek.dev/" target="_blank" rel="noopener noreferrer" class="footer-link">Amir Hayek</a>
-                <a href="https://www.linkedin.com/in/amir-hayek-2a816415/" target="_blank" rel="noopener noreferrer" class="footer-link" aria-label="LinkedIn"><img src="../Assets/linkedin.svg" alt="LinkedIn" class="linkedin-icon"></a>
-            </p>
+            <div class="wrap">
+                <p>By <a href="https://amirhayek.dev/" target="_blank" rel="noopener noreferrer">Amir Hayek</a>. Not affiliated with Anthropic or OpenAI.</p>
+                <nav aria-label="Footer">
+                    <a href="../">Usage for Claude + ChatGPT</a>
+                    <a href="../whats-new.html">What's new</a>
+                    <a href="../privacy/">Privacy</a>
+                    <a href="../version-history.html">Version history</a>
+                </nav>
+            </div>
         </footer>
     </main>
 </body>

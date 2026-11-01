@@ -22,27 +22,37 @@
     <link rel="apple-touch-icon" sizes="180x180" href="../Assets/Favicon/apple-touch-icon.png" />
     <meta name="apple-mobile-web-app-title" content="Usage for Claude" />
     <link rel="manifest" href="../Assets/Favicon/site.webmanifest" />
-    <link rel="stylesheet" href="../styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../landing.css?v=4.8.3">
+    <link rel="stylesheet" href="blog.css?v=1">
     <script src="/assets/analytics.js" defer></script>
 </head>
-<body data-stars="subtle">
-    <!-- Decorative Stars -->
-    <div class="stars-decoration" aria-hidden="true">
-        <img src="../Assets/Star1.svg" alt="" class="star star-1">
-        <img src="../Assets/Star2.svg" alt="" class="star star-2">
-        <img src="../Assets/Star3.svg" alt="" class="star star-3">
-        <img src="../Assets/Star4.svg" alt="" class="star star-4">
-        <img src="../Assets/Star5.svg" alt="" class="star star-5">
-    </div>
+<body class="page-blog">
 
-    <main class="page-content blog-page">
-        <section class="version-history-header">
-            <a href="../" class="back-link">&lsaquo; Back</a>
-            <h1 class="version-history-title">Blog</h1>
-            <p class="version-history-subtitle">Changelog, news, and pro tips for Usage for Claude. Looking for every release? See the <a href="../version-history.html" class="inline-link" style="color: var(--accent-light);">full version history</a>.</p>
+    <header class="site-header is-visible" id="siteHeader">
+        <a class="brand" href="../">
+            <img src="../Assets/v4/icon-512.jpg" alt="">
+            <span>Usage for Claude + ChatGPT</span>
+        </a>
+        <nav class="site-nav" aria-label="Site">
+            <a href="../#features">Features</a>
+            <a href="../whats-new.html">What's new</a>
+            <a href="./" aria-current="page">Blog</a>
+            <a href="../#faq">Questions</a>
+        </nav>
+        <a href="https://apps.apple.com/app/id6755173244?ct=site-blog" class="btn btn-bone btn-sm" target="_blank" rel="noopener noreferrer">Get the app</a>
+    </header>
+
+    <main id="top">
+        <div class="wrap">
+        <section class="blog-hero">
+            <h1 class="hl hl-l">Blog</h1>
+            <p class="lede">Changelog, news and pro tips for Usage for Claude + ChatGPT. Looking for every release? See the <a href="../version-history.html">full version history</a>.</p>
+            <nav class="tag-filter" id="tagFilter" aria-label="Filter posts by tag"></nav>
         </section>
 
-        <nav class="tag-filter" id="tagFilter" aria-label="Filter posts by tag"></nav>
         <section class="post-grid" id="postList">
                 <!-- baked from blog/posts.js by blog/bake.js -->
         <a class="post-card" href="claude-ultra-no-5-hour-limit.html">
@@ -90,12 +100,18 @@
                 <!-- /baked -->
             </section>
 
+        </div>
+
         <footer class="footer">
-            <p class="footer-text">
-                Created with <img src="../Assets/heart.svg" alt="love" class="heart-icon"> for the Claude community by
-                <a href="https://amirhayek.dev/" target="_blank" rel="noopener noreferrer" class="footer-link">Amir Hayek</a>
-                <a href="https://www.linkedin.com/in/amir-hayek-2a816415/" target="_blank" rel="noopener noreferrer" class="footer-link" aria-label="LinkedIn"><img src="../Assets/linkedin.svg" alt="LinkedIn" class="linkedin-icon"></a>
-            </p>
+            <div class="wrap">
+                <p>By <a href="https://amirhayek.dev/" target="_blank" rel="noopener noreferrer">Amir Hayek</a>. Not affiliated with Anthropic or OpenAI.</p>
+                <nav aria-label="Footer">
+                    <a href="../">Usage for Claude + ChatGPT</a>
+                    <a href="../whats-new.html">What's new</a>
+                    <a href="../privacy/">Privacy</a>
+                    <a href="../version-history.html">Version history</a>
+                </nav>
+            </div>
         </footer>
     </main>
 

@@ -4,7 +4,7 @@
    Archivo 900 wide uppercase headlines, terracotta / night / mint
    colour fields, real app cards lifted onto them. Laid out like an
    App Store product page: header, screenshots, what's new, information.
-   The blog, version history and privacy pages keep styles.css.
+   The blog adds blog/blog.css on top; version history and privacy keep styles.css.
    ========================================================= */
 
 :root {
