@@ -11,6 +11,13 @@
    which moves the next one here. */
 const BLOG_POSTS = [
     {
+        slug: 'claude-usage-limit-reached',
+        title: 'Hit your Claude usage limit? What happens and what you can do',
+        date: '2026-11-02',
+        tags: ['pro-tip', 'limits'],
+        excerpt: 'What happens at your Claude session or weekly limit, the options you have right now (a limit reset, usage credits, upgrading), and how to make your usage last longer.',
+    },
+    {
         slug: 'claude-ultra-no-5-hour-limit',
         title: 'Max 20x is now Ultra, with no 5-hour limit',
         date: '2026-11-01',
