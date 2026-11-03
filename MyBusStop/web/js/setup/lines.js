@@ -6,6 +6,7 @@ import { store } from '../storage.js';
 import { compareLines, isNumbered, lineLabel, lineTitle } from '../transit/model.js';
 import { assignLineColors, railColor, numeralColor } from '../map/index.js';
 import { session, go } from '../main.js';
+import { picking } from '../embed.js';
 import { friendly } from './stops.js';
 import { hasRouteShape } from '../transit/shapes/route-shape.js';
 import { showLineCard, closeLineCard } from '../board/line-card.js';
@@ -37,7 +38,7 @@ export function showLines(root) {
     const countText = h('p', { class: 'count-title' });
     const countHint = h('p', { class: 'count-hint' });
     const clear = h('button', { class: 'button button-outline', onclick: () => { selected.length = 0; render(); } }, 'CLEAR');
-    const show = h('button', { class: 'button button-primary', onclick: open }, 'SHOW THE MAP', icon('arrow', 22));
+    const show = h('button', { class: 'button button-primary', onclick: open }, picking ? 'USE THESE LINES' : 'SHOW THE MAP', icon('arrow', 22));
 
     function colors() {
         // Fix a distinct colour for every chosen line, the way the board will draw them.

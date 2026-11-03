@@ -104,7 +104,7 @@ footer { margin-top: 56px; padding-top: 22px; border-top: 1px solid var(--rule);
 <main class="page">
     <a class="back" href="/MyBusStop/"><img src="../Assets/icon.svg" alt="">My Bus Stop</a>
     <h1>Privacy Policy</h1>
-    <p class="updated">Last updated 7 October 2026</p>
+    <p class="updated">Last updated 3 November 2026</p>
 
     <div class="lede">
         <p><strong>No account, no ads, no tracking.</strong> There's nothing to sign up for, and the app never asks to track you across other companies' apps and websites.</p>
@@ -140,6 +140,7 @@ footer { margin-top: 56px; padding-top: 22px; border-top: 1px solid var(--rule);
     <h2>My Bus Stop on the web</h2>
     <p>The web version at <a href="/MyBusStop/web/">amirhayek.dev/MyBusStop/web</a> asks most regions' transit services directly from your browser, and only offers regions whose services need no key. <strong>Israel</strong> is the exception: bus.gov.il doesn't let a browser read its answers, so in Israel the web version's requests go through a second, keyless relay we run on Google Cloud (Cloud Functions for Firebase, in Tel Aviv). It forwards only the stop, line or search you asked about, and keeps bus.gov.il's reply in memory for between 10 seconds and an hour. Its own logs don't record stops or searches; Google Cloud's standard request logs may record the address that was requested and your IP address. Outside the listed regions, arrival times come from <a href="https://transitous.org/">Transitous</a>, a community-run service built on transit agencies' open data, which receives the stops, lines and searches you ask about.</p>
     <p>Your location is used only when you tap <strong>Find stops near me</strong>, after your browser asks for permission. It's sent to your region's transit service to find stops around you (in Israel, to Transitous; it never goes through our relay), and isn't stored. Your saved stops, line colours and theme are kept in your browser's own storage on that device, along with copies of stop lists so the next visit is faster. Clearing the site's data in your browser removes them all.</p>
+    <p><strong>Board links and Home Assistant.</strong> <em>Copy link to this board</em> puts the stop and lines you chose into the link itself, after the <code>#</code>, so the link carries them to whoever you send it to without them ever reaching our server or analytics. The <a href="https://github.com/hayek/my-bus-stop-card">My Bus Stop card for Home Assistant</a> keeps the same board in your dashboard's own settings, on your Home Assistant, and shows it from this site; a board shown in a card keeps nothing in the browser's storage. The card's editor uses this site's stop picker, whose saved stops stay in that browser as above.</p>
     <p>Like every page on amirhayek.dev, the web version counts page views with Google Analytics. It sends no stops, lines, searches or location to it. Fonts load from Google Fonts.</p>
 
     <h2>Who else is involved</h2>

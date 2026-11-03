@@ -363,13 +363,13 @@ h1, .row-title, .count-title {
 .menu-wrap { position: relative; }
 .menu {
     position: absolute; right: 0; top: calc(100% + 6px); z-index: 10;
-    min-width: 220px; padding: 6px; border-radius: 16px;
+    min-width: 220px; padding: 6px; white-space: nowrap; border-radius: 16px;
     background: var(--menu); border: 2px solid var(--card-outline);
     box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
     display: flex; flex-direction: column;
 }
-.menu button { display: flex; align-items: center; gap: 10px; text-align: start; padding: 12px 14px; border-radius: 10px; font-weight: 800; font-size: 16px; }
-.menu button:hover { background: var(--card); }
+.menu button, .menu .menu-link { display: flex; align-items: center; gap: 10px; text-align: start; padding: 12px 14px; border-radius: 10px; font-weight: 800; font-size: 16px; color: inherit; text-decoration: none; }
+.menu button:hover, .menu .menu-link:hover { background: var(--card); }
 
 /* The map's angled stop names rise above its box, into the gap under the header. */
 .board-map { position: relative; min-height: 0; margin-top: 40px; }
@@ -658,3 +658,41 @@ button.fr-badge:hover { background: var(--card); }
 @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation: none !important; transition: none !important; }
 }
+
+/* ---------------------------------------------------------------- Framed (js/embed.js)
+   A board inside someone else's page: a Home Assistant card, as wide as a phone or a whole panel, and
+   often far shorter than one. The frame's own size is the viewport here, so plain media queries fit
+   the board to the card. Shorter than the map can be read, the map goes and the readout stays. */
+
+:root.embedded .screen { --gutter: 18px; padding-top: 14px; padding-bottom: 12px; }
+:root.embedded .board { grid-template-rows: auto minmax(150px, 1fr) auto auto; }
+:root.embedded .board-map { margin-top: 34px; }
+
+@media (max-height: 560px) {
+    :root.embedded .board { gap: 4px; }
+    :root.embedded .readout { gap: 10px; padding-top: 4px; }
+    :root.embedded .minutes { margin: 4px 0 6px; }
+    :root.embedded .minutes b { font-size: clamp(56px, 18vh, 96px); }
+    :root.embedded .minutes b.now { font-size: clamp(40px, 12vh, 64px); }
+    :root.embedded .badge-big { min-width: 76px; height: 76px; font-size: 34px; border-radius: 18px; }
+    :root.embedded .readout-badge-ring { padding: 3px; border-width: 3px; border-radius: 23px; }
+    :root.embedded .readout-then { padding: 10px 14px; border-radius: 18px; }
+    :root.embedded .then-row { margin-top: 6px; }
+}
+@media (max-height: 440px) {
+    :root.embedded .board { grid-template-rows: auto auto auto; align-content: space-between; }
+    :root.embedded .board-map { display: none; }
+}
+@media (max-height: 300px) {
+    :root.embedded .readout-then { display: none; }
+    :root.embedded .board-title .caption { display: none; }
+}
+
+/* The card's editor: the region and the stop, not this site's theme (the dashboard has its own). */
+:root.picking .field-narrow { display: none; }
+.picked { display: flex; flex-direction: column; align-items: flex-start; gap: 14px; padding-top: 32px; }
+.picked h1 { text-align: start; font-size: clamp(26px, 5vw, 40px); }
+.picked-lines { display: flex; flex-wrap: wrap; gap: 10px; }
+.picked-hint { color: var(--secondary); max-width: 52ch; }
+.link-error { display: flex; flex-direction: column; gap: 16px; align-items: flex-start; padding-top: 40px; }
+.link-error p { color: var(--secondary); max-width: 60ch; }

@@ -6,12 +6,16 @@ import { isNumbered, lineLabel, lineTitle } from '../transit/model.js';
 import { store } from '../storage.js';
 import { BoardModel } from './model.js';
 import { renderMap, railColor } from '../map/index.js';
-import { go, session } from '../main.js';
+import { go, session, colorsOf } from '../main.js';
+import { boardLink } from '../embed.js';
 import { friendly } from '../setup/stops.js';
 import { openFullRoute, closeFullRoute } from './full-route-view.js';
 import { showStopCard, closeStopCard } from './stop-card.js';
 import { showLineCard, closeLineCard } from './line-card.js';
 import { hasRouteShape } from '../transit/shapes/route-shape.js';
+
+/** How to put a board on a Home Assistant dashboard. */
+const HOME_ASSISTANT_GUIDE = 'https://github.com/hayek/my-bus-stop-card#readme';
 
 export function showBoard(root, { board, provider, region }) {
     const configuration = { stop: board.stop, lines: board.lines };
@@ -25,10 +29,30 @@ export function showBoard(root, { board, provider, region }) {
     // Header
     const clock = h('span', { class: 'clock' });
     const live = h('span', { class: 'live' }, h('i', { class: 'live-dot' }), h('span', { class: 'live-label' }, 'CONNECTING'));
+    // A board framed from a link (Home Assistant) is that board alone: its stop and lines are the
+    // card's settings, so nothing here leads to another one.
+    const locked = session.locked;
+    const copyItem = (label, embed = false) => {
+        const item = h('button', { role: 'menuitem', onclick: async (e) => {
+            e.stopPropagation();
+            const text = item.lastChild;
+            try {
+                await navigator.clipboard.writeText(await boardLink(board, colorsOf(board), { embed }));
+                text.textContent = 'Link copied';
+            } catch {
+                text.textContent = 'Couldn’t copy the link';
+            }
+            setTimeout(() => { text.textContent = label; closeMenu(); }, 1400);
+        } }, icon('link', 18), h('span', {}, label));
+        return item;
+    };
     const menu = h('div', { class: 'menu', hidden: true, role: 'menu' },
         h('button', { role: 'menuitem', onclick: () => { closeMenu(); openFull(); } }, icon('route', 18), 'Full lines view'),
         h('button', { role: 'menuitem', onclick: () => { closeMenu(); toggleWall(); } }, icon('expand', 18), 'Wall mode'),
-        h('button', { role: 'menuitem', onclick: () => { closeMenu(); store.closeBoard(); go('setup'); } }, 'Choose another stop'),
+        locked ? h('button', { role: 'menuitem', onclick: async () => { closeMenu(); window.open(await boardLink(board, colorsOf(board)), '_blank', 'noopener'); } }, icon('external', 18), 'Open in a new tab') : null,
+        locked ? null : copyItem('Copy link to this board', false),
+        locked ? null : h('a', { role: 'menuitem', class: 'menu-link', href: HOME_ASSISTANT_GUIDE, target: '_blank', rel: 'noopener' }, icon('external', 18), 'Add to Home Assistant'),
+        locked ? null : h('button', { role: 'menuitem', onclick: () => { closeMenu(); store.closeBoard(); go('setup'); } }, 'Choose another stop'),
     );
     const gear = h('button', { class: 'icon-button', 'aria-label': 'Board options', 'aria-haspopup': 'menu', onclick: (e) => { e.stopPropagation(); menu.hidden = !menu.hidden; } }, icon('gear', 24));
     const closeMenu = () => { menu.hidden = true; };
@@ -45,12 +69,12 @@ export function showBoard(root, { board, provider, region }) {
     }, icon('route', 18));
     // The back arrow is the way to another stop; the stop's name keeps the stop and changes which
     // of its lines are watched.
-    const nameButton = h('button', {
+    const nameButton = locked ? h('span', { class: 'board-name', dir: 'auto' }, h('span', { class: 'board-name-text' }, board.stop.name)) : h('button', {
         class: 'board-name', dir: 'auto', 'aria-label': `${board.stop.name}, change lines`, title: 'Change lines',
         onclick: (e) => { e.stopPropagation(); closeMenu(); changeLines(); },
     }, h('span', { class: 'board-name-text' }, board.stop.name));
     const header = h('header', { class: 'board-head' },
-        h('button', { class: 'icon-button back', 'aria-label': 'Choose another stop', onclick: () => { store.closeBoard(); go('setup'); } }, icon('back', 26)),
+        locked ? null : h('button', { class: 'icon-button back', 'aria-label': 'Choose another stop', onclick: () => { store.closeBoard(); go('setup'); } }, icon('back', 26)),
         h('div', { class: 'board-title' },
             h('div', { class: 'board-name-row' }, h('h1', { dir: 'auto' }, nameButton), fullButton),
             caption ? h('p', { class: 'caption' }, caption) : null),

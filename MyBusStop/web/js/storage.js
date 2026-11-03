@@ -19,6 +19,8 @@ const defaults = () => ({
 });
 
 let state = read();
+/** False for a framed board (embed.js): it lives in memory and never touches this browser's storage. */
+let persist = true;
 
 function read() {
     try {
@@ -30,6 +32,7 @@ function read() {
 }
 
 function write() {
+    if (!persist) return;
     try { localStorage.setItem(KEY, JSON.stringify(state)); } catch { /* the session keeps it */ }
 }
 
@@ -38,6 +41,9 @@ export const store = {
     get theme() { return state.theme; },
     get regionID() { return state.regionID; },
     get palette() { return state.palette; },
+
+    /** From here on, nothing is read from or written to storage: a fresh state for this page only. */
+    keepInMemory() { persist = false; state = defaults(); },
 
     currentBoard() { return state.history.find((h) => h.id === state.current) ?? null; },
 
