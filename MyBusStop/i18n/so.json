@@ -132,5 +132,8 @@
  "f06ee4cf7c": "Khad kasta laga bilaabo joogsigiisa ugu horreeya ilaa kaaga, iyo bas kasta meesha uu hadda joogo. Taabo joogsi si aad u aragto waxa halkaas imanaya.",
  "e6579cf8fe": "Khariidadda khadka: khadadka 18, 41 iyo 7 oo lagu sawiray waddooyinka magaalada, kuna kulmaya joogsigaaga",
  "8ede9ed24b": "Khariidad dhab ah",
- "707bf14429": "U beddel khadka oo dhan khariidad, khadadkaaguna waxay mari doonaan waddooyinka ay dhab ahaan maraan."
+ "707bf14429": "U beddel khadka oo dhan khariidad, khadadkaaguna waxay mari doonaan waddooyinka ay dhab ahaan maraan.",
+ "e02a43d899": "Sidoo kale waxaa laga helaa <a href=\"web/\">shabakadda</a>, iyo dashboard-ka <a href=\"home-assistant/\">Home Assistant</a>: ku dar kaarka bilaashka ah ee My Bus Stop oo joogsigaaga ka dooro tifaftiraha kaarka.",
+ "4746eb8a0f": "Ma la shaqeeyaa Home Assistant?",
+ "50e01495cf": "Haa. Ku rakib kaarka bilaashka ah ee My Bus Stop adigoo adeegsanaya HACS, ku dar dashboard, kadibna joogsigaaga iyo khadadkaaga ka dooro tifaftiraha kaarka. Wuxuu muujiyaa isla looxa, oo ay la socoto khariidadda wadada, wuxuuna raacaa muuqaalka iftiinka ama madowga ee dashboard-ka. <a href=\"home-assistant/\">Arag sida loo dejiyo</a>."
 }

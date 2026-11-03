@@ -132,5 +132,8 @@
  "f06ee4cf7c": "Her hat ilk durağından seninkine kadar, her otobüs de şu an bulunduğu yerde. Oraya ne geldiğini görmek için bir durağa dokun.",
  "e6579cf8fe": "Güzergâh haritası: 18, 41 ve 7 numaralı hatlar şehrin sokaklarına çizilmiş, senin durağında buluşuyor",
  "8ede9ed24b": "Gerçek bir haritada",
- "707bf14429": "Tüm güzergâhı haritaya geçir, hatların gerçekten geçtikleri sokaklar boyunca uzansın."
+ "707bf14429": "Tüm güzergâhı haritaya geçir, hatların gerçekten geçtikleri sokaklar boyunca uzansın.",
+ "e02a43d899": "<a href=\"web/\">Web</a>'de ve bir <a href=\"home-assistant/\">Home Assistant</a> panosunda da: ücretsiz My Bus Stop kartını ekleyin ve durağınızı kartın düzenleyicisinden seçin.",
+ "4746eb8a0f": "Home Assistant ile çalışır mı?",
+ "50e01495cf": "Evet. Ücretsiz My Bus Stop kartını HACS ile yükleyin, bir panoya ekleyin, ardından durağınızı ve hatlarınızı kartın düzenleyicisinden seçin. Hat haritasıyla birlikte aynı panoyu gösterir ve panonun açık ya da koyu temasına uyar. <a href=\"home-assistant/\">Nasıl kurulacağını görün</a>."
 }

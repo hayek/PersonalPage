@@ -132,5 +132,8 @@
  "f06ee4cf7c": "Každá linka od své první zastávky až k té tvé, s každým autobusem tam, kde právě je. Klepni na zastávku a uvidíš, co tam přijíždí.",
  "e6579cf8fe": "Mapa trasy: linky 18, 41 a 7 zakreslené do ulic města, jak se setkávají na tvé zastávce",
  "8ede9ed24b": "Na skutečné mapě",
- "707bf14429": "Přepni celou trasu na mapu a tvé linky povedou ulicemi, kudy opravdu jezdí."
+ "707bf14429": "Přepni celou trasu na mapu a tvé linky povedou ulicemi, kudy opravdu jezdí.",
+ "e02a43d899": "Také na <a href=\"web/\">webu</a> a na nástěnce <a href=\"home-assistant/\">Home Assistant</a>: přidej bezplatnou kartu My Bus Stop a v jejím editoru si vyber zastávku.",
+ "4746eb8a0f": "Funguje s Home Assistant?",
+ "50e01495cf": "Ano. Nainstaluj bezplatnou kartu My Bus Stop přes HACS, přidej ji na nástěnku a v editoru karty si vyber zastávku a linky. Ukazuje stejnou tabuli s mapou trasy a řídí se světlým nebo tmavým motivem nástěnky. <a href=\"home-assistant/\">Podívej se, jak ji nastavit</a>."
 }

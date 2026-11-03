@@ -132,5 +132,8 @@
  "f06ee4cf7c": "Cada linha do primeiro ponto até o seu, com cada ônibus onde ele está agora. Toque em um ponto para ver o que está chegando lá.",
  "e6579cf8fe": "O mapa do trajeto: as linhas 18, 41 e 7 desenhadas nas ruas da cidade, se encontrando no seu ponto",
  "8ede9ed24b": "Em um mapa de verdade",
- "707bf14429": "Mude o trajeto completo para o mapa, e suas linhas seguem pelas ruas por onde realmente passam."
+ "707bf14429": "Mude o trajeto completo para o mapa, e suas linhas seguem pelas ruas por onde realmente passam.",
+ "e02a43d899": "Também na <a href=\"web/\">web</a> e em um painel do <a href=\"home-assistant/\">Home Assistant</a>: adicione o cartão gratuito My Bus Stop e escolha seu ponto no editor dele.",
+ "4746eb8a0f": "Funciona com o Home Assistant?",
+ "50e01495cf": "Sim. Instale o cartão gratuito My Bus Stop pelo HACS, adicione-o a um painel e escolha seu ponto e suas linhas no editor do cartão. Ele mostra o mesmo painel de chegadas, com o mapa do trajeto, e segue o tema claro ou escuro do painel. <a href=\"home-assistant/\">Veja como configurar</a>."
 }

@@ -132,5 +132,8 @@
  "f06ee4cf7c": "Chaque ligne de son premier arrêt jusqu'au vôtre, avec chaque bus là où il se trouve. Touchez un arrêt pour voir ce qui y arrive.",
  "e6579cf8fe": "Le plan de la ligne : les lignes 18, 41 et 7 tracées dans les rues de la ville, qui se rejoignent à votre arrêt",
  "8ede9ed24b": "Sur un vrai plan",
- "707bf14429": "Passez la ligne complète en mode plan, et vos lignes suivent les rues qu'elles empruntent vraiment."
+ "707bf14429": "Passez la ligne complète en mode plan, et vos lignes suivent les rues qu'elles empruntent vraiment.",
+ "e02a43d899": "Aussi sur le <a href=\"web/\">web</a>, et sur un tableau de bord <a href=\"home-assistant/\">Home Assistant</a> : ajoutez la carte gratuite My Bus Stop et choisissez votre arrêt dans son éditeur.",
+ "4746eb8a0f": "Fonctionne-t-elle avec Home Assistant ?",
+ "50e01495cf": "Oui. Installez la carte gratuite My Bus Stop avec HACS, ajoutez-la à un tableau de bord et choisissez votre arrêt et vos lignes dans l'éditeur de la carte. Elle affiche le même tableau, avec le plan de la ligne, et suit le thème clair ou sombre du tableau de bord. <a href=\"home-assistant/\">Voir comment la configurer</a>."
 }

@@ -132,5 +132,8 @@
  "f06ee4cf7c": "Linea bakoitza bere lehen geltokitik zurera arte, autobus bakoitza orain dagoen lekuan. Ukitu geltoki bat hara zer datorren ikusteko.",
  "e6579cf8fe": "Ibilbidearen mapa: 18, 41 eta 7 lineak hiriko kaleetan marraztuta, zure geltokian elkartzen",
  "8ede9ed24b": "Benetako mapa batean",
- "707bf14429": "Aldatu ibilbide osoa mapara, eta zure lineak benetan egiten dituzten kaleetatik joango dira."
+ "707bf14429": "Aldatu ibilbide osoa mapara, eta zure lineak benetan egiten dituzten kaleetatik joango dira.",
+ "e02a43d899": "<a href=\"web/\">Webean</a> ere bai, baita <a href=\"home-assistant/\">Home Assistant</a>-eko arbel batean ere: gehitu My Bus Stop txartel doakoa eta aukeratu zure geltokia haren editorean.",
+ "4746eb8a0f": "Home Assistant-ekin funtzionatzen du?",
+ "50e01495cf": "Bai. Instalatu My Bus Stop txartel doakoa HACS bidez, gehitu arbel batera, eta aukeratu zure geltokia eta lineak txartelaren editorean. Panel bera erakusten du, ibilbidearen maparekin, eta arbelaren gai argiari edo ilunari jarraitzen dio. <a href=\"home-assistant/\">Ikusi nola konfiguratu</a>."
 }

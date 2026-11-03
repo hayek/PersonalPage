@@ -132,5 +132,8 @@
  "f06ee4cf7c": "Kiekvienas maršrutas nuo pirmosios stotelės iki jūsiškės, su kiekvienu autobusu ten, kur jis yra dabar. Bakstelėkite stotelę ir pamatysite, kas į ją atvažiuoja.",
  "e6579cf8fe": "Maršruto žemėlapis: 18, 41 ir 7 maršrutai, nubraižyti miesto gatvėse ir susitinkantys jūsų stotelėje",
  "8ede9ed24b": "Tikrame žemėlapyje",
- "707bf14429": "Perjunkite visą maršrutą į žemėlapį, ir jūsų maršrutai nusidrieks gatvėmis, kuriomis iš tikrųjų važiuoja."
+ "707bf14429": "Perjunkite visą maršrutą į žemėlapį, ir jūsų maršrutai nusidrieks gatvėmis, kuriomis iš tikrųjų važiuoja.",
+ "e02a43d899": "Taip pat <a href=\"web/\">naršyklėje</a> ir <a href=\"home-assistant/\">Home Assistant</a> skydelyje: pridėkite nemokamą kortelę „My Bus Stop“ ir jos redaktoriuje pasirinkite stotelę.",
+ "4746eb8a0f": "Ar ji veikia su Home Assistant?",
+ "50e01495cf": "Taip. Įdiekite nemokamą kortelę „My Bus Stop“ per HACS, pridėkite ją prie skydelio ir kortelės redaktoriuje pasirinkite stotelę ir maršrutus. Ji rodo tą pačią švieslentę su maršruto žemėlapiu ir prisitaiko prie šviesios ar tamsios skydelio temos. <a href=\"home-assistant/\">Kaip ją nustatyti</a>."
 }

@@ -15,7 +15,7 @@ import { showLineCard, closeLineCard } from './line-card.js';
 import { hasRouteShape } from '../transit/shapes/route-shape.js';
 
 /** How to put a board on a Home Assistant dashboard. */
-const HOME_ASSISTANT_GUIDE = 'https://github.com/hayek/my-bus-stop-card#readme';
+const HOME_ASSISTANT_GUIDE = '/MyBusStop/home-assistant/';
 
 export function showBoard(root, { board, provider, region }) {
     const configuration = { stop: board.stop, lines: board.lines };

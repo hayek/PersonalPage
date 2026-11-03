@@ -132,5 +132,8 @@
  "f06ee4cf7c": "Jede Linie von ihrer ersten Haltestelle bis zu deiner, mit jedem Bus dort, wo er gerade ist. Tippe auf eine Haltestelle, um zu sehen, was dort als Nächstes kommt.",
  "e6579cf8fe": "Die Linienkarte: die Linien 18, 41 und 7 auf den Straßen der Stadt, wie sie sich an deiner Haltestelle treffen",
  "8ede9ed24b": "Auf einer echten Karte",
- "707bf14429": "Schalte die ganze Strecke auf die Karte um, und deine Linien verlaufen durch die Straßen, die sie wirklich fahren."
+ "707bf14429": "Schalte die ganze Strecke auf die Karte um, und deine Linien verlaufen durch die Straßen, die sie wirklich fahren.",
+ "e02a43d899": "Auch im <a href=\"web/\">Web</a> und auf einem <a href=\"home-assistant/\">Home Assistant</a>-Dashboard: Füge die kostenlose Karte „My Bus Stop“ hinzu und wähle deine Haltestelle in ihrem Editor.",
+ "4746eb8a0f": "Funktioniert es mit Home Assistant?",
+ "50e01495cf": "Ja. Installiere die kostenlose Karte „My Bus Stop“ über HACS, füge sie einem Dashboard hinzu und wähle Haltestelle und Linien im Editor der Karte. Sie zeigt dieselbe Tafel mit dem Linienplan und folgt dem hellen oder dunklen Design des Dashboards. <a href=\"home-assistant/\">So richtest du sie ein</a>."
 }

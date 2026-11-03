@@ -132,5 +132,8 @@
  "f06ee4cf7c": "Txhua kab tsheb txij nws qhov chaw nres thawj mus txog koj qhov, nrog txhua lub tsheb npav nyob qhov chaw nws nyob tam sim no. Kov ib qhov chaw nres los saib seb dab tsi tab tom tuaj rau ntawd.",
  "e6579cf8fe": "Daim ntawv qhia kab tsheb: kab 18, 41 thiab 7 kos rau ntawm lub nroog txoj kev, sib ntsib ntawm koj qhov chaw nres",
  "8ede9ed24b": "Ntawm daim ntawv qhia chaw tiag",
- "707bf14429": "Hloov tag kab tsheb mus rau daim ntawv qhia chaw, thiab koj cov kab tsheb yuav khiav raws txoj kev uas lawv khiav tiag tiag."
+ "707bf14429": "Hloov tag kab tsheb mus rau daim ntawv qhia chaw, thiab koj cov kab tsheb yuav khiav raws txoj kev uas lawv khiav tiag tiag.",
+ "e02a43d899": "Kuj muaj hauv <a href=\"web/\">web</a>, thiab ntawm <a href=\"home-assistant/\">Home Assistant</a> dashboard: ntxiv daim card My Bus Stop pub dawb thiab xaiv koj qhov chaw nres hauv nws lub editor.",
+ "4746eb8a0f": "Puas siv tau nrog Home Assistant?",
+ "50e01495cf": "Tau. Nruab daim card My Bus Stop pub dawb los ntawm HACS, ntxiv rau ib lub dashboard, thiab xaiv koj qhov chaw nres thiab cov kab tsheb hauv daim card lub editor. Nws qhia tib daim ntawv qhia, nrog daim ntawv qhia kev, thiab ua raws li lub dashboard xim kaj los yog tsaus. <a href=\"home-assistant/\">Saib yuav teeb tsa li cas</a>."
 }

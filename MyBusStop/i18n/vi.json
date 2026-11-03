@@ -132,5 +132,8 @@
  "f06ee4cf7c": "Mỗi tuyến từ điểm dừng đầu tiên đến điểm dừng của bạn, cùng từng xe buýt ở đúng vị trí hiện tại. Chạm vào một điểm dừng để xem xe nào sắp đến đó.",
  "e6579cf8fe": "Bản đồ tuyến: tuyến 18, 41 và 7 vẽ trên đường phố của thành phố, gặp nhau tại điểm dừng của bạn",
  "8ede9ed24b": "Trên bản đồ thật",
- "707bf14429": "Chuyển toàn tuyến sang bản đồ, và các tuyến của bạn chạy theo đúng những con đường chúng thực sự đi qua."
+ "707bf14429": "Chuyển toàn tuyến sang bản đồ, và các tuyến của bạn chạy theo đúng những con đường chúng thực sự đi qua.",
+ "e02a43d899": "Có cả trên <a href=\"web/\">web</a> và trên bảng điều khiển <a href=\"home-assistant/\">Home Assistant</a>: thêm thẻ My Bus Stop miễn phí và chọn điểm dừng trong trình chỉnh sửa của thẻ.",
+ "4746eb8a0f": "Có dùng được với Home Assistant không?",
+ "50e01495cf": "Có. Cài thẻ My Bus Stop miễn phí qua HACS, thêm thẻ vào một bảng điều khiển, rồi chọn điểm dừng và các tuyến trong trình chỉnh sửa của thẻ. Thẻ hiển thị cùng một bảng kèm bản đồ tuyến, và theo giao diện sáng hoặc tối của bảng điều khiển. <a href=\"home-assistant/\">Xem cách thiết lập</a>."
 }

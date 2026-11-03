@@ -132,5 +132,8 @@
  "f06ee4cf7c": "Kvar linje frå første haldeplass til din, med kvar buss der han er no. Trykk på ein haldeplass for å sjå kva som kjem dit.",
  "e6579cf8fe": "Rutekartet: linje 18, 41 og 7 teikna på gatene i byen, der dei møtest ved haldeplassen din",
  "8ede9ed24b": "På eit ekte kart",
- "707bf14429": "Byt heile ruta til kart, så går linjene dine langs gatene dei faktisk køyrer."
+ "707bf14429": "Byt heile ruta til kart, så går linjene dine langs gatene dei faktisk køyrer.",
+ "e02a43d899": "Òg på <a href=\"web/\">nettet</a>, og på eit <a href=\"home-assistant/\">Home Assistant</a>-dashbord: legg til det gratis My Bus Stop-kortet og vel haldeplassen din i redigeringsvindauget.",
+ "4746eb8a0f": "Fungerer det med Home Assistant?",
+ "50e01495cf": "Ja. Installer det gratis My Bus Stop-kortet med HACS, legg det til på eit dashbord og vel haldeplass og linjer i redigeringsvindauget til kortet. Det viser den same tavla, med linjekartet, og følgjer det lyse eller mørke temaet til dashbordet. <a href=\"home-assistant/\">Sjå korleis du set det opp</a>."
 }

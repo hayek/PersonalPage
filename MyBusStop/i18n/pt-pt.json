@@ -132,5 +132,8 @@
  "f06ee4cf7c": "Cada carreira desde a primeira paragem até à sua, com cada autocarro onde está agora. Toque numa paragem para ver o que está a chegar lá.",
  "e6579cf8fe": "O mapa do percurso: as carreiras 18, 41 e 7 desenhadas nas ruas da cidade, a encontrarem-se na sua paragem",
  "8ede9ed24b": "Num mapa a sério",
- "707bf14429": "Mude o percurso completo para mapa, e as suas carreiras seguem pelas ruas por onde passam de facto."
+ "707bf14429": "Mude o percurso completo para mapa, e as suas carreiras seguem pelas ruas por onde passam de facto.",
+ "e02a43d899": "Também na <a href=\"web/\">web</a> e num painel do <a href=\"home-assistant/\">Home Assistant</a>: adicione o cartão gratuito My Bus Stop e escolha a sua paragem no editor do cartão.",
+ "4746eb8a0f": "Funciona com o Home Assistant?",
+ "50e01495cf": "Sim. Instale o cartão gratuito My Bus Stop através do HACS, adicione-o a um painel e escolha a sua paragem e as suas carreiras no editor do cartão. Mostra o mesmo painel de chegadas, com o mapa do percurso, e segue o tema claro ou escuro do painel. <a href=\"home-assistant/\">Veja como o configurar</a>."
 }

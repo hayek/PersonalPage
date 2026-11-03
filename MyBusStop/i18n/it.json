@@ -132,5 +132,8 @@
  "f06ee4cf7c": "Ogni linea dalla sua prima fermata fino alla tua, con ogni autobus dove si trova adesso. Tocca una fermata per vedere cosa sta arrivando lì.",
  "e6579cf8fe": "La mappa del percorso: le linee 18, 41 e 7 tracciate sulle strade della città, che si incontrano alla tua fermata",
  "8ede9ed24b": "Su una mappa vera",
- "707bf14429": "Passa dal percorso completo alla mappa, e le tue linee scorrono lungo le strade che percorrono davvero."
+ "707bf14429": "Passa dal percorso completo alla mappa, e le tue linee scorrono lungo le strade che percorrono davvero.",
+ "e02a43d899": "Anche sul <a href=\"web/\">web</a> e su una dashboard di <a href=\"home-assistant/\">Home Assistant</a>: aggiungi la scheda gratuita My Bus Stop e scegli la tua fermata nel suo editor.",
+ "4746eb8a0f": "Funziona con Home Assistant?",
+ "50e01495cf": "Sì. Installa la scheda gratuita My Bus Stop con HACS, aggiungila a una dashboard e scegli fermata e linee nell'editor della scheda. Mostra lo stesso tabellone, con la mappa del percorso, e segue il tema chiaro o scuro della dashboard. <a href=\"home-assistant/\">Scopri come configurarla</a>."
 }

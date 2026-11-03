@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<!--
+My Bus Stop on Home Assistant: how to put the board on a dashboard, with the card
+(github.com/hayek/my-bus-stop-card, installed through HACS) or the built-in Webpage card.
+Linked from the landing page, the web app's board menu and the card's README.
+Self-contained like privacy/ and blog/ (its own styles, no shared stylesheet). English only.
+-->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Bus Stop for Home Assistant – Live Bus Arrivals on Your Dashboard</title>
+<meta name="description" content="Put live bus arrivals at your stop on a Home Assistant dashboard: the next bus, the one after it and the route map. Free, with no account or API key. Install the card with HACS in a few minutes.">
+<meta name="theme-color" content="#08080B">
+<link rel="canonical" href="https://amirhayek.dev/MyBusStop/home-assistant/">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://amirhayek.dev/MyBusStop/home-assistant/">
+<meta property="og:title" content="My Bus Stop for Home Assistant">
+<meta property="og:description" content="Live bus arrivals at your stop, on your Home Assistant dashboard. Free, with no account or API key.">
+<meta property="og:image" content="https://amirhayek.dev/MyBusStop/home-assistant/card-og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "name": "Add My Bus Stop to a Home Assistant dashboard",
+    "description": "Install the My Bus Stop card with HACS, then choose your stop and lines in the card editor.",
+    "image": "https://amirhayek.dev/MyBusStop/home-assistant/card-og.jpg",
+    "tool": [{ "@type": "HowToTool", "name": "Home Assistant with HACS" }],
+    "step": [
+        { "@type": "HowToStep", "name": "Add the repository", "text": "In HACS, open the ⋮ menu, choose Custom repositories, add https://github.com/hayek/my-bus-stop-card with the type Dashboard." },
+        { "@type": "HowToStep", "name": "Download the card", "text": "Search HACS for My Bus Stop, click Download, then reload the browser." },
+        { "@type": "HowToStep", "name": "Add the card", "text": "Edit a dashboard, click Add card and choose My Bus Stop." },
+        { "@type": "HowToStep", "name": "Choose your stop and lines", "text": "In the card editor, pick your region, find your stop, choose up to three lines and press Use these lines. Then click Save." }
+    ],
+    "about": { "@type": "MobileApplication", "name": "My Bus Stop", "url": "https://amirhayek.dev/MyBusStop/" }
+}
+</script>
+<link rel="icon" type="image/svg+xml" href="../favicon/favicon.svg">
+<link rel="apple-touch-icon" sizes="180x180" href="../favicon/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..900&display=swap" rel="stylesheet">
+<style>
+:root {
+    --bg: #F4F2EC;
+    --ink: #14140F;
+    --muted: #5C5A52;
+    --rule: #DBD7CD;
+    --card: #ECE9E1;
+    --link: #0B636B;
+    --l18: #D32029;
+    --l41: #EFA400;
+    --l7: #0E7C86;
+}
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg: #08080B;
+        --ink: #FFFFFF;
+        --muted: #A0A0AE;
+        --rule: #24242E;
+        --card: #15151B;
+        --link: #22D3EE;
+        --l18: #FF3B3F;
+        --l41: #FFC300;
+        --l7: #22D3EE;
+    }
+}
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+    font-family: 'Archivo', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+img { display: block; max-width: 100%; height: auto; }
+.page { max-width: 720px; margin: 0 auto; padding: 56px 16px 96px; }
+.back { display: inline-flex; align-items: center; gap: 12px; text-decoration: none; color: var(--ink); font-weight: 800; }
+.back img { width: 40px; height: 40px; border-radius: 9px; }
+.kicker { margin-top: 40px; color: var(--muted); font-size: 15px; }
+h1 {
+    font-size: clamp(38px, 8vw, 64px);
+    font-weight: 900;
+    font-stretch: 112%;
+    line-height: 1;
+    letter-spacing: -0.03em;
+    margin: 10px 0 20px;
+}
+.lede { font-size: clamp(19px, 2.4vw, 22px); color: var(--muted); }
+figure { margin: 40px 0; }
+figure img { width: 100%; border-radius: 18px; border: 1px solid var(--rule); }
+figcaption { margin-top: 12px; color: var(--muted); font-size: 15px; }
+h2 {
+    font-size: 24px;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    line-height: 1.25;
+    margin: 48px 0 8px;
+}
+h3 { font-size: 18px; font-weight: 800; margin: 28px 0 4px; }
+p, li { font-size: 18px; }
+p { margin: 14px 0; }
+a { color: var(--link); text-underline-offset: 3px; }
+a:focus-visible { outline: 3px solid var(--link); outline-offset: 3px; border-radius: 4px; }
+strong { font-weight: 800; }
+code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 0.88em;
+    background: var(--card);
+    border-radius: 6px;
+    padding: 0.1em 0.35em;
+    overflow-wrap: anywhere;
+}
+pre {
+    margin: 16px 0;
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px 18px;
+    overflow-x: auto;
+    font-size: 15px;
+    line-height: 1.55;
+}
+pre code { background: none; padding: 0; font-size: inherit; overflow-wrap: normal; }
+
+/* Numbered steps, each number a line badge like the board's */
+.steps { list-style: none; counter-reset: step; margin: 20px 0; }
+.steps > li { counter-increment: step; position: relative; padding-left: 52px; margin: 18px 0; }
+.steps > li::before {
+    content: counter(step);
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 36px;
+    height: 36px;
+    border-radius: 9px;
+    display: grid;
+    place-items: center;
+    font-weight: 900;
+    font-size: 18px;
+    color: #fff;
+    background: var(--l18);
+}
+.steps.alt > li::before { background: var(--l7); }
+.steps.alt3 > li::before { background: var(--l41); color: #14140F; }
+.points { margin: 14px 0 14px 22px; }
+.points li { margin: 8px 0; }
+.badge-link { display: inline-block; margin: 8px 0 4px; }
+.badge-link img { border: 0; border-radius: 0; height: 40px; width: auto; }
+.box { margin: 28px 0; background: var(--card); border-left: 6px solid var(--l7); border-radius: 14px; padding: 16px 22px; }
+.box p { margin: 6px 0; font-size: 17px; }
+table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 16px; }
+th, td { text-align: left; vertical-align: top; padding: 10px 12px 10px 0; border-bottom: 1px solid var(--rule); }
+th { font-weight: 800; }
+td:first-child { white-space: nowrap; }
+footer { margin-top: 56px; padding-top: 22px; border-top: 1px solid var(--rule); color: var(--muted); font-size: 14px; }
+@media (max-width: 520px) {
+    table, thead, tbody, tr, th, td { display: block; }
+    thead { display: none; }
+    tr { border-bottom: 1px solid var(--rule); padding: 8px 0; }
+    td { border: 0; padding: 2px 0; }
+}
+</style>
+<script src="/assets/analytics.js" defer></script>
+</head>
+<body>
+<main class="page">
+    <a class="back" href="/MyBusStop/"><img src="../Assets/icon.svg" alt="">My Bus Stop</a>
+    <article>
+        <p class="kicker">Home Assistant</p>
+        <h1>Your bus stop on your dashboard</h1>
+        <p class="lede">The My Bus Stop card puts the board on a Home Assistant dashboard: the next bus at your stop, the one after it, and the route map. It's free, with no account and no API key.</p>
+
+        <figure>
+            <img src="card.webp" alt="The My Bus Stop card on a dashboard: Oxford Circus in London, three lines on the route map meeting at your stop, line 12 in 2 minutes and the next one in 15" width="1372" height="870">
+            <figcaption>The card in a wide dashboard section. In a smaller card it shows just the next bus and the route.</figcaption>
+        </figure>
+
+        <h2>Install the card</h2>
+        <p>You need <a href="https://hacs.xyz/">HACS</a>, the Home Assistant Community Store. If your Home Assistant can be reached through <a href="https://my.home-assistant.io/">My Home Assistant</a>, this button opens the card in HACS for you:</p>
+        <a class="badge-link" href="https://my.home-assistant.io/redirect/hacs_repository/?owner=hayek&amp;repository=my-bus-stop-card&amp;category=plugin"><img src="https://my.home-assistant.io/badges/hacs_repository.svg" alt="Open your Home Assistant instance and open this repository in HACS." width="282" height="40"></a>
+        <p>Or add it by hand:</p>
+        <ol class="steps">
+            <li>In Home Assistant, open <strong>HACS</strong>. Go to the <strong>⋮</strong> menu in the top corner and choose <strong>Custom repositories</strong>.</li>
+            <li>Under Repository, enter <code>https://github.com/hayek/my-bus-stop-card</code>. Under Type, choose <strong>Dashboard</strong>. Click <strong>Add</strong>, then close the window.</li>
+            <li>Search HACS for <strong>My Bus Stop</strong>, open it and click <strong>Download</strong>.</li>
+            <li>Reload the page in your browser. In the Home Assistant app, pull down to refresh, or close and reopen it.</li>
+        </ol>
+
+        <h2>Add it to a dashboard</h2>
+        <ol class="steps alt">
+            <li>Open a dashboard, click the pencil to edit it, then click <strong>Add card</strong>. Search for <strong>My Bus Stop</strong> and choose it.</li>
+            <li>The card editor shows the stop picker. Choose your region, then search for your stop by name or code, or tap <strong>Find stops near me</strong>.</li>
+            <li>Tick up to three lines and press <strong>Use these lines</strong>. The preview beside the editor switches to your board.</li>
+            <li>Click <strong>Save</strong>.</li>
+        </ol>
+        <p>For more than one stop, add one card for each.</p>
+
+        <h3>Options</h3>
+        <p>The editor sets these for you, or you can write them in the card's YAML:</p>
+        <table>
+            <thead><tr><th>Option</th><th>What it does</th></tr></thead>
+            <tbody>
+                <tr><td><code>theme</code></td><td><code>auto</code> (the default) follows the dashboard's light or dark mode. <code>light</code> and <code>dark</code> keep one, and <code>system</code> follows the device.</td></tr>
+                <tr><td><code>height</code></td><td>The card's height in pixels in masonry and stack layouts. The default is 540. In a sections or panel view, the card fills the space it's given, so resize it there instead.</td></tr>
+                <tr><td><code>board</code></td><td>Your stop and lines. The editor fills it in; there's no need to type it.</td></tr>
+                <tr><td><code>url</code></td><td>Instead of <code>board</code>: a link from <strong>⚙ → Copy link to this board</strong> in the <a href="/MyBusStop/web/">web version</a>.</td></tr>
+            </tbody>
+        </table>
+<pre><code>type: custom:my-bus-stop-card
+url: https://amirhayek.dev/MyBusStop/web/#b=z…
+theme: dark</code></pre>
+        <p>The board fits the card's size. When the card is short, the second bus goes first, then the map, and the minutes to the next bus always stay. A wide card shows both buses side by side.</p>
+
+        <h2>Without HACS</h2>
+        <p>Home Assistant's built-in <strong>Webpage</strong> card can show a board too, with nothing to install:</p>
+        <ol class="steps alt3">
+            <li>Open <a href="/MyBusStop/web/">My Bus Stop on the web</a>, choose your stop and lines, then choose <strong>⚙ → Copy link to this board</strong>.</li>
+            <li>In the link, add <code>?embed=1</code> just before the <code>#</code>, so it reads <code>…/MyBusStop/web/?embed=1#b=…</code>. This shows the board on its own and saves nothing in the browser. To keep it dark, use <code>?embed=1&amp;theme=dark</code>.</li>
+            <li>Add a <strong>Webpage</strong> card with that link, or add the same link as a whole dashboard: <strong>Settings → Dashboards → Add dashboard → Webpage</strong>.</li>
+        </ol>
+<pre><code>type: iframe
+url: https://amirhayek.dev/MyBusStop/web/?embed=1&amp;theme=dark#b=z…
+aspect_ratio: 100%
+allow: fullscreen; screen-wake-lock</code></pre>
+
+        <h2>On a wall tablet</h2>
+        <p>Open the board's <strong>⚙</strong> menu and choose <strong>Wall mode</strong>. The board goes full screen and dark, and keeps the screen awake while it's open: a bus board for a tablet by the front door. Wall mode works in the card and in the Webpage card.</p>
+
+        <h2>Where it works</h2>
+        <p>Everywhere the web version runs: Israel, Norway, London, Switzerland, Turku, Tampere, the Lisbon area, Rennes, Brussels, Nuremberg, Boston, Minneapolis–St Paul, Toronto, Tokyo and Hong Kong, with live bus positions where the agency shares them. Anywhere else, arrival times come from <a href="https://transitous.org/">Transitous</a>, a community service built on transit agencies' open data.</p>
+
+        <h2>Privacy</h2>
+        <ul class="points">
+            <li>The card sends nothing about your home, your devices or your Home Assistant anywhere.</li>
+            <li>Your stop and lines are kept in the card's settings on your Home Assistant. They reach the web version only inside the link, after the <code>#</code>, which browsers never send to a server, so the site and its analytics never see them.</li>
+            <li>Arrival times come straight from each transit agency to the browser showing the dashboard. Israel is the one exception: its requests pass through a relay that holds no data about you.</li>
+            <li><strong>Find stops near me</strong> uses your location once, only if you allow it, and never stores it.</li>
+        </ul>
+        <p>The <a href="/MyBusStop/privacy/">privacy policy</a> has the details.</p>
+
+        <h2>Something not working?</h2>
+        <ul class="points">
+            <li><strong>"Custom element doesn't exist: my-bus-stop-card".</strong> The browser still has the old page. Reload it. In the Home Assistant app, use <strong>Reset frontend cache</strong> in the app's settings.</li>
+            <li><strong>The card is blank.</strong> Make sure the device showing the dashboard is online and can open <a href="/MyBusStop/web/">amirhayek.dev</a>.</li>
+            <li><strong>Find stops near me does nothing.</strong> The browser or app needs location permission. You can always search by name instead.</li>
+        </ul>
+        <div class="box">
+            <p>Report a problem or suggest something on <a href="https://github.com/hayek/my-bus-stop-card/issues">GitHub</a>. The card's code is open, under the MIT licence.</p>
+        </div>
+    </article>
+
+    <footer>
+        <p>My Bus Stop is an independent app by <a href="https://amirhayek.dev/">Amir Hayek</a>, not made or endorsed by any transit agency or by Home Assistant. It's also on <a href="/MyBusStop/">iPhone, iPad, Mac, Apple Watch and Apple TV</a>. <a href="/MyBusStop/privacy/">Privacy policy</a></p>
+    </footer>
+</main>
+</body>
+</html>
