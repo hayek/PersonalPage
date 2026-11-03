@@ -682,8 +682,12 @@ button.fr-badge:hover { background: var(--card); }
 }
 /* A card of middling height keeps the map and the next bus, and lets the one after go, unless the
    readout is laid out beside it (wide screens). */
-@media (min-height: 441px) and (max-height: 600px) and (max-width: 899px), (min-height: 441px) and (max-height: 600px) and (max-aspect-ratio: 1/1) {
+@media (min-height: 441px) and (max-height: 600px) and (max-width: 639px), (min-height: 441px) and (max-height: 600px) and (max-aspect-ratio: 1/1) {
     :root.embedded .readout-then { display: none; }
+}
+/* A wide card (a sections view's full row) has room for the second bus beside the first. */
+@media (min-width: 640px) and (min-aspect-ratio: 1/1) {
+    :root.embedded .readout { grid-template-columns: 1fr minmax(260px, 380px); align-items: end; }
 }
 @media (max-height: 440px) {
     :root.embedded .board { grid-template-rows: auto auto auto; align-content: space-between; }
