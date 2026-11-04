@@ -135,5 +135,6 @@
  "707bf14429": "Vaihda koko linja kartaksi, niin linjasi kulkevat niitä katuja, joita ne oikeasti ajavat.",
  "e02a43d899": "Myös <a href=\"web/\">verkossa</a> ja <a href=\"home-assistant/\">Home Assistantin</a> kojelaudalla: lisää ilmainen My Bus Stop -kortti ja valitse pysäkkisi sen muokkaimessa.",
  "4746eb8a0f": "Toimiiko se Home Assistantin kanssa?",
- "50e01495cf": "Kyllä. Asenna ilmainen My Bus Stop -kortti HACSin kautta, lisää se kojelaudalle ja valitse pysäkki ja linjat kortin muokkaimessa. Se näyttää saman taulun reittikarttoineen ja seuraa kojelaudan vaaleaa tai tummaa teemaa. <a href=\"home-assistant/\">Katso, miten se otetaan käyttöön</a>."
+ "50e01495cf": "Kyllä. Asenna ilmainen My Bus Stop -kortti HACSin kautta, lisää se kojelaudalle ja valitse pysäkki ja linjat kortin muokkaimessa. Se näyttää saman taulun reittikarttoineen ja seuraa kojelaudan vaaleaa tai tummaa teemaa. <a href=\"home-assistant/\">Katso, miten se otetaan käyttöön</a>.",
+ "c8fd3bb19b": "Home Assistant"
 }

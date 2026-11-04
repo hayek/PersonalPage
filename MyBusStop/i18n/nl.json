@@ -135,5 +135,6 @@
  "707bf14429": "Zet de hele route om naar de kaart, en je lijnen lopen door de straten waar ze echt rijden.",
  "e02a43d899": "Ook op het <a href=\"web/\">web</a>, en op een <a href=\"home-assistant/\">Home Assistant</a>-dashboard: voeg de gratis My Bus Stop-kaart toe en kies je halte in de editor van de kaart.",
  "4746eb8a0f": "Werkt het met Home Assistant?",
- "50e01495cf": "Ja. Installeer de gratis My Bus Stop-kaart via HACS, zet hem op een dashboard en kies je halte en lijnen in de editor van de kaart. Hij toont hetzelfde bord, met de routekaart, en volgt het lichte of donkere thema van het dashboard. <a href=\"home-assistant/\">Zo stel je hem in</a>."
+ "50e01495cf": "Ja. Installeer de gratis My Bus Stop-kaart via HACS, zet hem op een dashboard en kies je halte en lijnen in de editor van de kaart. Hij toont hetzelfde bord, met de routekaart, en volgt het lichte of donkere thema van het dashboard. <a href=\"home-assistant/\">Zo stel je hem in</a>.",
+ "c8fd3bb19b": "Home Assistant"
 }

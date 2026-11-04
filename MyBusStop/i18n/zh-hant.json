@@ -135,5 +135,6 @@
  "707bf14429": "把完整路線切換到路線圖，你的路線就會沿著實際行駛的街道鋪開。",
  "e02a43d899": "也可在<a href=\"web/\">網頁</a>上使用，或放到 <a href=\"home-assistant/\">Home Assistant</a> 儀表板上：加入免費的 My Bus Stop 卡片，然後在卡片編輯器中選擇你的巴士站。",
  "4746eb8a0f": "能在 Home Assistant 使用嗎？",
- "50e01495cf": "可以。透過 HACS 安裝免費的 My Bus Stop 卡片，把它加入儀表板，然後在卡片編輯器中選擇巴士站和路線。它會顯示同樣附有路線圖的看板，並跟隨儀表板的淺色或深色主題。<a href=\"home-assistant/\">查看設定方法</a>。"
+ "50e01495cf": "可以。透過 HACS 安裝免費的 My Bus Stop 卡片，把它加入儀表板，然後在卡片編輯器中選擇巴士站和路線。它會顯示同樣附有路線圖的看板，並跟隨儀表板的淺色或深色主題。<a href=\"home-assistant/\">查看設定方法</a>。",
+ "c8fd3bb19b": "Home Assistant"
 }

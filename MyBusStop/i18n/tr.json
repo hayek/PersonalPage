@@ -135,5 +135,6 @@
  "707bf14429": "Tüm güzergâhı haritaya geçir, hatların gerçekten geçtikleri sokaklar boyunca uzansın.",
  "e02a43d899": "<a href=\"web/\">Web</a>'de ve bir <a href=\"home-assistant/\">Home Assistant</a> panosunda da: ücretsiz My Bus Stop kartını ekleyin ve durağınızı kartın düzenleyicisinden seçin.",
  "4746eb8a0f": "Home Assistant ile çalışır mı?",
- "50e01495cf": "Evet. Ücretsiz My Bus Stop kartını HACS ile yükleyin, bir panoya ekleyin, ardından durağınızı ve hatlarınızı kartın düzenleyicisinden seçin. Hat haritasıyla birlikte aynı panoyu gösterir ve panonun açık ya da koyu temasına uyar. <a href=\"home-assistant/\">Nasıl kurulacağını görün</a>."
+ "50e01495cf": "Evet. Ücretsiz My Bus Stop kartını HACS ile yükleyin, bir panoya ekleyin, ardından durağınızı ve hatlarınızı kartın düzenleyicisinden seçin. Hat haritasıyla birlikte aynı panoyu gösterir ve panonun açık ya da koyu temasına uyar. <a href=\"home-assistant/\">Nasıl kurulacağını görün</a>.",
+ "c8fd3bb19b": "Home Assistant"
 }

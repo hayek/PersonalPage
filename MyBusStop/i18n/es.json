@@ -135,5 +135,6 @@
  "707bf14429": "Cambia el recorrido completo a un mapa y verás tus líneas por las calles que realmente recorren.",
  "e02a43d899": "También en la <a href=\"web/\">web</a> y en un panel de <a href=\"home-assistant/\">Home Assistant</a>: añade la tarjeta gratuita My Bus Stop y elige tu parada en su editor.",
  "4746eb8a0f": "¿Funciona con Home Assistant?",
- "50e01495cf": "Sí. Instala la tarjeta gratuita My Bus Stop con HACS, añádela a un panel y elige tu parada y tus líneas en el editor de la tarjeta. Muestra el mismo panel de llegadas, con el mapa del recorrido, y sigue el tema claro u oscuro de tu panel. <a href=\"home-assistant/\">Mira cómo configurarla</a>."
+ "50e01495cf": "Sí. Instala la tarjeta gratuita My Bus Stop con HACS, añádela a un panel y elige tu parada y tus líneas en el editor de la tarjeta. Muestra el mismo panel de llegadas, con el mapa del recorrido, y sigue el tema claro u oscuro de tu panel. <a href=\"home-assistant/\">Mira cómo configurarla</a>.",
+ "c8fd3bb19b": "Home Assistant"
 }

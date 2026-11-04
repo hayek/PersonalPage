@@ -135,5 +135,6 @@
  "707bf14429": "Lülita kogu liin kaardile ja su liinid kulgevad mööda tänavaid, kus need päriselt sõidavad.",
  "e02a43d899": "Ka <a href=\"web/\">veebis</a> ja <a href=\"home-assistant/\">Home Assistanti</a> töölaual: lisa tasuta My Bus Stopi kaart ja vali selle redaktoris oma peatus.",
  "4746eb8a0f": "Kas see töötab Home Assistantiga?",
- "50e01495cf": "Jah. Paigalda tasuta My Bus Stopi kaart HACS-i kaudu, lisa see töölauale ning vali kaardi redaktoris oma peatus ja liinid. See näitab sama tablood koos liini kaardiga ja järgib töölaua heledat või tumedat teemat. <a href=\"home-assistant/\">Vaata, kuidas see seadistada</a>."
+ "50e01495cf": "Jah. Paigalda tasuta My Bus Stopi kaart HACS-i kaudu, lisa see töölauale ning vali kaardi redaktoris oma peatus ja liinid. See näitab sama tablood koos liini kaardiga ja järgib töölaua heledat või tumedat teemat. <a href=\"home-assistant/\">Vaata, kuidas see seadistada</a>.",
+ "c8fd3bb19b": "Home Assistant"
 }

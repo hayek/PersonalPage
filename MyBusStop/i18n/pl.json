@@ -135,5 +135,6 @@
  "707bf14429": "Przełącz całą trasę na mapę, a Twoje linie pobiegną ulicami, którymi naprawdę jeżdżą.",
  "e02a43d899": "Także w <a href=\"web/\">przeglądarce</a> i na pulpicie <a href=\"home-assistant/\">Home Assistant</a>: dodaj darmową kartę My Bus Stop i wybierz przystanek w jej edytorze.",
  "4746eb8a0f": "Czy działa z Home Assistant?",
- "50e01495cf": "Tak. Zainstaluj darmową kartę My Bus Stop przez HACS, dodaj ją do pulpitu i wybierz przystanek oraz linie w edytorze karty. Pokazuje tę samą tablicę z mapą trasy i dopasowuje się do jasnego lub ciemnego motywu pulpitu. <a href=\"home-assistant/\">Zobacz, jak ją skonfigurować</a>."
+ "50e01495cf": "Tak. Zainstaluj darmową kartę My Bus Stop przez HACS, dodaj ją do pulpitu i wybierz przystanek oraz linie w edytorze karty. Pokazuje tę samą tablicę z mapą trasy i dopasowuje się do jasnego lub ciemnego motywu pulpitu. <a href=\"home-assistant/\">Zobacz, jak ją skonfigurować</a>.",
+ "c8fd3bb19b": "Home Assistant"
 }

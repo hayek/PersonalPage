@@ -135,5 +135,6 @@
  "707bf14429": "把完整线路切换到线路图，你的线路就会沿着实际行驶的街道铺开。",
  "e02a43d899": "也可在<a href=\"web/\">网页</a>上使用，或放到 <a href=\"home-assistant/\">Home Assistant</a> 仪表盘上：添加免费的 My Bus Stop 卡片，然后在卡片编辑器中选择你的站点。",
  "4746eb8a0f": "能在 Home Assistant 中使用吗？",
- "50e01495cf": "可以。通过 HACS 安装免费的 My Bus Stop 卡片，把它添加到仪表盘，然后在卡片编辑器中选择站点和线路。它显示同样带线路图的站牌，并跟随仪表盘的浅色或深色主题。<a href=\"home-assistant/\">查看设置方法</a>。"
+ "50e01495cf": "可以。通过 HACS 安装免费的 My Bus Stop 卡片，把它添加到仪表盘，然后在卡片编辑器中选择站点和线路。它显示同样带线路图的站牌，并跟随仪表盘的浅色或深色主题。<a href=\"home-assistant/\">查看设置方法</a>。",
+ "c8fd3bb19b": "Home Assistant"
 }

@@ -135,5 +135,6 @@
  "707bf14429": "Kapcsold a teljes útvonalat térképre, és a járataid azokon az utcákon futnak, amelyeken tényleg közlekednek.",
  "e02a43d899": "A <a href=\"web/\">weben</a> is, és egy <a href=\"home-assistant/\">Home Assistant</a> irányítópulton is: add hozzá az ingyenes My Bus Stop kártyát, és a szerkesztőjében válaszd ki a megállódat.",
  "4746eb8a0f": "Működik a Home Assistanttel?",
- "50e01495cf": "Igen. Telepítsd az ingyenes My Bus Stop kártyát a HACS-ból, add hozzá egy irányítópulthoz, és a kártya szerkesztőjében válaszd ki a megállót és a járatokat. Ugyanazt a kijelzőt mutatja az útvonal térképével, és követi az irányítópult világos vagy sötét témáját. <a href=\"home-assistant/\">Nézd meg, hogyan kell beállítani</a>."
+ "50e01495cf": "Igen. Telepítsd az ingyenes My Bus Stop kártyát a HACS-ból, add hozzá egy irányítópulthoz, és a kártya szerkesztőjében válaszd ki a megállót és a járatokat. Ugyanazt a kijelzőt mutatja az útvonal térképével, és követi az irányítópult világos vagy sötét témáját. <a href=\"home-assistant/\">Nézd meg, hogyan kell beállítani</a>.",
+ "c8fd3bb19b": "Home Assistant"
 }

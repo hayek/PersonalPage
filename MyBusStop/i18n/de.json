@@ -135,5 +135,6 @@
  "707bf14429": "Schalte die ganze Strecke auf die Karte um, und deine Linien verlaufen durch die Straßen, die sie wirklich fahren.",
  "e02a43d899": "Auch im <a href=\"web/\">Web</a> und auf einem <a href=\"home-assistant/\">Home Assistant</a>-Dashboard: Füge die kostenlose Karte „My Bus Stop“ hinzu und wähle deine Haltestelle in ihrem Editor.",
  "4746eb8a0f": "Funktioniert es mit Home Assistant?",
- "50e01495cf": "Ja. Installiere die kostenlose Karte „My Bus Stop“ über HACS, füge sie einem Dashboard hinzu und wähle Haltestelle und Linien im Editor der Karte. Sie zeigt dieselbe Tafel mit dem Linienplan und folgt dem hellen oder dunklen Design des Dashboards. <a href=\"home-assistant/\">So richtest du sie ein</a>."
+ "50e01495cf": "Ja. Installiere die kostenlose Karte „My Bus Stop“ über HACS, füge sie einem Dashboard hinzu und wähle Haltestelle und Linien im Editor der Karte. Sie zeigt dieselbe Tafel mit dem Linienplan und folgt dem hellen oder dunklen Design des Dashboards. <a href=\"home-assistant/\">So richtest du sie ein</a>.",
+ "c8fd3bb19b": "Home Assistant"
 }
