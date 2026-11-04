@@ -10,7 +10,6 @@
  "91510ee610": "Vel haldeplassen du brukar kvar dag og opptil tre linjer. Tavla viser i sanntid når neste buss kjem, bussen etter han, og kvar på ruta bussane er akkurat no.",
  "a9096aaab4": "Last ned frå App Store",
  "ffbfad56e9": "Opne på nettet",
- "a0138b5510": "iPhone, iPad, Mac, Apple Watch og Apple TV",
  "6efd0938a4": "Ei demotavle: to linjer på veg til haldeplassen din, med minutta til neste buss",
  "06edac3675": "1 STOPP UNNA",
  "eb8ee5f5ab": "{n} STOPP UNNA",
@@ -136,5 +135,5 @@
  "e02a43d899": "Òg på <a href=\"web/\">nettet</a>, og på eit <a href=\"home-assistant/\">Home Assistant</a>-dashbord: legg til det gratis My Bus Stop-kortet og vel haldeplassen din i redigeringsvindauget.",
  "4746eb8a0f": "Fungerer det med Home Assistant?",
  "50e01495cf": "Ja. Installer det gratis My Bus Stop-kortet med HACS, legg det til på eit dashbord og vel haldeplass og linjer i redigeringsvindauget til kortet. Det viser den same tavla, med linjekartet, og følgjer det lyse eller mørke temaet til dashbordet. <a href=\"home-assistant/\">Sjå korleis du set det opp</a>.",
- "c8fd3bb19b": "Home Assistant"
+ "861d362d43": "iPhone, iPad, Mac, Apple Watch, Apple TV og <a href=\"home-assistant/\">Home Assistant</a>"
 }

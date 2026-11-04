@@ -10,7 +10,6 @@
  "91510ee610": "Vyber si zastávku, kterou používáš každý den, a až tři linky. Tabule ukazuje v reálném čase, kdy přijede nejbližší autobus, kdy ten další a kde je každý z nich právě na trase.",
  "a9096aaab4": "Stáhnout v App Storu",
  "ffbfad56e9": "Otevřít na webu",
- "a0138b5510": "iPhone, iPad, Mac, Apple Watch a Apple TV",
  "6efd0938a4": "Ukázková tabule: dvě linky na cestě k tvé zastávce, s počtem minut do nejbližšího autobusu",
  "06edac3675": "ZA 1 ZASTÁVKU",
  "eb8ee5f5ab": "ZA {n} ZAST.",
@@ -136,5 +135,5 @@
  "e02a43d899": "Také na <a href=\"web/\">webu</a> a na nástěnce <a href=\"home-assistant/\">Home Assistant</a>: přidej bezplatnou kartu My Bus Stop a v jejím editoru si vyber zastávku.",
  "4746eb8a0f": "Funguje s Home Assistant?",
  "50e01495cf": "Ano. Nainstaluj bezplatnou kartu My Bus Stop přes HACS, přidej ji na nástěnku a v editoru karty si vyber zastávku a linky. Ukazuje stejnou tabuli s mapou trasy a řídí se světlým nebo tmavým motivem nástěnky. <a href=\"home-assistant/\">Podívej se, jak ji nastavit</a>.",
- "c8fd3bb19b": "Home Assistant"
+ "861d362d43": "iPhone, iPad, Mac, Apple Watch, Apple TV a <a href=\"home-assistant/\">Home Assistant</a>"
 }

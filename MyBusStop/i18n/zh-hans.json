@@ -10,7 +10,6 @@
  "91510ee610": "选好每天乘车的站点和最多三条线路，电子站牌就会显示下一班车和再下一班车的实时到站时间，以及每辆车此刻在线路上的位置。",
  "a9096aaab4": "在 App Store 下载",
  "ffbfad56e9": "在网页上打开",
- "a0138b5510": "iPhone、iPad、Mac、Apple Watch 和 Apple TV",
  "6efd0938a4": "演示站牌：两条线路正驶向你的站点，并显示下一班车还有几分钟",
  "06edac3675": "还有1站",
  "eb8ee5f5ab": "还有{n}站",
@@ -136,5 +135,5 @@
  "e02a43d899": "也可在<a href=\"web/\">网页</a>上使用，或放到 <a href=\"home-assistant/\">Home Assistant</a> 仪表盘上：添加免费的 My Bus Stop 卡片，然后在卡片编辑器中选择你的站点。",
  "4746eb8a0f": "能在 Home Assistant 中使用吗？",
  "50e01495cf": "可以。通过 HACS 安装免费的 My Bus Stop 卡片，把它添加到仪表盘，然后在卡片编辑器中选择站点和线路。它显示同样带线路图的站牌，并跟随仪表盘的浅色或深色主题。<a href=\"home-assistant/\">查看设置方法</a>。",
- "c8fd3bb19b": "Home Assistant"
+ "861d362d43": "iPhone、iPad、Mac、Apple Watch、Apple TV 和 <a href=\"home-assistant/\">Home Assistant</a>"
 }

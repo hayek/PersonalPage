@@ -10,7 +10,6 @@
  "91510ee610": "Vali peatus, mida kasutad iga päev, ja kuni kolm liini. Tabloo näitab reaalajas järgmise bussi saabumisaega, sellele järgnevat bussi ja seda, kus iga buss oma liinil praegu on.",
  "a9096aaab4": "Laadi alla App Store'ist",
  "ffbfad56e9": "Ava veebis",
- "a0138b5510": "iPhone, iPad, Mac, Apple Watch ja Apple TV",
  "6efd0938a4": "Näidistabloo: kaks liini teel sinu peatusse ja minutid järgmise bussini",
  "06edac3675": "VEEL 1 PEATUS",
  "eb8ee5f5ab": "VEEL {n} PEATUST",
@@ -136,5 +135,5 @@
  "e02a43d899": "Ka <a href=\"web/\">veebis</a> ja <a href=\"home-assistant/\">Home Assistanti</a> töölaual: lisa tasuta My Bus Stopi kaart ja vali selle redaktoris oma peatus.",
  "4746eb8a0f": "Kas see töötab Home Assistantiga?",
  "50e01495cf": "Jah. Paigalda tasuta My Bus Stopi kaart HACS-i kaudu, lisa see töölauale ning vali kaardi redaktoris oma peatus ja liinid. See näitab sama tablood koos liini kaardiga ja järgib töölaua heledat või tumedat teemat. <a href=\"home-assistant/\">Vaata, kuidas see seadistada</a>.",
- "c8fd3bb19b": "Home Assistant"
+ "861d362d43": "iPhone, iPad, Mac, Apple Watch, Apple TV ja <a href=\"home-assistant/\">Home Assistant</a>"
 }

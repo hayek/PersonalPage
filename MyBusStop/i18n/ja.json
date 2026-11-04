@@ -10,7 +10,6 @@
  "91510ee610": "毎日使う停留所と、最大3つの路線を選ぶだけ。次のバスとその次のバスのリアルタイムの到着時刻、そしてそれぞれのバスがいま路線のどこを走っているかを案内板に表示します。",
  "a9096aaab4": "App Storeからダウンロード",
  "ffbfad56e9": "Web版を開く",
- "a0138b5510": "iPhone、iPad、Mac、Apple Watch、Apple TV",
  "6efd0938a4": "デモの案内板：乗車停留所に向かう2つの路線と、次のバスまでの分数",
  "06edac3675": "あと1停留所",
  "eb8ee5f5ab": "あと{n}停留所",
@@ -136,5 +135,5 @@
  "e02a43d899": "<a href=\"web/\">Web版</a>のほか、<a href=\"home-assistant/\">Home Assistant</a>のダッシュボードでも使えます。無料のMy Bus Stopカードを追加して、カードのエディタで停留所を選ぶだけです。",
  "4746eb8a0f": "Home Assistantで使えますか？",
  "50e01495cf": "はい。無料のMy Bus StopカードをHACSからインストールしてダッシュボードに追加し、カードのエディタで停留所と路線を選びます。路線図つきの同じ案内板が表示され、ダッシュボードのライト・ダークのテーマに合わせて切り替わります。<a href=\"home-assistant/\">設定方法を見る</a>",
- "c8fd3bb19b": "Home Assistant"
+ "861d362d43": "iPhone、iPad、Mac、Apple Watch、Apple TV、<a href=\"home-assistant/\">Home Assistant</a>"
 }

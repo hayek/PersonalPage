@@ -124,6 +124,8 @@ p { max-width: 62ch; }
 }
 .store-button[aria-disabled="true"] { background: var(--board-card); color: #FFFFFF; border: 1px solid var(--board-rule); }
 .platforms { margin-top: 16px; font-size: 15px; color: var(--board-dim); }
+.platforms a { color: inherit; text-decoration: underline; text-underline-offset: 3px; }
+.platforms a:hover { color: #FFFFFF; }
 
 /* ---------- The demo board ---------- */
 

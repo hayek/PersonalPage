@@ -10,7 +10,6 @@
  "91510ee610": "Choisissez l'arrêt que vous prenez tous les jours et jusqu'à trois lignes. Le tableau affiche en temps réel l'heure de passage du prochain bus et du suivant, et la position de chaque bus sur sa ligne.",
  "a9096aaab4": "Télécharger dans l'App Store",
  "ffbfad56e9": "Ouvrir sur le web",
- "a0138b5510": "iPhone, iPad, Mac, Apple Watch et Apple TV",
  "6efd0938a4": "Un tableau de démonstration : deux lignes en route vers votre arrêt, avec les minutes avant le prochain bus",
  "06edac3675": "À 1 ARRÊT",
  "eb8ee5f5ab": "À {n} ARRÊTS",
@@ -136,5 +135,5 @@
  "e02a43d899": "Aussi sur le <a href=\"web/\">web</a>, et sur un tableau de bord <a href=\"home-assistant/\">Home Assistant</a> : ajoutez la carte gratuite My Bus Stop et choisissez votre arrêt dans son éditeur.",
  "4746eb8a0f": "Fonctionne-t-elle avec Home Assistant ?",
  "50e01495cf": "Oui. Installez la carte gratuite My Bus Stop avec HACS, ajoutez-la à un tableau de bord et choisissez votre arrêt et vos lignes dans l'éditeur de la carte. Elle affiche le même tableau, avec le plan de la ligne, et suit le thème clair ou sombre du tableau de bord. <a href=\"home-assistant/\">Voir comment la configurer</a>.",
- "c8fd3bb19b": "Home Assistant"
+ "861d362d43": "iPhone, iPad, Mac, Apple Watch, Apple TV et <a href=\"home-assistant/\">Home Assistant</a>"
 }

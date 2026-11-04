@@ -10,7 +10,6 @@
  "91510ee610": "Välj hållplatsen du använder varje dag och upp till tre linjer. Tavlan visar i realtid när nästa buss kommer, bussen efter den och var varje buss är på sin linje just nu.",
  "a9096aaab4": "Hämta i App Store",
  "ffbfad56e9": "Öppna på webben",
- "a0138b5510": "iPhone, iPad, Mac, Apple Watch och Apple TV",
  "6efd0938a4": "En demotavla: två linjer på väg mot din hållplats, med minuter till nästa buss",
  "06edac3675": "1 HÅLLPLATS KVAR",
  "eb8ee5f5ab": "{n} HÅLLPLATSER KVAR",
@@ -136,5 +135,5 @@
  "e02a43d899": "Även på <a href=\"web/\">webben</a> och på en <a href=\"home-assistant/\">Home Assistant</a>-instrumentpanel: lägg till det kostnadsfria My Bus Stop-kortet och välj din hållplats i dess redigerare.",
  "4746eb8a0f": "Fungerar det med Home Assistant?",
  "50e01495cf": "Ja. Installera det kostnadsfria My Bus Stop-kortet via HACS, lägg till det på en instrumentpanel och välj hållplats och linjer i kortets redigerare. Det visar samma tavla, med linjekartan, och följer instrumentpanelens ljusa eller mörka tema. <a href=\"home-assistant/\">Så ställer du in det</a>.",
- "c8fd3bb19b": "Home Assistant"
+ "861d362d43": "iPhone, iPad, Mac, Apple Watch, Apple TV och <a href=\"home-assistant/\">Home Assistant</a>"
 }

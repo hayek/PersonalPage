@@ -10,7 +10,6 @@
  "91510ee610": "Piliin ang hintuang ginagamit mo araw-araw at hanggang tatlong linya. Ipinapakita ng board nang live kung kailan darating ang susunod na bus at ang kasunod nito, at kung nasaan na ang bawat bus sa ruta nito ngayon.",
  "a9096aaab4": "I-download sa App Store",
  "ffbfad56e9": "Buksan sa web",
- "a0138b5510": "iPhone, iPad, Mac, Apple Watch at Apple TV",
  "6efd0938a4": "Demo na board: dalawang linyang papunta sa hintuan mo, kasama ang minuto bago ang susunod na bus",
  "06edac3675": "1 HINTUAN PA",
  "eb8ee5f5ab": "{n} HINTUAN PA",
@@ -136,5 +135,5 @@
  "e02a43d899": "Nasa <a href=\"web/\">web</a> din, at sa isang <a href=\"home-assistant/\">Home Assistant</a> dashboard: idagdag ang libreng My Bus Stop card at piliin ang hintuan mo sa editor nito.",
  "4746eb8a0f": "Gumagana ba ito sa Home Assistant?",
  "50e01495cf": "Oo. I-install ang libreng My Bus Stop card sa pamamagitan ng HACS, idagdag ito sa isang dashboard, at piliin ang hintuan at mga linya mo sa editor ng card. Ipinapakita nito ang parehong board, kasama ang mapa ng ruta, at sinusunod nito ang maliwanag o madilim na tema ng dashboard. <a href=\"home-assistant/\">Tingnan kung paano ito i-set up</a>.",
- "c8fd3bb19b": "Home Assistant"
+ "861d362d43": "iPhone, iPad, Mac, Apple Watch, Apple TV at <a href=\"home-assistant/\">Home Assistant</a>"
 }

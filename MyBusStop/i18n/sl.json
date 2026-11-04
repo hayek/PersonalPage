@@ -10,7 +10,6 @@
  "91510ee610": "Izberi postajo, ki jo uporabljaš vsak dan, in do tri linije. Prikazovalnik v živo pokaže, kdaj pride naslednji avtobus in tisti za njim ter kje na progi je vsak od njiju prav zdaj.",
  "a9096aaab4": "Prenesite v trgovini App Store",
  "ffbfad56e9": "Odpri v brskalniku",
- "a0138b5510": "iPhone, iPad, Mac, Apple Watch in Apple TV",
  "6efd0938a4": "Predstavitveni prikazovalnik: dve liniji na poti do tvoje postaje in minute do naslednjega avtobusa",
  "06edac3675": "ŠE 1 POSTAJA",
  "eb8ee5f5ab": "ŠT. POSTAJ: {n}",
@@ -136,5 +135,5 @@
  "e02a43d899": "Tudi v <a href=\"web/\">brskalniku</a> in na nadzorni plošči <a href=\"home-assistant/\">Home Assistant</a>: dodaj brezplačno kartico My Bus Stop in v njenem urejevalniku izberi postajo.",
  "4746eb8a0f": "Ali deluje s Home Assistantom?",
  "50e01495cf": "Da. Namesti brezplačno kartico My Bus Stop prek HACS, jo dodaj na nadzorno ploščo ter v urejevalniku kartice izberi postajo in linije. Prikazuje isti prikazovalnik z zemljevidom poti in sledi svetli ali temni temi nadzorne plošče. <a href=\"home-assistant/\">Poglej, kako jo nastaviš</a>.",
- "c8fd3bb19b": "Home Assistant"
+ "861d362d43": "iPhone, iPad, Mac, Apple Watch, Apple TV in <a href=\"home-assistant/\">Home Assistant</a>"
 }

@@ -10,7 +10,6 @@
  "91510ee610": "Xaiv qhov chaw nres uas koj siv txhua hnub thiab txog li peb kab tsheb. Daim ntawv qhia ncaj qha seb lub tsheb npav tom ntej thiab lub tom qab ntawd yuav tuaj thaum twg, thiab tam sim no txhua lub nyob qhov twg ntawm nws txoj kev.",
  "a9096aaab4": "Rub los ntawm App Store",
  "ffbfad56e9": "Qhib hauv web",
- "a0138b5510": "iPhone, iPad, Mac, Apple Watch thiab Apple TV",
  "6efd0938a4": "Daim ntawv qhia sim: ob kab tsheb tab tom tuaj rau koj qhov chaw nres, nrog rau pes tsawg feeb mus txog lub tsheb npav tom ntej",
  "06edac3675": "TSHUAV 1 CHAW NRES",
  "eb8ee5f5ab": "TSHUAV {n} CHAW NRES",
@@ -136,5 +135,5 @@
  "e02a43d899": "Kuj muaj hauv <a href=\"web/\">web</a>, thiab ntawm <a href=\"home-assistant/\">Home Assistant</a> dashboard: ntxiv daim card My Bus Stop pub dawb thiab xaiv koj qhov chaw nres hauv nws lub editor.",
  "4746eb8a0f": "Puas siv tau nrog Home Assistant?",
  "50e01495cf": "Tau. Nruab daim card My Bus Stop pub dawb los ntawm HACS, ntxiv rau ib lub dashboard, thiab xaiv koj qhov chaw nres thiab cov kab tsheb hauv daim card lub editor. Nws qhia tib daim ntawv qhia, nrog daim ntawv qhia kev, thiab ua raws li lub dashboard xim kaj los yog tsaus. <a href=\"home-assistant/\">Saib yuav teeb tsa li cas</a>.",
- "c8fd3bb19b": "Home Assistant"
+ "861d362d43": "iPhone, iPad, Mac, Apple Watch, Apple TV thiab <a href=\"home-assistant/\">Home Assistant</a>"
 }

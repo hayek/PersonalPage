@@ -10,7 +10,6 @@
  "91510ee610": "매일 이용하는 정류장과 노선을 최대 세 개까지 고르세요. 안내판에 다음 버스와 그다음 버스의 실시간 도착 시간, 그리고 각 버스가 지금 노선의 어디쯤 있는지 표시됩니다.",
  "a9096aaab4": "App Store에서 다운로드",
  "ffbfad56e9": "웹에서 열기",
- "a0138b5510": "iPhone, iPad, Mac, Apple Watch 및 Apple TV",
  "6efd0938a4": "데모 안내판: 내 정류장으로 오고 있는 두 노선과 다음 버스까지 남은 시간(분)",
  "06edac3675": "1정류장 전",
  "eb8ee5f5ab": "{n}정류장 전",
@@ -136,5 +135,5 @@
  "e02a43d899": "<a href=\"web/\">웹</a>과 <a href=\"home-assistant/\">Home Assistant</a> 대시보드에서도 쓸 수 있습니다. 무료 My Bus Stop 카드를 추가하고 카드 편집기에서 정류장을 고르세요.",
  "4746eb8a0f": "Home Assistant에서도 쓸 수 있나요?",
  "50e01495cf": "네. 무료 My Bus Stop 카드를 HACS로 설치해 대시보드에 추가한 다음, 카드 편집기에서 정류장과 노선을 고르세요. 노선도가 있는 같은 안내판이 표시되고, 대시보드의 라이트 또는 다크 테마를 따릅니다. <a href=\"home-assistant/\">설정 방법 보기</a>",
- "c8fd3bb19b": "Home Assistant"
+ "861d362d43": "iPhone, iPad, Mac, Apple Watch, Apple TV 및 <a href=\"home-assistant/\">Home Assistant</a>"
 }

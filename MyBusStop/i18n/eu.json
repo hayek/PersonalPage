@@ -10,7 +10,6 @@
  "91510ee610": "Aukeratu egunero erabiltzen duzun geltokia eta gehienez hiru linea. Panelak zuzenean erakusten du hurrengo autobusa eta haren ondorengoa noiz iritsiko diren, eta autobus bakoitza bere ibilbidean non dagoen une honetan.",
  "a9096aaab4": "Deskargatu App Store-n",
  "ffbfad56e9": "Ireki webean",
- "a0138b5510": "iPhone, iPad, Mac, Apple Watch eta Apple TV",
  "6efd0938a4": "Demo-panela: zure geltokirantz datozen bi linea, hurrengo autobusera arteko minutuekin",
  "06edac3675": "1 GELTOKI FALTA",
  "eb8ee5f5ab": "{n} GELTOKI FALTA",
@@ -136,5 +135,5 @@
  "e02a43d899": "<a href=\"web/\">Webean</a> ere bai, baita <a href=\"home-assistant/\">Home Assistant</a>-eko arbel batean ere: gehitu My Bus Stop txartel doakoa eta aukeratu zure geltokia haren editorean.",
  "4746eb8a0f": "Home Assistant-ekin funtzionatzen du?",
  "50e01495cf": "Bai. Instalatu My Bus Stop txartel doakoa HACS bidez, gehitu arbel batera, eta aukeratu zure geltokia eta lineak txartelaren editorean. Panel bera erakusten du, ibilbidearen maparekin, eta arbelaren gai argiari edo ilunari jarraitzen dio. <a href=\"home-assistant/\">Ikusi nola konfiguratu</a>.",
- "c8fd3bb19b": "Home Assistant"
+ "861d362d43": "iPhone, iPad, Mac, Apple Watch, Apple TV eta <a href=\"home-assistant/\">Home Assistant</a>"
 }

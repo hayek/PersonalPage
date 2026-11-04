@@ -10,7 +10,6 @@
  "91510ee610": "Wybierz przystanek, z którego korzystasz codziennie, i maksymalnie trzy linie. Tablica pokazuje na żywo, kiedy przyjedzie najbliższy autobus i kolejny, oraz gdzie każdy z nich jest teraz na trasie.",
  "a9096aaab4": "Pobierz z App Store",
  "ffbfad56e9": "Otwórz w przeglądarce",
- "a0138b5510": "iPhone, iPad, Mac, Apple Watch i Apple TV",
  "6efd0938a4": "Przykładowa tablica: dwie linie w drodze na Twój przystanek, z liczbą minut do najbliższego autobusu",
  "06edac3675": "ZA 1 PRZYSTANEK",
  "eb8ee5f5ab": "ZA {n} PRZYST.",
@@ -136,5 +135,5 @@
  "e02a43d899": "Także w <a href=\"web/\">przeglądarce</a> i na pulpicie <a href=\"home-assistant/\">Home Assistant</a>: dodaj darmową kartę My Bus Stop i wybierz przystanek w jej edytorze.",
  "4746eb8a0f": "Czy działa z Home Assistant?",
  "50e01495cf": "Tak. Zainstaluj darmową kartę My Bus Stop przez HACS, dodaj ją do pulpitu i wybierz przystanek oraz linie w edytorze karty. Pokazuje tę samą tablicę z mapą trasy i dopasowuje się do jasnego lub ciemnego motywu pulpitu. <a href=\"home-assistant/\">Zobacz, jak ją skonfigurować</a>.",
- "c8fd3bb19b": "Home Assistant"
+ "861d362d43": "iPhone, iPad, Mac, Apple Watch, Apple TV i <a href=\"home-assistant/\">Home Assistant</a>"
 }

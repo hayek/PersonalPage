@@ -10,7 +10,6 @@
  "91510ee610": "Válaszd ki a megállót, amelyet minden nap használsz, és legfeljebb három járatot. A kijelző élőben mutatja, mikor érkezik a következő busz és az utána következő, és hogy most hol jár az útvonalán.",
  "a9096aaab4": "Letöltés az App Store-ból",
  "ffbfad56e9": "Megnyitás a weben",
- "a0138b5510": "iPhone, iPad, Mac, Apple Watch és Apple TV",
  "6efd0938a4": "Bemutató kijelző: két járat úton a megállód felé, a következő busz érkezéséig hátralévő percekkel",
  "06edac3675": "MÉG 1 MEGÁLLÓ",
  "eb8ee5f5ab": "MÉG {n} MEGÁLLÓ",
@@ -136,5 +135,5 @@
  "e02a43d899": "A <a href=\"web/\">weben</a> is, és egy <a href=\"home-assistant/\">Home Assistant</a> irányítópulton is: add hozzá az ingyenes My Bus Stop kártyát, és a szerkesztőjében válaszd ki a megállódat.",
  "4746eb8a0f": "Működik a Home Assistanttel?",
  "50e01495cf": "Igen. Telepítsd az ingyenes My Bus Stop kártyát a HACS-ból, add hozzá egy irányítópulthoz, és a kártya szerkesztőjében válaszd ki a megállót és a járatokat. Ugyanazt a kijelzőt mutatja az útvonal térképével, és követi az irányítópult világos vagy sötét témáját. <a href=\"home-assistant/\">Nézd meg, hogyan kell beállítani</a>.",
- "c8fd3bb19b": "Home Assistant"
+ "861d362d43": "iPhone, iPad, Mac, Apple Watch, Apple TV és <a href=\"home-assistant/\">Home Assistant</a>"
 }

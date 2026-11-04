@@ -10,7 +10,6 @@
  "91510ee610": "Alege stația pe care o folosești zilnic și până la trei linii. Tabela îți arată în timp real când vine următorul autobuz, cel de după el și unde se află fiecare pe traseu chiar acum.",
  "a9096aaab4": "Descarcă din App Store",
  "ffbfad56e9": "Deschide pe web",
- "a0138b5510": "iPhone, iPad, Mac, Apple Watch și Apple TV",
  "6efd0938a4": "O tabelă demonstrativă: două linii în drum spre stația ta, cu minutele până la următorul autobuz",
  "06edac3675": "LA O STAȚIE",
  "eb8ee5f5ab": "LA {n} STAȚII",
@@ -136,5 +135,5 @@
  "e02a43d899": "Și pe <a href=\"web/\">web</a>, și pe un panou <a href=\"home-assistant/\">Home Assistant</a>: adaugă cardul gratuit My Bus Stop și alege-ți stația în editorul lui.",
  "4746eb8a0f": "Funcționează cu Home Assistant?",
  "50e01495cf": "Da. Instalează cardul gratuit My Bus Stop prin HACS, adaugă-l pe un panou și alege stația și liniile în editorul cardului. Arată aceeași tabelă, cu harta traseului, și urmează tema luminoasă sau întunecată a panoului. <a href=\"home-assistant/\">Vezi cum îl configurezi</a>.",
- "c8fd3bb19b": "Home Assistant"
+ "861d362d43": "iPhone, iPad, Mac, Apple Watch, Apple TV și <a href=\"home-assistant/\">Home Assistant</a>"
 }

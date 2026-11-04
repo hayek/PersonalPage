@@ -10,7 +10,6 @@
  "91510ee610": "Her gün kullandığın durağı ve en fazla üç hattı seç. Pano, sonraki otobüsün ve ondan sonrakinin canlı varış saatini ve her otobüsün şu an güzergâhın neresinde olduğunu gösterir.",
  "a9096aaab4": "App Store'dan İndirin",
  "ffbfad56e9": "Web'de aç",
- "a0138b5510": "iPhone, iPad, Mac, Apple Watch ve Apple TV",
  "6efd0938a4": "Tanıtım panosu: durağına doğru yolda iki hat ve sonraki otobüse kalan dakika",
  "06edac3675": "1 DURAK KALDI",
  "eb8ee5f5ab": "{n} DURAK KALDI",
@@ -136,5 +135,5 @@
  "e02a43d899": "<a href=\"web/\">Web</a>'de ve bir <a href=\"home-assistant/\">Home Assistant</a> panosunda da: ücretsiz My Bus Stop kartını ekleyin ve durağınızı kartın düzenleyicisinden seçin.",
  "4746eb8a0f": "Home Assistant ile çalışır mı?",
  "50e01495cf": "Evet. Ücretsiz My Bus Stop kartını HACS ile yükleyin, bir panoya ekleyin, ardından durağınızı ve hatlarınızı kartın düzenleyicisinden seçin. Hat haritasıyla birlikte aynı panoyu gösterir ve panonun açık ya da koyu temasına uyar. <a href=\"home-assistant/\">Nasıl kurulacağını görün</a>.",
- "c8fd3bb19b": "Home Assistant"
+ "861d362d43": "iPhone, iPad, Mac, Apple Watch, Apple TV ve <a href=\"home-assistant/\">Home Assistant</a>"
 }

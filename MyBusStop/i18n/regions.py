@@ -161,7 +161,7 @@ def page(region, lang):
                         {L('Download on the App Store')}
                     </a>{web_button}
                 </div>
-                <p class="platforms">{L('iPhone, iPad, Mac, Apple Watch and Apple TV')}</p>
+                <p class="platforms">{L('iPhone, iPad, Mac, Apple Watch, Apple TV and <a href="home-assistant/">Home Assistant</a>').replace('href="home-assistant/"', 'href="/MyBusStop/home-assistant/"')}</p>
             </div>
             <figure class="region-phone">
                 <img src="{BASE}Assets/iphone-board-dark.webp" alt="{esc(L('The board, with line 18 two minutes away and line 41 twelve minutes away'))}" class="phone" width="660" height="1434">

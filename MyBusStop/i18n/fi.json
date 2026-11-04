@@ -10,7 +10,6 @@
  "91510ee610": "Valitse pysäkki, jota käytät joka päivä, ja enintään kolme linjaa. Taulu näyttää reaaliajassa seuraavan bussin saapumisajan, sitä seuraavan bussin ja sen, missä kukin bussi on reitillään juuri nyt.",
  "a9096aaab4": "Lataa App Storesta",
  "ffbfad56e9": "Avaa verkossa",
- "a0138b5510": "iPhone, iPad, Mac, Apple Watch ja Apple TV",
  "6efd0938a4": "Esittelytaulu: kaksi linjaa matkalla pysäkillesi ja minuutit seuraavaan bussiin",
  "06edac3675": "1 PYSÄKIN PÄÄSSÄ",
  "eb8ee5f5ab": "{n} PYSÄKIN PÄÄSSÄ",
@@ -136,5 +135,5 @@
  "e02a43d899": "Myös <a href=\"web/\">verkossa</a> ja <a href=\"home-assistant/\">Home Assistantin</a> kojelaudalla: lisää ilmainen My Bus Stop -kortti ja valitse pysäkkisi sen muokkaimessa.",
  "4746eb8a0f": "Toimiiko se Home Assistantin kanssa?",
  "50e01495cf": "Kyllä. Asenna ilmainen My Bus Stop -kortti HACSin kautta, lisää se kojelaudalle ja valitse pysäkki ja linjat kortin muokkaimessa. Se näyttää saman taulun reittikarttoineen ja seuraa kojelaudan vaaleaa tai tummaa teemaa. <a href=\"home-assistant/\">Katso, miten se otetaan käyttöön</a>.",
- "c8fd3bb19b": "Home Assistant"
+ "861d362d43": "iPhone, iPad, Mac, Apple Watch, Apple TV ja <a href=\"home-assistant/\">Home Assistant</a>"
 }

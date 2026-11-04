@@ -10,7 +10,6 @@
  "91510ee610": "Escolha a paragem que usa todos os dias e até três carreiras. O painel mostra em tempo real quando chega o próximo autocarro, o seguinte e onde está cada um no percurso neste momento.",
  "a9096aaab4": "Descarregar na App Store",
  "ffbfad56e9": "Abrir na web",
- "a0138b5510": "iPhone, iPad, Mac, Apple Watch e Apple TV",
  "6efd0938a4": "Painel de demonstração: duas carreiras a caminho da sua paragem, com os minutos até ao próximo autocarro",
  "06edac3675": "A 1 PARAGEM",
  "eb8ee5f5ab": "A {n} PARAGENS",
@@ -136,5 +135,5 @@
  "e02a43d899": "Também na <a href=\"web/\">web</a> e num painel do <a href=\"home-assistant/\">Home Assistant</a>: adicione o cartão gratuito My Bus Stop e escolha a sua paragem no editor do cartão.",
  "4746eb8a0f": "Funciona com o Home Assistant?",
  "50e01495cf": "Sim. Instale o cartão gratuito My Bus Stop através do HACS, adicione-o a um painel e escolha a sua paragem e as suas carreiras no editor do cartão. Mostra o mesmo painel de chegadas, com o mapa do percurso, e segue o tema claro ou escuro do painel. <a href=\"home-assistant/\">Veja como o configurar</a>.",
- "c8fd3bb19b": "Home Assistant"
+ "861d362d43": "iPhone, iPad, Mac, Apple Watch, Apple TV e <a href=\"home-assistant/\">Home Assistant</a>"
 }

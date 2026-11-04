@@ -10,7 +10,6 @@
  "91510ee610": "Dooro joogsiga aad maalin kasta isticmaasho iyo ilaa saddex khad. Looxu wuxuu si toos ah kuu tusaa goorta uu baska xiga imanayo iyo kan ka dambeeya, iyo halka bas kastaa hadda ka joogo wadadiisa.",
  "a9096aaab4": "Ka soo deji App Store",
  "ffbfad56e9": "Ku fur shabakadda",
- "a0138b5510": "iPhone, iPad, Mac, Apple Watch iyo Apple TV",
  "6efd0938a4": "Loox tijaabo ah: laba khad oo ku socda joogsigaaga, iyo daqiiqadaha ka harsan baska xiga",
  "06edac3675": "1 JOOGSI KA FOG",
  "eb8ee5f5ab": "{n} JOOGSI KA FOG",
@@ -136,5 +135,5 @@
  "e02a43d899": "Sidoo kale waxaa laga helaa <a href=\"web/\">shabakadda</a>, iyo dashboard-ka <a href=\"home-assistant/\">Home Assistant</a>: ku dar kaarka bilaashka ah ee My Bus Stop oo joogsigaaga ka dooro tifaftiraha kaarka.",
  "4746eb8a0f": "Ma la shaqeeyaa Home Assistant?",
  "50e01495cf": "Haa. Ku rakib kaarka bilaashka ah ee My Bus Stop adigoo adeegsanaya HACS, ku dar dashboard, kadibna joogsigaaga iyo khadadkaaga ka dooro tifaftiraha kaarka. Wuxuu muujiyaa isla looxa, oo ay la socoto khariidadda wadada, wuxuuna raacaa muuqaalka iftiinka ama madowga ee dashboard-ka. <a href=\"home-assistant/\">Arag sida loo dejiyo</a>.",
- "c8fd3bb19b": "Home Assistant"
+ "861d362d43": "iPhone, iPad, Mac, Apple Watch, Apple TV iyo <a href=\"home-assistant/\">Home Assistant</a>"
 }

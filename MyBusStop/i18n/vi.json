@@ -10,7 +10,6 @@
  "91510ee610": "Chọn trạm bạn đi mỗi ngày và tối đa ba tuyến. Bảng cho biết trực tiếp khi nào chuyến xe buýt kế tiếp và chuyến sau đó sẽ đến, cùng vị trí của từng xe trên tuyến ngay lúc này.",
  "a9096aaab4": "Tải về trên App Store",
  "ffbfad56e9": "Mở trên web",
- "a0138b5510": "iPhone, iPad, Mac, Apple Watch và Apple TV",
  "6efd0938a4": "Bảng minh họa: hai tuyến đang đến điểm dừng của bạn, kèm số phút đến chuyến kế tiếp",
  "06edac3675": "CÒN 1 TRẠM",
  "eb8ee5f5ab": "CÒN {n} TRẠM",
@@ -136,5 +135,5 @@
  "e02a43d899": "Có cả trên <a href=\"web/\">web</a> và trên bảng điều khiển <a href=\"home-assistant/\">Home Assistant</a>: thêm thẻ My Bus Stop miễn phí và chọn điểm dừng trong trình chỉnh sửa của thẻ.",
  "4746eb8a0f": "Có dùng được với Home Assistant không?",
  "50e01495cf": "Có. Cài thẻ My Bus Stop miễn phí qua HACS, thêm thẻ vào một bảng điều khiển, rồi chọn điểm dừng và các tuyến trong trình chỉnh sửa của thẻ. Thẻ hiển thị cùng một bảng kèm bản đồ tuyến, và theo giao diện sáng hoặc tối của bảng điều khiển. <a href=\"home-assistant/\">Xem cách thiết lập</a>.",
- "c8fd3bb19b": "Home Assistant"
+ "861d362d43": "iPhone, iPad, Mac, Apple Watch, Apple TV và <a href=\"home-assistant/\">Home Assistant</a>"
 }

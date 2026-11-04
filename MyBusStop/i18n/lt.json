@@ -10,7 +10,6 @@
  "91510ee610": "Pasirinkite stotelę, kuria naudojatės kasdien, ir iki trijų maršrutų. Švieslentė realiu laiku rodo, kada atvažiuos kitas autobusas ir dar kitas, ir kur kiekvienas autobusas maršrute yra dabar.",
  "a9096aaab4": "Atsisiųskite iš App Store",
  "ffbfad56e9": "Atidaryti naršyklėje",
- "a0138b5510": "iPhone, iPad, Mac, Apple Watch ir Apple TV",
  "6efd0938a4": "Demonstracinė švieslentė: du maršrutai pakeliui į jūsų stotelę ir minutės iki kito autobuso",
  "06edac3675": "LIKO 1 STOTELĖ",
  "eb8ee5f5ab": "STOTELIŲ: {n}",
@@ -136,5 +135,5 @@
  "e02a43d899": "Taip pat <a href=\"web/\">naršyklėje</a> ir <a href=\"home-assistant/\">Home Assistant</a> skydelyje: pridėkite nemokamą kortelę „My Bus Stop“ ir jos redaktoriuje pasirinkite stotelę.",
  "4746eb8a0f": "Ar ji veikia su Home Assistant?",
  "50e01495cf": "Taip. Įdiekite nemokamą kortelę „My Bus Stop“ per HACS, pridėkite ją prie skydelio ir kortelės redaktoriuje pasirinkite stotelę ir maršrutus. Ji rodo tą pačią švieslentę su maršruto žemėlapiu ir prisitaiko prie šviesios ar tamsios skydelio temos. <a href=\"home-assistant/\">Kaip ją nustatyti</a>.",
- "c8fd3bb19b": "Home Assistant"
+ "861d362d43": "iPhone, iPad, Mac, Apple Watch, Apple TV ir <a href=\"home-assistant/\">Home Assistant</a>"
 }
