@@ -147,6 +147,9 @@ pre code { background: none; padding: 0; font-size: inherit; overflow-wrap: norm
 .steps.alt3 > li::before { background: var(--l41); color: #14140F; }
 .points { margin: 14px 0 14px 22px; }
 .points li { margin: 8px 0; }
+.install { display: inline-flex; align-items: center; gap: 10px; margin: 18px 0 6px; padding: 14px 26px; border-radius: 999px; background: #0277BD; color: #FFFFFF; font-size: 18px; font-weight: 800; text-decoration: none; }
+.install:hover { background: #01579B; }
+.install svg { width: 22px; height: 22px; flex: none; }
 .box { margin: 28px 0; background: var(--card); border-left: 6px solid var(--l7); border-radius: 14px; padding: 16px 22px; }
 .box p { margin: 6px 0; font-size: 17px; }
 table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 16px; }
@@ -177,6 +180,8 @@ footer { margin-top: 56px; padding-top: 22px; border-top: 1px solid var(--rule);
         </figure>
 
         <h2>Install the card</h2>
+        <p><a class="install" href="https://my.home-assistant.io/redirect/marketplace_repository/?owner=hayek&amp;repository=my-bus-stop-card&amp;category=plugin"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.6 1.5 12h3v9h15v-9h3Zm0 3 5.5 4.95V19h-11v-8.45Z"/></svg>Add to Home Assistant</a></p>
+        <p>The button opens My Home Assistant, which sends you on to your own Home Assistant. When it asks to add the repository, select <strong>Add</strong>, then select <strong>Install</strong>. The first time, Home Assistant asks you to connect a GitHub account. If the button doesn't get you there, follow the steps below.</p>
         <h3>Home Assistant 2026.11 or later</h3>
         <p>HACS is built in from this version, as the <strong>Marketplace</strong>.</p>
         <ol class="steps">
