@@ -3,10 +3,9 @@
   صنّف والعب — Sort and Play — privacy policy, in Arabic and English.
   This is the URL for App Store Connect's Privacy Policy field. Self-contained like the other
   apps' privacy pages: no shared stylesheet, no fonts, no scripts, and no analytics on the page.
-  Everything below describes what the app actually does (2.0): Firebase Analytics without
-  advertising-identifier support (no IDFA, IDFV collection off, ad storage and personalization
-  denied) logs play events (GameAnalytics.swift), Crashlytics sends crash reports, and the device
-  keeps the settings, the best stars per level and the friends earned in UserDefaults. It matches
+  Everything below describes what the app actually does (2.0.1): no third-party SDKs and no
+  network access (Firebase was removed after App Review's Kids-category rejection, 2026-11-04);
+  the device keeps the settings, the best stars per level and the friends earned in UserDefaults. It matches
   PrivacyInfo.xcprivacy and the App Store privacy label. When that changes, this page changes with it.
 -->
 <html lang="ar" dir="rtl" data-theme="system">
@@ -14,7 +13,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>سياسة الخصوصية — صنّف والعب</title>
-    <meta name="description" content="صنّف والعب لا يجمع أي معلومات عن طفلك: لا إعلانات ولا حسابات ولا تتبّع، ويرسل إحصاءات لعب مجهولة وتقارير أعطال فقط.">
+    <meta name="description" content="صنّف والعب لا يجمع أي بيانات: لا إعلانات ولا حسابات ولا تتبّع ولا تحليلات، ولا يرسل شيئًا إلينا ولا إلى أي جهة أخرى.">
     <link rel="canonical" href="https://amirhayek.dev/SortAndPlay/ar/privacy/">
     <link rel="alternate" hreflang="en" href="https://amirhayek.dev/SortAndPlay/privacy/">
     <link rel="alternate" hreflang="ar" href="https://amirhayek.dev/SortAndPlay/ar/privacy/">
@@ -145,12 +144,11 @@
         <a href="../../privacy/" lang="en" hreflang="en">English</a>
     </div>
     <h1>سياسة الخصوصية</h1>
-    <p class="updated">تسري اعتبارًا من ٢٠ أكتوبر ٢٠٢٦</p>
+    <p class="updated">تسري اعتبارًا من ٤ نوفمبر ٢٠٢٦</p>
 
     <div class="lede">
-        <p><strong>لا يجمع «صنّف والعب» أي معلومات عن طفلك:</strong> لا اسم، ولا عمر، ولا صور، ولا صوت، ولا موقع دقيق، ولا معرّف الإعلانات.</p>
+        <p><strong>لا يجمع «صنّف والعب» أي بيانات على الإطلاق.</strong> لا يرسل التطبيق شيئًا إلينا ولا إلى أي جهة أخرى.</p>
         <p><strong>لا إعلانات، ولا حسابات، ولا مشتريات داخل التطبيق، ولا تتبّع.</strong></p>
-        <p><strong>يرسل التطبيق إحصاءات لعب مجهولة وتقارير أعطال فقط</strong>، عبر خدمة Firebase من Google، لنصلح الأعطال ونحسّن اللعبة.</p>
     </div>
 
     <p>«صنّف والعب» («التطبيق») لعبة تعليمية لأطفال الثالثة إلى الخامسة، من صنع أمير حايك («نحن»). تشرح هذه الصفحة ما يفعله التطبيق بالبيانات، وتشمل نسخه للآيفون والآيباد والماك.</p>
@@ -163,20 +161,14 @@
         <li><strong>لا أذونات.</strong> لا يطلب التطبيق الوصول إلى الكاميرا أو الميكروفون أو الصور أو الموقع أو جهات الاتصال.</li>
     </ul>
 
-    <h2>ما يرسله التطبيق</h2>
-    <p>يستخدم التطبيق خدمتين من <a href="https://firebase.google.com/support/privacy" lang="en" dir="ltr">Google Firebase</a>، ولا يرتبط ما ترسلانه باسم أحد أو بحسابه:</p>
-    <ul>
-        <li><strong>إحصاءات لعب مجهولة (Firebase Analytics):</strong> أيّ لعبة اختيرت، والمستويات التي بدأت وانتهت، والنجوم المكتسبة، وعدد المحاولات الخاطئة، والمساعدات التي ظهرت، والأصدقاء الذين رُبحوا، وفتح الألبوم، وتشغيل الموسيقى أو الأصوات أو إيقافها. ومعها معلومات عامة مثل مدة الجلسة، وطراز الجهاز، وإصدار النظام والتطبيق، والبلد أو المنطقة التي تستنتجها Google تقريبيًا من عنوان الإنترنت.</li>
-        <li><strong>تقارير الأعطال (Firebase Crashlytics):</strong> إن توقّف التطبيق فجأة، تُرسل تفاصيل تقنية عن العطل، مع طراز الجهاز وإصدار النظام والتطبيق.</li>
-    </ul>
-    <p>تُعرَّف هذه البيانات برقم عشوائي خاص بهذا التثبيت، يتغيّر إذا حُذف التطبيق وثُبّت من جديد، وليس معرّف الإعلانات. وقد عطّلنا في Firebase كل ما يتعلّق بالإعلانات وتخصيصها. نستخدم هذه البيانات فقط لنفهم كيف تُلعب اللعبة ونصلح أعطالها، ولا نبيعها، ولا نشاركها مع أي جهة أخرى. وتعالجها Google نيابةً عنا وفق <a href="https://policies.google.com/privacy" lang="en" dir="ltr">سياسة خصوصية Google</a>.</p>
-    <p>تعمل اللعبة كاملةً من دون إنترنت، وتُرسل الإحصاءات عندما يكون الجهاز متصلًا.</p>
+    <h2>لا يُرسل شيء</h2>
+    <p>لا يحتوي التطبيق على أي خدمات تحليل أو تقارير أعطال أو إعلانات أو خدمات من جهات أخرى، ولا يتصل بالإنترنت. تعمل اللعبة كاملةً من دون إنترنت. (كان الإصدار ٢٫٠ يرسل إحصاءات لعب مجهولة وتقارير أعطال عبر <span lang="en" dir="ltr">Google Firebase</span>، وأُزيل ذلك في الإصدار ٢٫٠٫١. ولا يزال الإصدار ٢٫٠ على الماك يرسلها إلى أن يُحدَّث إلى ٢٫٠٫١.)</p>
 
     <h2>ما يُحفظ على الجهاز</h2>
     <p>يتذكّر التطبيق اللعبة المختارة، وتشغيل الموسيقى أو الأصوات، وأفضل النجوم في كل مستوى، والأصدقاء الذين ربحهم الطفل في ألبوم «مرجي». تُحفظ هذه المعلومات على الجهاز نفسه ولا تُرسل إلينا. وقد تدخل في النسخة الاحتياطية لجهازك كسائر إعدادات التطبيقات، وحذف التطبيق يحذفها.</p>
 
     <h2>الأطفال</h2>
-    <p>صُمّم التطبيق للأطفال الصغار وفق قواعد Apple لفئة الأطفال: لا يجمع أي معلومات تعرّف بالطفل، ولا يعرض إعلانات، ولا يحتوي على روابط إلى خارج التطبيق. ولأن البيانات المرسلة مجهولة وغير مرتبطة بأحد، لا نستطيع أن نجد بيانات طفل بعينه؛ وحذف التطبيق يبدأ رقمًا عشوائيًا جديدًا.</p>
+    <p>صُمّم التطبيق للأطفال الصغار وفق قواعد Apple لفئة الأطفال: لا يجمع أي بيانات، ولا يعرض إعلانات، ولا يحتوي على روابط إلى خارج التطبيق. ولأنه لا يصلنا شيء، فليس لدينا أي بيانات عن أي طفل.</p>
 
     <h2>التغييرات على هذه السياسة</h2>
     <p>إذا تغيّر ما يفعله التطبيق بالبيانات، تتغيّر هذه الصفحة معه ويتغيّر تاريخ سريانها في أعلاها.</p>

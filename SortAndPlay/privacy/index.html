@@ -3,10 +3,9 @@
   صنّف والعب — Sort and Play — privacy policy, in Arabic and English.
   This is the URL for App Store Connect's Privacy Policy field. Self-contained like the other
   apps' privacy pages: no shared stylesheet, no fonts, no scripts, and no analytics on the page.
-  Everything below describes what the app actually does (2.0): Firebase Analytics without
-  advertising-identifier support (no IDFA, IDFV collection off, ad storage and personalization
-  denied) logs play events (GameAnalytics.swift), Crashlytics sends crash reports, and the device
-  keeps the settings, the best stars per level and the friends earned in UserDefaults. It matches
+  Everything below describes what the app actually does (2.0.1): no third-party SDKs and no
+  network access (Firebase was removed after App Review's Kids-category rejection, 2026-11-04);
+  the device keeps the settings, the best stars per level and the friends earned in UserDefaults. It matches
   PrivacyInfo.xcprivacy and the App Store privacy label. When that changes, this page changes with it.
 -->
 <html lang="en" dir="ltr" data-theme="system">
@@ -14,7 +13,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Privacy Policy — Sort and Play</title>
-    <meta name="description" content="Sort and Play collects nothing about your child: no ads, accounts or tracking, only anonymous play statistics and crash reports.">
+    <meta name="description" content="Sort and Play collects no data: no ads, accounts, tracking or analytics. The app sends nothing to us or to anyone else.">
     <link rel="canonical" href="https://amirhayek.dev/SortAndPlay/privacy/">
     <link rel="alternate" hreflang="en" href="https://amirhayek.dev/SortAndPlay/privacy/">
     <link rel="alternate" hreflang="ar" href="https://amirhayek.dev/SortAndPlay/ar/privacy/">
@@ -144,12 +143,11 @@
         <a href="../ar/privacy/" lang="ar" hreflang="ar" dir="rtl">العربية</a>
     </div>
     <h1>Privacy Policy</h1>
-    <p class="updated">Effective October 20, 2026</p>
+    <p class="updated">Effective November 4, 2026</p>
 
     <div class="lede">
-        <p><strong>Sort and Play collects nothing about your child:</strong> no name, age, photos, voice, precise location or advertising identifier.</p>
+        <p><strong>Sort and Play collects no data at all.</strong> The app sends nothing to us or to anyone else.</p>
         <p><strong>No ads, no accounts, no in-app purchases and no tracking.</strong></p>
-        <p><strong>The app sends only anonymous play statistics and crash reports</strong>, through Google’s Firebase, so we can fix crashes and improve the game.</p>
     </div>
 
     <p>Sort and Play («صنّف والعب», “the app”) is a learning game for children aged 3 to 5, made by Amir Hayek (“we”). This page explains what the app does with data. It covers the iPhone, iPad and Mac versions of the app.</p>
@@ -162,20 +160,14 @@
         <li><strong>No permissions.</strong> The app does not ask for the camera, microphone, photos, location or contacts.</li>
     </ul>
 
-    <h2>What the app sends</h2>
-    <p>The app uses two services from <a href="https://firebase.google.com/support/privacy">Google Firebase</a>. What they send is not linked to anyone’s name or account:</p>
-    <ul>
-        <li><strong>Anonymous play statistics (Firebase Analytics):</strong> which game is chosen, levels started and finished, stars earned, the number of wrong tries, hints shown, friends earned, the album being opened, and music or sound being turned on or off. With these come general details such as session length, device model, system and app version, and the approximate country or region, which Google derives from the IP address.</li>
-        <li><strong>Crash reports (Firebase Crashlytics):</strong> if the app stops unexpectedly, technical details about the crash are sent, with the device model and the system and app version.</li>
-    </ul>
-    <p>This data is identified by a random number for this installation, which changes if the app is deleted and installed again; it is not the advertising identifier. Everything related to advertising and ad personalization is turned off in Firebase. We use this data only to understand how the game is played and to fix crashes. We do not sell it or share it with anyone else. Google processes it on our behalf under the <a href="https://policies.google.com/privacy">Google Privacy Policy</a>.</p>
-    <p>The game works fully offline; statistics are sent when the device is online.</p>
+    <h2>Nothing is sent</h2>
+    <p>The app contains no analytics, crash reporting, advertising or other third-party services, and it does not connect to the internet. The game works fully offline. (Version 2.0 sent anonymous play statistics and crash reports through Google Firebase; that was removed in version 2.0.1. The Mac version 2.0 still sends them until it is updated to 2.0.1.)</p>
 
     <h2>What stays on the device</h2>
     <p>The app remembers the chosen game, whether music and sound are on, the best stars on each level, and the animal friends your child has earned for the “My Meadow” album. These are stored on the device itself and are never sent to us. Like any app’s settings they may be included in your device’s backup, and deleting the app deletes them.</p>
 
     <h2>Children</h2>
-    <p>The app is made for young children under Apple’s Kids category rules: it collects no information that identifies a child, shows no ads, and has no links out of the app. Because the data it sends is anonymous and not linked to anyone, we cannot find a particular child’s data; deleting the app starts a new random number.</p>
+    <p>The app is made for young children under Apple’s Kids category rules: it collects no data, shows no ads, and has no links out of the app. Since nothing reaches us, we hold no data about any child.</p>
 
     <h2>Changes to this policy</h2>
     <p>If what the app does with data ever changes, this page changes with it and the effective date at the top moves.</p>
