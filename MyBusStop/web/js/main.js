@@ -102,13 +102,25 @@ export function colorsOf(board) {
 
 /** The card's editor, after a board is chosen: what the card will show, and a way to choose again. */
 function showPicked(root, board) {
+    const change = () => changeLines(board);
     root.append(h('main', { class: 'screen picked' },
         h('p', { class: 'caption' }, 'THE CARD WILL SHOW'),
-        h('h1', { dir: 'auto' }, board.stop.name),
-        h('div', { class: 'picked-lines' }, board.lines.map((line) => badge(line, colorIndexFor(board.providerID, line), 'medium'))),
+        h('h1', { dir: 'auto' }, h('button', { class: 'picked-stop', title: 'Change lines', onclick: change }, board.stop.name)),
+        h('button', { class: 'picked-lines', 'aria-label': 'Change lines', onclick: change },
+            board.lines.map((line) => badge(line, colorIndexFor(board.providerID, line), 'medium'))),
         h('p', { class: 'picked-hint' }, 'Save the card to keep this board. The preview beside this shows it live.'),
-        h('button', { class: 'button button-outline', onclick: () => { store.closeBoard(); go('setup'); } }, 'CHOOSE ANOTHER STOP'),
+        h('div', { class: 'picked-actions' },
+            h('button', { class: 'button button-primary', onclick: change }, 'CHANGE LINES'),
+            h('button', { class: 'button button-outline', onclick: () => { store.closeBoard(); go('setup'); } }, 'CHOOSE ANOTHER STOP')),
     ));
+}
+
+/** The lines screen for a board's stop, its lines already ticked: from the card editor's board. */
+async function changeLines(board) {
+    await providerFor(regionByID(board.regionID) ?? WORLDWIDE);
+    session.stop = board.stop;
+    session.preselected = board.lines;
+    go('lines');
 }
 
 window.addEventListener('popstate', (event) => {
@@ -121,6 +133,18 @@ window.addEventListener('popstate', (event) => {
 
 async function start() {
     const shared = boardInLink();
+    if (shared && picking) {
+        // The card editor reopened on a card that has a board: start on its lines, the stop picker one Back away.
+        try {
+            const board = await decodeBoard(shared);
+            store.setPalette(Object.fromEntries(Object.entries(board.colors).map(([id, color]) => [lineKey(board.providerID, id), color])));
+            history.replaceState({ screen: 'setup' }, '', home());
+            await changeLines(board);
+            return;
+        } catch (error) {
+            console.error(error);
+        }
+    }
     if (shared && !picking) {
         try {
             const board = await decodeBoard(shared);

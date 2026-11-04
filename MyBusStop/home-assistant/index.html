@@ -10,7 +10,7 @@ Self-contained like privacy/ and blog/ (its own styles, no shared stylesheet). E
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>My Bus Stop for Home Assistant – Live Bus Arrivals on Your Dashboard</title>
-<meta name="description" content="Put live bus arrivals at your stop on a Home Assistant dashboard: the next bus, the one after it and the route map. Free, with no account or API key. Install the card with HACS in a few minutes.">
+<meta name="description" content="Put live bus arrivals at your stop on a Home Assistant dashboard: the next bus, the one after it and the route map. Free, with no account or API key. Install the card from the Marketplace or HACS in a few minutes.">
 <meta name="theme-color" content="#08080B">
 <link rel="canonical" href="https://amirhayek.dev/MyBusStop/home-assistant/">
 <meta property="og:type" content="article">
@@ -26,10 +26,10 @@ Self-contained like privacy/ and blog/ (its own styles, no shared stylesheet). E
     "name": "Add My Bus Stop to a Home Assistant dashboard",
     "description": "Install the My Bus Stop card with HACS, then choose your stop and lines in the card editor.",
     "image": "https://amirhayek.dev/MyBusStop/home-assistant/card-og.jpg",
-    "tool": [{ "@type": "HowToTool", "name": "Home Assistant with HACS" }],
+    "tool": [{ "@type": "HowToTool", "name": "Home Assistant 2026.11 or later (Marketplace), or HACS" }],
     "step": [
-        { "@type": "HowToStep", "name": "Add the repository", "text": "In HACS, open the ⋮ menu, choose Custom repositories, add https://github.com/hayek/my-bus-stop-card with the type Dashboard." },
-        { "@type": "HowToStep", "name": "Download the card", "text": "Search HACS for My Bus Stop, click Download, then reload the browser." },
+        { "@type": "HowToStep", "name": "Add the repository", "text": "Go to Settings, Marketplace, select Add from link and enter https://github.com/hayek/my-bus-stop-card. With HACS on Home Assistant 2026.10 or earlier, add it under Custom repositories with the type Dashboard." },
+        { "@type": "HowToStep", "name": "Install the card", "text": "Open My Bus Stop, select Install (Download in HACS), then reload the browser." },
         { "@type": "HowToStep", "name": "Add the card", "text": "Edit a dashboard, click Add card and choose My Bus Stop." },
         { "@type": "HowToStep", "name": "Choose your stop and lines", "text": "In the card editor, pick your region, find your stop, choose up to three lines and press Use these lines. Then click Save." }
     ],
@@ -147,8 +147,6 @@ pre code { background: none; padding: 0; font-size: inherit; overflow-wrap: norm
 .steps.alt3 > li::before { background: var(--l41); color: #14140F; }
 .points { margin: 14px 0 14px 22px; }
 .points li { margin: 8px 0; }
-.badge-link { display: inline-block; margin: 8px 0 4px; }
-.badge-link img { border: 0; border-radius: 0; height: 40px; width: auto; }
 .box { margin: 28px 0; background: var(--card); border-left: 6px solid var(--l7); border-radius: 14px; padding: 16px 22px; }
 .box p { margin: 6px 0; font-size: 17px; }
 table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 16px; }
@@ -179,14 +177,20 @@ footer { margin-top: 56px; padding-top: 22px; border-top: 1px solid var(--rule);
         </figure>
 
         <h2>Install the card</h2>
-        <p>You need <a href="https://hacs.xyz/">HACS</a>, the Home Assistant Community Store. If your Home Assistant can be reached through <a href="https://my.home-assistant.io/">My Home Assistant</a>, this button opens the card in HACS for you:</p>
-        <a class="badge-link" href="https://my.home-assistant.io/redirect/hacs_repository/?owner=hayek&amp;repository=my-bus-stop-card&amp;category=plugin"><img src="https://my.home-assistant.io/badges/hacs_repository.svg" alt="Open your Home Assistant instance and open this repository in HACS." width="282" height="40"></a>
-        <p>Or add it by hand:</p>
+        <h3>Home Assistant 2026.11 or later</h3>
+        <p>HACS is built in from this version, as the <strong>Marketplace</strong>.</p>
         <ol class="steps">
-            <li>In Home Assistant, open <strong>HACS</strong>. Go to the <strong>⋮</strong> menu in the top corner and choose <strong>Custom repositories</strong>.</li>
+            <li>Go to <strong>Settings → Marketplace</strong>. In the upper-right corner, select <strong>Add from link</strong>.</li>
+            <li>Under GitHub link, enter <code>https://github.com/hayek/my-bus-stop-card</code> and select <strong>Add</strong>. If it asks for the type, choose <strong>Dashboards</strong> and select <strong>Add</strong> again.</li>
+            <li>On the My Bus Stop page, select <strong>Install</strong>, check the version, then select <strong>Install</strong> again.</li>
+            <li>Reload the page in your browser. In the Home Assistant app, pull down to refresh, or close and reopen it.</li>
+        </ol>
+        <h3>Home Assistant 2026.10 or earlier, with HACS</h3>
+        <ol class="steps">
+            <li>Open <strong>HACS</strong> in the sidebar. Go to the <strong>⋮</strong> menu in the top corner and choose <strong>Custom repositories</strong>.</li>
             <li>Under Repository, enter <code>https://github.com/hayek/my-bus-stop-card</code>. Under Type, choose <strong>Dashboard</strong>. Click <strong>Add</strong>, then close the window.</li>
             <li>Search HACS for <strong>My Bus Stop</strong>, open it and click <strong>Download</strong>.</li>
-            <li>Reload the page in your browser. In the Home Assistant app, pull down to refresh, or close and reopen it.</li>
+            <li>Reload the page in your browser, or pull down to refresh in the Home Assistant app.</li>
         </ol>
 
         <h2>Add it to a dashboard</h2>
@@ -196,7 +200,7 @@ footer { margin-top: 56px; padding-top: 22px; border-top: 1px solid var(--rule);
             <li>Tick up to three lines and press <strong>Use these lines</strong>. The preview beside the editor switches to your board.</li>
             <li>Click <strong>Save</strong>.</li>
         </ol>
-        <p>For more than one stop, add one card for each.</p>
+        <p>To change the lines later, edit the card: the editor opens on your stop with its lines ticked. Tap <strong>Back</strong> there to choose another stop. For more than one stop, add one card for each.</p>
 
         <h3>Options</h3>
         <p>The editor sets these for you, or you can write them in the card's YAML:</p>
@@ -214,7 +218,7 @@ url: https://amirhayek.dev/MyBusStop/web/#b=z…
 theme: dark</code></pre>
         <p>The board fits the card's size. When the card is short, the second bus goes first, then the map, and the minutes to the next bus always stay. A wide card shows both buses side by side.</p>
 
-        <h2>Without HACS</h2>
+        <h2>Without installing anything</h2>
         <p>Home Assistant's built-in <strong>Webpage</strong> card can show a board too, with nothing to install:</p>
         <ol class="steps alt3">
             <li>Open <a href="/MyBusStop/web/">My Bus Stop on the web</a>, choose your stop and lines, then choose <strong>⚙ → Copy link to this board</strong>.</li>
@@ -227,7 +231,7 @@ aspect_ratio: 100%
 allow: fullscreen; screen-wake-lock</code></pre>
 
         <h2>On a wall tablet</h2>
-        <p>Open the board's <strong>⚙</strong> menu and choose <strong>Wall mode</strong>. The board goes full screen and dark, and keeps the screen awake while it's open: a bus board for a tablet by the front door. Wall mode works in the card and in the Webpage card.</p>
+        <p>Give the card a dashboard view of its own with the <strong>Panel</strong> layout, and it fills the whole screen: a bus board for a tablet by the front door. Set the card's theme to <code>dark</code> to keep it dark at night. To keep the screen on, use the tablet's own setting or a kiosk browser.</p>
 
         <h2>Where it works</h2>
         <p>Everywhere the web version runs: Israel, Norway, London, Switzerland, Turku, Tampere, the Lisbon area, Rennes, Brussels, Nuremberg, Boston, Minneapolis–St Paul, Toronto, Tokyo and Hong Kong, with live bus positions where the agency shares them. Anywhere else, arrival times come from <a href="https://transitous.org/">Transitous</a>, a community service built on transit agencies' open data.</p>

@@ -7,7 +7,7 @@ import { store } from '../storage.js';
 import { BoardModel } from './model.js';
 import { renderMap, railColor } from '../map/index.js';
 import { go, session, colorsOf } from '../main.js';
-import { boardLink } from '../embed.js';
+import { boardLink, embedded } from '../embed.js';
 import { friendly } from '../setup/stops.js';
 import { openFullRoute, closeFullRoute } from './full-route-view.js';
 import { showStopCard, closeStopCard } from './stop-card.js';
@@ -48,7 +48,8 @@ export function showBoard(root, { board, provider, region }) {
     };
     const menu = h('div', { class: 'menu', hidden: true, role: 'menu' },
         h('button', { role: 'menuitem', onclick: () => { closeMenu(); openFull(); } }, icon('route', 18), 'Full lines view'),
-        h('button', { role: 'menuitem', onclick: () => { closeMenu(); toggleWall(); } }, icon('expand', 18), 'Wall mode'),
+        // A dashboard has its own full-screen and kiosk ways; the card is not where wall mode belongs.
+        embedded ? null : h('button', { role: 'menuitem', onclick: () => { closeMenu(); toggleWall(); } }, icon('expand', 18), 'Wall mode'),
         locked ? h('button', { role: 'menuitem', onclick: async () => { closeMenu(); window.open(await boardLink(board, colorsOf(board)), '_blank', 'noopener'); } }, icon('external', 18), 'Open in a new tab') : null,
         locked ? null : copyItem('Copy link to this board', false),
         locked ? null : h('a', { role: 'menuitem', class: 'menu-link', href: HOME_ASSISTANT_GUIDE, target: '_blank', rel: 'noopener' }, icon('external', 18), 'Add to Home Assistant'),
@@ -69,7 +70,11 @@ export function showBoard(root, { board, provider, region }) {
     }, icon('route', 18));
     // The back arrow is the way to another stop; the stop's name keeps the stop and changes which
     // of its lines are watched.
-    const nameButton = locked ? h('span', { class: 'board-name', dir: 'auto' }, h('span', { class: 'board-name-text' }, board.stop.name)) : h('button', {
+    // In a dashboard card the stop and lines are the card's settings, so its name says where to change them.
+    const nameButton = locked ? h('button', {
+        class: 'board-name', dir: 'auto', 'aria-label': `${board.stop.name}, how to change the stop or lines`, title: 'Edit the card to change the stop or lines',
+        onclick: (e) => { e.stopPropagation(); closeMenu(); showEditHint(); },
+    }, h('span', { class: 'board-name-text' }, board.stop.name)) : h('button', {
         class: 'board-name', dir: 'auto', 'aria-label': `${board.stop.name}, change lines`, title: 'Change lines',
         onclick: (e) => { e.stopPropagation(); closeMenu(); changeLines(); },
     }, h('span', { class: 'board-name-text' }, board.stop.name));
@@ -173,6 +178,15 @@ export function showBoard(root, { board, provider, region }) {
             stop, providerID: provider.id, provider, watched: board.lines, isRidersStop: stop.code === board.stop.code,
             linesAtStop: () => provider.linesAtStop(stop),
         });
+    }
+
+    let hintTimer = null;
+    function showEditHint() {
+        const line = header.querySelector('.caption') ?? header.querySelector('.board-title').appendChild(h('p', { class: 'caption' }));
+        line.dataset.text ??= line.textContent;
+        line.textContent = 'EDIT THIS CARD TO CHANGE IT';
+        clearTimeout(hintTimer);
+        hintTimer = setTimeout(() => { line.textContent = line.dataset.text; }, 4000);
     }
 
     function changeLines() {

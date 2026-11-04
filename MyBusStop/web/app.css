@@ -702,7 +702,10 @@ button.fr-badge:hover { background: var(--card); }
 :root.picking .field-narrow { display: none; }
 .picked { display: flex; flex-direction: column; align-items: flex-start; gap: 14px; padding-top: 32px; }
 .picked h1 { text-align: start; font-size: clamp(26px, 5vw, 40px); }
-.picked-lines { display: flex; flex-wrap: wrap; gap: 10px; }
+.picked-lines { display: flex; flex-wrap: wrap; gap: 10px; background: none; border: 0; padding: 0; cursor: pointer; }
+.picked-stop { all: unset; cursor: pointer; text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 6px; }
+.picked-stop:focus-visible, .picked-lines:focus-visible { outline: 3px solid currentColor; outline-offset: 4px; border-radius: 6px; }
+.picked-actions { display: flex; flex-wrap: wrap; gap: 12px; }
 .picked-hint { color: var(--secondary); max-width: 52ch; }
 .link-error { display: flex; flex-direction: column; gap: 16px; align-items: flex-start; padding-top: 40px; }
 .link-error p { color: var(--secondary); max-width: 60ch; }
