@@ -109,7 +109,12 @@ export function showLines(root) {
             h('div', { class: 'lines-actions' }, clear, show)),
     ));
 
-    provider.linesAtStop(stop).then((found) => {
+    // The confirm step in search has just asked for them: one request, not two.
+    const known = session.knownLines;
+    session.knownLines = null;
+    const asked = known && known.providerID === provider.id && known.code === stop.code
+        ? Promise.resolve(known.lines) : provider.linesAtStop(stop);
+    asked.then((found) => {
         if (cancelled) return;
         lines = [...found].sort(compareLines);
         for (const line of session.preselected) {

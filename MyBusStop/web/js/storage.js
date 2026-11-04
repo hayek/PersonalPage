@@ -4,6 +4,7 @@
 
 const KEY = 'mybusstop.web.v1';
 const MAX_HISTORY = 12;
+const MAX_SEARCHES = 6;
 
 const defaults = () => ({
     /** Boards the rider has opened, most recent first: {id, regionID, providerID, stop, lines, pinned, usedAt}. */
@@ -16,6 +17,8 @@ const defaults = () => ({
     theme: 'system',
     /** The region the rider picked, when they picked one. */
     regionID: null,
+    /** What the rider searched for and then chose a stop from, most recent first. */
+    recentSearches: [],
 });
 
 let state = read();
@@ -41,6 +44,7 @@ export const store = {
     get theme() { return state.theme; },
     get regionID() { return state.regionID; },
     get palette() { return state.palette; },
+    get recentSearches() { return state.recentSearches ?? []; },
 
     /** From here on, nothing is read from or written to storage: a fresh state for this page only. */
     keepInMemory() { persist = false; state = defaults(); },
@@ -60,6 +64,15 @@ export const store = {
         state.current = id;
         write();
         return entry;
+    },
+
+    /** As the app keeps them: most recent first, no duplicates, nothing so short it matches everything. */
+    rememberSearch(term) {
+        const trimmed = String(term ?? '').trim();
+        if (trimmed.length < 2) return;
+        const others = this.recentSearches.filter((t) => t.toLocaleLowerCase() !== trimmed.toLocaleLowerCase());
+        state.recentSearches = [trimmed, ...others].slice(0, MAX_SEARCHES);
+        write();
     },
 
     closeBoard() { state.current = null; write(); },

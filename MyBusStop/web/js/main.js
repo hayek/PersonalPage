@@ -6,6 +6,7 @@ import { store } from './storage.js';
 import { regionByID, WORLDWIDE } from './transit/regions.js';
 import { loadProvider } from './transit/providers/index.js';
 import { showSetup } from './setup/stops.js';
+import { openSearch, closeSearch, searchIsOpen, searchDepth, searchPopped } from './setup/search.js';
 import { showLines } from './setup/lines.js';
 import { showBoard } from './board/view.js';
 import { guessRegion } from './setup/region-guess.js';
@@ -29,6 +30,8 @@ export const session = {
     preselected: [],
     /** A framed board from a link: the board is all there is, with no way to another stop. */
     locked: false,
+    /** The lines search's confirm step already found at `stop`, for the picker to use rather than ask again. */
+    knownLines: null,
 };
 
 /** The address the setup screen keeps: a framed page's own settings stay in it. */
@@ -60,8 +63,38 @@ function mount(render) {
 
 let current = null;
 
+/** Set while the search screen's own history entries are being taken off: that walk is not a Back. */
+let walkingBack = null;
+
+function popEntries(count) {
+    if (count <= 0) return Promise.resolve();
+    return new Promise((resolve) => {
+        const done = () => { if (walkingBack === done) { walkingBack = null; resolve(); } };
+        walkingBack = done;
+        history.go(-count);
+        // A browser that never says it got there must not leave the page waiting.
+        setTimeout(done, 800);
+    });
+}
+
+/** The search screen, over the home. */
+export function startSearch() {
+    openSearch({ onCancel: () => leaveSearch().then((changed) => { if (changed) go('setup', { push: false }); }) });
+}
+
+/** Closes the search screen and takes its history entries off, so Back from what comes next is the home. */
+async function leaveSearch() {
+    if (!searchIsOpen()) return false;
+    const depth = searchDepth();
+    const changed = closeSearch();
+    await popEntries(depth);
+    return changed;
+}
+
 /** Shows a screen. `push` adds a history entry so Back returns to the screen before. */
 export async function go(screen, { push = true } = {}) {
+    // The board, opened from the line picker inside search: the search goes, and Back is the home.
+    if (searchIsOpen()) await leaveSearch();
     current = screen;
     if (push && !session.locked) history.pushState({ screen }, '', screen === 'setup' ? home() : `${home()}#${screen}`);
     try {
@@ -93,7 +126,7 @@ export async function go(screen, { push = true } = {}) {
     }
 }
 
-function rerender() { if (current && current !== 'picked') go(current, { push: false }); }
+function rerender() { if (current && current !== 'picked' && !searchIsOpen()) go(current, { push: false }); }
 
 /** Each line's colour on this board, for a link to carry. */
 export function colorsOf(board) {
@@ -124,8 +157,19 @@ async function changeLines(board) {
 }
 
 window.addEventListener('popstate', (event) => {
+    if (walkingBack) { walkingBack(); return; }
     if (session.locked) return;
     const screen = event.state?.screen ?? 'setup';
+    if (screen === 'search') {
+        if (searchIsOpen()) searchPopped(event.state);
+        // Forward into a search that has closed: the home it was opened from.
+        else { history.replaceState({ screen: 'setup' }, '', home()); if (current !== 'setup') go('setup', { push: false }); }
+        return;
+    }
+    if (searchIsOpen()) {
+        const changed = closeSearch();
+        if (screen === 'setup' && current === 'setup') { if (changed) go('setup', { push: false }); return; }
+    }
     if (screen !== 'board' && current === 'board') store.closeBoard();
     if (screen === 'board' && !store.currentBoard()) return go('setup', { push: false });
     go(screen, { push: false });

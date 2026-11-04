@@ -1,35 +1,19 @@
-// CHOOSE YOUR STOP: search, the boards opened before, and stops near the rider.
+// MY STOPS: the boards opened before, one tap from their board, and a search bar that opens the
+// search screen (search.js) — the map, the stops in view, and the confirm step — over this one.
 
-import { h, icon, badge, colorIndexFor, distanceText, plural } from '../ui.js';
+import { h, icon, badge, colorIndexFor, distanceText } from '../ui.js';
 import { store } from '../storage.js';
-import { REGIONS, WORLDWIDE, regionByID, regionsContaining } from '../transit/regions.js';
+import { REGIONS, WORLDWIDE, regionByID } from '../transit/regions.js';
 import { Capability } from '../transit/model.js';
-import { session, go, providerFor, applyTheme } from '../main.js';
+import { session, go, providerFor, applyTheme, startSearch } from '../main.js';
 import { loadProvider } from '../transit/providers/index.js';
 import { showStopCard, closeStopCard } from '../board/stop-card.js';
-
-/** As in the app: stops within 500 m, widened to 1 km when nothing is that close. */
-const NEARBY_RADII = [500, 1000];
-/** Kept for the visit only, never stored: the rider's location is used and forgotten. */
-let lastPoint = null;
-let lastNearby = null;
 
 export function showSetup(root) {
     const provider = session.provider;
     const region = session.region;
     const searchesByName = provider.capabilities.has(Capability.stopSearchByName);
-    let searchTimer = null;
-    let searchToken = 0;
-
-    const input = h('input', {
-        type: 'search', class: 'search-input', autocomplete: 'off', spellcheck: 'false', enterkeyhint: 'search',
-        placeholder: searchesByName ? 'Search a stop, street or line' : 'Enter the stop code from the sign',
-        'aria-label': 'Search stops',
-        inputmode: searchesByName ? 'search' : 'numeric',
-    });
-    const results = h('section', { class: 'results', hidden: true, 'aria-label': 'Search results' });
-    const nearbyBody = h('div', { class: 'nearby-body' });
-    const nearbyCount = h('span', { class: 'section-aside' });
+    const saved = store.sortedHistory();
 
     const regionSelect = h('select', { class: 'region-select', 'aria-label': 'Region' },
         groupOptions(region.id));
@@ -37,7 +21,6 @@ export function showSetup(root) {
         const chosen = regionByID(regionSelect.value) ?? WORLDWIDE;
         store.setRegion(chosen.id);
         session.region = chosen;
-        lastNearby = null;
         await providerFor(chosen);
         go('setup', { push: false });
     });
@@ -46,50 +29,10 @@ export function showSetup(root) {
         ['system', 'light', 'dark'].map((t) => h('option', { value: t, selected: store.theme === t }, t === 'system' ? 'System' : t[0].toUpperCase() + t.slice(1))));
     themeSelect.addEventListener('change', () => { store.setTheme(themeSelect.value); applyTheme(); go('setup', { push: false }); });
 
-    input.addEventListener('input', () => {
-        clearTimeout(searchTimer);
-        const query = input.value.trim();
-        if (!query) { results.hidden = true; results.replaceChildren(); return; }
-        searchTimer = setTimeout(() => runSearch(query), 350);
-    });
-    input.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter') { clearTimeout(searchTimer); const q = input.value.trim(); if (q) runSearch(q); }
-    });
-
-    async function runSearch(query) {
-        const token = ++searchToken;
-        results.hidden = false;
-        results.replaceChildren(h('p', { class: 'status' }, 'SEARCHING…'));
-        try {
-            const stops = await provider.searchStops(query);
-            if (token !== searchToken) return;
-            results.replaceChildren(
-                h('div', { class: 'section-head' }, h('h2', {}, 'RESULTS'), h('span', { class: 'section-aside' }, plural(stops.length, 'STOP', 'STOPS'))),
-                stops.length
-                    ? h('ul', { class: 'rows' }, stops.slice(0, 30).map((stop) => stopRow(stop, {
-                        onclick: () => pick(stop),
-                        onInfo: () => showStopCard({ stop, providerID: provider.id, linesAtStop: () => provider.linesAtStop(stop) }),
-                    })))
-                    : h('p', { class: 'status' }, searchesByName ? 'NO STOPS FOUND. TRY ANOTHER NAME.' : 'NO STOP WITH THAT CODE.'),
-            );
-        } catch (error) {
-            if (token !== searchToken) return;
-            results.replaceChildren(h('p', { class: 'status status-error' }, friendly(error)));
-        }
-    }
-
-    function pick(stop, lines = []) {
-        session.stop = stop;
-        session.preselected = lines;
-        go('lines');
-    }
-
-    // My stops
-    const history = store.sortedHistory();
-    const historySection = history.length ? h('section', { class: 'history' },
-        h('div', { class: 'section-head' }, h('h2', {}, 'MY STOPS')),
-        h('ul', { class: 'rows' }, history.map((entry) => historyRow(entry))),
-    ) : null;
+    // Looks like the field, but is the way into the search screen: nothing is typed here.
+    const searchBar = h('button', { type: 'button', class: 'search search-bar', onclick: () => startSearch() },
+        icon('search', 22),
+        h('span', { class: 'search-bar-text' }, searchesByName ? 'Search a stop, street or line' : 'Enter the stop code from the sign'));
 
     function historyRow(entry) {
         const row = stopRow(entry.stop, {
@@ -108,109 +51,34 @@ export function showSetup(root) {
         return row;
     }
 
-    // Nearby
-    const supportsNearby = typeof provider.stopsNearby === 'function' && provider.capabilities.has(Capability.nearbyStops);
-    const locateButton = h('button', { class: 'button button-secondary locate', onclick: () => findNearby() },
-        icon('locate', 20), 'FIND STOPS NEAR ME');
-
-    async function findNearby() {
-        if (!('geolocation' in navigator)) {
-            nearbyBody.replaceChildren(h('p', { class: 'status' }, 'THIS BROWSER CAN’T SHARE YOUR LOCATION. SEARCH INSTEAD.'));
-            return;
-        }
-        nearbyBody.replaceChildren(h('p', { class: 'status' }, 'FINDING YOU…'));
-        let point;
-        try {
-            point = await new Promise((resolve, reject) => navigator.geolocation.getCurrentPosition(
-                (p) => resolve({ lat: p.coords.latitude, lon: p.coords.longitude }), reject,
-                { enableHighAccuracy: true, timeout: 15_000, maximumAge: 60_000 }));
-        } catch (error) {
-            nearbyBody.replaceChildren(h('p', { class: 'status' }, error?.code === 1
-                ? 'LOCATION IS OFF FOR THIS SITE. SEARCH INSTEAD, OR ALLOW IT IN YOUR BROWSER.'
-                : 'COULDN’T FIND YOUR LOCATION. SEARCH INSTEAD.'));
-            return;
-        }
-        lastPoint = point;
-        // The region follows the rider: a stop in Oslo is not found by asking London.
-        const covering = regionsContaining(point);
-        if (!covering.some((r) => r.id === session.region.id) || session.region.id === WORLDWIDE.id) {
-            const best = covering[0];
-            if (best.id !== session.region.id) {
-                session.region = best;
-                store.setRegion(best.id);
-                await providerFor(best);
-                lastNearby = { regionID: best.id, stops: null };
-                return go('setup', { push: false });
-            }
-        }
-        await loadNearby(point);
-    }
-
-    async function loadNearby(point) {
-        nearbyBody.replaceChildren(h('p', { class: 'status' }, 'LOOKING FOR STOPS…'));
-        try {
-            let radius = NEARBY_RADII[0];
-            let stops = await provider.stopsNearby(point, radius);
-            if (!stops.length) {
-                radius = NEARBY_RADII[1];
-                stops = await provider.stopsNearby(point, radius);
-            }
-            lastNearby = { regionID: session.region.id, stops, radius };
-            renderNearby(stops, radius);
-        } catch (error) {
-            nearbyBody.replaceChildren(h('p', { class: 'status status-error' }, friendly(error)));
-        }
-    }
-
-    function renderNearby(stops, radius = NEARBY_RADII[1]) {
-        const within = radius >= 1000 ? `${radius / 1000} KM` : `${radius} M`;
-        nearbyCount.textContent = `${plural(stops.length, 'STOP', 'STOPS')} WITHIN ${within}`;
-        nearbyBody.replaceChildren(stops.length
-            ? h('ul', { class: 'rows' }, stops.slice(0, 20).map((nearby) => stopRow(nearby.stop, {
-                lines: nearby.lines, providerID: provider.id, distance: nearby.distanceMeters,
-                onclick: () => pick(nearby.stop),
-                // The nearby answer already lists every line there; nothing more to ask.
-                onInfo: () => showStopCard({
-                    stop: nearby.stop, providerID: provider.id, lines: nearby.lines,
-                    linesAtStop: () => provider.linesAtStop(nearby.stop),
-                }),
-            })))
-            : h('p', { class: 'status' }, `NO STOPS WITHIN ${within}. SEARCH INSTEAD.`));
-    }
-
-    const nearbySection = h('section', { class: 'nearby' },
-        h('div', { class: 'section-head' }, h('h2', {}, 'NEARBY'), nearbyCount),
-        nearbyBody);
-    if (!supportsNearby) {
-        nearbyBody.append(h('p', { class: 'status' }, `NEARBY STOPS AREN’T AVAILABLE FOR ${region.name.toUpperCase()}. SEARCH INSTEAD.`));
-    } else if (lastNearby?.regionID === region.id && lastNearby.stops) {
-        renderNearby(lastNearby.stops, lastNearby.radius);
-    } else if (lastNearby?.regionID === region.id && lastPoint) {
-        loadNearby(lastPoint);
-    } else {
-        nearbyBody.append(h('p', { class: 'hint-text' }, 'Your location is used once to find stops around you, and never stored.'), locateButton);
-    }
+    const stops = saved.length
+        ? h('section', { class: 'history', 'aria-label': 'My stops' },
+            h('ul', { class: 'rows' }, saved.map((entry) => historyRow(entry)),
+                h('li', { class: 'row-item' },
+                    h('button', { type: 'button', class: 'row add-stop', onclick: () => startSearch() },
+                        h('span', { class: 'add-stop-plus', 'aria-hidden': 'true' }, '+'), h('span', { class: 'row-title' }, 'ADD A STOP')))))
+        : h('button', { type: 'button', class: 'first-stop', onclick: () => startSearch() },
+            h('span', { class: 'first-stop-icon', 'aria-hidden': 'true' }, icon('locate', 30)),
+            h('span', { class: 'first-stop-text' },
+                h('span', { class: 'first-stop-title' }, 'Find your first stop'),
+                h('span', { class: 'hint-text' }, 'Search by name, or look around you on the map')),
+            icon('chevronForward', 24));
 
     const attribution = provider.attribution ? h('p', { class: 'attribution' }, provider.attribution) : null;
-    const worldNote = region.id === WORLDWIDE.id
-        ? h('p', { class: 'note' }, 'Outside the regions listed, times come from Transitous, a community-run service fed by agencies’ open data. It has arrival times but no bus positions, so the map shows the route without buses.')
-        : region.fit === 'arrivalsOnly'
-            ? h('p', { class: 'note' }, `${region.name} publishes arrival times but not bus positions, so the map shows the route without buses.`)
-            : null;
 
     root.append(h('main', { class: 'screen setup' },
         h('header', { class: 'setup-head' },
             h('a', { class: 'home-link', href: '../', 'aria-label': 'About My Bus Stop' }, h('img', { src: '../Assets/icon.svg', alt: '', width: 40, height: 40 })),
-            h('h1', {}, 'CHOOSE YOUR STOP'),
+            saved.length
+                ? h('h1', {}, 'MY STOPS')
+                : h('div', {}, h('h1', {}, 'WELCOME'), h('p', { class: 'setup-sub' }, 'Where do you catch the bus?')),
         ),
+        searchBar,
+        stops,
         h('div', { class: 'region-row' },
             h('label', { class: 'field' }, h('span', { class: 'field-label' }, 'REGION'), regionSelect),
             h('label', { class: 'field field-narrow' }, h('span', { class: 'field-label' }, 'THEME'), themeSelect),
         ),
-        h('form', { class: 'search', role: 'search', onsubmit: (e) => e.preventDefault() }, icon('search', 22), input),
-        results,
-        h('div', { class: 'setup-grid' }, historySection, nearbySection),
-        worldNote,
         h('footer', { class: 'setup-foot' },
             attribution,
             h('p', {}, 'My Bus Stop is an independent app, not made or endorsed by any transit agency. ',
@@ -218,11 +86,7 @@ export function showSetup(root) {
                 h('a', { href: '../privacy/' }, 'Privacy')),
         ),
     ));
-    if (!history.length) setTimeout(() => input.focus({ preventScroll: true }), 0);
-    return () => {
-        clearTimeout(searchTimer);
-        closeStopCard();
-    };
+    return () => closeStopCard();
 }
 
 function groupOptions(selectedID) {
@@ -239,8 +103,7 @@ function groupOptions(selectedID) {
  * stop; its ⓘ, beside the row's own button rather than inside it, opens the stop's card instead.
  */
 function stopRow(stop, { lines = [], providerID = null, distance = null, caption = null, onclick, onInfo = null }) {
-    // Poles of one stop often share its name; the code tells them apart.
-    const where = [stop.address, stop.city, caption, /^[\w-]{1,12}$/.test(stop.code) ? `STOP ${stop.code}` : null].filter((part, i, all) => part && all.findIndex((p) => p?.toLowerCase() === part.toLowerCase()) === i).join(' · ');
+    const where = whereabouts(stop, caption);
     const shown = lines.slice(0, 3);
     const item = h('li', { class: `row-item${onInfo ? ' has-info' : ''}` },
         h('button', { class: 'row', onclick },
@@ -259,6 +122,12 @@ function stopRow(stop, { lines = [], providerID = null, distance = null, caption
         }, icon('info', 20)));
     }
     return item;
+}
+
+/** Where a stop stands, as a list's caption: its address, its town, and the code when it is a short one. */
+export function whereabouts(stop, caption = null) {
+    // Poles of one stop often share its name; the code tells them apart.
+    return [stop.address, stop.city, caption, /^[\w-]{1,12}$/.test(stop.code) ? `STOP ${stop.code}` : null].filter((part, i, all) => part && all.findIndex((p) => p?.toLowerCase() === part.toLowerCase()) === i).join(' · ');
 }
 
 export function friendly(error) {
