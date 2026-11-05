@@ -4,6 +4,23 @@
     {
       "enabled": true,
       "startDate": null,
+      "endDate": "2026-11-12",
+      "startHour": null,
+      "endHour": null,
+      "days": null,
+      "timezone": null,
+      "icon": "sparkles",
+      "badgeIcon": "sparkles",
+      "severity": "good",
+      "text": "Update available: 4.0 adds ChatGPT usage and more",
+      "dashboardText": "Version 4.0 also brings multiple accounts, account switching, new widgets and more. Tap to open the App Store and update.",
+      "url": "https://apps.apple.com/app/id6755173244",
+      "type": "news",
+      "audience": "pre-v4"
+    },
+    {
+      "enabled": true,
+      "startDate": null,
       "endDate": "2026-11-05",
       "startHour": null,
       "endHour": null,
