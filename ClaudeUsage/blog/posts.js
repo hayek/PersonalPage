@@ -11,6 +11,13 @@
    which moves the next one here. */
 const BLOG_POSTS = [
     {
+        slug: 'claude-pro-vs-max-usage',
+        title: 'Claude Pro vs Max vs Team: how much usage each plan gets',
+        date: '2026-11-09',
+        tags: ['pro-tip', 'limits', 'plans'],
+        excerpt: 'Free, Pro, Max 5x, Max 20x, Team and Enterprise side by side: what each plan\'s usage multiplier means and how to tell whether you need to upgrade.',
+    },
+    {
         slug: 'claude-usage-limit-reached',
         title: 'Hit your Claude usage limit? What happens and what you can do',
         date: '2026-11-02',

@@ -11,7 +11,7 @@
     </url>
     <url>
         <loc>https://amirhayek.dev/ClaudeUsage/</loc>
-        <lastmod>2026-11-02</lastmod>
+        <lastmod>2026-11-09</lastmod>
     </url>
     <url>
         <loc>https://amirhayek.dev/ClaudeUsage/ar/</loc>
@@ -83,11 +83,15 @@
     </url>
     <url>
         <loc>https://amirhayek.dev/ClaudeUsage/blog/</loc>
-        <lastmod>2026-11-02</lastmod>
+        <lastmod>2026-11-09</lastmod>
+    </url>
+    <url>
+        <loc>https://amirhayek.dev/ClaudeUsage/blog/claude-pro-vs-max-usage.html</loc>
+        <lastmod>2026-11-09</lastmod>
     </url>
     <url>
         <loc>https://amirhayek.dev/ClaudeUsage/blog/claude-usage-limit-reached.html</loc>
-        <lastmod>2026-11-02</lastmod>
+        <lastmod>2026-11-09</lastmod>
     </url>
     <url>
         <loc>https://amirhayek.dev/ClaudeUsage/blog/claude-usage-limits-reset.html</loc>
