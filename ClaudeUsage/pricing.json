@@ -1,6 +1,24 @@
 {
   "rules": [
     {
+      "cacheReadPerM": 0.25,
+      "cacheWrite1hPerM": 20,
+      "cacheWrite5mPerM": 12.5,
+      "displayName": "Fable 5.1",
+      "inputPerM": 10,
+      "outputPerM": 50,
+      "prefix": "claude-fable-5-1"
+    },
+    {
+      "cacheReadPerM": 0.25,
+      "cacheWrite1hPerM": 20,
+      "cacheWrite5mPerM": 12.5,
+      "displayName": "Mythos 5.1",
+      "inputPerM": 10,
+      "outputPerM": 50,
+      "prefix": "claude-mythos-5-1"
+    },
+    {
       "cacheReadPerM": 1,
       "cacheWrite1hPerM": 20,
       "cacheWrite5mPerM": 12.5,
@@ -17,6 +35,15 @@
       "inputPerM": 10,
       "outputPerM": 50,
       "prefix": "claude-mythos-5"
+    },
+    {
+      "cacheReadPerM": 0.2,
+      "cacheWrite1hPerM": 8,
+      "cacheWrite5mPerM": 5,
+      "displayName": "Opus 5.5",
+      "inputPerM": 4,
+      "outputPerM": 20,
+      "prefix": "claude-opus-5-5"
     },
     {
       "cacheReadPerM": 0.5,
@@ -55,6 +82,24 @@
       "prefix": "claude-opus-4-6"
     },
     {
+      "cacheReadPerM": 0.5,
+      "cacheWrite1hPerM": 10,
+      "cacheWrite5mPerM": 6.25,
+      "displayName": "Opus 4.5",
+      "inputPerM": 5,
+      "outputPerM": 25,
+      "prefix": "claude-opus-4-5"
+    },
+    {
+      "cacheReadPerM": 1.5,
+      "cacheWrite1hPerM": 30,
+      "cacheWrite5mPerM": 18.75,
+      "displayName": "Opus 4.1",
+      "inputPerM": 15,
+      "outputPerM": 75,
+      "prefix": "claude-opus-4-1"
+    },
+    {
       "cacheReadPerM": 1.5,
       "cacheWrite1hPerM": 30,
       "cacheWrite5mPerM": 18.75,
@@ -64,13 +109,40 @@
       "prefix": "claude-opus-4"
     },
     {
+      "cacheReadPerM": 0.1,
+      "cacheWrite1hPerM": 4,
+      "cacheWrite5mPerM": 2.5,
+      "displayName": "Sonnet 5.5",
+      "inputPerM": 2,
+      "outputPerM": 10,
+      "prefix": "claude-sonnet-5-5"
+    },
+    {
+      "cacheReadPerM": 0.2,
+      "cacheWrite1hPerM": 4,
+      "cacheWrite5mPerM": 2.5,
+      "displayName": "Sonnet 5",
+      "inputPerM": 2,
+      "outputPerM": 10,
+      "prefix": "claude-sonnet-5"
+    },
+    {
       "cacheReadPerM": 0.3,
       "cacheWrite1hPerM": 6,
       "cacheWrite5mPerM": 3.75,
-      "displayName": "Sonnet 5",
+      "displayName": "Sonnet 4.6",
       "inputPerM": 3,
       "outputPerM": 15,
-      "prefix": "claude-sonnet-5"
+      "prefix": "claude-sonnet-4-6"
+    },
+    {
+      "cacheReadPerM": 0.3,
+      "cacheWrite1hPerM": 6,
+      "cacheWrite5mPerM": 3.75,
+      "displayName": "Sonnet 4.5",
+      "inputPerM": 3,
+      "outputPerM": 15,
+      "prefix": "claude-sonnet-4-5"
     },
     {
       "cacheReadPerM": 0.3,
@@ -82,6 +154,15 @@
       "prefix": "claude-sonnet-4"
     },
     {
+      "cacheReadPerM": 0.01,
+      "cacheWrite1hPerM": 0.2,
+      "cacheWrite5mPerM": 0.125,
+      "displayName": "Haiku 5.5",
+      "inputPerM": 0.1,
+      "outputPerM": 0.5,
+      "prefix": "claude-haiku-5-5"
+    },
+    {
       "cacheReadPerM": 0.1,
       "cacheWrite1hPerM": 2,
       "cacheWrite5mPerM": 1.25,
@@ -89,16 +170,7 @@
       "inputPerM": 1,
       "outputPerM": 5,
       "prefix": "claude-haiku-4-5"
-    },
-    {
-      "cacheReadPerM": 0.08,
-      "cacheWrite1hPerM": 1.6,
-      "cacheWrite5mPerM": 1,
-      "displayName": "Haiku",
-      "inputPerM": 0.8,
-      "outputPerM": 4,
-      "prefix": "claude-haiku"
     }
   ],
-  "updatedAt": "2026-08-13T20:00:00Z"
+  "updatedAt": "2026-11-09T00:00:00Z"
 }
