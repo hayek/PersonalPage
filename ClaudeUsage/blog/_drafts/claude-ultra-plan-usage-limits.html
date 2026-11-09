@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<!--
+DRAFT (not queued, not published). Written by the weekly blog-draft task on 2026-11-08.
+Target query: "claude ultra plan usage limits" (also: "claude ultra 5 hour limit", "max 20x renamed ultra", "claude ultra verified account")
+
+Fact sources, all checked 2026-11-08:
+- What is the Ultra plan? https://support.claude.com/en/articles/17728952-what-is-the-ultra-plan
+  (Max 20x renamed Ultra, existing subscribers moved automatically, no price change; $200/month web price, mobile may vary; monthly only;
+   10x Pro's usage every week; no five-hour limit for verified accounts, temporary limit until verified; phone verification at checkout doesn't remove it;
+   weekly limit across all models + separate weekly Fable limit; limit reset resets weekly limits; check Settings > Usage: no "Current session" bar = verified)
+- What is the Max plan? https://support.claude.com/en/articles/11049741-what-is-the-max-plan
+  ($100/month; 5x Pro's usage every five hours and every week; five-hour limit, weekly limit, separate Fable weekly limit; fixed weekly reset time;
+   Max -> Ultra upgrade is prorated)
+- Use Claude Code with your Pro, Max, or Ultra plan https://support.claude.com/en/articles/11145838-use-claude-code-with-your-pro-max-or-ultra-plan
+  (limits shared across Claude and Claude Code; wrap-up allowance doesn't apply to verified Ultra, works like Max while the temporary limit applies;
+   Ultra options at the limit: usage credits, Console API credits, wait; monthly API credits can't be used in Claude Code or the apps)
+- Claude Fable models on your plan https://support.claude.com/en/articles/15424964-claude-fable-models-on-your-plan
+  (Max and Ultra: up to 50% of weekly limits on Fable, from the regular weekly limits, not on top)
+Not verified, so left out: the exact date of the rename (seen only in third-party trackers and an X post), Pro's current price, any absolute numbers for "10x Pro".
+App claims kept to what live/queued posts already say (menu bar + iPhone, weekly bar, pace prediction, threshold alerts). app_help.json was not reachable from this run.
+-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Claude Ultra plan usage limits: no 5-hour limit, explained - Usage for Claude</title>
+    <meta name="description" content="Max 20x is now Claude Ultra. What the Ultra plan's usage limits are, why verified accounts have no 5-hour limit, how to check if you're verified, and how Ultra compares to Max.">
+    <link rel="canonical" href="https://amirhayek.dev/ClaudeUsage/blog/claude-ultra-plan-usage-limits.html">
+    <meta property="og:type" content="article">
+    <meta property="og:site_name" content="Usage for Claude">
+    <meta property="og:title" content="Claude Ultra plan usage limits: no 5-hour limit, explained">
+    <meta property="og:description" content="Max 20x is now Claude Ultra. What the Ultra plan's usage limits are, why verified accounts have no 5-hour limit, how to check if you're verified, and how Ultra compares to Max.">
+    <meta property="og:url" content="https://amirhayek.dev/ClaudeUsage/blog/claude-ultra-plan-usage-limits.html">
+    <meta property="og:image" content="https://amirhayek.dev/ClaudeUsage/Assets/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="article:published_time" content="{{DATE}}">
+    <meta property="article:author" content="Amir Hayek">
+    <meta name="twitter:card" content="summary_large_image">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Claude Ultra plan usage limits: no 5-hour limit, explained",
+        "description": "Max 20x is now Claude Ultra. What the Ultra plan's usage limits are, why verified accounts have no 5-hour limit, how to check if you're verified, and how Ultra compares to Max.",
+        "datePublished": "{{DATE}}",
+        "dateModified": "{{DATE}}",
+        "author": {
+            "@type": "Person",
+            "name": "Amir Hayek",
+            "url": "https://amirhayek.dev/"
+        },
+        "image": "https://amirhayek.dev/ClaudeUsage/Assets/og-image.png",
+        "url": "https://amirhayek.dev/ClaudeUsage/blog/claude-ultra-plan-usage-limits.html",
+        "mainEntityOfPage": "https://amirhayek.dev/ClaudeUsage/blog/claude-ultra-plan-usage-limits.html",
+        "publisher": {
+            "@type": "Person",
+            "name": "Amir Hayek",
+            "url": "https://amirhayek.dev/"
+        }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "Does the Claude Ultra plan have a 5-hour limit?",
+                "acceptedAnswer": { "@type": "Answer", "text": "Not once your account is verified. Verified Ultra accounts only have a weekly limit. Until Anthropic verifies the account, a temporary limit applies, and it is removed automatically." }
+            },
+            {
+                "@type": "Question",
+                "name": "Is Claude Ultra the same as Max 20x?",
+                "acceptedAnswer": { "@type": "Answer", "text": "Yes. Anthropic renamed the Max 20x plan to Ultra. Existing Max 20x subscribers moved to Ultra automatically with no price change. Ultra costs $200 per month on the web." }
+            },
+            {
+                "@type": "Question",
+                "name": "How do I know if my Ultra account is verified?",
+                "acceptedAnswer": { "@type": "Answer", "text": "Open Settings > Usage on claude.ai. If there is no Current session bar, your account is verified. Verifying your phone number at checkout is a separate step and doesn't remove the temporary limit." }
+            },
+            {
+                "@type": "Question",
+                "name": "Does Claude Code use the same Ultra limits as claude.ai?",
+                "acceptedAnswer": { "@type": "Answer", "text": "Yes. Ultra's weekly limit and its separate weekly Fable limit are shared across Claude and Claude Code, so all activity in both counts against the same limits." }
+            }
+        ]
+    }
+    </script>
+    <link rel="icon" type="image/png" href="../Assets/Favicon/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="../Assets/Favicon/favicon.svg" />
+    <link rel="shortcut icon" href="../Assets/Favicon/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="../Assets/Favicon/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-title" content="Usage for Claude" />
+    <link rel="manifest" href="../Assets/Favicon/site.webmanifest" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../landing.css?v=4.8.3">
+    <link rel="stylesheet" href="blog.css?v=1">
+    <script src="/assets/analytics.js" defer></script>
+</head>
+<body class="page-blog">
+
+    <header class="site-header is-visible" id="siteHeader">
+        <a class="brand" href="../">
+            <img src="../Assets/v4/icon-512.jpg" alt="">
+            <span>Usage for Claude + ChatGPT</span>
+        </a>
+        <nav class="site-nav" aria-label="Site">
+            <a href="../#features">Features</a>
+            <a href="../whats-new.html">What's new</a>
+            <a href="./">Blog</a>
+            <a href="../#faq">Questions</a>
+        </nav>
+    </header>
+
+    <main id="top" class="post-page">
+        <div class="wrap read">
+        <header class="post-header">
+            <a href="./" class="back-link">&lsaquo; Blog</a>
+            <div class="tag-list">
+                <a href="./?tag=news" class="tag">#news</a>
+                <a href="./?tag=limits" class="tag">#limits</a>
+                <a href="./?tag=plans" class="tag">#plans</a>
+            </div>
+            <h1 class="post-title">Claude Ultra plan usage limits: no 5-hour limit, explained</h1>
+            <p class="post-lede">Max 20x is now called Ultra. It costs the same $200 a month, gives you 10 times Pro's usage every week, and once your account is verified it has no 5-hour limit at all. The weekly limit is the only one left to watch.</p>
+            <p class="post-meta"><time datetime="{{DATE}}">{{DATE_LONG}}</time> · 4 min read</p>
+        </header>
+
+        <article class="post-body">
+            <h2>What is the Claude Ultra plan?</h2>
+            <p>Ultra is Anthropic's top individual plan. It replaces Max 20x: "The Max 20x plan is now called the Ultra plan," and existing Max 20x subscribers moved to Ultra automatically, with no price change (<a href="https://support.claude.com/en/articles/17728952-what-is-the-ultra-plan" target="_blank" rel="noopener noreferrer">What is the Ultra plan?</a>).</p>
+            <p>It's $200 a month on the web, billed monthly only. Prices in the iPhone and Android apps may differ. Like Max, it includes Claude Code, priority access to new models and monthly credits for the Claude API.</p>
+
+            <h2>Does Claude Ultra have a 5-hour limit?</h2>
+            <p>Not if your account is verified. Anthropic's wording: verified Ultra accounts "don't have a five-hour limit". You can use your usage as fast or as slowly as you like, as long as you stay inside the weekly limit.</p>
+            <p>If your account isn't verified yet, a temporary limit applies. Anthropic verifies Ultra accounts automatically, "using factors like your account and payment history", and removes the temporary limit by itself. There's nothing to apply for. Verifying your phone number at checkout is a separate step and doesn't remove it.</p>
+
+            <h2>How do I check if my Ultra account is verified?</h2>
+            <p>Open <a href="https://claude.ai/settings/usage" target="_blank" rel="noopener noreferrer">Settings &rsaquo; Usage</a> on claude.ai. If there's no <strong>Current session</strong> bar, your account is verified. If the bar is still there, the temporary limit is still on.</p>
+
+            <h2>How much usage does Ultra get compared to Max and Pro?</h2>
+            <ul>
+                <li><strong>Max ($100/month):</strong> 5 times Pro's usage every five hours and every week. Max keeps both the 5-hour limit and the weekly limit (<a href="https://support.claude.com/en/articles/11049741-what-is-the-max-plan" target="_blank" rel="noopener noreferrer">What is the Max plan?</a>).</li>
+                <li><strong>Ultra ($200/month):</strong> 10 times Pro's usage every week, and no 5-hour limit once verified.</li>
+            </ul>
+            <p>Note the change in wording. Max 20x used to be described per session ("20x Pro"). Ultra is described per week ("10x Pro every week"). So Ultra's promise is about how much you get in a week, plus the freedom to spend it in big bursts. Anthropic doesn't publish absolute numbers for either plan.</p>
+
+            <h2>Does Ultra still have a weekly limit?</h2>
+            <p>Yes, two of them, the same as Max:</p>
+            <ul>
+                <li>A <strong>weekly limit across all models</strong>. On Max it resets at a fixed time each week assigned to your account, and Settings &rsaquo; Usage shows the next reset.</li>
+                <li>A <strong>separate weekly limit for Fable</strong>. You can use up to 50% of your weekly limit on Fable models. That comes out of the same weekly pool, not on top of it, and Fable uses it faster than other models (<a href="https://support.claude.com/en/articles/15424964-claude-fable-models-on-your-plan" target="_blank" rel="noopener noreferrer">Fable models on your plan</a>).</li>
+            </ul>
+            <p>Anthropic also says it may add other limits to manage capacity, such as monthly caps or limits on specific models and features.</p>
+
+            <div class="callout">
+                <strong>No session limit means no safety brake.</strong>
+                On Max, the 5-hour limit stops a runaway day before it eats the week. On a verified Ultra account nothing stops you until the weekly bar is full, so a few heavy days of parallel Claude Code agents can use up the whole week. Check your weekly percentage against how much of the week is left.
+            </div>
+
+            <h2>Does Claude Code share Ultra's limits with claude.ai?</h2>
+            <p>Yes. The weekly limit and the Fable limit are shared across Claude and Claude Code, so everything you do in the Claude apps and in Claude Code counts against the same pool (<a href="https://support.claude.com/en/articles/11145838-use-claude-code-with-your-pro-max-or-ultra-plan" target="_blank" rel="noopener noreferrer">Claude Code with your Pro, Max, or Ultra plan</a>).</p>
+            <p>One small change for Claude Code users: the "Usage limit reached · wrapping up" allowance, which lets Claude Code finish a step when you hit the 5-hour limit, doesn't apply to verified Ultra accounts, because there's no 5-hour limit to hit. While the temporary limit is on, it works like it does on Max.</p>
+
+            <h2>What happens when an Ultra account hits the weekly limit?</h2>
+            <p>You have three options, per Anthropic:</p>
+            <ul>
+                <li><strong>Turn on usage credits</strong> to keep going after the weekly limit or the Fable limit, billed separately from your subscription.</li>
+                <li><strong>Switch to a Claude Console account</strong> and pay API rates for a heavy sprint.</li>
+                <li><strong>Wait for the weekly reset.</strong></li>
+            </ul>
+            <p>If you have a <strong>limit reset</strong> saved, on Ultra it refills your weekly limits. The monthly API credits that come with Ultra can't be used in Claude Code or the Claude apps.</p>
+
+            <h2>Should you pick Ultra or Max?</h2>
+            <p>Look at which limit stops you today. If you keep hitting the 5-hour limit on Max but finish the week with room to spare, Ultra's main gain is removing that wall. If you hit Max's <em>weekly</em> limit days before the reset, Ultra's doubled weekly usage is what you're paying for. If neither happens, Max is probably enough. Upgrading from Max to Ultra is charged pro rata for the rest of your billing cycle.</p>
+            <p>A couple of weeks of history answers this better than a guess. <a href="../">Usage for Claude + ChatGPT</a> keeps your weekly usage in the Mac menu bar and on your iPhone, predicts whether you'll run out at your current pace, and can warn you at a threshold you pick, like 80% of the week. See <a href="how-to-check-claude-usage.html">how to check your Claude usage</a> for the built-in ways to look.</p>
+
+            <h2>FAQ</h2>
+            <h3>Is Claude Ultra the same as Max 20x?</h3>
+            <p>Yes. Max 20x was renamed Ultra, and subscribers moved over automatically at the same price.</p>
+            <h3>Why do I still see a 5-hour limit on Ultra?</h3>
+            <p>Your account isn't verified yet. The temporary limit goes away automatically once it is.</p>
+            <h3>Does Max still have a 5-hour limit?</h3>
+            <p>Yes. Max and Pro keep both the 5-hour limit and the weekly limit.</p>
+            <h3>Is Ultra available as a yearly plan?</h3>
+            <p>Not right now. Ultra is monthly only.</p>
+
+            <div class="callout callout-muted">
+                <strong>Heads up</strong>
+                Usage for Claude is an independent app, not affiliated with Anthropic. Everything here was checked against Anthropic's help center on November 8, 2026. Anthropic changes plans and limits from time to time, so the linked pages are the final word.
+            </div>
+        </article>
+
+        <aside class="field field-clay post-cta" aria-label="Usage for Claude + ChatGPT">
+            <div class="copy">
+                <div class="brand-row"><img src="../Assets/v4/icon-512.jpg" alt=""><span>Usage for Claude + ChatGPT</span></div>
+                <p>Your Claude and ChatGPT limits in the Mac menu bar, on your iPhone, iPad and Apple Watch, with an alert before you run out.</p>
+            </div>
+            <a href="https://apps.apple.com/app/id6755173244?ct=site-blog" class="btn btn-ink" target="_blank" rel="noopener noreferrer">
+                <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M11.05 8.49c-.02-1.7 1.39-2.52 1.45-2.56-.79-1.16-2.02-1.32-2.46-1.34-1.05-.11-2.04.61-2.57.61-.53 0-1.35-.6-2.22-.58-1.14.02-2.19.66-2.78 1.68-1.18 2.05-.3 5.09.85 6.75.56.81 1.23 1.72 2.11 1.69.85-.03 1.17-.55 2.2-.55 1.02 0 1.31.55 2.21.53.91-.02 1.49-.83 2.05-1.65.65-.95.91-1.86.93-1.91-.02-.01-1.78-.69-1.8-2.72zM9.4 3.6c.47-.57.78-1.36.69-2.15-.67.03-1.49.45-1.97 1.01-.43.5-.81 1.31-.71 2.08.75.06 1.51-.38 1.99-.94z"/></svg>
+                <span>Download on the App Store</span>
+            </a>
+        </aside>
+
+        <nav class="post-footer">
+            <a href="./" class="link-arrow">&larr; All posts</a>
+            <a href="../" class="link-arrow">Everything the app does &rarr;</a>
+        </nav>
+        </div>
+
+        <footer class="footer">
+            <div class="wrap">
+                <p>By <a href="https://amirhayek.dev/" target="_blank" rel="noopener noreferrer">Amir Hayek</a>. Not affiliated with Anthropic or OpenAI.</p>
+                <nav aria-label="Footer">
+                    <a href="../">Usage for Claude + ChatGPT</a>
+                    <a href="../whats-new.html">What's new</a>
+                    <a href="../privacy/">Privacy</a>
+                    <a href="../version-history.html">Version history</a>
+                </nav>
+            </div>
+        </footer>
+    </main>
+</body>
+</html>
