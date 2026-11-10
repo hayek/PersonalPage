@@ -11,6 +11,13 @@
    which moves the next one here. */
 const BLOG_POSTS = [
     {
+        slug: 'claude-fable-5-2-launch',
+        title: 'Claude Fable 5.2 is here, with extra Fable usage this week',
+        date: '2026-11-10',
+        tags: ['news', 'models', 'offers', 'limits'],
+        excerpt: 'Anthropic released Fable 5.2 on November 9: until November 16, Pro and standard Team seats can use Fable inside their limits, and most paid plans get one to three free Fable resets.',
+    },
+    {
         slug: 'claude-pro-vs-max-usage',
         title: 'Claude Pro vs Max vs Team: how much usage each plan gets',
         date: '2026-11-09',
