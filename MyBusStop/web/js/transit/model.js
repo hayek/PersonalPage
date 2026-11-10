@@ -245,9 +245,14 @@ export function compareLines(a, b) {
 // MARK: Services a rider cannot tell apart
 
 /**
- * Lines without a number that look the same to a rider (same agency, mode and destination — or long
- * name and headsign where the feed names no destination) are one service: a feed that lists each
- * train run as its own route lists the same "to Modi'in Center" dozens of times. Each becomes one
+ * Lines without a number that look the same to a rider (same agency, mode, both ends and long name —
+ * and headsign where the feed names no destination) are one service: a feed that lists each train
+ * run as its own route lists the same "Modi'in Center to Nahariya" dozens of times. Runs that only
+ * share a destination stay apart, told apart by where they set out from (`lineOrigin`). Where the
+ * provider lists the stops each run makes after this one (a line's transient `calls`, never kept),
+ * runs that make different ones stay apart too — an express that skips Herzliya is not the train
+ * for Herzliya — and each but the usual one (the most runs) says how it differs, in `variant`:
+ * `{ via: stop }` or `{ skips: stop }` (`variantLabel`). Each becomes one
  * line with an id made from that identity, so a board saved today still finds it after the
  * timetable renumbers its runs. Its `providerRefs` are the representative member's (the first the
  * provider lists: its next departure, or its longest pattern), plus `serviceMembers`, the JSON list
@@ -261,29 +266,90 @@ export function mergeServices(lines) {
     const out = [];
     const groups = new Map();
     for (const line of lines) {
-        if (isNumbered(line)) { out.push(line); continue; }
-        const key = serviceKey(line);
+        if (isNumbered(line)) {
+            // The stops are only for telling runs apart; a numbered line is told by its number.
+            if ('calls' in line) { const { calls: _, ...kept } = line; out.push(kept); } else out.push(line);
+            continue;
+        }
+        const calls = Array.isArray(line.calls) && line.calls.length ? line.calls : null;
+        const ends = serviceKey(line);
+        const key = calls ? JSON.stringify([ends, calls]) : ends;
         if (!groups.has(key)) {
-            const group = { key, members: [] };
+            const group = { key, ends, calls: calls ?? [], members: [] };
             groups.set(key, group);
             out.push(group);
         }
         groups.get(key).members.push(line);
     }
-    return out.map((entry) => (entry.members ? serviceLine(entry.key, entry.members) : entry));
+    const variants = serviceVariants(out.filter((entry) => entry.members));
+    return out.map((entry) => (entry.members ? serviceLine(entry.key, entry.members, variants.get(entry)) : entry));
 }
 
 /** What a rider sees of an unnumbered line; equal keys are one service. */
 function serviceKey(line) {
     const destination = line.destination ?? null;
     return JSON.stringify([
-        line.agency ?? null, line.mode ?? null, destination,
-        destination ? null : line.longName ?? null,
+        line.agency ?? null, line.mode ?? null, destination, line.origin ?? null, line.longName ?? null,
         destination ? null : line.headsign ?? null,
     ]);
 }
 
-function serviceLine(key, members) {
+/**
+ * How each group's stops differ from the usual group's between the same two ends — the one with the
+ * most runs, which says nothing. A difference true of this group alone is preferred ("skips Atlit"
+ * when every other one stops there), else the first not already said by another, else the first.
+ * @returns {Map<object, {via?: string, skips?: string}>}
+ */
+function serviceVariants(groups) {
+    const variants = new Map();
+    const siblings = new Map();
+    for (const group of groups) {
+        if (!group.calls.length) continue;
+        if (!siblings.has(group.ends)) siblings.set(group.ends, []);
+        siblings.get(group.ends).push(group);
+    }
+    const holds = (variant, group) => ('via' in variant ? group.calls.includes(variant.via) : !group.calls.includes(variant.skips));
+    const said = (variant) => JSON.stringify(variant);
+    for (const family of siblings.values()) {
+        if (family.length < 2) continue;
+        const byRuns = family
+            .map((group, index) => ({ group, index }))
+            .sort((a, b) => b.group.members.length - a.group.members.length
+                || b.group.calls.length - a.group.calls.length || a.index - b.index)
+            .map(({ group }) => group);
+        const usual = byRuns[0].calls;
+        const used = new Set();
+        for (const group of byRuns.slice(1)) {
+            const own = group.calls;
+            const candidates = [
+                ...own.filter((stop) => !usual.includes(stop)).map((stop) => ({ via: stop })),
+                ...usual.filter((stop) => !own.includes(stop)).map((stop) => ({ skips: stop })),
+            ];
+            const chosen = candidates.find((c) => family.every((other) => other === group || !holds(c, other)))
+                ?? candidates.find((c) => !used.has(said(c))) ?? candidates[0];
+            if (!chosen) continue;
+            used.add(said(chosen));
+            variants.set(group, chosen);
+        }
+    }
+    return variants;
+}
+
+/** How a run's stops differ from the usual one's, in words: "Via Herzliya", "Skips Atlit". */
+export function variantLabel(line) {
+    const variant = line?.variant;
+    if (variant?.via) return `Via ${variant.via}`;
+    if (variant?.skips) return `Skips ${variant.skips}`;
+    return null;
+}
+
+/** Where a line without a number sets out from, when that tells it from others to the same place. */
+export function lineOrigin(line) {
+    if (isNumbered(line) || !line?.origin || line.origin === lineTitle(line)) return null;
+    return line.origin;
+}
+
+function serviceLine(key, members, variant = null) {
     const first = members[0];
     // A member already a service (a saved one, merged again) keeps its own members.
     const ids = [...new Set(members.flatMap((m) => serviceMemberIDs(m)))];
@@ -301,6 +367,7 @@ function serviceLine(key, members) {
         origin: same('origin'),
         destination: first.destination ?? null,
         brandColorIndex: same('brandColorIndex'),
+        variant,
         providerRefs: { ...refs, serviceRepresentative: serviceRepresentativeID(first), serviceMembers: JSON.stringify(ids) },
     };
 }

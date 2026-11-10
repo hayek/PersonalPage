@@ -56,13 +56,23 @@ export function withServices(provider) {
          */
         async refreshServices(lines, stop) {
             if (!lines.some(isService)) return lines;
-            const key = `services:${provider.datasetID ?? provider.id}:${stop.code}`;
+            // v2: runs split by where they start and the stops they make (model.js `mergeServices`).
+            const key = `services.v2:${provider.datasetID ?? provider.id}:${stop.code}`;
             const lifetime = provider.servicesLifetimeMs ?? MEMBERS_LIFETIME_MS;
             // A lifetime of hours outlives the page, so it is kept across visits; one of seconds is not.
             const keep = lifetime >= 60_000 ? staticData : memo;
             const current = await keep(key, lifetime, () => wrapped.linesAtStop(stop)).catch(() => null);
             if (!current) return lines;
-            return lines.map((line) => (isService(line) ? current.find((l) => l.id === line.id) ?? line : line));
+            return lines.map((line) => {
+                if (!isService(line)) return line;
+                const same = current.find((l) => l.id === line.id);
+                if (same) return same;
+                // Saved before services were split as they are now: the one sharing a run with it,
+                // under the saved id, so its colour and history stay.
+                const runs = new Set(serviceMemberIDs(line));
+                const sharing = current.find((l) => isService(l) && serviceMemberIDs(l).some((id) => runs.has(id)));
+                return sharing ? { ...sharing, id: line.id } : line;
+            });
         },
 
         routePattern(line) {

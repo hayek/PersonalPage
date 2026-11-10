@@ -486,7 +486,10 @@ h1, .row-title, .count-title {
 .chip-glyph { display: flex; }
 .chip-title { font-weight: 800; font-size: 16px; line-height: 1.2; overflow-wrap: anywhere; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
 @media (min-width: 900px) { .chip-title { font-size: 19px; } }
-.chip .chip-glyph + .chip-title { margin-top: auto; }
+.chip .chip-glyph + .chip-title, .chip .chip-top + .chip-title { margin-top: auto; }
+/* The glyph, and beside it how a run's stops differ from the usual one's ("Via Herzliya"); clear of the check. */
+.chip-top { display: flex; align-items: center; gap: 8px; min-width: 0; max-width: calc(100% - 30px); }
+.chip-variant { font-family: var(--mono); font-weight: 700; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; line-height: 1.35; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .chip:not(.chip-on) .chip-dest { color: var(--secondary); }
 .chip-check {
     position: absolute; top: 10px; right: 10px; width: 26px; height: 26px; border-radius: 50%;

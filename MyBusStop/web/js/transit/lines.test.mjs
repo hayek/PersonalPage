@@ -4,8 +4,8 @@
 
 import assert from 'node:assert/strict';
 import {
-    Mode, compareLines, isNumbered, isService, lineLabel, lineTitle, makeLine, mergeServices, modeFromMotis,
-    modeFromRouteType, modeNamed, serviceMemberIDs, serviceRepresentative,
+    Mode, compareLines, isNumbered, isService, lineLabel, lineOrigin, lineTitle, makeLine, mergeServices, modeFromMotis,
+    modeFromRouteType, modeNamed, serviceMemberIDs, serviceRepresentative, variantLabel,
 } from './model.js';
 import { withServices } from './services.js';
 
@@ -223,6 +223,42 @@ test('a saved service is brought up to date from the stop’s lines, keeping its
     assert.deepEqual(serviceMemberIDs(current), ['41001', '41003', '41005']);
     const plain = makeLine({ id: '9', shortName: '9' });
     assert.deepEqual(await fresh.refreshServices([plain], { code: 'renumbered' }), [plain], 'no services, no request');
+});
+
+test('runs to the same place from different starts stay apart, each saying where it sets out from', () => {
+    const merged = mergeServices([
+        run(1, 'Nahariya', { origin: "Modi'in Center", longName: "Modi'in Center – Nahariya" }),
+        run(2, 'Nahariya', { origin: "Be'er Sheva Center", longName: "Be'er Sheva Center – Nahariya" }),
+        run(3, 'Nahariya', { origin: "Modi'in Center", longName: "Modi'in Center – Nahariya" }),
+    ]);
+    assert.deepEqual(merged.map(serviceMemberIDs), [['1', '3'], ['2']]);
+    assert.deepEqual(merged.map(lineOrigin), ["Modi'in Center", "Be'er Sheva Center"]);
+    assert.equal(lineOrigin(makeLine({ id: '9', shortName: '9', origin: 'Depot' })), null, 'a number says enough');
+});
+
+test('runs that stop differently stay apart, and each but the usual one says how', () => {
+    const at = (id, calls) => ({ ...run(id, 'Nahariya'), calls });
+    const merged = mergeServices([
+        at(1, ['Tel Aviv', 'Atlit', 'Haifa', 'Nahariya']),
+        at(2, ['Tel Aviv', 'Atlit', 'Haifa', 'Nahariya']),
+        at(3, ['Tel Aviv', 'Haifa', 'Nahariya']),
+        at(4, ['Tel Aviv', 'Herzliya', 'Netanya', 'Atlit', 'Nahariya']),
+        at(5, ['Tel Aviv', 'Herzliya', 'Netanya', 'Haifa', 'Nahariya']),
+    ]);
+    assert.deepEqual(merged.map(serviceMemberIDs), [['1', '2'], ['3'], ['4'], ['5']]);
+    // Run 4 alone misses Haifa; runs 3 and 5 both miss Atlit, and only run 3 has nothing else to say.
+    assert.deepEqual(merged.map(variantLabel), [null, 'Skips Atlit', 'Skips Haifa', 'Via Herzliya']);
+    assert.equal(merged[0].calls, undefined, 'the stops are not kept on the service');
+    const plain = mergeServices([run(1, 'Nahariya'), run(2, 'Nahariya')]);
+    assert.equal(plain.length, 1, 'without stops listed, runs between the same ends are one service');
+});
+
+test('a service saved before the split finds the one sharing a run with it, keeping its id', async () => {
+    const saved = { ...mergeServices([run(30001, 'A'), run(30003, 'A')])[0], id: 'service:0000000000000001' };
+    const fresh = withServices(fakeProvider(() => [run(30003, 'A'), run(30005, 'A')]).provider);
+    const [current] = await fresh.refreshServices([saved], { code: 'split' });
+    assert.equal(current.id, saved.id);
+    assert.deepEqual(serviceMemberIDs(current), ['30003', '30005']);
 });
 
 // ---------------------------------------------------------------------------------------------

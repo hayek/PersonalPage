@@ -98,6 +98,24 @@ function routeLine(r, stopid = null) {
 }
 
 /**
+ * The stops a rider can get off at after boarding here, by name, in order; the stop's own name is
+ * left out (a station listed again under another platform's code). Null when the route's stops are
+ * not listed or do not include this one.
+ */
+function callsAfter(r, stopCode) {
+    const ordered = r.stops ? [...r.stops].sort((a, b) => a.stopSequence - b.stopSequence) : null;
+    if (!ordered) return null;
+    let here = ordered.findIndex((s) => String(s.stopcode) === stopCode && s.isPickup !== true);
+    if (here < 0) here = ordered.findIndex((s) => String(s.stopcode) === stopCode);
+    if (here < 0) return null;
+    const name = preferred(ordered[here].name);
+    return ordered.slice(here + 1)
+        .filter((s) => s.isDropoff !== true)
+        .map((s) => preferred(s.name))
+        .filter((stopName) => stopName && stopName !== name);
+}
+
+/**
  * Whether a rider can board the route at this stop. Each of the route's stops carries `isPickup` and
  * `isDropoff` in GTFS's "not available" sense: every route checked (29 from Nahariya's bus station
  * platforms, 26 at its set-down stop, 7 at a junction, 99 Israel Railways runs) has `isDropoff` at its
@@ -215,14 +233,15 @@ export default {
 
     /**
      * The routes a rider can board here. The ones calling at the most stops come first, so a service
-     * of many runs is drawn from its fullest one (js/transit/services.js).
+     * of many runs is drawn from its fullest one (js/transit/services.js). Each carries the stops it
+     * sets riders down at after this one (`calls`), so runs that stop differently stay apart.
      */
     async linesAtStop(stop) {
         const data = await get(scheduler(), '/Stops/GetStopFullData', { stopCode: stop.code });
         return (data?.routesInStop ?? [])
             .filter((r) => boardsAt(r, String(stop.code)))
             .sort((a, b) => (b.stops?.length ?? 0) - (a.stops?.length ?? 0))
-            .map((r) => routeLine(r, data.stopid ?? null));
+            .map((r) => ({ ...routeLine(r, data.stopid ?? null), calls: callsAfter(r, String(stop.code)) }));
     },
 
     async routePattern(line) {

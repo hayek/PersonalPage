@@ -111,7 +111,8 @@ export function showStopCard({ stop, providerID, provider = null, linesAtStop, l
     } else if (linesAtStop) {
         linesBody.replaceChildren(h('p', { class: 'stop-card-quiet' }, h('i', { class: 'spinner', 'aria-hidden': 'true' }), 'LOADING LINES…'));
         // v2: lines without a number come merged into services, and lines that cannot be boarded here are left out.
-        staticData(`lines.v2:${providerID}:${stop.code}`, LINES_MAX_AGE_MS, linesAtStop)
+        // v3: services split by where they start and the stops they make.
+        staticData(`lines.v3:${providerID}:${stop.code}`, LINES_MAX_AGE_MS, linesAtStop)
             .then(show)
             .catch((error) => {
                 console.warn('[stop card] lines', error);

@@ -3,7 +3,7 @@
 
 import { h, icon, lineKey, isLightTheme, colorIndexFor, modeGlyph } from '../ui.js';
 import { store } from '../storage.js';
-import { compareLines, isNumbered, lineLabel, lineTitle } from '../transit/model.js';
+import { compareLines, isNumbered, lineLabel, lineOrigin, lineTitle, variantLabel } from '../transit/model.js';
 import { assignLineColors, railColor, numeralColor } from '../map/index.js';
 import { session, go } from '../main.js';
 import { picking } from '../embed.js';
@@ -15,7 +15,9 @@ const MAX_LINES = 3;
 
 /**
  * A numbered line is its number over where it goes. One without a number is its mode's glyph (or a
- * neutral dot) over where it goes, set larger since that is now its name, and who runs it.
+ * neutral dot) over where it goes, set larger since that is now its name, and where it sets out from
+ * ("From Modi'in Center"), else who runs it. Beside the glyph, where a number would be, how its stops
+ * differ from the usual run between the same two ends: "Via Herzliya", "Skips Atlit".
  */
 function chipName(line) {
     if (isNumbered(line)) {
@@ -23,9 +25,15 @@ function chipName(line) {
             h('span', { class: 'chip-dest', dir: 'auto' }, line.destination ?? line.headsign ?? line.agency ?? '')];
     }
     const title = lineTitle(line);
-    return [h('span', { class: 'chip-number chip-glyph' }, modeGlyph(line.mode)),
-        h('span', { class: 'chip-title', dir: 'auto' }, title ?? line.agency ?? 'Unnamed service'),
-        title && line.agency ? h('span', { class: 'chip-dest', dir: 'auto' }, line.agency) : null];
+    const origin = lineOrigin(line);
+    const variant = line.variant?.via ? ['Via ', line.variant.via] : line.variant?.skips ? ['Skips ', line.variant.skips] : null;
+    const caption = origin ? h('span', { class: 'chip-dest' }, 'From ', h('bdi', {}, origin))
+        : title && line.agency ? h('span', { class: 'chip-dest', dir: 'auto' }, line.agency) : null;
+    return [h('span', { class: 'chip-top' },
+        h('span', { class: 'chip-number chip-glyph' }, modeGlyph(line.mode)),
+        variant ? h('span', { class: 'chip-variant', title: variantLabel(line) }, variant[0], h('bdi', {}, variant[1])) : null),
+    h('span', { class: 'chip-title', dir: 'auto' }, title ?? line.agency ?? 'Unnamed service'),
+    caption];
 }
 
 export function showLines(root) {
