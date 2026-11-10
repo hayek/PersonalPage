@@ -21,6 +21,22 @@
     {
       "enabled": true,
       "startDate": null,
+      "endDate": "2026-11-16",
+      "startHour": null,
+      "endHour": null,
+      "days": null,
+      "timezone": null,
+      "icon": "gift.fill",
+      "badgeIcon": "gift.fill",
+      "severity": "medium",
+      "text": "Claude Fable 5.2 is here, with extra usage",
+      "dashboardText": "Fable 5.2 launched Nov 9. Until Nov 16, Pro and standard Team seats can use Fable for up to 50% of weekly limits, and most paid plans get 1–3 free Fable resets in Settings > Usage. Resets don't raise your limits. Tap to read more.",
+      "url": "https://amirhayek.dev/ClaudeUsage/blog/claude-fable-5-2-launch.html",
+      "type": "news"
+    },
+    {
+      "enabled": true,
+      "startDate": null,
       "endDate": "2026-11-05",
       "startHour": null,
       "endHour": null,
