@@ -12,7 +12,8 @@
 // line at a stop is one TransitLine per direction ("88:inbound").
 
 import { Capability, TransitError, makeLine, meters, modeNamed } from '../model.js';
-import { getJSON } from '../http.js';
+import { ResponseError, getJSON } from '../http.js';
+import { UNKNOWN_DAYS, serviceDays } from '../service-days.js';
 import { decodePolyline, encodePolyline } from '../shapes/polyline.js';
 import { bestPiece, length } from '../shapes/shape-check.js';
 
@@ -144,6 +145,103 @@ async function sequencePattern(line) {
     return pattern;
 }
 
+// MARK: Service days
+
+/** What a schedule's name may say beside its days without changing them. */
+const FILLER_WORDS = new Set(['night', 'nights', 'morning', 'mornings', 'school', 'schools', 'schoolday', 'schooldays', 'days', 'only']);
+const HOLIDAY_WORDS = new Set(['bank', 'public', 'holiday', 'holidays']);
+const DAY_GROUPS = {
+    weekday: [2, 3, 4, 5, 6], weekdays: [2, 3, 4, 5, 6], weekend: [1, 7], weekends: [1, 7],
+    daily: [1, 2, 3, 4, 5, 6, 7], everyday: [1, 2, 3, 4, 5, 6, 7],
+};
+const DAY_NAMES = {
+    sunday: 1, sun: 1, su: 1,
+    monday: 2, mon: 2, mo: 2,
+    tuesday: 3, tues: 3, tue: 3, tu: 3,
+    wednesday: 4, wed: 4, we: 4,
+    thursday: 5, thurs: 5, thur: 5, thu: 5, th: 5,
+    friday: 6, fri: 6, fr: 6,
+    saturday: 7, sat: 7, sa: 7,
+};
+
+/** "friday", "fri", "fr", or a plural, "fridays". */
+const dayNamed = (word) => (Object.hasOwn(DAY_NAMES, word) ? DAY_NAMES[word]
+    : word.endsWith('s') && Object.hasOwn(DAY_NAMES, word.slice(0, -1)) ? DAY_NAMES[word.slice(0, -1)] : null);
+
+/**
+ * The weekdays a schedule's name says, 1 = Sunday; null for a name it cannot read.
+ *
+ * Names are free text. Seen: "Monday to Thursday", "Monday to Friday", "Friday", "Tuesday" (a mobility
+ * route that runs one day a week), "Mon-Th Schooldays" and "School Friday" (a school route: those
+ * weekdays in term), and on night routes "Mo-Th Nights/Tu-Fr Morning" or "Sunday Night/Monday Morning".
+ * A night belongs to the day it sets out, the part before the "/", as its times past midnight (25:13)
+ * say. A name of holidays alone adds no weekday. Port of `TfLProvider.weekdays(inScheduleName:)`.
+ * @returns {Set<number>|null}
+ */
+export function weekdaysInScheduleName(name) {
+    const night = String(name ?? '').split('/')[0];
+    const words = night.toLowerCase()
+        .replaceAll('&', ' and ').replaceAll(',', ' and ').replaceAll('-', ' to ').replaceAll('–', ' to ')
+        .split(/[\s().]+/).filter(Boolean);
+    const days = new Set();
+    let last = null;
+    let inRange = false;
+    let holidays = false;
+    for (const word of words) {
+        if (FILLER_WORDS.has(word)) continue;
+        if (HOLIDAY_WORDS.has(word)) { holidays = true; continue; }
+        if (word === 'to') {
+            if (last === null || inRange) return null;
+            inRange = true;
+            continue;
+        }
+        if (word === 'and') {
+            if (inRange) return null;
+            last = null;
+            continue;
+        }
+        if (Object.hasOwn(DAY_GROUPS, word)) {
+            if (inRange) return null;
+            for (const day of DAY_GROUPS[word]) days.add(day);
+            last = null;
+            continue;
+        }
+        const day = dayNamed(word);
+        if (day === null) return null;
+        if (inRange && last !== null) {
+            // "Friday to Monday" runs on round the weekend.
+            for (let step = last; step !== day;) { step = (step % 7) + 1; days.add(step); }
+            inRange = false;
+            last = null;
+        } else {
+            days.add(day);
+            last = day;
+        }
+    }
+    if (inRange || (!days.size && !holidays)) return null;
+    return days;
+}
+
+/**
+ * The days of every schedule that runs, joined: a branch or a short working through the stop is a route
+ * of its own in the reply, each with its schedules. A schedule runs when it has journeys. One name it
+ * cannot read leaves the whole week unknown rather than a guess with a day missing. Port of
+ * `TfLProvider.serviceDays(scheduleNames:)`, from the `Line/{id}/Timetable/{stop}` reply.
+ */
+export function serviceDaysFromTimetable(reply) {
+    const days = new Set();
+    for (const route of reply?.timetable?.routes ?? []) {
+        for (const schedule of route.schedules ?? []) {
+            if (!(schedule.knownJourneys ?? []).length && !schedule.firstJourney) continue;
+            if (schedule.name == null) continue;
+            const named = weekdaysInScheduleName(schedule.name);
+            if (!named) return UNKNOWN_DAYS;
+            for (const day of named) days.add(day);
+        }
+    }
+    return days.size ? serviceDays(days) : UNKNOWN_DAYS;
+}
+
 export default {
     id: 'tfl',
     displayName: 'TfL (London)',
@@ -222,6 +320,35 @@ export default {
     async vehicles() {
         return [];
     },
+
+    /** The timetable is kept per stop: a short working can skip the rider's stop on Sundays. */
+    serviceDaysVaryByStop: true,
+
+    /**
+     * `Line/{id}/Timetable/{stop}` names each of its schedules by the days it is for ("Monday to Thursday",
+     * "Saturday"), at this stop in this direction: one request (about 8 KB gzipped), only when the card
+     * opens. A line from the nearby list has no direction; TfL then picks it from the stop, which serves the
+     * line one way. No stop at all asks nothing. A stop the line does not serve that way is a 400 or 404:
+     * no row, kept a day like any answer. Port of `TfLProvider.serviceDays(for:atStopCode:)`.
+     */
+    async serviceDays(line, stopCode) {
+        const refs = line.providerRefs ?? {};
+        const lineId = refs.lineId ?? String(line.id).split(/[:@]/)[0];
+        const naptanId = stopCode ?? refs.naptanId ?? null;
+        if (!naptanId) return UNKNOWN_DAYS;
+        let reply;
+        try {
+            reply = await get(`/Line/${encodeURIComponent(lineId)}/Timetable/${encodeURIComponent(naptanId)}`,
+                refs.direction ? { direction: refs.direction } : undefined);
+        } catch (error) {
+            if (error instanceof ResponseError && error.status >= 400 && error.status < 500 && ![408, 429].includes(error.status)) {
+                return UNKNOWN_DAYS;
+            }
+            throw error;
+        }
+        return serviceDaysFromTimetable(reply);
+    },
+
 
     /**
      * `Line/{id}/Arrivals/{stop}` narrows the countdown to one line at one stop. Every prediction is

@@ -11,6 +11,7 @@
 
 import { Capability, TransitError, fold, meters, makeLine, compareLineNames } from '../model.js';
 import { getJSON, memo, staticData, serviceDate } from '../http.js';
+import { fromDates, serviceDates, normalizeDate, UNKNOWN_DAYS } from '../service-days.js';
 
 const BASE = 'https://api.carrismetropolitana.pt';
 const DAY = 86_400_000;
@@ -136,6 +137,15 @@ const provider = {
             .sort((a, b) => a.expectedAt - b.expectedAt);
     },
 
+    // The days the card's pattern runs, from the service dates of every one of its timetable versions
+    // (`valid_on`: the union of all its trips' dates, whatever their service ids). It is the reply
+    // `linesAtStop` and `routePattern` read, so opening the card asks for nothing more. A pattern is one
+    // direction, as the card is.
+    async serviceDays(line) {
+        const versions = await patternVersions(line.id);
+        return serviceDaysFromValidOn(versions.map((v) => v.valid_on ?? []), serviceDate('Europe/Lisbon'));
+    },
+
     // Computed from the cached stop list; lines carry only the number (no headsign) so no per-pattern
     // calls are made — `linesAtStop` fills in the rest once a stop is picked.
     async stopsNearby(point, radiusMeters) {
@@ -242,17 +252,47 @@ class CarrisNetwork {
 }
 
 /** A pattern id can have several timetable versions; the one running today (Lisbon date) wins. */
-function pattern(id) {
+async function pattern(id) {
+    const list = await patternVersions(id);
+    const today = serviceDate('Europe/Lisbon').replaceAll('-', ''); // GTFS "yyyyMMdd"
+    const nextDay = (v) => (v.valid_on ?? []).filter((d) => d >= today).sort()[0] ?? '9';
+    const chosen = list.find((v) => (v.valid_on ?? []).includes(today))
+        ?? [...list].sort((a, b) => (nextDay(a) < nextDay(b) ? -1 : nextDay(a) > nextDay(b) ? 1 : 0))[0];
+    if (!chosen || !Array.isArray(chosen.path)) throw new TransitError('notFound', `pattern ${id}`);
+    return chosen;
+}
+
+/**
+ * Every timetable version of a pattern, kept whole so `serviceDays` can read all their dates. The trips
+ * (most of the reply) are dropped: nothing here reads them.
+ */
+function patternVersions(id) {
     return memo(`carris:pattern:${id}`, 6 * 3_600_000, async () => {
         const versions = await getJSON(`${BASE}/v2/patterns/${encodeURIComponent(id)}`);
-        const today = serviceDate('Europe/Lisbon').replaceAll('-', ''); // GTFS "yyyyMMdd"
-        const list = Array.isArray(versions) ? versions : [];
-        const nextDay = (v) => (v.valid_on ?? []).filter((d) => d >= today).sort()[0] ?? '9';
-        const chosen = list.find((v) => (v.valid_on ?? []).includes(today))
-            ?? [...list].sort((a, b) => (nextDay(a) < nextDay(b) ? -1 : nextDay(a) > nextDay(b) ? 1 : 0))[0];
-        if (!chosen || !Array.isArray(chosen.path)) throw new TransitError('notFound', `pattern ${id}`);
-        return chosen;
+        return (Array.isArray(versions) ? versions : []).map(({ trips, ...version }) => version);
     });
+}
+
+/**
+ * The usual week, from every version's `valid_on` ("yyyyMMdd", past dates included): the four weeks from
+ * `today` (a Lisbon date). Plans are published a calendar year at a time, so when the dates run out within
+ * four weeks the window slides back to end on the last of them; read past the end, the unpublished weeks
+ * would dim days the line runs. A pattern that has not started yet is read from its first date. Unknown once
+ * the dates are over, or when they cover less than a week. Port of `CarrisMetropolitanaProvider.serviceDays`.
+ * @param {string[][]} validOn  @param {string} today
+ */
+export function serviceDaysFromValidOn(validOn, today) {
+    const running = [...new Set(validOn.flat().map(normalizeDate).filter(Boolean))].sort();
+    const dayNumber = (date) => Date.UTC(Number(date.slice(0, 4)), Number(date.slice(5, 7)) - 1, Number(date.slice(8, 10))) / DAY;
+    const now = normalizeDate(today);
+    if (!running.length || !now) return UNKNOWN_DAYS;
+    const first = dayNumber(running[0]), last = dayNumber(running[running.length - 1]);
+    if (last < dayNumber(now)) return UNKNOWN_DAYS;
+    let start = Math.max(dayNumber(now), first);
+    if (start + 27 > last) start = Math.max(last - 27, first);
+    const end = Math.min(start + 27, last);
+    if (end - start < 6) return UNKNOWN_DAYS;
+    return fromDates(running, serviceDates({ start: new Date(start * DAY), count: end - start + 1, timeZone: 'UTC' }));
 }
 
 /** Realtime payloads prefix ids with dataset versions: "[PCN1R][BNA17]2209_0_1" → "2209_0_1". */

@@ -5,8 +5,9 @@
 // `webTransit` Cloud Function in Tel Aviv). The relay holds no key: it forwards an allowlisted set of
 // these paths for this site only, and caches answers so riders polling one line share a fetch.
 
-import { Capability, TransitError, makeLine, meters, stopAddress } from '../model.js';
+import { Capability, TransitError, makeLine, meters, serviceMemberIDs, stopAddress } from '../model.js';
 import { getJSON, buildURL, memo, staticData } from '../http.js';
+import { UNKNOWN_DAYS, fromDates, serviceDates } from '../service-days.js';
 import { decodeFlexiblePolyline } from '../shapes/polyline.js';
 
 const RELAY = 'https://me-west1-busbus-ios.cloudfunctions.net/webTransit/bus-gov-il';
@@ -20,6 +21,8 @@ const TRANSITOUS = 'https://api.transitous.org';
 const TRANSITOUS_LIFETIME_MS = 15_000;
 /** Which Transitous stop is the bus.gov.il one barely ever changes. */
 const TRANSITOUS_STOP_LIFETIME_MS = 7 * 86_400_000;
+/** Open Bus Stride by Hasadna: keyless, and it answers any origin, so it is asked directly. */
+const STRIDE = 'https://open-bus-stride-api.hasadna.org.il';
 
 /** Stop names come in Hebrew, English and Arabic. Hebrew and Arabic readers get their own;
  * everyone else gets English, the one a visitor can read. */
@@ -181,6 +184,15 @@ async function transitousArrivals(routeIDs, stopid, stop) {
     }).sort((a, b) => a.expectedAt - b.expectedAt);
 }
 
+/** The fourteen Israel service dates before today: each weekday twice. */
+export const serviceDaysWindow = (now = new Date()) => serviceDates({ start: now, offset: -14, count: 14, timeZone: 'Asia/Jerusalem' });
+
+/**
+ * The days Stride's `gtfs_routes` rows say the routes ran, by the half-the-dates rule of `fromDates`.
+ * No rows says nothing: UNKNOWN_DAYS, never a line that does not run.
+ */
+export const serviceDaysFromRows = (rows, window) => fromDates((rows ?? []).map((row) => row.date), window);
+
 /** Times come as Israel local time without an offset: "2026-09-17T05:59:26". */
 function parseLocal(text) {
     if (!text) return null;
@@ -266,6 +278,28 @@ export default {
         const data = await get(`${RELAY}/mot-scheduler-prod/api/he`, '/Routes/GetRouteFullData', { routeId: line.id });
         if (!data?.polyline) throw new TransitError('notFound', `shape of route ${line.id}`);
         return { branches: [decodeFlexiblePolyline(data.polyline)] };
+    },
+
+    /**
+     * The days the line ran over the last two weeks, from one Stride `gtfs_routes` request for all of a
+     * service's runs: its line refs are these route ids, and it keeps a row for each route on each
+     * service date the day's GTFS had it running. The scheduler has no summary of a route's days (its
+     * `calendar` is one service id, and said Fridays only for line 148, route 35698, which runs Sunday to
+     * Friday). Stride has no future dates, so the window is the fourteen dates before today in Israel:
+     * each weekday twice, so a holiday dimming one week does not change the row. Port of
+     * StrideProvider.serviceDays(routeIDs:http:now:).
+     */
+    async serviceDays(line) {
+        const ids = serviceMemberIDs(line).filter((id) => /^\d+$/.test(id));
+        const window = serviceDaysWindow();
+        if (!ids.length) return UNKNOWN_DAYS;
+        // Stride can take many seconds over a slow day; the card waits, and the answer is kept a day.
+        const rows = await getJSON(buildURL(STRIDE, '/gtfs_routes/list', {
+            line_refs: ids.join(','), date_from: window[0], date_to: window[window.length - 1],
+            // One row per route and date at most, newest first, so nothing recent is cut.
+            order_by: 'date desc', limit: String(window.length * ids.length),
+        }), { timeout: 60_000 });
+        return serviceDaysFromRows(rows, window);
     },
 
     /** Bare lat/lng of every bus on the route: no trip id, plate or timestamp. */

@@ -18,6 +18,7 @@
 
 import { Capability, TransitError, compareLineNames, makeLine, meters } from '../model.js';
 import { buildURL, getBytes, getJSON, memo, serviceDate, staticData, zonedTime } from '../http.js';
+import { UNKNOWN_DAYS, serviceDays } from '../service-days.js';
 import { decodePolyline, encodePolyline } from '../shapes/polyline.js';
 import { verdict } from '../shapes/shape-check.js';
 
@@ -200,13 +201,17 @@ async function tripTimetables(ids) {
     return ids.map((id) => tripStore.get(id)).filter(Boolean);
 }
 
-/** Up to ~150 KB per busy pole and route; kept for the session (timetables change quarterly). */
+/**
+ * Up to ~150 KB per busy pole and route; kept for the session (timetables change quarterly). The
+ * title, "都０７:錦糸町駅前:門前仲町:平日", ends in the table's day type.
+ */
 async function poleTimetables(pole, route) {
     const key = `${pole}|${route}`;
     if (poleTimetableStore.has(key)) return poleTimetableStore.get(key);
     if (poleTimetableStore.size > 50) poleTimetableStore.clear();
     const tables = (await get('/odpt:BusstopPoleTimetable', { 'odpt:busstopPole': pole, 'odpt:busroute': route })).map((raw) => ({
         calendar: raw['odpt:calendar'] ?? null,
+        title: raw['dc:title'] ?? null,
         entries: (raw['odpt:busstopPoleTimetableObject'] ?? []).map((e) => ({
             departureTime: e['odpt:departureTime'] ?? null, isMidnight: e['odpt:isMidnight'] ?? null, pattern: e['odpt:busroutePattern'] ?? null,
         })),
@@ -348,6 +353,62 @@ function runs(calendar, day, calendarDays) {
 }
 
 // ---------------------------------------------------------------------------------------------
+// Days of the week
+
+/** The pole's timetables for each of the line's routes, kept for the session. */
+async function lineTimetables(ref, pole) {
+    const tables = [];
+    for (const route of new Set(ref.routes)) tables.push(...await poleTimetables(pole, route));
+    return tables;
+}
+
+/**
+ * Toei titles a table "都０７:錦糸町駅前:門前仲町:平日", the day type last: 平日 is Monday to Friday,
+ * 土曜 Saturday and 休日 Sunday (and public holidays). The generic ODPT calendars
+ * (`odpt.Calendar:Weekday`…) say it in their id instead. 1 = Sunday.
+ */
+export function tableWeekdays(title, calendar) {
+    switch (String(title ?? '').split(':').pop()) {
+        case '平日': return [2, 3, 4, 5, 6];
+        case '土曜': case '土曜日': return [7];
+        case '休日': case '日曜日': return [1];
+        case '土休日': return [1, 7];
+        case '平日・土曜・休日': return [1, 2, 3, 4, 5, 6, 7];
+        default: break;
+    }
+    switch (String(calendar ?? '').replace('odpt.Calendar:', '')) {
+        case 'Everyday': return [1, 2, 3, 4, 5, 6, 7];
+        case 'Weekday': return [2, 3, 4, 5, 6];
+        case 'Saturday': return [7];
+        case 'Sunday': case 'Holiday': return [1];
+        case 'SaturdayHoliday': return [1, 7];
+        case 'Monday': return [2];
+        case 'Tuesday': return [3];
+        case 'Wednesday': return [4];
+        case 'Thursday': return [5];
+        case 'Friday': return [6];
+        default: return [];
+    }
+}
+
+/**
+ * The union over every table that lists one of the patterns, so a line with a weekday, a Saturday and
+ * a holiday table runs every day, and 都庁循環 (CH01, one weekday table) runs Monday to Friday. The day
+ * type is read from the table's title, not from its calendar's dates: the holiday calendar also holds
+ * the Mondays that are public holidays, and the weekday one still lists holidays a few months out.
+ * Tables of short-term special calendars (some Wednesdays, the year end) have no day type in their
+ * title and are left out; a line with only those says nothing rather than guess.
+ * @param {{title: string|null, calendar: string|null, entries: {pattern: string|null}[]}[]} tables
+ */
+export function timetableDays(tables, patternIDs) {
+    const wanted = new Set(patternIDs);
+    const days = tables
+        .filter((table) => table.entries.some((entry) => wanted.has(entry.pattern ?? '')))
+        .flatMap((table) => tableWeekdays(table.title, table.calendar));
+    return days.length ? serviceDays(days) : UNKNOWN_DAYS;
+}
+
+// ---------------------------------------------------------------------------------------------
 // Arrivals
 
 /**
@@ -356,8 +417,7 @@ function runs(calendar, day, calendarDays) {
  */
 async function scheduledTimes(ref, pole, now) {
     const calendarDays = await calendars();
-    const tables = [];
-    for (const route of new Set(ref.routes)) tables.push(...await poleTimetables(pole, route));
+    const tables = await lineTimetables(ref, pole);
     const wanted = new Set(ref.patterns);
     const times = new Set();
     for (const day of daysAround(now)) {
@@ -557,6 +617,26 @@ export default {
      * The stop timetable for the day, with the trips already on the road re-timed by how late
      * they passed their last stop. Trips that have already passed the rider are dropped.
      */
+    /** The days are read off the stop timetable at the rider's pole: one direction can differ from the other. */
+    serviceDaysVaryByStop: true,
+
+    /**
+     * The day types of the stop timetables at the rider's pole that list a departure of one of the
+     * line's patterns. It is the reply `arrivals` already fetched and keeps for the session, so a card
+     * opened from the board usually costs nothing. With no stop, the first pole of the line's pattern
+     * stands in (one more request when that pattern is not in the session).
+     */
+    async serviceDays(line, stopCode) {
+        const ref = lineRef(line);
+        let pole = stopCode ? POLE_PREFIX + stopCode : null;
+        if (!pole) {
+            const [pattern] = await patterns([line.id]);
+            if (!pattern?.stops.length) return UNKNOWN_DAYS;
+            pole = firstStop(pattern).pole;
+        }
+        return timetableDays(await lineTimetables(ref, pole), ref.patterns);
+    },
+
     async arrivals(line, stop) {
         const ref = lineRef(line);
         const pole = POLE_PREFIX + stop.code;

@@ -16,6 +16,7 @@
 import { Capability, TransitError, compareLineNames, makeLine, meters, modeNamed } from '../model.js';
 import { ResponseError, getJSON, memo, postJSON, serviceDate } from '../http.js';
 import { decodePolyline } from '../shapes/polyline.js';
+import { fromDates, serviceDates } from '../service-days.js';
 
 const GEOCODER = 'https://api.entur.io/geocoder/v1/autocomplete';
 const JOURNEY_PLANNER = 'https://api.entur.io/journey-planner/v3/graphql';
@@ -253,6 +254,52 @@ function shapeData(pattern, ref) {
 }
 
 // ---------------------------------------------------------------------------------------------
+// Days a line runs
+
+/**
+ * Three weeks of dates: a weekday counts when the line runs on two of its three, so a holiday that drops
+ * it one week does not dim it, and a one-off service does not light it (Oslo's 70E runs Monday to
+ * Friday, and one weekend of November 2026 as well).
+ */
+const DAYS_WINDOW = 21;
+
+/** The days query: date `window[i]` is asked under the alias `d<i>`, as `{ __typename }` so a date costs a few bytes. */
+function serviceDaysQuery(lineID, window) {
+    const dates = window.map((date, index) => `d${index}: serviceJourneysForDate(date: ${gql(date)}) { __typename }`);
+    return `{ line(id: ${gql(lineID)}) { journeyPatterns { id directionType quays { stopPlace { id parent { id } } }
+            ${dates.join(' ')} } } }`;
+}
+
+/** Where a pattern ends, as a rider knows the stop (the multimodal parent when there is one). */
+function terminalOf(pattern) {
+    const place = pattern.quays?.[pattern.quays.length - 1]?.stopPlace;
+    return place ? (place.parent?.id ?? place.id) : null;
+}
+
+/**
+ * Each journey pattern has its own calendar: on Oslo's 31 three of them run only at weekends and the
+ * trunk ones every day. So the days are the union over every pattern of the card's direction that
+ * calls at the rider's stop (all of the direction's when none does, as the drawn pattern is picked),
+ * never the drawn pattern's alone. A pattern with no direction is its own direction, but the card's
+ * line is every such pattern under its headsign (arrivals match them by it); the patterns carry no
+ * headsign, so those ending at the same stop place stand for it. Nothing running in the window gives
+ * no days, so no row.
+ */
+export function daysOfPatterns(patterns, { direction, stop, window }) {
+    let group = patterns.filter((p) => directionKey(p) === direction);
+    const terminal = group[0] ? terminalOf(group[0]) : null;
+    if (!NAMED_DIRECTIONS.has(direction) && terminal) {
+        group = patterns.filter((p) => !NAMED_DIRECTIONS.has(directionKey(p)) && terminalOf(p) === terminal);
+    }
+    const calling = group.filter((p) => (p.quays ?? []).some((q) => isIn(q, stop)));
+    const running = new Set();
+    for (const pattern of calling.length ? calling : group) {
+        window.forEach((date, index) => { if ((pattern[`d${index}`]?.length ?? 0) > 0) running.add(date); });
+    }
+    return fromDates(running, window);
+}
+
+// ---------------------------------------------------------------------------------------------
 
 /** @type {import('../model.js').TransitProvider} */
 export default {
@@ -320,6 +367,22 @@ export default {
         }
         const points = data.polyline ? decodePolyline(data.polyline, 5) : [];
         return points.length >= 2 ? { branches: [points], stopPositions: data.stopPositions } : null;
+    },
+
+    /**
+     * One small query of its own: every journey pattern of the line with the journeys it runs on each
+     * date of the next three weeks and the stop places it calls at (under 3 KB gzipped for Oslo's 31). The
+     * schema has no weekday or day-type field. It is not folded into the line query: boards poll
+     * vehicles off that one without ever opening a card. The line's id carries the stop it was listed
+     * at, so the card keeps one answer per stop without `serviceDaysVaryByStop`.
+     */
+    async serviceDays(line) {
+        const ref = lineRef(line);
+        const window = serviceDates({ count: DAYS_WINDOW, timeZone: TIME_ZONE });
+        const data = await graphQL(JOURNEY_PLANNER, serviceDaysQuery(ref.line, window));
+        const patterns = data.line?.journeyPatterns;
+        if (!patterns) throw new TransitError('notFound', `line ${ref.line}`);
+        return daysOfPatterns(patterns, { direction: ref.direction, stop: ref.stop, window });
     },
 
     async vehicles(line) {

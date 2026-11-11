@@ -24,6 +24,7 @@
 
 import { Capability, TransitError, makeLine } from '../model.js';
 import { buildURL, getJSON, staticData } from '../http.js';
+import { UNKNOWN_DAYS, serviceDays } from '../service-days.js';
 import { DAY_MS, HKRouteLines, SessionCache, compareHKLines, containsText, hkLayerShape, hkNameLanguage, mapLimit, parseHKTime, pick, sleep, uniqueBy } from './hk-shared.js';
 
 const BASE = 'https://data.etagmb.gov.hk';
@@ -171,6 +172,21 @@ function toLine(route, lineRef) {
     });
 }
 
+/**
+ * The union of headway blocks' `weekdays`, seven flags each from Monday (TD's spec: "Start from
+ * Monday"), as weekdays 1 = Sunday … 7 = Saturday. A block whose flags are not seven is skipped;
+ * no blocks at all is UNKNOWN_DAYS, not a line that never runs.
+ */
+export function daysFromHeadways(headways) {
+    const days = new Set();
+    for (const headway of headways ?? []) {
+        const flags = headway?.weekdays;
+        if (!Array.isArray(flags) || flags.length !== 7) continue;
+        flags.forEach((runs, index) => { if (runs === true) days.add(((index + 1) % 7) + 1); });
+    }
+    return days.size ? serviceDays(days) : UNKNOWN_DAYS;
+}
+
 // ---------------------------------------------------------------------------------------------
 
 /** @type {import('../model.js').TransitProvider} */
@@ -269,6 +285,20 @@ export default {
         const lineRef = parseRef(line.id);
         if (!lineRef) throw new TransitError('unsupported', `line ${line.id} has no GMB route id/sequence (was it loaded from another provider?)`);
         return hkLayerShape(HKRouteLines.minibusLayer, `ROUTE_ID = ${lineRef.routeID} AND ROUTE_SEQ = ${lineRef.seq}`, pattern);
+    },
+
+    /**
+     * The days the line's direction runs, from the headway blocks of the `/route/{route_id}` reply its
+     * line was built from (session-cached, so a card opened from a stop's board asks nothing). Each
+     * block is a timetable period with the weekdays it applies to; a line runs on every day any of its
+     * direction's blocks names. The `public_holiday` flag has no letter and is left out.
+     */
+    async serviceDays(line) {
+        const lineRef = parseRef(line.id);
+        if (!lineRef) throw new TransitError('unsupported', `line ${line.id} has no GMB route id/sequence (was it loaded from another provider?)`);
+        const direction = (await routeByID(lineRef.routeID))?.directions?.find((d) => d.route_seq === lineRef.seq);
+        if (!direction) throw new TransitError('notFound', `GMB line ${line.id}`);
+        return daysFromHeadways(direction.headways);
     },
 
     /** GMB publishes no vehicle positions. */

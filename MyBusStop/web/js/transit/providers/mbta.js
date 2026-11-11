@@ -11,6 +11,7 @@
 import { Capability, TransitError, fold, makeLine, meters, modeFromRouteType, stopAddress } from '../model.js';
 import { getJSON, staticData } from '../http.js';
 import { decodePolyline } from '../shapes/polyline.js';
+import { UNKNOWN_DAYS, fromDates, serviceDates, weekdayOf } from '../service-days.js';
 
 const BASE = 'https://api-v3.mbta.com';
 const BUS_ROUTE_TYPE = 3;
@@ -240,6 +241,33 @@ async function routePattern(line) {
     };
 }
 
+/**
+ * Whether a GTFS service as `/services` gives it runs on a "yyyy-MM-dd" date. An added date always
+ * runs; otherwise the date must fall in the service's span, on one of its weekdays (ISO, 1 = Monday),
+ * and not be taken out (a holiday).
+ */
+function serviceRuns(a, date) {
+    if (a.added_dates?.includes(date)) return true;
+    if (!a.start_date || !a.end_date || date < a.start_date || date > a.end_date) return false;
+    if (a.removed_dates?.includes(date)) return false;
+    const weekday = weekdayOf(date);
+    return weekday != null && (a.valid_days ?? []).includes(((weekday + 5) % 7) + 1); // 1 = Sunday to ISO
+}
+
+/**
+ * Four weeks of Boston dates from `start`, each counted when any service runs on it. The next rating's
+ * services are often not listed until close to its start, so dates past the last listed rating say
+ * nothing and are left out; under a week left means not every weekday can be seen, and nothing is said
+ * rather than dim the days beyond it.
+ */
+export function daysFromServices(services, start = new Date()) {
+    const attributes = services.filter((s) => s?.type === 'service' && s.attributes).map((s) => s.attributes);
+    const ratingEnd = attributes.map((a) => a.rating_end_date).filter(Boolean).sort().at(-1);
+    const window = serviceDates({ start, count: 28, timeZone: TIME_ZONE }).filter((date) => !ratingEnd || date <= ratingEnd);
+    if (window.length < 7) return UNKNOWN_DAYS;
+    return fromDates(window.filter((date) => attributes.some((a) => serviceRuns(a, date))), window);
+}
+
 export default {
     id: 'mbta',
     displayName: 'MBTA (Boston)',
@@ -302,6 +330,22 @@ export default {
         const data = pattern?.shapeData ?? (await routePattern(line)).shapeData;
         const points = data?.polyline ? decodePolyline(data.polyline, data.precision ?? 5) : [];
         return points.length >= 2 ? { branches: [points] } : null;
+    },
+
+    /**
+     * The days come from the route's GTFS services, in one call: `/services` lists every service the
+     * route uses in the current rating (and in a later one once it is published), each as its weekdays
+     * between two dates plus the dates added to or taken from it. One service alone says little: route
+     * 1's Fridays run only on single dates added to one-day services. So every service is expanded over
+     * four weeks and the dates any of them runs on are read together. Services belong to a route, not a
+     * direction, so both directions share a row.
+     */
+    async serviceDays(line) {
+        const response = await get('/services', {
+            'filter[route]': ref(line).route,
+            'fields[service]': 'valid_days,start_date,end_date,added_dates,removed_dates,rating_end_date',
+        });
+        return daysFromServices(response.data ?? []);
     },
 
     async vehicles(line) {

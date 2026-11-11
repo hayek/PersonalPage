@@ -70,6 +70,11 @@
  * @property {{stops: number, ends: number}} [shapeTolerance]  How far a stop may stand from this feed's
  *     shapes; defaults to TOLERANCE.platforms (js/transit/shapes/shape-check.js).
  * @property {string} [shapeDatasetID]  Which cache a shape is kept under; defaults to `datasetID`, then `id`.
+ * @property {(line: TransitLine, stopCode: string|null) => Promise<import('./service-days.js').ServiceDays>} [serviceDays]
+ *     The days of the week the line usually runs, for its card (js/transit/service-days.js); only when a rider
+ *     opens the card, kept a day. `stopCode` is the stop it was opened from. Resolve UNKNOWN_DAYS (or throw)
+ *     rather than guess: the card then shows no row.
+ * @property {boolean} [serviceDaysVaryByStop]  True when the days are read from a timetable kept per stop.
  *
  * @typedef {object} RouteShape  A line's path: one polyline per branch, in route order.
  * @property {GeoPoint[][]} branches

@@ -761,6 +761,16 @@ body.wall .minutes b { font-size: clamp(96px, 16vw, 220px); }
 /* The stop card's frame, with the line's colour in --line. */
 .line-card .stop-card-head .badge { min-width: 44px; height: 44px; padding: 0 8px; border-radius: 11px; font-size: 20px; }
 .line-card-subtitle { margin-top: 6px; font-size: 15px; font-weight: 700; color: var(--secondary); overflow-wrap: anywhere; }
+/* The days the line runs: the week as seven letters, the days it runs filled in its colour. */
+.line-card-days { display: flex; align-items: center; gap: 12px; flex: none; }
+.line-card-days-label { font-family: var(--mono); font-weight: 700; font-size: 11px; letter-spacing: 0.22em; color: var(--secondary); }
+.line-card-days-week { display: flex; gap: 4px; }
+.line-card-day {
+    display: grid; place-items: center; width: 28px; height: 28px; border-radius: 50%;
+    font-family: var(--mono); font-weight: 700; font-size: 13px; color: var(--dim);
+    border: 1px solid color-mix(in srgb, var(--dim) 35%, transparent);
+}
+.line-card-day.runs { color: var(--ink); border-color: transparent; background: color-mix(in srgb, var(--line) 28%, transparent); }
 .line-card-map {
     position: relative; flex: none; height: 260px; overflow: hidden;
     border-radius: var(--radius-row); border: 2px solid var(--card-outline); background: var(--card);

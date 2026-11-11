@@ -9,10 +9,11 @@
 // instead: a straight line through the houses is worse than no line.
 
 import { h, icon, badge, colorIndexFor, isLightTheme } from '../ui.js';
-import { isNumbered, lineTitle } from '../transit/model.js';
+import { isNumbered, isService, lineTitle, serviceMemberIDs } from '../transit/model.js';
 import { railColor } from '../map/index.js';
 import { staticData } from '../transit/http.js';
 import { loadRouteShape } from '../transit/shapes/route-shape.js';
+import { isKnown, spoken, week } from '../transit/service-days.js';
 import { createRouteMap } from './route-map.js';
 import { presentSheet } from './sheet.js';
 import { showStopCard } from './stop-card.js';
@@ -20,6 +21,14 @@ import { showStopCard } from './stop-card.js';
 /** The board's own key and age for a pattern (js/board/model.js), so the card and the board share one. */
 const PATTERN_MAX_AGE_MS = 12 * 3_600_000;
 const patternKey = (provider, line) => `pattern:${provider.datasetID ?? provider.id}:${line.id}`;
+/** The days a line runs change with a new timetable, a few times a year; a day keeps reopening to one request. */
+const DAYS_MAX_AGE_MS = 24 * 3_600_000;
+/** A service keeps its id while the runs it stands for change from day to day, so its key names them too. */
+const daysKey = (provider, line, stopCode) => [
+    'days', provider.datasetID ?? provider.id, line.id,
+    isService(line) ? `m${[...serviceMemberIDs(line)].sort().join(',')}` : null,
+    provider.serviceDaysVaryByStop ? (stopCode ?? '-') : null,
+].filter((part) => part !== null).join(':');
 
 const cards = [];
 
@@ -43,6 +52,7 @@ export function showLineCard({ line, provider, stopCode = null, colorIndex = nul
     const mapNote = h('p', { class: 'line-card-note', hidden: true });
     const mapQuiet = h('p', { class: 'stop-card-quiet line-card-loading' }, h('i', { class: 'spinner', 'aria-hidden': 'true' }), 'LOADING THE ROUTE…');
     const stopsBody = h('div', { class: 'stop-card-section', hidden: true });
+    const daysRow = h('div', { class: 'line-card-days', role: 'group', hidden: true });
     const close = h('button', { class: 'round-button stop-card-close', 'aria-label': 'Close', onclick: () => entry.sheet.dismiss() }, icon('close', 20));
     const card = h('div', { class: 'stop-card line-card', role: 'dialog', 'aria-modal': 'true', 'aria-labelledby': titleID, style: { '--line': color } },
         h('header', { class: 'stop-card-head' },
@@ -52,6 +62,7 @@ export function showLineCard({ line, provider, stopCode = null, colorIndex = nul
                 title,
                 subtitle),
             close),
+        daysRow,
         h('div', { class: 'line-card-map' }, canvas, mapQuiet, mapNote),
         stopsBody,
         provider.attribution ? h('p', { class: 'attribution line-card-credit' }, provider.attribution) : null,
@@ -155,7 +166,25 @@ export function showLineCard({ line, provider, stopCode = null, colorIndex = nul
             })));
     }
 
+    /** The week in the rider's own order, the days the line runs filled in its colour and the rest faint. */
+    function showDays(days) {
+        daysRow.hidden = !isKnown(days);
+        if (!isKnown(days)) return;
+        daysRow.setAttribute('aria-label', `Runs ${spoken(days)}`);
+        daysRow.replaceChildren(
+            h('span', { class: 'line-card-days-label', 'aria-hidden': 'true' }, 'RUNS'),
+            h('span', { class: 'line-card-days-week', 'aria-hidden': 'true' },
+                week(days).map((day) => h('span', { class: `line-card-day${day.runs ? ' runs' : ''}`, title: day.name }, day.letter))));
+    }
+
     // MARK: Loading
+
+    // The days, beside the stops and the road: only feeds that can say are asked, and a failure shows no row.
+    if (provider.serviceDays) {
+        staticData(daysKey(provider, line, stopCode), DAYS_MAX_AGE_MS, () => provider.serviceDays(line, stopCode))
+            .then((days) => { if (!cancelled) showDays(days); })
+            .catch((error) => console.warn('[line card] days', error));
+    }
 
     (async () => {
         let pattern;

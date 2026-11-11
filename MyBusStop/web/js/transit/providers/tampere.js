@@ -9,6 +9,7 @@
 
 import { Capability, TransitError, compareLineNames, makeLine, meters } from '../model.js';
 import { getJSON, zonedTime } from '../http.js';
+import { UNKNOWN_DAYS, fromDates, serviceDates, weekdayOf } from '../service-days.js';
 
 const BASE = 'https://data.itsfactory.fi/journeys/api/1';
 const TIME_ZONE = 'Europe/Helsinki';
@@ -17,6 +18,17 @@ const TIME_ZONE = 'Europe/Helsinki';
  * `stopPoints.url` would also drop the pattern's own `url`, which carries its id.)
  */
 const PATTERN_FIELDS = 'journeys,stopPoints.municipality,stopPoints.tariffZone';
+
+/**
+ * A stop's journeys with nothing but their calendars: ~2 KB on the wire for a busy line at its terminal,
+ * against ~40 KB with every field. (`departureTime` goes too: day types are the GTFS service day's, so a
+ * bus at "24:51:00" already counts on the day it set out.)
+ */
+const CALENDAR_FIELDS = 'calls,activityUrl,journeyPatternUrl,journeyUrl,lineUrl,routeUrl,stopPointUrl,gtfs,'
+    + 'headSign,arrivalTime,departureTime,wheelchairAccessible,lineId';
+/** Four weeks of dates, so a holiday on one of them does not dim or light a day. */
+const DAYS_WINDOW = 28;
+const DAY_NAMES = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
 
 const lastPathComponent = (url) => (url ? String(url).replace(/\/+$/, '').split('/').pop() || null : null);
 
@@ -105,6 +117,36 @@ async function journeyPattern(line) {
         pattern = longest((response.body ?? []).filter((p) => (p.direction ?? '0') === direction));
     }
     return pattern;
+}
+
+/**
+ * Whether one journey's calendar has it run on a "yyyy-MM-dd" date: an exception covering the date decides
+ * (calendar_dates.txt); otherwise the date is within validFrom…validTo and its weekday is a day type.
+ */
+function runsOn(journey, date) {
+    const exception = (journey.dayTypeExceptions ?? []).find((e) => e.from && e.to && e.from <= date && date <= e.to);
+    if (exception) return exception.runs === 'yes';
+    if (!journey.validFrom || !journey.validTo || date < journey.validFrom || date > journey.validTo) return false;
+    const name = DAY_NAMES[(weekdayOf(date) ?? 0) - 1];
+    return (journey.dayTypes ?? []).some((type) => String(type).toLowerCase() === name);
+}
+
+/**
+ * The days a line runs, from a stop's journeys of it (`stop-points/{code}/journeys?lineId=`): a date of the
+ * window counts when any journey the line's way runs on it. Every journey is one GTFS trip with its own
+ * calendar, and a line has several at once (Monday to Thursday, Friday, Saturday, Sunday, holidays), so
+ * the union is taken, never one of them.
+ */
+export function daysFromJourneys(journeys, direction, window) {
+    const calendars = new Map();
+    for (const journey of journeys ?? []) {
+        if ((journey.directionId ?? '0') !== direction) continue;
+        const { dayTypes, validFrom, validTo, dayTypeExceptions } = journey;
+        calendars.set(JSON.stringify([dayTypes, validFrom, validTo, dayTypeExceptions]), journey);
+    }
+    const kept = [...calendars.values()];
+    const running = window.filter((date) => kept.some((journey) => runsOn(journey, date)));
+    return fromDates(running, window);
 }
 
 /**
@@ -243,6 +285,24 @@ const provider = {
         }
         return out.sort((a, b) => a.expectedAt - b.expectedAt);
     },
+
+    /**
+     * The days the line runs at the rider's stop, from its journeys there with their calendars. Only this
+     * stop endpoint gives each journey its validFrom/validTo: `journeys?lineId=` keeps only the calendars
+     * valid today (Monday to Thursday, on a Wednesday), and the journeys inside journey patterns or routes
+     * carry no validity, so past one-day and holiday-only calendars would light days the line no longer
+     * runs. Without a stop there is nothing to ask.
+     */
+    async serviceDays(line, stopCode) {
+        if (!stopCode) return UNKNOWN_DAYS;
+        const { name, direction } = refsOf(line);
+        const response = await getJSON(`${BASE}/stop-points/${encodeURIComponent(stopCode)}/journeys`, {
+            query: { lineId: name, 'exclude-fields': CALENDAR_FIELDS },
+        });
+        return daysFromJourneys(response.body ?? [], direction, serviceDates({ count: DAYS_WINDOW, timeZone: TIME_ZONE }));
+    },
+    /** A stop counts only the journeys that call there: a short turn that skips it is not its line's. */
+    serviceDaysVaryByStop: true,
 
     /**
      * `stop-points?location=` takes a box, "minLat,minLon:maxLat,maxLon" (the "lat,lon:radius" form
