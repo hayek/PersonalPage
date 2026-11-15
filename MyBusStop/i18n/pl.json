@@ -136,5 +136,5 @@
  "4746eb8a0f": "Czy działa z Home Assistant?",
  "50e01495cf": "Tak. Zainstaluj darmową kartę My Bus Stop przez HACS, dodaj ją do pulpitu i wybierz przystanek oraz linie w edytorze karty. Pokazuje tę samą tablicę z mapą trasy i dopasowuje się do jasnego lub ciemnego motywu pulpitu. <a href=\"home-assistant/\">Zobacz, jak ją skonfigurować</a>.",
  "861d362d43": "iPhone, iPad, Mac, Apple Watch, Apple TV i <a href=\"home-assistant/\">Home Assistant</a>",
- "c62ff645db": "Sztokholm"
+ "ce16eff7c4": "Stockholm<span class=\"no-gps\" aria-hidden=\"true\">*</span><span class=\"sr-only\"> (tylko godziny przyjazdów)</span>"
 }

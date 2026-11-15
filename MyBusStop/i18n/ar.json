@@ -136,5 +136,5 @@
  "4746eb8a0f": "هل يعمل مع Home Assistant؟",
  "50e01495cf": "نعم. ثبّت بطاقة My Bus Stop المجانية عبر HACS، وأضفها إلى لوحة تحكم، ثم اختر محطتك وخطوطك من محرّر البطاقة. تعرض البطاقة اللوحة نفسها مع خريطة الخط، وتتبع المظهر الفاتح أو الداكن للوحة التحكم. <a href=\"home-assistant/\">اطّلع على طريقة إعدادها</a>.",
  "861d362d43": "iPhone وiPad وMac وApple Watch وApple TV و<a href=\"home-assistant/\">Home Assistant</a>",
- "c62ff645db": "ستوكهولم"
+ "ce16eff7c4": "Stockholm<span class=\"no-gps\" aria-hidden=\"true\">*</span><span class=\"sr-only\"> (مواعيد الوصول فقط)</span>"
 }

@@ -136,5 +136,5 @@
  "4746eb8a0f": "Kas see töötab Home Assistantiga?",
  "50e01495cf": "Jah. Paigalda tasuta My Bus Stopi kaart HACS-i kaudu, lisa see töölauale ning vali kaardi redaktoris oma peatus ja liinid. See näitab sama tablood koos liini kaardiga ja järgib töölaua heledat või tumedat teemat. <a href=\"home-assistant/\">Vaata, kuidas see seadistada</a>.",
  "861d362d43": "iPhone, iPad, Mac, Apple Watch, Apple TV ja <a href=\"home-assistant/\">Home Assistant</a>",
- "c62ff645db": "Stockholm"
+ "ce16eff7c4": "Stockholm<span class=\"no-gps\" aria-hidden=\"true\">*</span><span class=\"sr-only\"> (ainult saabumisajad)</span>"
 }

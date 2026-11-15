@@ -27,10 +27,10 @@
   "stockholm": {
    "name": "Stockholm",
    "in_name": "i Stockholm",
-   "title": "SL-bussar i realtid i Stockholm – avgångar och bussar på kartan | Min hållplats",
-   "description": "SL-bussarnas avgångar i realtid i Stockholm, och var varje buss är just nu. Gratis för iPhone, iPad, Mac, Apple Watch och Apple TV.",
+   "title": "SL-bussar i realtid i Stockholm – avgångar | Min hållplats",
+   "description": "SL-bussarnas avgångar i realtid i Stockholm, med nedräkning till nästa buss. Gratis för iPhone, iPad, Mac, Apple Watch och Apple TV.",
    "h1": "Bussar i realtid i Stockholm",
-   "lede": "SL-bussen du åker med varje dag på en tavla: minuterna tills den är vid din hållplats, och var den är på sin linje just nu.",
+   "lede": "SL-bussen du åker med varje dag på en tavla, med avgångar i realtid som räknar ner till nästa buss och den efter.",
    "coverage": "SL:s bussar i hela Stockholms län, från innerstadens blåbussar ut till Norrtälje, Södertälje och skärgården.",
    "source": "SL (Storstockholms Lokaltrafik) via Trafiklab"
   }

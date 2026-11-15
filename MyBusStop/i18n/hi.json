@@ -136,5 +136,5 @@
  "4746eb8a0f": "क्या यह Home Assistant के साथ काम करता है?",
  "50e01495cf": "हाँ। मुफ़्त My Bus Stop कार्ड HACS से इंस्टॉल करें, उसे किसी डैशबोर्ड में जोड़ें, और कार्ड के एडिटर में अपना स्टॉप और लाइनें चुनें। यह रूट मैप के साथ वही बोर्ड दिखाता है, और डैशबोर्ड की लाइट या डार्क थीम के हिसाब से चलता है। <a href=\"home-assistant/\">इसे सेट अप करने का तरीका देखें</a>।",
  "861d362d43": "iPhone, iPad, Mac, Apple Watch, Apple TV और <a href=\"home-assistant/\">Home Assistant</a>",
- "c62ff645db": "स्टॉकहोम"
+ "ce16eff7c4": "Stockholm<span class=\"no-gps\" aria-hidden=\"true\">*</span><span class=\"sr-only\"> (सिर्फ़ आगमन समय)</span>"
 }

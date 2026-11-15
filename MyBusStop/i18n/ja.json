@@ -136,5 +136,5 @@
  "4746eb8a0f": "Home Assistantで使えますか？",
  "50e01495cf": "はい。無料のMy Bus StopカードをHACSからインストールしてダッシュボードに追加し、カードのエディタで停留所と路線を選びます。路線図つきの同じ案内板が表示され、ダッシュボードのライト・ダークのテーマに合わせて切り替わります。<a href=\"home-assistant/\">設定方法を見る</a>",
  "861d362d43": "iPhone、iPad、Mac、Apple Watch、Apple TV、<a href=\"home-assistant/\">Home Assistant</a>",
- "c62ff645db": "ストックホルム"
+ "ce16eff7c4": "Stockholm<span class=\"no-gps\" aria-hidden=\"true\">*</span><span class=\"sr-only\">（到着時刻のみ）</span>"
 }

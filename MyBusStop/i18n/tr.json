@@ -136,5 +136,5 @@
  "4746eb8a0f": "Home Assistant ile çalışır mı?",
  "50e01495cf": "Evet. Ücretsiz My Bus Stop kartını HACS ile yükleyin, bir panoya ekleyin, ardından durağınızı ve hatlarınızı kartın düzenleyicisinden seçin. Hat haritasıyla birlikte aynı panoyu gösterir ve panonun açık ya da koyu temasına uyar. <a href=\"home-assistant/\">Nasıl kurulacağını görün</a>.",
  "861d362d43": "iPhone, iPad, Mac, Apple Watch, Apple TV ve <a href=\"home-assistant/\">Home Assistant</a>",
- "c62ff645db": "Stockholm"
+ "ce16eff7c4": "Stockholm<span class=\"no-gps\" aria-hidden=\"true\">*</span><span class=\"sr-only\"> (yalnızca varış saatleri)</span>"
 }

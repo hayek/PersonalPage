@@ -136,5 +136,5 @@
  "4746eb8a0f": "Работает ли оно с Home Assistant?",
  "50e01495cf": "Да. Установите бесплатную карточку My Bus Stop через HACS, добавьте её на панель и выберите остановку и маршруты в редакторе карточки. Она показывает то же табло со схемой маршрута и следует светлой или тёмной теме панели. <a href=\"home-assistant/\">Как её настроить</a>.",
  "861d362d43": "iPhone, iPad, Mac, Apple Watch, Apple TV и <a href=\"home-assistant/\">Home Assistant</a>",
- "c62ff645db": "Стокгольм"
+ "ce16eff7c4": "Stockholm<span class=\"no-gps\" aria-hidden=\"true\">*</span><span class=\"sr-only\"> (только время прибытия)</span>"
 }

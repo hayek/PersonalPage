@@ -136,5 +136,5 @@
  "4746eb8a0f": "Ali deluje s Home Assistantom?",
  "50e01495cf": "Da. Namesti brezplačno kartico My Bus Stop prek HACS, jo dodaj na nadzorno ploščo ter v urejevalniku kartice izberi postajo in linije. Prikazuje isti prikazovalnik z zemljevidom poti in sledi svetli ali temni temi nadzorne plošče. <a href=\"home-assistant/\">Poglej, kako jo nastaviš</a>.",
  "861d362d43": "iPhone, iPad, Mac, Apple Watch, Apple TV in <a href=\"home-assistant/\">Home Assistant</a>",
- "c62ff645db": "Stockholm"
+ "ce16eff7c4": "Stockholm<span class=\"no-gps\" aria-hidden=\"true\">*</span><span class=\"sr-only\"> (samo časi prihodov)</span>"
 }

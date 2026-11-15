@@ -136,5 +136,5 @@
  "4746eb8a0f": "ከHome Assistant ጋር ይሠራል?",
  "50e01495cf": "አዎ። ነጻውን የMy Bus Stop ካርድ በHACS ይጫኑ፣ ወደ ዳሽቦርድ ያክሉት፣ ፌርማታዎንና መስመሮችዎን በካርዱ አርታኢ ውስጥ ይምረጡ። ያው ሰሌዳ ከመስመሩ ካርታ ጋር ይታያል፣ የዳሽቦርዱን ብሩህ ወይም ጨለማ ገጽታም ይከተላል። <a href=\"home-assistant/\">እንዴት እንደሚያዘጋጁት ይመልከቱ</a>።",
  "861d362d43": "iPhone፣ iPad፣ Mac፣ Apple Watch፣ Apple TV እና <a href=\"home-assistant/\">Home Assistant</a>",
- "c62ff645db": "ስቶክሆልም"
+ "ce16eff7c4": "Stockholm<span class=\"no-gps\" aria-hidden=\"true\">*</span><span class=\"sr-only\"> (የመድረሻ ሰዓት ብቻ)</span>"
 }
