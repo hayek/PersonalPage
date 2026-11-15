@@ -137,5 +137,6 @@
  "50e01495cf": "可以。通过 HACS 安装免费的 My Bus Stop 卡片，把它添加到仪表盘，然后在卡片编辑器中选择站点和线路。它显示同样带线路图的站牌，并跟随仪表盘的浅色或深色主题。<a href=\"home-assistant/\">查看设置方法</a>。",
  "861d362d43": "iPhone、iPad、Mac、Apple Watch、Apple TV 和 <a href=\"home-assistant/\">Home Assistant</a>",
  "ce16eff7c4": "Stockholm<span class=\"no-gps\" aria-hidden=\"true\">*</span><span class=\"sr-only\">（仅到站时间）</span>",
- "70ad097f49": "费城"
+ "70ad097f49": "费城",
+ "5ffacf6c2d": "台北"
 }

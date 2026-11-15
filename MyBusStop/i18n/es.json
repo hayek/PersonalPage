@@ -137,5 +137,6 @@
  "50e01495cf": "Sí. Instala la tarjeta gratuita My Bus Stop con HACS, añádela a un panel y elige tu parada y tus líneas en el editor de la tarjeta. Muestra el mismo panel de llegadas, con el mapa del recorrido, y sigue el tema claro u oscuro de tu panel. <a href=\"home-assistant/\">Mira cómo configurarla</a>.",
  "861d362d43": "iPhone, iPad, Mac, Apple Watch, Apple TV y <a href=\"home-assistant/\">Home Assistant</a>",
  "ce16eff7c4": "Stockholm<span class=\"no-gps\" aria-hidden=\"true\">*</span><span class=\"sr-only\"> (solo horarios de llegada)</span>",
- "70ad097f49": "Filadelfia"
+ "70ad097f49": "Filadelfia",
+ "5ffacf6c2d": "Taipéi"
 }

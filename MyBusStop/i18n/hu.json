@@ -137,5 +137,6 @@
  "50e01495cf": "Igen. Telepítsd az ingyenes My Bus Stop kártyát a HACS-ból, add hozzá egy irányítópulthoz, és a kártya szerkesztőjében válaszd ki a megállót és a járatokat. Ugyanazt a kijelzőt mutatja az útvonal térképével, és követi az irányítópult világos vagy sötét témáját. <a href=\"home-assistant/\">Nézd meg, hogyan kell beállítani</a>.",
  "861d362d43": "iPhone, iPad, Mac, Apple Watch, Apple TV és <a href=\"home-assistant/\">Home Assistant</a>",
  "ce16eff7c4": "Stockholm<span class=\"no-gps\" aria-hidden=\"true\">*</span><span class=\"sr-only\"> (csak érkezési idők)</span>",
- "70ad097f49": "Philadelphia"
+ "70ad097f49": "Philadelphia",
+ "5ffacf6c2d": "Tajpej"
 }

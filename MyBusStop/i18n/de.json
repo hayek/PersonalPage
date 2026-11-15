@@ -137,5 +137,6 @@
  "50e01495cf": "Ja. Installiere die kostenlose Karte „My Bus Stop“ über HACS, füge sie einem Dashboard hinzu und wähle Haltestelle und Linien im Editor der Karte. Sie zeigt dieselbe Tafel mit dem Linienplan und folgt dem hellen oder dunklen Design des Dashboards. <a href=\"home-assistant/\">So richtest du sie ein</a>.",
  "861d362d43": "iPhone, iPad, Mac, Apple Watch, Apple TV und <a href=\"home-assistant/\">Home Assistant</a>",
  "ce16eff7c4": "Stockholm<span class=\"no-gps\" aria-hidden=\"true\">*</span><span class=\"sr-only\"> (nur Ankunftszeiten)</span>",
- "70ad097f49": "Philadelphia"
+ "70ad097f49": "Philadelphia",
+ "5ffacf6c2d": "Taipeh"
 }
