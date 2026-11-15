@@ -136,5 +136,6 @@
  "4746eb8a0f": "Home Assistant에서도 쓸 수 있나요?",
  "50e01495cf": "네. 무료 My Bus Stop 카드를 HACS로 설치해 대시보드에 추가한 다음, 카드 편집기에서 정류장과 노선을 고르세요. 노선도가 있는 같은 안내판이 표시되고, 대시보드의 라이트 또는 다크 테마를 따릅니다. <a href=\"home-assistant/\">설정 방법 보기</a>",
  "861d362d43": "iPhone, iPad, Mac, Apple Watch, Apple TV 및 <a href=\"home-assistant/\">Home Assistant</a>",
- "ce16eff7c4": "Stockholm<span class=\"no-gps\" aria-hidden=\"true\">*</span><span class=\"sr-only\"> (도착 시간만)</span>"
+ "ce16eff7c4": "Stockholm<span class=\"no-gps\" aria-hidden=\"true\">*</span><span class=\"sr-only\"> (도착 시간만)</span>",
+ "70ad097f49": "필라델피아"
 }

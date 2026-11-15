@@ -136,5 +136,6 @@
  "4746eb8a0f": "Funciona com o Home Assistant?",
  "50e01495cf": "Sim. Instale o cartão gratuito My Bus Stop pelo HACS, adicione-o a um painel e escolha seu ponto e suas linhas no editor do cartão. Ele mostra o mesmo painel de chegadas, com o mapa do trajeto, e segue o tema claro ou escuro do painel. <a href=\"home-assistant/\">Veja como configurar</a>.",
  "861d362d43": "iPhone, iPad, Mac, Apple Watch, Apple TV e <a href=\"home-assistant/\">Home Assistant</a>",
- "ce16eff7c4": "Stockholm<span class=\"no-gps\" aria-hidden=\"true\">*</span><span class=\"sr-only\"> (somente horários de chegada)</span>"
+ "ce16eff7c4": "Stockholm<span class=\"no-gps\" aria-hidden=\"true\">*</span><span class=\"sr-only\"> (somente horários de chegada)</span>",
+ "70ad097f49": "Filadélfia"
 }

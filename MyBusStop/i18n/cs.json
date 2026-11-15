@@ -136,5 +136,6 @@
  "4746eb8a0f": "Funguje s Home Assistant?",
  "50e01495cf": "Ano. Nainstaluj bezplatnou kartu My Bus Stop přes HACS, přidej ji na nástěnku a v editoru karty si vyber zastávku a linky. Ukazuje stejnou tabuli s mapou trasy a řídí se světlým nebo tmavým motivem nástěnky. <a href=\"home-assistant/\">Podívej se, jak ji nastavit</a>.",
  "861d362d43": "iPhone, iPad, Mac, Apple Watch, Apple TV a <a href=\"home-assistant/\">Home Assistant</a>",
- "ce16eff7c4": "Stockholm<span class=\"no-gps\" aria-hidden=\"true\">*</span><span class=\"sr-only\"> (pouze časy příjezdů)</span>"
+ "ce16eff7c4": "Stockholm<span class=\"no-gps\" aria-hidden=\"true\">*</span><span class=\"sr-only\"> (pouze časy příjezdů)</span>",
+ "70ad097f49": "Filadelfie"
 }

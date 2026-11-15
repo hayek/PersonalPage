@@ -26,6 +26,8 @@ export const REGIONS = [
     { id: 'US-BOS', name: 'Boston', group: 'North America', providerID: 'mbta', fit: 'full', bounds: [42.0, -71.4, 42.75, -70.75] },
     { id: 'US-MSP', name: 'Minneapolis–St Paul', group: 'North America', providerID: 'metrotransit', fit: 'full', bounds: [44.6, -93.85, 45.35, -92.8] },
     { id: 'CA-TOR', name: 'Toronto', group: 'North America', providerID: 'umo-ttc', fit: 'full', bounds: [43.58, -79.64, 43.86, -79.11] },
+    // Stops and lines from a file on the site, buses straight from SEPTA, timetable minutes through the web relay.
+    { id: 'US-PHL', name: 'Philadelphia', group: 'North America', providerID: 'septa', fit: 'full', bounds: [39.79, -75.85, 40.35, -74.74] },
 
     // Asia
     { id: 'HK-KMB', name: 'Hong Kong — KMB', group: 'Asia', providerID: 'hk-kmb', fit: 'arrivalsOnly', bounds: [22.23, 113.89, 22.56, 114.34] },

@@ -136,5 +136,6 @@
  "4746eb8a0f": "Fonctionne-t-elle avec Home Assistant ?",
  "50e01495cf": "Oui. Installez la carte gratuite My Bus Stop avec HACS, ajoutez-la à un tableau de bord et choisissez votre arrêt et vos lignes dans l'éditeur de la carte. Elle affiche le même tableau, avec le plan de la ligne, et suit le thème clair ou sombre du tableau de bord. <a href=\"home-assistant/\">Voir comment la configurer</a>.",
  "861d362d43": "iPhone, iPad, Mac, Apple Watch, Apple TV et <a href=\"home-assistant/\">Home Assistant</a>",
- "ce16eff7c4": "Stockholm<span class=\"no-gps\" aria-hidden=\"true\">*</span><span class=\"sr-only\"> (horaires uniquement)</span>"
+ "ce16eff7c4": "Stockholm<span class=\"no-gps\" aria-hidden=\"true\">*</span><span class=\"sr-only\"> (horaires uniquement)</span>",
+ "70ad097f49": "Philadelphie"
 }

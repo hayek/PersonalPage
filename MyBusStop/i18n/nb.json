@@ -136,5 +136,6 @@
  "4746eb8a0f": "Fungerer det med Home Assistant?",
  "50e01495cf": "Ja. Installer det gratis My Bus Stop-kortet med HACS, legg det til på et dashbord og velg holdeplass og linjer i kortets redigeringsvindu. Det viser den samme tavlen, med linjekartet, og følger dashbordets lyse eller mørke tema. <a href=\"home-assistant/\">Se hvordan du setter det opp</a>.",
  "861d362d43": "iPhone, iPad, Mac, Apple Watch, Apple TV og <a href=\"home-assistant/\">Home Assistant</a>",
- "ce16eff7c4": "Stockholm<span class=\"no-gps\" aria-hidden=\"true\">*</span><span class=\"sr-only\"> (kun ankomsttider)</span>"
+ "ce16eff7c4": "Stockholm<span class=\"no-gps\" aria-hidden=\"true\">*</span><span class=\"sr-only\"> (kun ankomsttider)</span>",
+ "70ad097f49": "Philadelphia"
 }
