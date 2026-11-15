@@ -23,6 +23,16 @@
    "lede": "Föli-bussen du åker med varje dag på en tavla: hur många minuter det är tills den når din hållplats, och var den är på sin linje just nu.",
    "coverage": "Föli-bussar i Åbo och grannkommunerna S:t Karins, Reso, Nådendal, Lundo och Rusko.",
    "source": "Åbo stad, data.foli.fi (CC BY 4.0)"
+  },
+  "stockholm": {
+   "name": "Stockholm",
+   "in_name": "i Stockholm",
+   "title": "SL-bussar i realtid i Stockholm – avgångar och bussar på kartan | Min hållplats",
+   "description": "SL-bussarnas avgångar i realtid i Stockholm, och var varje buss är just nu. Gratis för iPhone, iPad, Mac, Apple Watch och Apple TV.",
+   "h1": "Bussar i realtid i Stockholm",
+   "lede": "SL-bussen du åker med varje dag på en tavla: minuterna tills den är vid din hållplats, och var den är på sin linje just nu.",
+   "coverage": "SL:s bussar i hela Stockholms län, från innerstadens blåbussar ut till Norrtälje, Södertälje och skärgården.",
+   "source": "SL (Storstockholms Lokaltrafik) via Trafiklab"
   }
  }
 }

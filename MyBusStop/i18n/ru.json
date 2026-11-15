@@ -135,5 +135,6 @@
  "e02a43d899": "Также в <a href=\"web/\">браузере</a> и на панели <a href=\"home-assistant/\">Home Assistant</a>: добавьте бесплатную карточку My Bus Stop и выберите остановку в её редакторе.",
  "4746eb8a0f": "Работает ли оно с Home Assistant?",
  "50e01495cf": "Да. Установите бесплатную карточку My Bus Stop через HACS, добавьте её на панель и выберите остановку и маршруты в редакторе карточки. Она показывает то же табло со схемой маршрута и следует светлой или тёмной теме панели. <a href=\"home-assistant/\">Как её настроить</a>.",
- "861d362d43": "iPhone, iPad, Mac, Apple Watch, Apple TV и <a href=\"home-assistant/\">Home Assistant</a>"
+ "861d362d43": "iPhone, iPad, Mac, Apple Watch, Apple TV и <a href=\"home-assistant/\">Home Assistant</a>",
+ "c62ff645db": "Стокгольм"
 }

@@ -19,6 +19,8 @@ export const REGIONS = [
     { id: 'BE-BRU', name: 'Brussels', group: 'Europe', providerID: 'stib', fit: 'full', bounds: [50.75, 4.24, 50.94, 4.53] },
     { id: 'CH', name: 'Switzerland', group: 'Europe', providerID: 'ch-opendata', fit: 'arrivalsOnly', bounds: [45.8, 5.95, 47.85, 10.5] },
     { id: 'DE-NUE', name: 'Nuremberg', group: 'Europe', providerID: 'vag-nuernberg', fit: 'arrivalsOnly', bounds: [49.33, 10.88, 49.63, 11.22] },
+    // Buses and route shapes stay in the app (Trafiklab's feeds need a key); times and stops are keyless.
+    { id: 'SE-STO', name: 'Stockholm', group: 'Europe', providerID: 'sl', fit: 'arrivalsOnly', bounds: [58.7, 17.2, 60.4, 19.25] },
 
     // North America
     { id: 'US-BOS', name: 'Boston', group: 'North America', providerID: 'mbta', fit: 'full', bounds: [42.0, -71.4, 42.75, -70.75] },

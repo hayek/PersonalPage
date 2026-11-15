@@ -135,5 +135,6 @@
  "e02a43d899": "Ook op het <a href=\"web/\">web</a>, en op een <a href=\"home-assistant/\">Home Assistant</a>-dashboard: voeg de gratis My Bus Stop-kaart toe en kies je halte in de editor van de kaart.",
  "4746eb8a0f": "Werkt het met Home Assistant?",
  "50e01495cf": "Ja. Installeer de gratis My Bus Stop-kaart via HACS, zet hem op een dashboard en kies je halte en lijnen in de editor van de kaart. Hij toont hetzelfde bord, met de routekaart, en volgt het lichte of donkere thema van het dashboard. <a href=\"home-assistant/\">Zo stel je hem in</a>.",
- "861d362d43": "iPhone, iPad, Mac, Apple Watch, Apple TV en <a href=\"home-assistant/\">Home Assistant</a>"
+ "861d362d43": "iPhone, iPad, Mac, Apple Watch, Apple TV en <a href=\"home-assistant/\">Home Assistant</a>",
+ "c62ff645db": "Stockholm"
 }
