@@ -11,6 +11,13 @@
    which moves the next one here. */
 const BLOG_POSTS = [
     {
+        slug: 'codex-usage-limits',
+        title: 'Codex usage limits on ChatGPT plans, explained',
+        date: '2026-11-16',
+        tags: ['pro-tip', 'limits', 'codex'],
+        excerpt: 'The 5-hour and weekly Codex windows on ChatGPT Plus, Pro and Business, how to check your Codex usage, and what to do when you run out.',
+    },
+    {
         slug: 'claude-fable-5-2-launch',
         title: 'Claude Fable 5.2 is here, with extra Fable usage this week',
         date: '2026-11-10',
