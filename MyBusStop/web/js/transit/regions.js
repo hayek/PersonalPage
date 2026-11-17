@@ -21,6 +21,8 @@ export const REGIONS = [
     { id: 'DE-NUE', name: 'Nuremberg', group: 'Europe', providerID: 'vag-nuernberg', fit: 'arrivalsOnly', bounds: [49.33, 10.88, 49.63, 11.22] },
     // Buses and route shapes stay in the app (Trafiklab's feeds need a key); times and stops are keyless.
     { id: 'SE-STO', name: 'Stockholm', group: 'Europe', providerID: 'sl', fit: 'arrivalsOnly', bounds: [58.7, 17.2, 60.4, 19.25] },
+    // Through the web relay, from the app's GTT timetable moved by GTT's realtime; see providers/gtt.js.
+    { id: 'IT-TO', name: 'Turin', group: 'Europe', providerID: 'gtt', fit: 'full', bounds: [44.38, 7.14, 45.56, 8.47] },
 
     // North America
     { id: 'US-BOS', name: 'Boston', group: 'North America', providerID: 'mbta', fit: 'full', bounds: [42.0, -71.4, 42.75, -70.75] },
@@ -35,6 +37,8 @@ export const REGIONS = [
     { id: 'HK-GMB', name: 'Hong Kong — Green Minibus', group: 'Asia', providerID: 'hk-gmb', fit: 'arrivalsOnly', bounds: [22.15, 113.83, 22.57, 114.44] },
     { id: 'HK-NLB', name: 'Hong Kong — NLB (Lantau)', group: 'Asia', providerID: 'hk-nlb', fit: 'arrivalsOnly', bounds: [22.2, 113.83, 22.35, 114.06] },
     { id: 'JP-TYO', name: 'Tokyo', group: 'Asia', providerID: 'odpt-toei', fit: 'full', bounds: [35.52, 139.2, 35.83, 139.93] },
+    // Through the web relay (Taipei's blob store sends no CORS headers); see providers/taipei.js.
+    { id: 'TW-TPE', name: 'Taipei', group: 'Asia', providerID: 'taipei', fit: 'full', bounds: [24.9, 121.35, 25.3, 121.7] },
 ];
 
 /** Anywhere else: times from Transitous, no buses on the map. */
