@@ -23,6 +23,16 @@
    "lede": "Gli autobus di tutto il paese su un unico tabellone: i minuti che mancano all'arrivo del tuo bus alla fermata, con i ritardi in tempo reale dove l'azienda di trasporto li comunica.",
    "coverage": "Autobus in tutta la Svizzera, da AutoPostale alle reti urbane come VBZ a Zurigo, TPG a Ginevra, BVB a Basilea e Bernmobil.",
    "source": "transport.opendata.ch (search.ch)"
+  },
+  "turin": {
+   "name": "Torino",
+   "in_name": "a Torino",
+   "title": "Bus GTT in tempo reale a Torino – arrivi e posizione | La mia fermata",
+   "description": "Arrivi in tempo reale di bus e tram GTT a Torino, e dove si trova ogni mezzo sul suo percorso in questo momento. Gratis per iPhone, iPad, Mac, Apple Watch e Apple TV.",
+   "h1": "Autobus in tempo reale a Torino",
+   "lede": "Il bus o il tram GTT che prendi ogni giorno su un unico tabellone: i minuti che mancano all'arrivo alla tua fermata, e dove si trova sul percorso in questo momento.",
+   "coverage": "Bus e tram GTT a Torino e nella cintura, con orari e posizioni in tempo reale. I bus extraurbani GTT in provincia sono mostrati secondo l'orario.",
+   "source": "GTT – Gruppo Torinese Trasporti (CC BY-NC 4.0)"
   }
  }
 }

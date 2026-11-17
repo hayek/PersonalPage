@@ -33,6 +33,16 @@
    "lede": "Nysse-bussi, jolla kuljet joka päivä, yhdellä taululla: montako minuuttia on siihen, kun se saapuu pysäkillesi, ja missä se on reitillään juuri nyt.",
    "coverage": "Nyssen bussit Tampereella ja ympäryskunnissa.",
    "source": "Tampereen seudun joukkoliikenne (Nysse) / ITS Factory Journeys API (CC BY 4.0)"
+  },
+  "helsinki": {
+   "name": "Helsingin seutu",
+   "in_name": "Helsingin seudulla",
+   "title": "HSL:n bussit reaaliajassa Helsingissä – saapumisajat | Oma pysäkki",
+   "description": "HSL:n bussit ja raitiovaunut reaaliajassa Helsingissä, Espoossa ja Vantaalla: saapumisajat ja missä kukin on reitillään juuri nyt. Ilmainen iPhonelle, iPadille, Macille, Apple Watchille ja Apple TV:lle.",
+   "h1": "Bussit reaaliajassa Helsingissä",
+   "lede": "HSL:n bussi tai ratikka, jolla kuljet joka päivä, yhdellä taululla: montako minuuttia on siihen, kun se saapuu pysäkillesi, ja missä se on reitillään juuri nyt.",
+   "coverage": "HSL:n bussit ja raitiovaunut Helsingissä, Espoossa, Vantaalla, Kauniaisissa, Keravalla, Sipoossa, Kirkkonummella, Tuusulassa ja Siuntiossa. Metro, junat ja lautat eivät ole mukana.",
+   "source": "HSL Digitransitin kautta (CC BY 4.0)"
   }
  }
 }

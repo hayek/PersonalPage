@@ -17,10 +17,10 @@
   "ljubljana": {
    "name": "Ljubljana",
    "in_name": "v Ljubljani",
-   "title": "Prihodi avtobusov LPP v živo v Ljubljani | Moja postaja",
-   "description": "Prihodi avtobusov LPP v živo na tvoji postaji v Ljubljani, z odštevanjem do naslednjega avtobusa. Brezplačno za iPhone, iPad, Mac, Apple Watch in Apple TV.",
-   "h1": "Prihodi avtobusov v živo v Ljubljani",
-   "lede": "Avtobusi LPP, s katerimi se voziš vsak dan, na enem prikazovalniku: kdaj pride avtobus, z odštevanjem v živo do naslednjega in tistega za njim.",
+   "title": "Avtobusi LPP v živo v Ljubljani – prihodi in lokacija | Moja postaja",
+   "description": "Prihodi avtobusov LPP v živo v Ljubljani in kje je vsak avtobus na svoji progi prav zdaj. Brezplačno za iPhone, iPad, Mac, Apple Watch in Apple TV.",
+   "h1": "Avtobusi v živo v Ljubljani",
+   "lede": "Avtobus LPP, s katerim se voziš vsak dan, na enem prikazovalniku: koliko minut še do tvoje postaje in kje je na svoji progi prav zdaj.",
    "coverage": "Mestni avtobusi LPP po vsej Ljubljani.",
    "source": "LPP d.o.o. (data.lpp.si)"
   }

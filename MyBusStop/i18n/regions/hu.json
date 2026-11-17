@@ -1,0 +1,28 @@
+{
+ "cities": "Városok",
+ "what_h2": "Amit látsz {in_region}",
+ "fit_full": "Élő érkezési idők és élő buszpozíciók: minden busz a saját útvonalán halad a táblán, ahogy jelenti, hol jár, és a percek visszaszámolnak a megállódig.",
+ "fit_arrivals": "Élő érkezési idők, visszaszámlálva a megállódig. Az itteni buszok nem osztják meg a helyzetüket, így a tábla a perceket mutatja, mozgó buszok nélkül.",
+ "coverage_h3": "Mely járatok",
+ "source_h3": "Honnan jönnek az idők",
+ "source_p": "Egyenesen a(z) {source} által közzétett nyílt adatokból. A Megállóm független alkalmazás; nem közlekedési szolgáltató vagy üzemeltető készítette, és egyik sem hagyta jóvá.",
+ "web_p": "Számítógépnél ülsz? <a href=\"{web}\">Nyisd meg a Megállómat a weben</a>, ingyen és letöltés nélkül.",
+ "faq_official_q": "Ez egy hivatalos közlekedési alkalmazás?",
+ "faq_official_a": "Nem. A Megállóm független alkalmazás. A(z) {source} által közzétett nyílt adatokat mutatja, és nem közlekedési szolgáltató vagy üzemeltető készítette, és egyik sem hagyta jóvá.",
+ "faq_cover_q": "Mely járatokat mutatja {in_region}?",
+ "faq_web_q": "Használhatom számítógépen?",
+ "faq_web_a": "Igen. Nyisd meg a Megállómat a weben bármilyen böngészőben, ingyen és regisztráció nélkül. Az alkalmazásban ezen felül ott a fali mód, a widgetek, az Apple Watch és az Apple TV.",
+ "other_h2": "Élő buszidők más városokban",
+ "regions": {
+  "budapest": {
+   "name": "Budapest",
+   "in_name": "Budapesten",
+   "title": "BKK járatok élőben Budapesten – érkezések és járatkövetés | Megállóm",
+   "description": "A BKK buszainak, villamosainak és trolibuszainak élő érkezési ideje Budapesten, és hogy merre jár éppen mindegyik. Ingyenes iPhone-ra, iPadre, Macre, Apple Watchra és Apple TV-re.",
+   "h1": "Élő buszidők Budapesten",
+   "lede": "A busz, villamos vagy troli, amellyel minden nap utazol, egyetlen táblán: hány perc múlva ér a megállódhoz, és hol jár most az útvonalán.",
+   "coverage": "A BKK buszai, villamosai és trolibuszai Budapesten és az elővárosokban, ameddig a vonalai elérnek.",
+   "source": "BKK Zrt. (CC BY 4.0)"
+  }
+ }
+}

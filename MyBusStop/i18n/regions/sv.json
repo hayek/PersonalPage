@@ -27,12 +27,42 @@
   "stockholm": {
    "name": "Stockholm",
    "in_name": "i Stockholm",
-   "title": "SL-bussar i realtid i Stockholm – avgångar | Min hållplats",
-   "description": "SL-bussarnas avgångar i realtid i Stockholm, med nedräkning till nästa buss. Gratis för iPhone, iPad, Mac, Apple Watch och Apple TV.",
+   "title": "SL-bussar i realtid i Stockholm – avgångar och bussarnas läge | Min hållplats",
+   "description": "SL-bussarnas avgångar i realtid i Stockholm, och var varje buss är på sin linje just nu. Gratis för iPhone, iPad, Mac, Apple Watch och Apple TV.",
    "h1": "Bussar i realtid i Stockholm",
-   "lede": "SL-bussen du åker med varje dag på en tavla, med avgångar i realtid som räknar ner till nästa buss och den efter.",
+   "lede": "SL-bussen du åker med varje dag på en tavla: avgångar i realtid som räknar ner till din hållplats, och var bussen är på sin linje just nu.",
    "coverage": "SL:s bussar i hela Stockholms län, från innerstadens blåbussar ut till Norrtälje, Södertälje och skärgården.",
    "source": "SL (Storstockholms Lokaltrafik) via Trafiklab"
+  },
+  "helsinki": {
+   "name": "Helsingforsregionen",
+   "in_name": "i Helsingforsregionen",
+   "title": "HRT:s bussar i realtid i Helsingfors – ankomsttider | Min hållplats",
+   "description": "HRT:s bussar och spårvagnar i realtid i Helsingfors, Esbo och Vanda: ankomsttider och var varje fordon är på sin linje just nu. Gratis för iPhone, iPad, Mac, Apple Watch och Apple TV.",
+   "h1": "Bussar i realtid i Helsingfors",
+   "lede": "HRT-bussen eller spårvagnen du åker med varje dag på en tavla: hur många minuter det är tills den når din hållplats, och var den är på sin linje just nu.",
+   "coverage": "HRT:s bussar och spårvagnar i Helsingfors, Esbo, Vanda, Grankulla, Kervo, Sibbo, Kyrkslätt, Tusby och Sjundeå. Metron, tågen och färjorna ingår inte.",
+   "source": "HRT via Digitransit (CC BY 4.0)"
+  },
+  "gothenburg": {
+   "name": "Göteborg",
+   "in_name": "i Göteborg",
+   "title": "Västtrafiks bussar i realtid i Göteborg – avgångar | Min hållplats",
+   "description": "Västtrafiks bussar och spårvagnar i realtid i Göteborg och hela Västra Götaland: avgångar och var varje fordon är på sin linje. Gratis för iPhone, iPad, Mac, Apple Watch och Apple TV.",
+   "h1": "Bussar i realtid i Göteborg",
+   "lede": "Bussen eller spårvagnen du åker med varje dag på en tavla: avgångar i realtid som räknar ner till din hållplats, och var den är på sin linje.",
+   "coverage": "Västtrafiks bussar och spårvagnar i Göteborg och hela Västra Götaland, från Borås och Trollhättan till Skövde. Positionerna är Västtrafiks egna uppskattningar längs linjen.",
+   "source": "Västtrafik (CC0)"
+  },
+  "sweden": {
+   "name": "Sverige",
+   "in_name": "i Sverige",
+   "title": "Bussar i realtid i Sverige – Skåne, Uppsala, Örebro med flera | Min hållplats",
+   "description": "Bussar i realtid i femton svenska län, från Skånetrafiken i Malmö till UL i Uppsala och X-trafik i Gävle, och var varje buss är just nu. Gratis för iPhone, iPad, Mac, Apple Watch och Apple TV.",
+   "h1": "Bussar i realtid i hela Sverige",
+   "lede": "Bussar i femton svenska län på en tavla: hur många minuter det är tills din buss når hållplatsen, och var den är på sin linje just nu.",
+   "coverage": "Bussar från femton regionala trafikbolag: Skånetrafiken, UL (Uppsala), Östgötatrafiken, Jönköpings Länstrafik, Länstrafiken Kronoberg, Kalmar Länstrafik, Kollektivtrafiken Gotland, Blekingetrafiken, Värmlandstrafik, Länstrafiken Örebro, VL (Västmanland), Dalatrafik, X-trafik, Din Tur och Hallandstrafiken. I Halland rör sig bussarna på kartan, men tiderna är tidtabellens. Stockholm och Göteborg har egna sidor.",
+   "source": "Samtrafiken via Trafiklab.se (CC0), tillsammans med varje läns trafikbolag"
   }
  }
 }
