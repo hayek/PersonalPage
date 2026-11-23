@@ -11,6 +11,13 @@
    which moves the next one here. */
 const BLOG_POSTS = [
     {
+        slug: 'chatgpt-pro-100-vs-200-vs-500',
+        title: 'ChatGPT Pro 100 vs 200 vs 500: how much Codex usage each tier gets',
+        date: '2026-11-23',
+        tags: ['pro-tip', 'limits', 'plans', 'codex'],
+        excerpt: 'What OpenAI says about the Codex and Work allowance on the $100, $200 and $500 Pro tiers, the recent doubling, the missing 5-hour limit, Ultrafast and which tier to pick.',
+    },
+    {
         slug: 'codex-usage-limits',
         title: 'Codex usage limits on ChatGPT plans, explained',
         date: '2026-11-16',
