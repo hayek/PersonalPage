@@ -11,6 +11,13 @@
    which moves the next one here. */
 const BLOG_POSTS = [
     {
+        slug: 'claude-peak-hours',
+        title: 'Does Claude use up your limit faster during peak hours?',
+        date: '2026-11-24',
+        tags: ['pro-tip', 'limits'],
+        excerpt: 'Anthropic removed the peak-hours limit reduction for Claude Code on Pro and Max in May. What\'s known about peak hours for claude.ai chat, your weekly limit and Ultra.',
+    },
+    {
         slug: 'chatgpt-pro-100-vs-200-vs-500',
         title: 'ChatGPT Pro 100 vs 200 vs 500: how much Codex usage each tier gets',
         date: '2026-11-23',

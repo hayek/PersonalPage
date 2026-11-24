@@ -3,6 +3,22 @@
   "alerts": [
     {
       "enabled": true,
+      "startDate": "2026-11-24",
+      "endDate": "2026-11-27",
+      "startHour": null,
+      "endHour": null,
+      "days": null,
+      "timezone": null,
+      "icon": "clock.fill",
+      "badgeIcon": "clock.fill",
+      "severity": "low",
+      "text": "Does Claude use up your limit faster at peak hours?",
+      "dashboardText": "Anthropic removed the peak-hours limit reduction for Claude Code on Pro and Max in May. What's known about chat, weekly limits and Ultra. Tap to read more.",
+      "url": "https://amirhayek.dev/ClaudeUsage/blog/claude-peak-hours.html",
+      "type": "news"
+    },
+    {
+      "enabled": true,
       "startDate": null,
       "endDate": "2026-11-12",
       "startHour": null,

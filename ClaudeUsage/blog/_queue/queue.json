@@ -64,6 +64,16 @@
       ],
       "excerpt": "What OpenAI says about the Codex and Work allowance on the $100, $200 and $500 Pro tiers, the recent doubling, the missing 5-hour limit, Ultrafast and which tier to pick.",
       "published": "2026-11-23"
+    },
+    {
+      "slug": "claude-peak-hours",
+      "title": "Does Claude use up your limit faster during peak hours?",
+      "tags": [
+        "pro-tip",
+        "limits"
+      ],
+      "excerpt": "Anthropic removed the peak-hours limit reduction for Claude Code on Pro and Max in May. What's known about peak hours for claude.ai chat, your weekly limit and Ultra.",
+      "published": "2026-11-24"
     }
   ]
 }
