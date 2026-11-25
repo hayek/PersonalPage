@@ -10,7 +10,7 @@
 // rather than on the public line number (which the `…A`/`…T` variants share with their base line).
 
 import { Capability, TransitError, compareLineNames, fold, makeLine, meters, modeFromRouteType } from '../model.js';
-import { ResponseError, getJSON, staticData } from '../http.js';
+import { ResponseError, getJSON, memo, staticData } from '../http.js';
 
 const BASE = 'https://data.foli.fi';
 const HOUR = 3600_000;
@@ -265,7 +265,8 @@ const provider = {
     async arrivals(line, stop) {
         const { route, direction } = refsOf(line);
         const url = `${BASE}/siri/sm/${encodeURIComponent(stop.code)}`;
-        const response = await getJSON(url);
+        // The reply covers every line at the stop: the stop card and line picker ask line by line.
+        const response = await memo(`foli:sm:${stop.code}`, 10_000, () => getJSON(url));
         // When the SIRI back end is down the reply is `"status":"NO_SIRI_DATA"` with an empty result
         // (documented at data.foli.fi/doc/siri/v0/sm) — an outage, not a stop with no buses due.
         if (response.status && response.status !== 'OK') {

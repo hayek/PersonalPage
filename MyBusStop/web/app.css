@@ -492,10 +492,27 @@ h1, .row-title, .count-title {
 .chip-variant { font-family: var(--mono); font-weight: 700; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; line-height: 1.35; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .chip:not(.chip-on) .chip-dest { color: var(--secondary); }
 .chip-check {
-    position: absolute; top: 10px; right: 10px; width: 26px; height: 26px; border-radius: 50%;
+    width: 26px; height: 26px; border-radius: 50%;
     background: currentColor; display: inline-flex; align-items: center; justify-content: center;
 }
 .chip-check .icon { color: var(--check); }
+/* The top corner: the line's next bus, and the check under it once the line is picked. */
+.chip-corner { position: absolute; top: 10px; right: 10px; display: flex; flex-direction: column; align-items: flex-end; gap: 4px; }
+.chip-eta { display: flex; flex-direction: column; align-items: flex-end; line-height: 1; white-space: nowrap; }
+.chip-eta b { font-weight: 900; font-stretch: 108%; font-size: 20px; font-variant-numeric: tabular-nums; }
+.chip-eta small { font-family: var(--mono); font-weight: 700; font-size: 10px; letter-spacing: 0.08em; margin-top: 2px; }
+.chip-eta-scheduled { opacity: 0.6; }
+@media (min-width: 900px) {
+    .chip-corner { top: 14px; right: 14px; }
+    .chip-eta { flex-direction: row; align-items: baseline; gap: 4px; }
+    .chip-eta b { font-size: 26px; }
+    .chip-eta small { font-size: 11px; margin-top: 0; }
+}
+/* Tall enough on a phone for the time and the check to stack clear of the ⓘ in the bottom corner. */
+.chip-timed { min-height: 124px; }
+.chip-timed .chip-number { max-width: calc(100% - 44px); }
+.chip-timed .chip-top { max-width: calc(100% - 44px); }
+@media (min-width: 900px) { .chip-timed { min-height: 150px; } .chip-timed .chip-number, .chip-timed .chip-top { max-width: calc(100% - 80px); } }
 
 .lines-foot {
     position: sticky;
@@ -721,7 +738,16 @@ body.wall .minutes b { font-size: clamp(96px, 16vw, 220px); }
 .stop-card-section { display: flex; flex-direction: column; gap: 10px; }
 .stop-card-label { font-family: var(--mono); font-weight: 700; font-size: 11px; letter-spacing: 0.22em; color: var(--dim); }
 .stop-card-line-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
-.stop-card-line { display: flex; align-items: center; gap: 12px; min-width: 0; }
+.stop-card-line { display: flex; align-items: center; gap: 12px; min-width: 0; min-height: 52px; }
+.stop-card-line + .stop-card-line { border-top: 1px solid var(--card-outline); padding-top: 8px; }
+.stop-card-line-text { flex: 1; min-width: 0; display: flex; align-items: center; gap: 12px; }
+/* When the line's next bus comes: "4 MIN" over "THEN 12", or SCHEDULED for a timetable time. */
+.stop-card-eta { flex: none; display: flex; flex-direction: column; align-items: flex-end; justify-content: center; gap: 3px; white-space: nowrap; }
+.eta-main { display: flex; align-items: baseline; gap: 4px; line-height: 1; }
+.eta-main b { font-weight: 900; font-stretch: 110%; font-size: 26px; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
+.eta-main small { font-family: var(--mono); font-weight: 700; font-size: 11px; letter-spacing: 0.1em; color: var(--secondary); }
+.eta-then, .eta-tag, .eta-quiet { font-family: var(--mono); font-weight: 700; font-size: 10px; letter-spacing: 0.14em; color: var(--secondary); }
+.eta-tag { color: var(--dim); }
 .stop-card-towards { flex: 1; min-width: 0; font-family: var(--mono); font-weight: 700; font-size: 13px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--secondary); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .stop-card-tag { font-family: var(--mono); font-weight: 700; font-size: 10px; letter-spacing: 0.18em; color: var(--live); flex: none; }
 .stop-card-quiet { display: flex; align-items: center; gap: 10px; font-family: var(--mono); font-weight: 700; font-size: 12px; letter-spacing: 0.12em; color: var(--secondary); }

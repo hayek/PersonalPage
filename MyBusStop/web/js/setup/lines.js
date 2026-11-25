@@ -1,5 +1,6 @@
 // PICK UP TO 3 LINES TO WATCH: every line that calls at the stop, as chips. A line whose road can
 // be drawn has an ⓘ in its chip's corner, which opens its card: the route on a map and its stops.
+// Each chip counts down its line's next bus in its top corner once the feed has said when it comes.
 
 import { h, icon, lineKey, isLightTheme, colorIndexFor, modeGlyph } from '../ui.js';
 import { store } from '../storage.js';
@@ -10,6 +11,7 @@ import { picking } from '../embed.js';
 import { friendly } from './stops.js';
 import { hasRouteShape } from '../transit/shapes/route-shape.js';
 import { showLineCard, closeLineCard } from '../board/line-card.js';
+import { hasArrivals, nextBus, pollArrivals } from '../transit/stop-arrivals.js';
 
 const MAX_LINES = 3;
 
@@ -36,11 +38,28 @@ function chipName(line) {
     caption];
 }
 
+/**
+ * "4 MIN", counting down as the board does; the unit under the figure, leaving the line's number its
+ * width. A timetable time is set fainter, as it is only what the timetable says. A dash when nothing is due.
+ */
+function chipETA(next) {
+    if (!next) return [h('b', { 'aria-label': 'No buses due' }, '–')];
+    const parts = [h('b', {}, next.figure), next.unit ? h('small', {}, next.unit) : null];
+    if (!next.isRealtime) parts.push(h('span', { class: 'visually-hidden' }, ' scheduled'));
+    return parts;
+}
+
 export function showLines(root) {
     const { provider, stop, region } = session;
     const selected = [];
     let lines = [];
     let cancelled = false;
+    /** Each line's next arrivals at this stop, by id; null until they are in, or where the feed has no times. */
+    let arrivals = null;
+    /** The chips' countdowns, by line id, redrawn every second without rebuilding the grid. */
+    const etaSlots = new Map();
+    let stopPolling = () => {};
+    let ticker = null;
 
     const grid = h('div', { class: 'chips' }, h('p', { class: 'status' }, 'LOADING LINES…'));
     const countText = h('p', { class: 'count-title' });
@@ -61,16 +80,32 @@ export function showLines(root) {
         return assignLineColors(persisted, ids, preferred);
     }
 
+    function drawETAs() {
+        const now = Date.now();
+        for (const [id, el] of etaSlots) {
+            const next = nextBus(arrivals?.get(id), now);
+            el.replaceChildren(...chipETA(next));
+            el.classList.toggle('chip-eta-scheduled', next?.isRealtime === false);
+        }
+    }
+
     function render() {
         const assigned = colors();
         const light = isLightTheme();
+        etaSlots.clear();
         grid.replaceChildren(...lines.map((line) => {
             const index = selected.findIndex((l) => l.id === line.id);
             const on = index >= 0;
             const color = on ? assigned[line.id] ?? colorIndexFor(provider.id, line) : null;
             const full = !on && selected.length >= MAX_LINES;
+            const eta = arrivals ? h('span', { class: 'chip-eta' }) : null;
+            if (eta) etaSlots.set(line.id, eta);
+            // The next bus in the corner, the check under it, so the time stays put when the line is picked.
+            const corner = eta || on ? h('span', { class: 'chip-corner' },
+                eta,
+                on ? h('span', { class: 'chip-check', style: { '--check': railColor(color, light) } }, icon('check', 16)) : null) : null;
             const chip = h('button', {
-                class: `chip${on ? ' chip-on' : ''}`, 'aria-pressed': String(on), disabled: full,
+                class: `chip${on ? ' chip-on' : ''}${eta ? ' chip-timed' : ''}`, 'aria-pressed': String(on), disabled: full,
                 style: on ? { background: railColor(color, light), color: numeralColor(color, light), borderColor: railColor(color, light) } : null,
                 onclick: () => {
                     if (on) selected.splice(index, 1);
@@ -79,7 +114,7 @@ export function showLines(root) {
                 },
             },
             ...chipName(line),
-            on ? h('span', { class: 'chip-check', style: { '--check': railColor(color, light) } }, icon('check', 16)) : null);
+            corner);
             if (!hasRouteShape(provider, line)) return chip;
             // Beside the chip's button rather than inside it: the chip picks the line, the ⓘ opens its card.
             const about = h('button', {
@@ -89,6 +124,7 @@ export function showLines(root) {
             }, icon('info', 20));
             return h('div', { class: 'chip-item' }, chip, about);
         }));
+        drawETAs();
         countText.textContent = `${selected.length} OF ${MAX_LINES} SELECTED`;
         countHint.textContent = selected.length === 0 ? 'TAP A LINE TO WATCH IT'
             : selected.length < MAX_LINES ? `ADD ${MAX_LINES - selected.length} MORE` : 'THAT’S THE MOST A BOARD SHOWS';
@@ -137,6 +173,16 @@ export function showLines(root) {
             return;
         }
         render();
+        // Every line's next bus, asked again at the board's pace while the grid is up.
+        if (hasArrivals(provider)) {
+            stopPolling = pollArrivals(provider, stop, lines, (found) => {
+                if (cancelled) return;
+                const first = !arrivals;
+                arrivals = found;
+                if (first) render(); else drawETAs();
+            });
+            ticker = setInterval(() => { if (arrivals && !document.hidden) drawETAs(); }, 1000);
+        }
     }).catch((error) => {
         if (cancelled) return;
         grid.replaceChildren(h('p', { class: 'status status-error' }, friendly(error)));
@@ -144,5 +190,5 @@ export function showLines(root) {
     show.disabled = true;
     clear.disabled = true;
 
-    return () => { cancelled = true; closeLineCard(); };
+    return () => { cancelled = true; stopPolling(); clearInterval(ticker); closeLineCard(); };
 }

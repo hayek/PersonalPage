@@ -8,8 +8,8 @@
 // - `/route-stop` — every stop of every route: ~390 KB brotli (3 MB JSON). Lines at a stop.
 // plus `/route` (~40 KB brotli, 350 KB JSON) for termini. What is kept is a trimmed copy of each.
 //
-// Stop ids are 16-hex strings with no public meaning; the English name usually ends in the stop's
-// signpost code ("NELSON STREET MONG KOK (MK515)"), so searching for "MK515" also finds it.
+// Stop ids are 16-hex strings with no public meaning. The English names used to end in the stop's
+// signpost code ("NELSON STREET MONG KOK (MK515)"); KMB took the codes out in November 2026.
 // A line is route + bound (O/I) + `service_type` — the latter numbers KMB's special variants of a route.
 //
 // Names follow the name language (hk-shared.js): English (upper case, as published), or the
@@ -145,6 +145,28 @@ function linesAt(code, index, routes) {
         .sort(compareHKLines);
 }
 
+/** How many of the nearest stops have their ETA board asked when the dumps are refused. */
+const ETA_FALLBACK_STOPS = 8;
+
+/**
+ * The dumps sit behind a touchy firewall. Without them, a stop's own ETA board still names every
+ * route that has a bus coming — just not ones that have finished for the day.
+ */
+async function etaLines(code) {
+    const response = await getJSON(`${BASE}/stop-eta/${encodeURIComponent(code)}`);
+    const lines = (response.data ?? [])
+        .filter((eta) => eta.route && eta.dir && eta.service_type != null)
+        .map((eta) => {
+            const destination = pick(eta.dest_en, eta.dest_tc, eta.dest_sc);
+            return makeLine({
+                id: `${eta.route}|${eta.dir}|${eta.service_type}`, shortName: eta.route, headsign: destination,
+                agency: 'KMB', destination,
+                providerRefs: { route: eta.route, bound: eta.dir, serviceType: String(eta.service_type) },
+            });
+        });
+    return uniqueBy(lines, (line) => line.id);
+}
+
 // ---------------------------------------------------------------------------------------------
 
 /** @type {import('../model.js').TransitProvider} */
@@ -183,20 +205,7 @@ export default {
             const [index, routes] = await Promise.all([routeStops(), routeList()]);
             return linesAt(stop.code, index, routes);
         } catch {
-            // The dumps sit behind a touchy firewall. Without them, the stop's own ETA board still
-            // names every route that has a bus coming — just not ones that have finished for the day.
-            const response = await getJSON(`${BASE}/stop-eta/${encodeURIComponent(stop.code)}`);
-            const lines = (response.data ?? [])
-                .filter((eta) => eta.route && eta.dir && eta.service_type != null)
-                .map((eta) => {
-                    const destination = pick(eta.dest_en, eta.dest_tc, eta.dest_sc);
-                    return makeLine({
-                        id: `${eta.route}|${eta.dir}|${eta.service_type}`, shortName: eta.route, headsign: destination,
-                        agency: 'KMB', destination,
-                        providerRefs: { route: eta.route, bound: eta.dir, serviceType: String(eta.service_type) },
-                    });
-                });
-            return uniqueBy(lines, (line) => line.id);
+            return etaLines(stop.code);
         }
     },
 
@@ -257,16 +266,28 @@ export default {
             .sort((a, b) => a.expectedAt - b.expectedAt);
     },
 
+    /**
+     * Stops from the stop list; their lines from the route-stop dump, or — when the firewall refuses
+     * it, as it does from many networks (Hong Kong's included, 2026-11-25) — from the ETA boards of
+     * the nearest few, so the stops still come back instead of the whole answer failing.
+     */
     async stopsNearby(point, radiusMeters) {
-        const [all, index, routes] = await Promise.all([allStops(), routeStops(), routeList()]);
-        return all.list
-            .map((entry) => {
-                const distanceMeters = meters(point, entry.location);
-                return distanceMeters <= radiusMeters
-                    ? { stop: toStop(entry), distanceMeters, lines: linesAt(entry.code, index, routes) }
-                    : null;
-            })
-            .filter(Boolean)
+        const all = await allStops();
+        const near = all.list
+            .map((entry) => ({ entry, distanceMeters: meters(point, entry.location) }))
+            .filter((found) => found.distanceMeters <= radiusMeters)
             .sort((a, b) => a.distanceMeters - b.distanceMeters);
+        if (!near.length) return [];
+        let lines;
+        try {
+            const [index, routes] = await Promise.all([routeStops(), routeList()]);
+            lines = (code) => linesAt(code, index, routes);
+        } catch {
+            const boarded = await Promise.all(near.slice(0, ETA_FALLBACK_STOPS)
+                .map(({ entry }) => etaLines(entry.code).catch(() => []).then((found) => [entry.code, found])));
+            const byCode = new Map(boarded);
+            lines = (code) => byCode.get(code) ?? [];
+        }
+        return near.map(({ entry, distanceMeters }) => ({ stop: toStop(entry), distanceMeters, lines: lines(entry.code) }));
     },
 };

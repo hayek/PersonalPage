@@ -8,7 +8,7 @@
 // `vehicle-activity` counts from one ("1"/"2") — checked against origin/destination stops.
 
 import { Capability, TransitError, compareLineNames, makeLine, meters } from '../model.js';
-import { getJSON, zonedTime } from '../http.js';
+import { getJSON, memo, zonedTime } from '../http.js';
 import { UNKNOWN_DAYS, fromDates, serviceDates, weekdayOf } from '../service-days.js';
 
 const BASE = 'https://data.itsfactory.fi/journeys/api/1';
@@ -268,7 +268,8 @@ const provider = {
 
     async arrivals(line, stop) {
         const { name, direction } = refsOf(line);
-        const response = await getJSON(`${BASE}/stop-monitoring`, { query: { stops: stop.code } });
+        // The reply covers every line at the stop: the stop card and line picker ask line by line.
+        const response = await memo(`tampere:sm:${stop.code}`, 10_000, () => getJSON(`${BASE}/stop-monitoring`, { query: { stops: stop.code } }));
         const out = [];
         for (const visit of response.body?.[stop.code] ?? []) {
             if (visit.lineRef !== name || visit.directionRef !== direction) continue;

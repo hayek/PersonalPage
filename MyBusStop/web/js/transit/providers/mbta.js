@@ -3,13 +3,13 @@
 //
 // Keyless use is capped at 20 requests/minute per IP (a free key lifts it to 1000/min, but the web
 // version holds no keys), so every method here is a single request and the board's poll — vehicles
-// plus predictions — costs two. In a browser the cap is the rider's own IP. Stop ids are the public
+// plus the stop's predictions, shared by its lines — costs two. In a browser the cap is the rider's own IP. Stop ids are the public
 // stop numbers printed on the signs. Every endpoint answers CORS with `*`.
 // Licence: MassDOT Developers License Agreement — the app must credit MassDOT as the data provider.
 // Bus only: stops and lines are filtered to `route_type` 3.
 
 import { Capability, TransitError, fold, makeLine, meters, modeFromRouteType, stopAddress } from '../model.js';
-import { getJSON, staticData } from '../http.js';
+import { getJSON, memo, staticData } from '../http.js';
 import { decodePolyline } from '../shapes/polyline.js';
 import { UNKNOWN_DAYS, fromDates, serviceDates, weekdayOf } from '../service-days.js';
 
@@ -192,18 +192,25 @@ async function servingLines(stopIDs) {
     return result;
 }
 
+/**
+ * The timetable, for a line with no predictions: the stop's next departures on every bus line in one
+ * request, kept five minutes (a timetable does not move), so a quiet stop's lines share it.
+ */
 async function scheduled(r, stop) {
     const day = serviceDay();
-    const response = await get('/schedules', {
-        'filter[stop]': stop.code, 'filter[route]': r.route, 'filter[direction_id]': r.direction,
+    const response = await memo(`mbta:schedules:${stop.code}:${day.date}`, 5 * 60_000, () => get('/schedules', {
+        'filter[stop]': stop.code, 'filter[route_type]': String(BUS_ROUTE_TYPE),
         'filter[date]': day.date, 'filter[min_time]': day.minTime,
-        'fields[schedule]': 'arrival_time,departure_time',
-        sort: 'departure_time', 'page[limit]': '10',
-    });
+        'fields[schedule]': 'arrival_time,departure_time,direction_id',
+        sort: 'departure_time', 'page[limit]': '150',
+    }));
+    const now = Date.now();
     const visits = [];
     for (const schedule of response.data ?? []) {
+        if (ids(schedule, 'route')[0] !== r.route || String(schedule.attributes?.direction_id) !== String(r.direction)) continue;
         const at = time(schedule.attributes);
-        if (!at) continue;
+        if (!at || at < now - 60_000) continue;
+        if (visits.length >= 10) break;
         visits.push({
             arrival: { expectedAt: at, scheduledAt: at, isRealtime: false, tripId: ids(schedule, 'trip')[0] ?? null },
             boardable: schedule.attributes.departure_time != null,
@@ -376,18 +383,21 @@ export default {
      */
     async arrivals(line, stop) {
         const r = ref(line);
-        const response = await get('/predictions', {
-            'filter[stop]': stop.code, 'filter[route]': r.route, 'filter[direction_id]': r.direction,
+        // One request for every bus line at the stop, kept 10 s and filtered here: the board's lines,
+        // the stop card's and the line picker's all share it, well inside the keyless 20 a minute.
+        const response = await memo(`mbta:predictions:${stop.code}`, 10_000, () => get('/predictions', {
+            'filter[stop]': stop.code, 'filter[route_type]': String(BUS_ROUTE_TYPE),
             include: 'schedule,vehicle',
-            'fields[prediction]': 'arrival_time,departure_time,schedule_relationship',
+            'fields[prediction]': 'arrival_time,departure_time,schedule_relationship,direction_id',
             'fields[schedule]': 'arrival_time,departure_time',
             'fields[vehicle]': 'latitude,longitude',
-        });
+        }));
         const included = index(response.included);
         const predicted = [];
         for (const prediction of response.data ?? []) {
             const a = prediction.attributes;
             if (!a || ['CANCELLED', 'SKIPPED'].includes(a.schedule_relationship ?? '')) continue;
+            if (ids(prediction, 'route')[0] !== r.route || String(a.direction_id) !== String(r.direction)) continue;
             const expectedAt = time(a);
             if (!expectedAt) continue;
             const scheduleID = ids(prediction, 'schedule')[0];

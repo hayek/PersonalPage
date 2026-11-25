@@ -14,7 +14,7 @@
 // Milchbuck"), and one number may give several lines when trips short-turn.
 
 import { Capability, TransitError, makeLine, meters } from '../model.js';
-import { getJSON } from '../http.js';
+import { getJSON, memo } from '../http.js';
 
 const BASE = 'https://transport.opendata.ch/v1';
 
@@ -49,7 +49,9 @@ function board(stationID, types, limit, fields) {
     params.append('limit', String(limit));
     for (const t of types) params.append('transportations[]', t);
     for (const f of fields) params.append('fields[]', f);
-    return getJSON(`${BASE}/stationboard?${params}`).then((b) => ({ station: b?.station ?? null, stationboard: b?.stationboard ?? [] }));
+    // Kept 10 s: the reply covers every line of those modes, and the stop card asks line by line.
+    return memo(`ch-opendata:${params}`, 10_000, () => getJSON(`${BASE}/stationboard?${params}`))
+        .then((b) => ({ station: b?.station ?? null, stationboard: b?.stationboard ?? [] }));
 }
 
 /**

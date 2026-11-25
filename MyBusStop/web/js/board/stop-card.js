@@ -1,4 +1,5 @@
-// A stop's card: its name and code, the lines that call there, where it is, and a small map of it.
+// A stop's card: its name and code, the lines that call there with when each one's next bus comes,
+// where it is, and a small map of it.
 // Opened by tapping a stop on the board's map, in the full lines view, or by a stop row's ⓘ.
 // A line here whose road can be drawn has an ⓘ of its own, which opens the line's card over this one.
 //
@@ -6,11 +7,13 @@
 // drawing the tiles. No geocoder is asked for an address either; the card shows the one the
 // provider publishes, or the town.
 
-import { h, icon, badge, colorIndexFor } from '../ui.js';
+import { h, icon, badge, colorIndexFor, isLightTheme } from '../ui.js';
+import { railColor } from '../map/index.js';
 import { staticData } from '../transit/http.js';
 import { compareLines, isNumbered, lineLabel, lineTitle } from '../transit/model.js';
 import { loadProvider } from '../transit/providers/index.js';
 import { hasRouteShape } from '../transit/shapes/route-shape.js';
+import { hasArrivals, nextBus, pollArrivals } from '../transit/stop-arrivals.js';
 import { presentSheet } from './sheet.js';
 import { showLineCard } from './line-card.js';
 
@@ -38,7 +41,8 @@ export function showStopCard({ stop, providerID, provider = null, linesAtStop, l
     const providerReady = provider ? Promise.resolve(provider) : loadProvider(providerID).catch(() => null);
     const titleID = `stop-card-title-${Math.random().toString(36).slice(2, 8)}`;
 
-    const linesBody = h('div', { class: 'stop-card-lines', 'aria-live': 'polite' });
+    // Not a live region: the countdowns in it change every second.
+    const linesBody = h('div', { class: 'stop-card-lines' });
     const where = [stop.address, stop.city].filter((part, i, all) => part && part.trim()
         && part.trim().toLowerCase() !== stop.name.trim().toLowerCase()
         && all.findIndex((p) => p?.trim().toLowerCase() === part.trim().toLowerCase()) === i).join(' · ');
@@ -63,10 +67,14 @@ export function showStopCard({ stop, providerID, provider = null, linesAtStop, l
     const backdrop = h('div', { class: 'stop-card-backdrop' }, card);
 
     let cancelled = false;
+    let stopPolling = () => {};
+    let ticker = null;
     const sheet = presentSheet(backdrop, card, {
         initialFocus: close,
         onClose: () => {
             cancelled = true;
+            stopPolling();
+            clearInterval(ticker);
             cards.splice(cards.indexOf(sheet), 1);
         },
     });
@@ -76,7 +84,7 @@ export function showStopCard({ stop, providerID, provider = null, linesAtStop, l
         const owner = await providerReady;
         if (cancelled) return;
         if (!found.length) {
-            linesBody.replaceChildren(h('p', { class: 'stop-card-quiet' }, 'NO LINES ARE LISTED HERE RIGHT NOW.'));
+            linesBody.replaceChildren(h('p', { class: 'stop-card-quiet', role: 'status' }, 'NO LINES ARE LISTED HERE RIGHT NOW.'));
             return;
         }
         const watchedIDs = watched.map((l) => l.id);
@@ -86,6 +94,14 @@ export function showStopCard({ stop, providerID, provider = null, linesAtStop, l
             if (wa >= 0 || wb >= 0) return (wa < 0 ? Infinity : wa) - (wb < 0 ? Infinity : wb);
             return compareLines(a, b);
         });
+        const timed = hasArrivals(owner);
+        /** Each line's next arrivals, by id; null until the first answer is in. */
+        let arrivals = null;
+        const slots = [];
+        const drawETAs = () => {
+            const now = Date.now();
+            for (const { line, el } of slots) el.replaceChildren(...etaParts(arrivals, line, colorIndexFor(providerID, line), now));
+        };
         linesBody.replaceChildren(h('ul', { class: 'stop-card-line-list' }, sorted.map((line) => {
             const isWatched = watchedIDs.includes(line.id);
             // A line without a number is named by where it goes, and who runs it.
@@ -98,29 +114,56 @@ export function showStopCard({ stop, providerID, provider = null, linesAtStop, l
                     onclick: () => showLineCard({ line, provider: owner, stopCode: stop.code }),
                 }, icon('info', 20))
                 : null;
+            const eta = timed ? h('span', { class: 'stop-card-eta' }) : null;
+            if (eta) slots.push({ line, el: eta });
             return h('li', { class: `stop-card-line${isWatched ? ' watched' : ''}` },
                 badge(line, colorIndexFor(providerID, line)),
-                towards ? h('span', { class: 'stop-card-towards', dir: 'auto' }, towards) : h('span', { class: 'stop-card-towards' }),
-                isWatched ? h('span', { class: 'stop-card-tag' }, 'WATCHING') : null,
+                h('span', { class: 'stop-card-line-text' },
+                    towards ? h('span', { class: 'stop-card-towards', dir: 'auto' }, towards) : h('span', { class: 'stop-card-towards' }),
+                    isWatched ? h('span', { class: 'stop-card-tag' }, 'WATCHING') : null),
+                eta,
                 about);
         })));
+        if (!timed) return;
+        drawETAs();
+        // Asked again at the board's pace while the card is open, counting down in between.
+        stopPolling = pollArrivals(owner, stop, sorted, (found) => { arrivals = found; drawETAs(); });
+        ticker = setInterval(() => { if (arrivals && !document.hidden) drawETAs(); }, 1000);
     };
 
     if (lines?.length) {
         show(lines);
     } else if (linesAtStop) {
-        linesBody.replaceChildren(h('p', { class: 'stop-card-quiet' }, h('i', { class: 'spinner', 'aria-hidden': 'true' }), 'LOADING LINES…'));
+        linesBody.replaceChildren(h('p', { class: 'stop-card-quiet', role: 'status' }, h('i', { class: 'spinner', 'aria-hidden': 'true' }), 'LOADING LINES…'));
         // v2: lines without a number come merged into services, and lines that cannot be boarded here are left out.
         // v3: services split by where they start and the stops they make.
         staticData(`lines.v3:${providerID}:${stop.code}`, LINES_MAX_AGE_MS, linesAtStop)
             .then(show)
             .catch((error) => {
                 console.warn('[stop card] lines', error);
-                if (!cancelled) linesBody.replaceChildren(h('p', { class: 'stop-card-quiet' }, 'COULDN’T LOAD THE LINES HERE.'));
+                if (!cancelled) linesBody.replaceChildren(h('p', { class: 'stop-card-quiet', role: 'status' }, 'COULDN’T LOAD THE LINES HERE.'));
             });
     } else {
         show(watched);
     }
+}
+
+/**
+ * "4 MIN" over "THEN 12", as the board counts. A timetable time says SCHEDULED under it instead, as
+ * the board's readout does; a spinner until the first answer is in.
+ */
+function etaParts(arrivals, line, colorIndex, now) {
+    if (!arrivals) return [h('i', { class: 'spinner', role: 'img', 'aria-label': 'Loading arrivals' })];
+    const next = nextBus(arrivals.get(line.id), now);
+    if (!next) return [h('span', { class: 'eta-quiet' }, 'NO BUSES DUE')];
+    const light = isLightTheme();
+    return [
+        h('span', { class: 'eta-main' },
+            h('b', {}, next.figure),
+            next.unit ? h('small', { style: light ? null : { color: railColor(colorIndex, false) } }, next.unit) : null),
+        !next.isRealtime ? h('span', { class: 'eta-tag' }, 'SCHEDULED')
+            : next.then ? h('span', { class: 'eta-then' }, `THEN ${next.then.figure}`) : null,
+    ];
 }
 
 /** Closes every stop card, the board's way out when it goes. */
