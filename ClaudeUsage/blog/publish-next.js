@@ -3,7 +3,9 @@
 
    node blog/publish-next.js           publish the next post (dated today, or PUBLISH_DATE=YYYY-MM-DD);
                                        skips if one went out in the last 6 days (FORCE=1 overrides)
-   node blog/publish-next.js --check   list links anywhere on the site to posts that are still queued
+   node blog/publish-next.js --check   list links anywhere on the site to posts that are still queued,
+                                       and live posts missing from sitemap.xml or posts.js
+                                       (run it after publishing a post by hand)
 
    Publishing: dates the post, adds it to posts.js and the sitemap, re-renders every published queue post
    (a link to a post that's still waiting is plain text until that post goes out), then runs bake.js.
@@ -40,7 +42,19 @@ function check() {
     };
     walk(site);
     console.log(hits.length ? hits.join('\n') : 'No links to queued posts.');
-    process.exitCode = hits.length ? 1 : 0;
+
+    // every live post (blog/*.html) must be in the sitemap and posts.js; a post published by hand
+    // skips publish() and was missed by both before (Google found it only through Request Indexing)
+    const sitemap = fs.readFileSync(path.join(repo, 'sitemap.xml'), 'utf8');
+    const posts = fs.readFileSync(path.join(blog, 'posts.js'), 'utf8');
+    const missing = [];
+    for (const name of fs.readdirSync(blog).filter((n) => n.endsWith('.html') && n !== 'index.html').sort()) {
+        const slug = name.slice(0, -'.html'.length);
+        if (!sitemap.includes(`<loc>https://amirhayek.dev/ClaudeUsage/blog/${name}</loc>`)) missing.push(`sitemap.xml is missing ${name}`);
+        if (!new RegExp(`slug:\\s*['"]${slug.replace(/[.]/g, '\\.')}['"]`).test(posts)) missing.push(`posts.js is missing ${slug}`);
+    }
+    console.log(missing.length ? missing.join('\n') : 'Every live post is in the sitemap and posts.js.');
+    process.exitCode = hits.length || missing.length ? 1 : 0;
 }
 
 function render(post, unpublished) {
