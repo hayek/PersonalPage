@@ -11,6 +11,13 @@
    which moves the next one here. */
 const BLOG_POSTS = [
     {
+        slug: 'free-full-reset-expires-dec-10',
+        title: 'Your free full Claude reset expires December 10',
+        date: '2026-11-26',
+        tags: ['news', 'limits'],
+        excerpt: 'Anthropic gave Pro, Max, Ultra and Team users one free reset of all their limits, across all models. Use it in Settings → Usage before December 10 at 2:00 PM PT.',
+    },
+    {
         slug: 'claude-peak-hours',
         title: 'Does Claude use up your limit faster during peak hours?',
         date: '2026-11-24',
