@@ -1,5 +1,136 @@
 {
+  "openai": {
+    "rules": [
+      {
+        "cachedInputPerM": 0.5,
+        "displayName": "GPT-5.5",
+        "inputPerM": 5,
+        "longContext": {
+          "cachedInputPerM": 1,
+          "inputPerM": 10,
+          "outputPerM": 45
+        },
+        "outputPerM": 30,
+        "slug": "gpt-5.5"
+      },
+      {
+        "cacheWritePerM": 0.25,
+        "cachedInputPerM": 0.02,
+        "displayName": "GPT-5.6 Luna",
+        "inputPerM": 0.2,
+        "longContext": {
+          "cacheWritePerM": 0.5,
+          "cachedInputPerM": 0.04,
+          "inputPerM": 0.4,
+          "outputPerM": 1.8
+        },
+        "outputPerM": 1.2,
+        "slug": "gpt-5.6-luna"
+      },
+      {
+        "cacheWritePerM": 2.5,
+        "cachedInputPerM": 0.2,
+        "displayName": "GPT-5.6 Terra",
+        "inputPerM": 2,
+        "longContext": {
+          "cacheWritePerM": 5,
+          "cachedInputPerM": 0.4,
+          "inputPerM": 4,
+          "outputPerM": 18
+        },
+        "outputPerM": 12,
+        "slug": "gpt-5.6-terra"
+      },
+      {
+        "cacheWritePerM": 0.125,
+        "cachedInputPerM": 0.01,
+        "displayName": "GPT-6 Luna",
+        "inputPerM": 0.1,
+        "longContext": {
+          "cacheWritePerM": 0.25,
+          "cachedInputPerM": 0.02,
+          "inputPerM": 0.2,
+          "outputPerM": 0.75
+        },
+        "outputPerM": 0.5,
+        "slug": "gpt-6-luna"
+      },
+      {
+        "cachedInputPerM": 0.25,
+        "displayName": "GPT-5.4",
+        "inputPerM": 2.5,
+        "longContext": {
+          "cachedInputPerM": 0.5,
+          "inputPerM": 5,
+          "outputPerM": 22.5
+        },
+        "outputPerM": 15,
+        "slug": "gpt-5.4"
+      },
+      {
+        "cachedInputPerM": 0.175,
+        "displayName": "GPT-5.3 Codex",
+        "inputPerM": 1.75,
+        "outputPerM": 14,
+        "slug": "gpt-5.3-codex"
+      },
+      {
+        "cachedInputPerM": 0.175,
+        "displayName": "GPT-5.2 Codex",
+        "inputPerM": 1.75,
+        "outputPerM": 14,
+        "slug": "gpt-5.2-codex"
+      },
+      {
+        "cachedInputPerM": 0.125,
+        "displayName": "GPT-5.1 Codex",
+        "inputPerM": 1.25,
+        "outputPerM": 10,
+        "slug": "gpt-5.1-codex"
+      },
+      {
+        "cachedInputPerM": 0.125,
+        "displayName": "GPT-5.1 Codex Max",
+        "inputPerM": 1.25,
+        "outputPerM": 10,
+        "slug": "gpt-5.1-codex-max"
+      },
+      {
+        "cachedInputPerM": 0.125,
+        "displayName": "GPT-5 Codex",
+        "inputPerM": 1.25,
+        "outputPerM": 10,
+        "slug": "gpt-5-codex"
+      },
+      {
+        "cachedInputPerM": 0.025,
+        "displayName": "GPT-5.1 Codex Mini",
+        "inputPerM": 0.25,
+        "outputPerM": 2,
+        "slug": "gpt-5.1-codex-mini"
+      }
+    ],
+    "updatedAt": "2026-11-26T00:00:00Z"
+  },
   "rules": [
+    {
+      "cacheReadPerM": 0.2,
+      "cacheWrite1hPerM": 16,
+      "cacheWrite5mPerM": 10,
+      "displayName": "Fable 5.2",
+      "inputPerM": 8,
+      "outputPerM": 40,
+      "prefix": "claude-fable-5-2"
+    },
+    {
+      "cacheReadPerM": 0.2,
+      "cacheWrite1hPerM": 16,
+      "cacheWrite5mPerM": 10,
+      "displayName": "Mythos 5.2",
+      "inputPerM": 8,
+      "outputPerM": 40,
+      "prefix": "claude-mythos-5-2"
+    },
     {
       "cacheReadPerM": 0.25,
       "cacheWrite1hPerM": 20,
@@ -35,6 +166,24 @@
       "inputPerM": 10,
       "outputPerM": 50,
       "prefix": "claude-mythos-5"
+    },
+    {
+      "cacheReadPerM": 1,
+      "cacheWrite1hPerM": 20,
+      "cacheWrite5mPerM": 12.5,
+      "displayName": "Fable 5",
+      "inputPerM": 10,
+      "outputPerM": 50,
+      "prefix": "claude-fable-5-20"
+    },
+    {
+      "cacheReadPerM": 1,
+      "cacheWrite1hPerM": 20,
+      "cacheWrite5mPerM": 12.5,
+      "displayName": "Mythos 5",
+      "inputPerM": 10,
+      "outputPerM": 50,
+      "prefix": "claude-mythos-5-20"
     },
     {
       "cacheReadPerM": 0.2,
@@ -159,6 +308,13 @@
       "cacheWrite5mPerM": 0.125,
       "displayName": "Haiku 5.5",
       "inputPerM": 0.1,
+      "longContext": {
+        "cacheReadPerM": 0.05,
+        "cacheWrite1hPerM": 1,
+        "cacheWrite5mPerM": 0.625,
+        "inputPerM": 0.5,
+        "outputPerM": 2.5
+      },
       "outputPerM": 0.5,
       "prefix": "claude-haiku-5-5"
     },
@@ -172,5 +328,5 @@
       "prefix": "claude-haiku-4-5"
     }
   ],
-  "updatedAt": "2026-11-09T00:00:00Z"
+  "updatedAt": "2026-11-26T00:00:00Z"
 }
