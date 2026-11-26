@@ -3,6 +3,22 @@
   "alerts": [
     {
       "enabled": true,
+      "startDate": null,
+      "endDate": "2026-12-03",
+      "startHour": null,
+      "endHour": null,
+      "days": null,
+      "timezone": null,
+      "icon": "gauge.with.dots.needle.67percent",
+      "badgeIcon": "gauge.with.dots.needle.67percent",
+      "severity": "medium",
+      "text": "Your free full Claude reset expires Dec 10",
+      "dashboardText": "Anthropic gave Pro, Max, Ultra and Team users one free reset of all limits, across all models. Use it in Settings › Usage before Dec 10 at 2 PM PT. It can't be undone, and it's lost if you downgrade first. Tap to read more.",
+      "url": "https://amirhayek.dev/ClaudeUsage/blog/free-full-reset-expires-dec-10.html",
+      "type": "news"
+    },
+    {
+      "enabled": true,
       "startDate": "2026-11-24",
       "endDate": "2026-11-27",
       "startHour": null,
